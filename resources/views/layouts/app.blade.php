@@ -19,7 +19,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    @yield('google_api_autocomplete')
 </head>
 <body>
     <div id="app">
@@ -80,5 +79,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('google_api_autocomplete')
 </body>
 </html>

@@ -10,7 +10,9 @@
                     <div class="card-body">
                         <a href="{{ route('user.profiles.create')  }}" type="button" class="btn btn-primary">Создать новую анкету</a>
                         @forelse ($profiles as $profile)
-                            <li>{{ $profile->name }}</li>
+                            <li>
+                                <a href="{{route('user.profiles.edit', $profile->id)}}">{{ $profile->name }}</a>
+                            </li>
                         @empty
                             <p>Нет созданных анкет</p>
                         @endforelse

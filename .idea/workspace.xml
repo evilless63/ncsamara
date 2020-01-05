@@ -2,35 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/ProfileFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_04_072915_create_profiles_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/ProfileSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/user/profiles/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/user/user.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nc-samara.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nc-samara.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -144,8 +129,14 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/user/profiles" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/user/profiles" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -176,6 +167,9 @@
       <option name="presentableId" value="Default" />
       <updated>1578122098579</updated>
       <workItem from="1578122103599" duration="9784000" />
+      <workItem from="1578195748736" duration="83000" />
+      <workItem from="1578228063348" duration="761000" />
+      <workItem from="1578235988393" duration="3250000" />
     </task>
     <servers />
   </component>
@@ -198,10 +192,10 @@
       <screen x="0" y="23" width="1920" height="977" />
     </state>
     <state x="560" y="247" key="Vcs.Push.Dialog.v2/0.23.1920.977@0.23.1920.977" timestamp="1578129069464" />
-    <state x="624" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1578122103648">
+    <state x="624" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1578236026915">
       <screen x="0" y="23" width="1920" height="977" />
     </state>
-    <state x="624" y="344" key="com.intellij.ide.util.TipDialog/0.23.1920.977@0.23.1920.977" timestamp="1578122103648" />
+    <state x="624" y="344" key="com.intellij.ide.util.TipDialog/0.23.1920.977@0.23.1920.977" timestamp="1578236026915" />
     <state x="616" y="123" width="687" height="777" key="find.popup" timestamp="1578132862916">
       <screen x="0" y="23" width="1920" height="977" />
     </state>
