@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/user', 'HomeController@user')->name('user');
+
+Route::prefix('user')->name('user.')->group(function () {
+    Route::resource('profiles', 'ProfileController');
+});
