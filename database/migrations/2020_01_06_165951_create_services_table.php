@@ -20,17 +20,6 @@ class CreateServicesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('profile_service', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('profile_id');
-            $table->unsignedBigInteger('service_id');
-            $table->timestamps();
-
-            $table->unique(['profile_id','service_id']);
-
-            $table->foreign('profile_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-        });
     }
 
     /**

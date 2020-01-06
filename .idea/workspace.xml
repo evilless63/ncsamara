@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/laravel-plugin.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ServiceController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Service.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/ServiceFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_06_165951_create_services_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/ServiceSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/services/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/services/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/services/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_06_183506_create_profile_service_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_06_165951_create_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_06_165951_create_services_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,12 +130,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/user/profiles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/migrations" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="Laravel.SettingsForm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database/migrations" />
       <recent name="$PROJECT_DIR$/resources/views/user/profiles" />
     </key>
   </component>
@@ -184,6 +174,8 @@
       <workItem from="1578235988393" duration="3250000" />
       <workItem from="1578285115539" duration="7787000" />
       <workItem from="1578334702082" duration="54000" />
+      <workItem from="1578334819143" duration="250000" />
+      <workItem from="1578335269940" duration="499000" />
     </task>
     <servers />
   </component>
@@ -226,11 +218,11 @@
       <screen x="0" y="23" width="1920" height="977" />
     </state>
     <state x="560" y="247" key="Vcs.Push.Dialog.v2/0.23.1920.977@0.23.1920.977" timestamp="1578129069464" />
-    <state x="499" y="271" key="com.intellij.ide.util.TipDialog" timestamp="1578285115922">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="624" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1578335271098">
+      <screen x="0" y="23" width="1920" height="977" />
     </state>
     <state x="499" y="271" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1578285115922" />
-    <state x="624" y="344" key="com.intellij.ide.util.TipDialog/0.23.1920.977@0.23.1920.977" timestamp="1578236026915" />
+    <state x="624" y="344" key="com.intellij.ide.util.TipDialog/0.23.1920.977@0.23.1920.977" timestamp="1578335271098" />
     <state x="493" y="84" width="609" height="656" key="find.popup" timestamp="1578296105575">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
