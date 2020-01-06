@@ -15,12 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/user', 'HomeController@user')->name('user');
+Route::get('/user', 'HomeController@user')->name('user')->middleware('verified');
 
-Route::prefix('user')->name('user.')->group(function () {
+Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
     Route::resource('profiles', 'ProfileController');
 });
+

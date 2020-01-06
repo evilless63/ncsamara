@@ -61,6 +61,21 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="capcha" class="col-md-4 col-form-label text-md-right">Введите проверочные символы</label>
+
+                            <div class="col-md-6">
+                                <p>{!! captcha_img('flat') !!}</p>
+                                <input id="capcha" type="text" class="form-control @error('captcha') is-invalid @enderror" name="captcha" required>
+
+                                @error('captcha')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
