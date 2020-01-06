@@ -45,7 +45,12 @@ class ProfileController extends Controller
     public function store()
     {
 
-        Profile::create($this->validateProfile(true));
+        $profile = Profile::create($this->validateProfile(true));
+
+        if(request()->has('services')) {
+            $profile->services()->attach(request('services'));
+        }
+
         return redirect(route('user.profiles.index'));
 
     }
@@ -82,6 +87,12 @@ class ProfileController extends Controller
     public function update(Request $request, Profile $profile)
     {
         $profile->update($this->validateProfile(false));
+
+        if(request()->has('services')) {
+            $profile->services()->detach();
+            $profile->services()->attach(request('services'));
+        }
+
         return redirect(route('user.profiles.index'));
     }
 
