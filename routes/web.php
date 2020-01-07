@@ -25,7 +25,7 @@ Route::prefix('user')->name('user.')->middleware('verified')->group(function () 
     Route::resource('profiles', 'ProfileController');
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
     Route::resource('services', 'ServiceController');
 });
 
