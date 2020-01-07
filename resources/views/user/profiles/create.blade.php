@@ -119,14 +119,32 @@
 
                                 @foreach($service->childrenRecursive as $service)
                                     <div class="form-check ml-2">
-                                        <input class="form-check-input" type="checkbox" id="profileService"
+                                        <input class="form-check-input" type="checkbox" id="profileService{{$service->id}}"
                                                name="services[]" value="{{$service->id}}">
-                                        <label class="form-check-label" for="profileApartaments">
+                                        <label class="form-check-label" for="profileService{{$service->id}}">
                                             {{$service->name}}
                                         </label>
                                     </div>
                                 @endforeach
                             @endforeach
+
+                            <div class="form-group">
+                                <label for="profileAppearance">Внешность</label>
+                                <select class="form-control" name="appearance" id="profileAppearance">
+                                    @foreach($appearances as $appearance)
+                                        <option value="{{$appearance->id}}">{{ $appearance->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileAppearance">Цвет волос</label>
+                                <select class="form-control" name="hair" id="profileHair">
+                                    @foreach($hairs as $hair)
+                                        <option value="{{$hair->id}}">{{ $hair->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <button type="submit" class="btn btn-primary">Создать анкету</button>
                         </form>

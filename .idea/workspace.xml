@@ -2,14 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Appearance.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Hair.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/AppearanceController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/HairController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/AppearanceFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/HairFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_07_074842_create_appearances_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_07_075059_create_appearance_profile_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_07_080656_create_hairs_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_07_080819_create_hair_profile_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/AppearanceSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/HairSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Service.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Service.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_06_165951_create_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_06_165951_create_services_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,5 +243,9 @@
     </state>
     <state x="493" y="84" width="609" height="656" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1578296105575" />
     <state x="616" y="123" width="687" height="777" key="find.popup/0.23.1920.977@0.23.1920.977" timestamp="1578132862916" />
+    <state x="425" y="66" width="670" height="676" key="search.everywhere.popup" timestamp="1578383878960">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="66" width="670" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1578383878960" />
   </component>
 </project>

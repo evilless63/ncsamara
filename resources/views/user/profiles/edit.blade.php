@@ -132,6 +132,24 @@
                                 @endforeach
                             @endforeach
 
+                            <div class="form-group">
+                                <label for="profileAppearance">Внешность</label>
+                                <select class="form-control" name="appearance" id="profileAppearance">
+                                    @foreach($appearances as $appearance)
+                                        <option value="{{$appearance->id}} {{$profile->appearances->find($appearance->id) <> null ? 'selected' : ''}}">{{ $appearance->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileAppearance">Цвет волос</label>
+                                <select class="form-control" name="hair" id="profileHair">
+                                    @foreach($hairs as $hair)
+                                        <option value="{{$hair->id}} {{$profile->hairs->find($hair->id) <> null ? 'selected' : ''}}">{{ $hair->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">Обновить анкету</button>
                         </form>
                     </div>

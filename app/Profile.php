@@ -28,7 +28,7 @@ class Profile extends Model
 //    check_out,
 //    verified'];
 
-   protected $guarded = ['services'];
+   protected $guarded = ['services, appearance'];
 
     public function user() {
         return $this->belongsTo('App\User');
@@ -36,5 +36,13 @@ class Profile extends Model
 
     public function services() {
         return $this->belongsToMany('App\Service');
+    }
+
+    public function appearances() {
+        return $this->belongsToMany('App\Appearance');
+    }
+
+    public function hairs() {
+        return $this->belongsToMany('App\Hair');
     }
 }

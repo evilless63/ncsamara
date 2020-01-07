@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Profile;
 use App\User;
 use App\Service;
+use App\Appearance;
+use App\Hair;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -13,11 +15,15 @@ class ProfileController extends Controller
 {
 
     public $services;
+    public $appearances;
+    public $hairs;
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->services = Service::with('childrenRecursive')->whereNull('parent_id')->get();
+        $this->appearances = Appearance::all();
+        $this->hairs = Hair::all();
     }
 
     /**
@@ -37,7 +43,11 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        return view('user.profiles.create', ['services' => $this->services]);
+        return view('user.profiles.create', [
+            'services' => $this->services,
+            'appearances' => $this->appearances,
+            'hairs' => $this->hairs,
+        ]);
     }
 
     /**
@@ -55,6 +65,14 @@ class ProfileController extends Controller
             foreach (request('services') as $service) {
                 $profile->services()->attach(Service::findOrFail($service));
             }
+        }
+
+        if(request()->has('appearance')) {
+            $profile->appearances()->attach(Appearance::findOrFail(request()->appearance));
+        }
+
+        if(request()->has('hair')) {
+            $profile->hairs()->attach(Hair::findOrFail(request()->hair));
         }
 
         return redirect(route('user.profiles.index'));
@@ -80,7 +98,12 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        return view('user.profiles.edit', ['profile' => $profile, 'services' => $this->services]);
+        return view('user.profiles.edit', [
+            'profile' => $profile,
+            'services' => $this->services,
+            'appearances' => $this->appearances,
+            'hairs' => $this->hairs,
+        ]);
     }
 
     /**
@@ -100,6 +123,16 @@ class ProfileController extends Controller
             foreach (request('services') as $service) {
                 $profile->services()->attach(Service::findOrFail($service));
             }
+        }
+
+        if(request()->has('appearance')) {
+            $profile->appearances()->detach();
+            $profile->appearances()->attach(Appearance::findOrFail(request()->appearance));
+        }
+
+        if(request()->has('hair')) {
+            $profile->hairs()->detach();
+            $profile->hairs()->attach(Hair::findOrFail(request()->hair));
         }
 
         return redirect(route('user.profiles.index'));
