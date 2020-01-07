@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Profile;
 use App\User;
+use App\Service;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -11,10 +12,12 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
 
+    public $services;
+
     public function __construct()
     {
         $this->middleware('auth');
-
+        $this->services = Service::with('childrenRecursive')->whereNull('parent_id')->get();
     }
 
     /**
@@ -34,7 +37,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        return view('user.profiles.create');
+        return view('user.profiles.create', ['services' => $this->services]);
     }
 
     /**
@@ -45,11 +48,13 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $profile = Profile::create($this->validateProfile(true));
 
         if(request()->has('services')) {
-            $profile->services()->attach(request('services'));
+            foreach (request('services') as $service) {
+                $profile->services()->attach(Service::findOrFail($service));
+            }
         }
 
         return redirect(route('user.profiles.index'));
@@ -75,7 +80,7 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        return view('user.profiles.edit', ['profile' => $profile]);
+        return view('user.profiles.edit', ['profile' => $profile, 'services' => $this->services]);
     }
 
     /**
@@ -87,11 +92,14 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
+
         $profile->update($this->validateProfile(false));
 
         if(request()->has('services')) {
             $profile->services()->detach();
-            $profile->services()->attach(request('services'));
+            foreach (request('services') as $service) {
+                $profile->services()->attach(Service::findOrFail($service));
+            }
         }
 
         return redirect(route('user.profiles.index'));

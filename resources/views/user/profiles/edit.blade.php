@@ -117,6 +117,21 @@
                                 </label>
                             </div>
 
+                            @foreach($services as $service)
+
+                                <h6>{{$service->name}}</h6>
+
+                                @foreach($service->childrenRecursive as $service)
+                                    <div class="form-check ml-2">
+                                        <input class="form-check-input" type="checkbox" id="profileService"
+                                               name="services[]" value="{{$service->id}}" {{$profile->services->find($service->id) <> null ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="profileApartaments">
+                                            {{$service->name}}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            @endforeach
+
                             <button type="submit" class="btn btn-primary">Обновить анкету</button>
                         </form>
                     </div>

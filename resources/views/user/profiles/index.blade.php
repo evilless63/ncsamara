@@ -12,6 +12,7 @@
                         @forelse ($profiles as $profile)
                             <li>
                                 <a href="{{route('user.profiles.edit', $profile->id)}}">{{ $profile->name }}</a>
+                                Обновлено {{ $profile->updated_at }}
                             </li>
                         @empty
                             <p>Нет созданных анкет</p>
