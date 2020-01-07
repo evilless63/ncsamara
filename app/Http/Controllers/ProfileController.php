@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Profile;
 use App\User;
 use Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -42,9 +43,9 @@ class ProfileController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-
+        
         $profile = Profile::create($this->validateProfile(true));
 
         if(request()->has('services')) {
@@ -134,7 +135,14 @@ class ProfileController extends Controller
             'address' => 'required',
             'address_x' => 'required',
             'address_y' => 'required',
-            'working_hours' => 'required'
+            'working_hours' => 'required',
+            'boobs' => 'required|integer|between:1,10',
+            'age' => 'required|integer|between:18,65',
+            'weight' => 'required|integer|between:40,100',
+            'height' => 'required|integer|between:150,195',
+            'one_hour' => 'required|integer|between:1000,50000',
+            'two_hour' => 'required|integer|between:1000,100000',
+            'all_night' => 'required|integer|between:1000,1000000',
         ]);
     }
 
@@ -147,7 +155,14 @@ class ProfileController extends Controller
             'address' => 'required',
             'address_x' => 'required',
             'address_y' => 'required',
-            'working_hours' => 'required'
+            'working_hours' => 'required',
+            'boobs' => 'required|integer|between:1,10',
+            'age' => 'required|integer|between:18,65',
+            'weight' => 'required|integer|between:40,100',
+            'height' => 'required|integer|between:150,195',
+            'one_hour' => 'required|integer|between:1000,50000',
+            'two_hour' => 'required|integer|between:1000,100000',
+            'all_night' => 'required|integer|between:1000,1000000',
         ]);
     }
 }

@@ -24,6 +24,16 @@ class CreateProfilesTable extends Migration
             $table->integer('address_x');
             $table->integer('address_y');
             $table->string('working_hours');
+
+            $table->integer('boobs');
+            $table->integer('age');
+            $table->integer('weight');
+            $table->integer('height');
+
+            $table->integer('one_hour');
+            $table->integer('two_hour');
+            $table->integer('all_night');
+
             $table->boolean('is_published')->default(false);
             $table->boolean('apartments')->default(false);
             $table->boolean('check_out')->default(false);

@@ -50,10 +50,53 @@
                                     {!! $profile->name !!}
                                 </textarea>
                             </div>
+
                             <div class="form-group">
                                 <label for="profileWorkingHours">Время работы:</label>
                                 <input name="working_hours" type="text" id="profileWorkingHours" class="form-control @error('working_hours') is-invalid @enderror"
                                        placeholder="Укажите время работы" value="{{$profile->name}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileBoobs">Размер груди (1-10):</label>
+                                <input name="boobs" type="number" id="profileBoobs" class="form-control @error('boobs') is-invalid @enderror"
+                                       placeholder="" value="{{$profile->boobs }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileAge">Возраст (18-65):</label>
+                                <input name="age" type="number" id="profileAge" class="form-control @error('age') is-invalid @enderror"
+                                       placeholder="" value="{{ $profile->age }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileWeight">Вес (40-100):</label>
+                                <input name="weight" type="number" id="profileWeight" class="form-control @error('weight') is-invalid @enderror"
+                                       placeholder="" value="{{ $profile->weight }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileHeight">Рост (150-195):</label>
+                                <input name="height" type="number" id="profileHeight" class="form-control @error('height') is-invalid @enderror"
+                                       placeholder="" value="{{ $profile->height }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileOneHour">Цена за 1 час (1000-50000):</label>
+                                <input name="one_hour" type="number" id="profileOneHour" class="form-control @error('one_hour') is-invalid @enderror"
+                                       placeholder="" value="{{ $profile->one_hour }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileTwoHour">Цена за 2 часа (1000-100000):</label>
+                                <input name="two_hour" type="number" id="profileTwoHour" class="form-control @error('two_hour') is-invalid @enderror"
+                                       placeholder="" value="{{ $profile->two_hour }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileAllNight">Цена за всю ночь (1000-1000000):</label>
+                                <input name="all_night" type="number" id="profileAllNight" class="form-control @error('all_night') is-invalid @enderror"
+                                       placeholder="" value="{{ $profile->all_night }}">
                             </div>
 
                             <div class="form-check">

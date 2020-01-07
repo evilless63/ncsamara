@@ -55,6 +55,48 @@
                                        placeholder="Укажите время работы" value="{{ old('working_hours') }}">
                             </div>
 
+                            <div class="form-group">
+                                <label for="profileBoobs">Размер груди (1-10):</label>
+                                <input name="boobs" type="number" id="profileBoobs" class="form-control @error('boobs') is-invalid @enderror"
+                                       placeholder="" value="{{ old('boobs') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileAge">Возраст (18-65):</label>
+                                <input name="age" type="number" id="profileAge" class="form-control @error('age') is-invalid @enderror"
+                                       placeholder="" value="{{ old('age') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileWeight">Вес (40-100):</label>
+                                <input name="weight" type="number" id="profileWeight" class="form-control @error('weight') is-invalid @enderror"
+                                       placeholder="" value="{{ old('weight') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileHeight">Рост (150-195):</label>
+                                <input name="height" type="number" id="profileHeight" class="form-control @error('height') is-invalid @enderror"
+                                       placeholder="" value="{{ old('height') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileOneHour">Цена за 1 час (1000-50000):</label>
+                                <input name="one_hour" type="number" id="profileOneHour" class="form-control @error('one_hour') is-invalid @enderror"
+                                       placeholder="" value="{{ old('one_hour') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileTwoHour">Цена за 2 часа (1000-100000):</label>
+                                <input name="two_hour" type="number" id="profileTwoHour" class="form-control @error('two_hour') is-invalid @enderror"
+                                       placeholder="" value="{{ old('two_hour') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileAllNight">Цена за всю ночь (1000-1000000):</label>
+                                <input name="all_night" type="number" id="profileAllNight" class="form-control @error('all_night') is-invalid @enderror"
+                                       placeholder="" value="{{ old('all_night') }}">
+                            </div>
+
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="profileCheckOut"
                                        name="check_out" value="1">
