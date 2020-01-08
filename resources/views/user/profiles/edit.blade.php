@@ -150,6 +150,30 @@
                                 </select>
                             </div>
 
+                            <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Thumbnail Gallery</h5>
+
+                            <hr class="mt-2 mb-5">
+
+                            <div class="row text-center text-lg-left">
+                                @foreach($profile->images as $image)
+                                <div class="col-lg-3 col-md-4 col-6">
+                                    <a href="#" class="d-block mb-4 h-100">
+                                        <img class="img-fluid img-thumbnail delpath" delpath="{{'/images/profiles/images/created/' . $image->name }}" src="{{ '/images/profiles/images/created/' . $image->name }}" alt="">
+                                    </a>
+                                </div>
+                                @endforeach
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Images <span class="required">*</span></label>
+                                <br>
+                                <input type="hidden" autocomplete="OFF" name="item_images" id="item_images" placeholder=""
+                                       class="form-control input-sm" required />
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                        data-target="#myModal"> <i class="fa fa-image"></i> Upload Images</button>
+                            </div>
+
+
                             <button type="submit" class="btn btn-primary">Обновить анкету</button>
                         </form>
                     </div>
@@ -157,4 +181,105 @@
             </div>
         </div>
     </div>
+
+    <!-- MODAL START -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Upload Images</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="dropzone" method="post" enctype="multipart/form-data">
+                        {!! csrf_field() !!}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- MODAL END -->
+@endsection
+
+@section('script')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+        Dropzone.autoDiscover = false;
+        var acceptedFileTypes = "image/*"; //dropzone requires this param be a comma separated list
+        // imageDataArray variable to set value in crud form
+        var imageDataArray = new Array;
+        // fileList variable to store current files index and name
+        var fileList = new Array;
+        var i = 0;
+        $(function(){
+            uploader = new Dropzone(".dropzone",{
+                url: "{{url('user/profiles/upload')}}",
+                paramName : "file",
+                uploadMultiple :false,
+                acceptedFiles : "image/*",
+                addRemoveLinks: true,
+                forceFallback: false,
+                maxFilesize: 4, // Set the maximum file size to 256 MB
+                parallelUploads: 100,
+            });//end drop zone
+            uploader.on("success", function(file,response) {
+                imageDataArray.push(response)
+                fileList[i] = {
+                    "serverFileName": response,
+                    "fileName": file.name,
+                    "fileId": i
+                };
+
+                i += 1;
+                $('#item_images').val(imageDataArray);
+            });
+            uploader.on("removedfile", function(file) {
+                var rmvFile = "";
+                for (var f = 0; f < fileList.length; f++) {
+                    if (fileList[f].fileName == file.name) {
+                        // remove file from original array by database image name
+                        imageDataArray.splice(imageDataArray.indexOf(fileList[f].serverFileName), 1);
+                        $('#item_images').val(imageDataArray);
+                        // get removed database file name
+                        rmvFile = fileList[f].serverFileName;
+                        // get request to remove the uploaded file from server
+
+                        deleteAjaxFile(rmvFile);
+                    }
+                }
+
+            });
+        });
+
+
+
+        function deleteAjaxFile(rmvFile) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{url('user/profiles/delete')}}",
+                type: "post",
+                data: {file: rmvFile},
+                success: function(response){
+                }
+            });
+        }
+    </script>
 @endsection

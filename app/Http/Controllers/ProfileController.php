@@ -7,7 +7,10 @@ use App\User;
 use App\Service;
 use App\Appearance;
 use App\Hair;
+use App\Image;
 use Auth;
+use File;
+use Transliterate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -43,6 +46,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
+
         return view('user.profiles.create', [
             'services' => $this->services,
             'appearances' => $this->appearances,
@@ -73,6 +77,20 @@ class ProfileController extends Controller
 
         if(request()->has('hair')) {
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
+        }
+
+        if(request()->has('item_images')) {
+
+            $array = explode(",", request()->item_images);
+            foreach ($array as $arr ) {
+                $image = new Image;
+                $image->name = $arr;
+                $image->profile_id = $profile->id;
+                $image->mime_type = '';
+                $image->save();
+                File::move(public_path() . '/images/profiles/images/new_upload/' . $arr, public_path() . '/images/profiles/images/created/' . $arr);
+            }
+
         }
 
         return redirect(route('user.profiles.index'));
@@ -210,26 +228,47 @@ class ProfileController extends Controller
     public function fileUpload(Request $request)
     {
         $_IMAGE = $request->file('file');
-        $filename = time().$_IMAGE->getClientOriginalName();
-        $uploadPath = 'public/images/profiles/';
+        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        $uploadPath = 'images/profiles/images/new_upload';
         $_IMAGE->move($uploadPath,$filename);
         echo json_encode($filename);
     }
+
     public function removeUpload(Request $request)
-    {   
-       
+    {
+
         try{
             $image = str_replace('"', '', $request->file);
-            $directory = public_path() .  '/images/profiles/' . $image;
-            @unlink(public_path() .  '/images/profiles/' . $image );
+            File::delete(public_path() . '/images/profiles/images/new_upload' . $image );
         }
         catch(Exception $e) {
-            //echo 'Message: ' .$e->getMessage();
+//            echo json_encode('Message: ' .$e->getMessage());
         }
         finally{
-            $message = "success";
+//            $message = "success";
         }
-        return json_encode($image); 
-        
+        return json_encode($image);
+
+    }
+
+    public function removeCreated(Request $request)
+    {
+
+        try{
+            $image = str_replace('"', '', $request->file);
+            File::delete(public_path() . '/images/profiles/images/created' . $image );
+        }
+        catch(Exception $e) {
+//            echo json_encode('Message: ' .$e->getMessage());
+        }
+        finally{
+//            $message = "success";
+        }
+        return json_encode($image);
+
+    }
+
+    private function regexpImages($imageName) {
+        return Transliterate::make(preg_replace("/[^А-Яа-яA-Za-z\d\.]/", '', $imageName));
     }
 }

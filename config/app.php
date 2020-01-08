@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Mews\Captcha\CaptchaServiceProvider::class,
+        ElForastero\Transliterate\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'Transliterate' => ElForastero\Transliterate\Facade::class,
 
     ],
 

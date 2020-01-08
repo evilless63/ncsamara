@@ -23,12 +23,12 @@ Route::get('/user', 'HomeController@user')->name('user')->middleware('verified')
 
 Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
     Route::resource('profiles', 'ProfileController');
-
-    Route::post('/user/profiles/upload', 'ProfileController@fileUpload');
-    Route::get('/user/profiles/delete', 'ProfileController@removeUpload');
 });
 
 Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
     Route::resource('services', 'ServiceController');
 });
 
+
+Route::post('/user/profiles/upload', 'ProfileController@fileUpload');
+Route::post('/user/profiles/delete', 'ProfileController@removeUpload');

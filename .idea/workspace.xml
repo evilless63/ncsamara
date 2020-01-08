@@ -2,23 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Appearance.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Hair.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/AppearanceController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/HairController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/AppearanceFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/HairFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_07_074842_create_appearances_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_07_075059_create_appearance_profile_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_07_080656_create_hairs_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_07_080819_create_hair_profile_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/AppearanceSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/HairSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ImageController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Image.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/transliterate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/ImageFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_08_161844_create_images_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/ImageSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/created/157850559108eb56842bba74XL640x400.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/created/1578505591Beznazvaniya.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/created/1578505591LEpwl8j7fQ.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/created/15785055920i1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/new_upload/157850603008eb56842bba74XL640x400.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/new_upload/15785060300i1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/new_upload/1578506030Beznazvaniya.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/new_upload/1578506030LEpwl8j7fQ.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/nc-samara.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nc-samara.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,6 +137,7 @@
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/vendor/caouecs/laravel-lang" />
+      <path value="$PROJECT_DIR$/vendor/elforastero/transliterate" />
     </include_path>
   </component>
   <component name="ProjectId" id="1Vv8Eil8mh6Qpub14cbvkRG7vMe" />

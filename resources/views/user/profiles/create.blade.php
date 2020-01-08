@@ -22,7 +22,7 @@
                 <div class="card-header">Создание анкеты</div>
 
                 <div class="card-body">
-                    <form action="{{ route('user.profiles.store') }}" method="POST">
+                    <form action="{{ route('user.profiles.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="profileName">Имя:</label>
@@ -228,10 +228,10 @@ $(function(){
         url: "{{url('user/profiles/upload')}}",
         paramName : "file",
         uploadMultiple :false,
-        acceptedFiles : "image/*,video/*,audio/*",
+        acceptedFiles : "image/*",
         addRemoveLinks: true,
         forceFallback: false,
-        maxFilesize: 256, // Set the maximum file size to 256 MB
+        maxFilesize: 4, // Set the maximum file size to 256 MB
         parallelUploads: 100,
     });//end drop zone
     uploader.on("success", function(file,response) {
@@ -241,7 +241,7 @@ $(function(){
             "fileName": file.name,
             "fileId": i
         };
-   
+
         i += 1;
         $('#item_images').val(imageDataArray);
     });
@@ -255,16 +255,21 @@ $(function(){
                 // get removed database file name
                 rmvFile = fileList[f].serverFileName;
                 // get request to remove the uploaded file from server
-                $.get( "{{url('user/profiles/delete')}}", { file: rmvFile } )
-                  .done(function( data ) {
-                    //console.log(data)
-                  });
-                // reset imageDataArray variable to set value in crud form
-                
-                console.log(imageDataArray)
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{url('user/profiles/delete')}}",
+                    type: "post",
+                    data: {file: rmvFile},
+                    success: function(response){
+                    }
+                });
+
             }
         }
-        
+
     });
 });
 </script>
