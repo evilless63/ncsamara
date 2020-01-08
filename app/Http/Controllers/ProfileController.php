@@ -206,4 +206,30 @@ class ProfileController extends Controller
             'all_night' => 'required|integer|between:1000,1000000',
         ]);
     }
+
+    public function fileUpload(Request $request)
+    {
+        $_IMAGE = $request->file('file');
+        $filename = time().$_IMAGE->getClientOriginalName();
+        $uploadPath = 'public/images/profiles/';
+        $_IMAGE->move($uploadPath,$filename);
+        echo json_encode($filename);
+    }
+    public function removeUpload(Request $request)
+    {   
+       
+        try{
+            $image = str_replace('"', '', $request->file);
+            $directory = public_path() .  '/images/profiles/' . $image;
+            @unlink(public_path() .  '/images/profiles/' . $image );
+        }
+        catch(Exception $e) {
+            //echo 'Message: ' .$e->getMessage();
+        }
+        finally{
+            $message = "success";
+        }
+        return json_encode($image); 
+        
+    }
 }
