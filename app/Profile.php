@@ -49,4 +49,8 @@ class Profile extends Model
     public function images() {
         return $this->HasMany('App\Image');
     }
+
+    public function rates() {
+        return $this->belongsToMany('App\Rate');
+    }
 }

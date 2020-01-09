@@ -21,7 +21,7 @@
                     <div class="card-header">Редактирование анкеты</div>
 
                     <div class="card-body">
-                        <form action="{{ route('user.profiles.update', $profile->id) }}" method="POST">
+                        <form action="{{ route('user.profiles.update', $profile->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('patch')
                             <div class="form-group">
@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label for="profileAddress">Адрес:</label>
                                 <input name="address" type="text" id="profileAddress" class="form-control @error('address') is-invalid @enderror"
-                                       placeholder="Укажите адрес анкеты" value="{{ $profile->name }}">
+                                       placeholder="Укажите адрес анкеты" value="{{ $profile->address }}">
 {{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }} ">--}}
 {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
                                 <input type="hidden" name="address_x" value="1">

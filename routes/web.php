@@ -23,6 +23,7 @@ Route::get('/user', 'HomeController@user')->name('user')->middleware('verified')
 
 Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
     Route::resource('profiles', 'ProfileController');
+    Route::resource('salons', 'SalonController');
 });
 
 Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {

@@ -41,6 +41,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.profiles.index') }}">Мои анкеты</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.profiles.index') }}">Мой салон</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

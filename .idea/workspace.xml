@@ -2,29 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ImageController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Image.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/transliterate.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/ImageFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_08_161844_create_images_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/ImageSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/created/157850559108eb56842bba74XL640x400.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/created/1578505591Beznazvaniya.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/created/1578505591LEpwl8j7fQ.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/created/15785055920i1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/new_upload/157850603008eb56842bba74XL640x400.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/new_upload/15785060300i1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/new_upload/1578506030Beznazvaniya.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/profiles/images/new_upload/1578506030LEpwl8j7fQ.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nc-samara.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nc-samara.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/RateController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/SalonController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Rate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Salon.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/RateFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/factories/SalonFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_09_143902_create_salons_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_09_153037_create_rates_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_09_153858_create_profile_rate_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/RateSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/SalonSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/user/salons/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/user/salons/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -200,6 +194,7 @@
       <workItem from="1578334702082" duration="54000" />
       <workItem from="1578334819143" duration="250000" />
       <workItem from="1578335269940" duration="499000" />
+      <workItem from="1578579936780" duration="4435000" />
     </task>
     <servers />
   </component>
@@ -210,10 +205,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="499" y="168" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578293491025">
+    <state x="499" y="168" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578581043735">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="168" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1578293491025" />
+    <state x="499" y="168" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1578581043735" />
     <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1578286634621">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -230,9 +225,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1578286634621" />
-    <state x="781" y="438" key="NewPhpFileDialog" timestamp="1578129215572">
-      <screen x="0" y="23" width="1920" height="977" />
+    <state x="625" y="350" key="NewPhpFileDialog" timestamp="1578581883435">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="625" y="350" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1578581883435" />
     <state x="781" y="438" key="NewPhpFileDialog/0.23.1920.977@0.23.1920.977" timestamp="1578129215572" />
     <state x="469" y="150" key="SettingsEditor" timestamp="1578334743539">
       <screen x="0" y="23" width="1920" height="977" />
@@ -242,10 +238,10 @@
       <screen x="0" y="23" width="1920" height="977" />
     </state>
     <state x="560" y="247" key="Vcs.Push.Dialog.v2/0.23.1920.977@0.23.1920.977" timestamp="1578129069464" />
-    <state x="624" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1578335271098">
-      <screen x="0" y="23" width="1920" height="977" />
+    <state x="499" y="271" key="com.intellij.ide.util.TipDialog" timestamp="1578579973446">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="271" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1578285115922" />
+    <state x="499" y="271" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1578579973446" />
     <state x="624" y="344" key="com.intellij.ide.util.TipDialog/0.23.1920.977@0.23.1920.977" timestamp="1578335271098" />
     <state x="493" y="84" width="609" height="656" key="find.popup" timestamp="1578296105575">
       <screen x="0" y="0" width="1536" height="824" />
