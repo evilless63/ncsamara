@@ -14,7 +14,7 @@ class RateController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.rates.index', ['rates' => Rate::all()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class RateController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.rates.create');
     }
 
     /**
@@ -35,7 +35,8 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Rate::create($this->validateRate());
+        return view('admin.rates.index');
     }
 
     /**
@@ -57,7 +58,7 @@ class RateController extends Controller
      */
     public function edit(Rate $rate)
     {
-        //
+        return view('admin.rates.edit', ['rate' => $rate]);
     }
 
     /**
@@ -69,7 +70,8 @@ class RateController extends Controller
      */
     public function update(Request $request, Rate $rate)
     {
-        //
+        Rate::update($this->validateRate());
+        return view('admin.rates.index');
     }
 
     /**
@@ -81,5 +83,14 @@ class RateController extends Controller
     public function destroy(Rate $rate)
     {
         //
+    }
+
+    private function validateRate() {
+        return request()->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+            'cost' => 'integer|required'
+        ]);
     }
 }

@@ -28,6 +28,7 @@ Route::prefix('user')->name('user.')->middleware('verified')->group(function () 
 
 Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
     Route::resource('services', 'ServiceController');
+    Route::resource('rates', 'RateController');
 });
 
 
