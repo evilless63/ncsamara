@@ -57,6 +57,10 @@
                         </li>
     
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.bonuses.index') }}">Бонусы при оплатах</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('tickets.index') }}">Техническая поддержка</a>
                         </li>
     
