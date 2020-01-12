@@ -31,6 +31,7 @@ Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->gro
     Route::resource('services', 'ServiceController');
     Route::resource('rates', 'RateController');
     Route::resource('promotionals', 'PromotionalController');
+    Route::resource('bonuses', 'BonusController');
 });
 
 

@@ -8,8 +8,9 @@
                     <div class="card-header">Редактирование тарифа "{{$rate->name}}"</div>
 
                     <div class="card-body">
-                        <form action="{{ route('admin.rates.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.rates.update', $rate->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('patch')
                             <div class="form-group">
                                 <label for="salonName">Наименование:</label>
                                 <input name="name" type="text" id="salonName"
@@ -49,7 +50,7 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary">Создать тариф</button>
+                            <button type="submit" class="btn btn-primary">Изменить тариф</button>
                         </form>
                     </div>
                 </div>

@@ -20,7 +20,7 @@
                                     <form action="{{ route('admin.promotionals.destroy') }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger">Удалить тариф</button>  
+                                        <button type="submit" class="btn btn-danger">Удалить промокод</button>  
                                     </form>
                                 @endif
                             </li>
