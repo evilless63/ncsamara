@@ -16,9 +16,9 @@ class CreatePromotionalsTable extends Migration
         Schema::create('promotionals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string(çode);
-            $table->unsignedInteger('replenish');
-            $table->boolean('is_active');
+            $table->string('code');
+            $table->unsignedInteger('replenish_summ');
+            $table->boolean('is_activated')->default(false);
         });
     }
 

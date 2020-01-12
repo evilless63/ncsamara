@@ -46,6 +46,10 @@
                         <a class="nav-link" href="{{ route('user.rates.index') }}">Тарифы</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.promotionals.index') }}">Промокоды</a>
+                    </li>
+
                 </ul>
 
                 <!-- Right Side Of Navbar -->

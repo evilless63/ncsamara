@@ -14,7 +14,7 @@ class PromotionalController extends Controller
      */
     public function index()
     {
-        return view('admin.promotionals.index', Promotional::all());
+        return view('admin.promotionals.index', 'promotionals' => Promotional::all());
     }
 
     /**
@@ -88,7 +88,7 @@ class PromotionalController extends Controller
     private function promotionalValidate() {
         return request()->validate([
             'code' => 'required',
-            'replenish' => 'integer|required',
+            'replenish_summ' => 'integer|required',
         ]);
     }
 }
