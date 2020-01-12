@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\Promotional;
 use App\User;
 use App\Service;
 use App\Appearance;
@@ -287,5 +288,38 @@ class ProfileController extends Controller
 
     private function regexpImages($imageName) {
         return Transliterate::make(preg_replace("/[^А-Яа-яA-Za-z\d\.]/", '', $imageName));
+    }
+
+    public function payments() {
+        return view('user.payments.index');
+    }
+
+    public function makepayment() {
+        $current_balance = Auth::user()->user_balance;
+        Auth::user()->user_balance = $current_balance + request()->payment;
+        Auth::user()->save();
+        return view('user.payments.index');
+    }
+
+    public function promotionalpayment() {
+
+        request()->validate([
+            'promotionalpayment' => 'required|exists:promotionals,code'
+        ]);
+
+        $codes = Promotional::where('code', request()->promotionalpayment)->where('is_activated', false);
+        if($codes->count() > 0) {
+            $sum = $codes->first()->replenish_summ;
+            $current_balance = Auth::user()->user_balance;
+            Auth::user()->user_balance = $current_balance + $sum;
+            Auth::user()->save();
+
+            $code = Promotional::where('id', $codes->first()->id)->first();
+            $code['is_activated'] = 1;
+
+            $code->save();
+        }
+
+        return view('user.payments.index');
     }
 }

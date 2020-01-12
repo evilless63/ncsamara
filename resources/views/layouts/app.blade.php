@@ -47,15 +47,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.adminprofiles') }}">Анкеты пользователей</a>
                         </li>
-    
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.rates.index') }}">Тарифы</a>
                         </li>
-    
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.promotionals.index') }}">Промокоды</a>
                         </li>
-    
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.bonuses.index') }}">Бонусы при оплатах</a>
                         </li>
@@ -63,18 +63,22 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('tickets.index') }}">Техническая поддержка</a>
                         </li>
-    
+
                     </ul>
                     @else
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.profiles.index') }}">Мои анкеты</a>
                         </li>
-    
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.salons.index') }}">Мой салон</a>
                         </li>
-    
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.payments') }}">Мой баланс и оплата</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('tickets.index') }}">Техническая поддержка</a>
                         </li>

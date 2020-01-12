@@ -24,6 +24,10 @@ Route::get('/user', 'HomeController@user')->name('user')->middleware('verified')
 Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
     Route::resource('profiles', 'ProfileController');
     Route::resource('salons', 'SalonController');
+
+    Route::get('payments', 'ProfileController@payments')->name('payments');
+    Route::post('makepayment', 'ProfileController@makepayment')->name('makepayment');
+    Route::post('promotionalpayment', 'ProfileController@promotionalpayment')->name('promotionalpayment');
 });
 
 Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
