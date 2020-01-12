@@ -164,6 +164,7 @@ return [
 
         Mews\Captcha\CaptchaServiceProvider::class,
         ElForastero\Transliterate\ServiceProvider::class,
+        Kordy\Ticketit\TicketitServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -231,6 +232,7 @@ return [
 
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Transliterate' => ElForastero\Transliterate\Facade::class,
+        'Ticketit' => Kordy\Ticketit\TicketitServiceProvider::class,
 
     ],
 

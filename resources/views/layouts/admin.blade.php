@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} @yield('page')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -39,15 +39,19 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.profiles.index') }}">Анкеты пользователей</a>
+                        <a class="nav-link" href="{{ route('admin.adminprofiles') }}">Анкеты пользователей</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.rates.index') }}">Тарифы</a>
+                        <a class="nav-link" href="{{ route('admin.rates.index') }}">Тарифы</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.promotionals.index') }}">Промокоды</a>
+                        <a class="nav-link" href="{{ route('admin.promotionals.index') }}">Промокоды</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('tickets.index') }}">Техническая поддержка</a>
                     </li>
 
                 </ul>
@@ -94,5 +98,6 @@
 </div>
 @yield('google_api_autocomplete')
 @yield('script')
+@yield('footer')
 </body>
 </html>

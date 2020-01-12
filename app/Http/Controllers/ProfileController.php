@@ -39,6 +39,11 @@ class ProfileController extends Controller
         return view('user.profiles.index', ['profiles' => Auth::user()->profiles]);
     }
 
+    public function adminindex()
+    {
+        return view('admin.profiles.index', ['profiles' => Profile::all()]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

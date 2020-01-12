@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'HomeController@index')->name('admin')->middleware(['verified','is_admin']);
 
 Route::get('/user', 'HomeController@user')->name('user')->middleware('verified');
 
@@ -27,6 +27,7 @@ Route::prefix('user')->name('user.')->middleware('verified')->group(function () 
 });
 
 Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
+    Route::get('profiles', 'ProfileController@adminindex')->name('adminprofiles');
     Route::resource('services', 'ServiceController');
     Route::resource('rates', 'RateController');
     Route::resource('promotionals', 'PromotionalController');

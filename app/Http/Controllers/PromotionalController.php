@@ -14,7 +14,7 @@ class PromotionalController extends Controller
      */
     public function index()
     {
-        return view('admin.promotionals.index', 'promotionals' => Promotional::all());
+        return view('admin.promotionals.index', ['promotionals' => Promotional::all()]);
     }
 
     /**

@@ -69,9 +69,9 @@
                 <div class="top-right links">
                     @auth
                         @if(Auth::user()->is_admin)
-                            <a href="{{ url('/home') }}">Админпанель</a>
+                            <a href="{{ route('admin') }}">Админпанель</a>
                         @else
-                            <a href="{{ url('/user') }}">Личный кабинет</a>
+                            <a href="{{ route('user') }}">Личный кабинет</a>
                         @endif
 
                     @else

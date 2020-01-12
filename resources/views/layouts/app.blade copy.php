@@ -43,11 +43,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.profiles.index') }}">Мой салон</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('tickets.index') }}">Техническая поддержка</a>
+                            <a class="nav-link" href="{{ route('user.salons.index') }}">Мой салон</a>
                         </li>
                     </ul>
 
