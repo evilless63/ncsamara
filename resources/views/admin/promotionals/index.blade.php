@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Промокоды</div>
 
@@ -13,14 +13,14 @@
                             <li>
                             <a href="@if (!$promotional->is_active) route('user.promotionals.edit', $promotional->id) @endif" >{{ $promotionals->code }}, Сумма к пополнению: {{ $promotionals->replenish_summ }}</a>
                                 Обновлено {{ $promotional->updated_at }}
-                            
+
                                 @if($promotional->is_active)
                                     <span style="color: red">уже активирован !</span>
                                 @else
                                     <form action="{{ route('admin.promotionals.destroy') }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger">Удалить промокод</button>  
+                                        <button type="submit" class="btn btn-danger">Удалить промокод</button>
                                     </form>
                                 @endif
                             </li>

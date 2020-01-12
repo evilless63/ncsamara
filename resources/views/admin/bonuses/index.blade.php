@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Бонусы</div>
 
@@ -13,14 +13,14 @@
                             <li>
                             <a href="{{ route('admin.bonuses.edit', $bonus->id) }}" >Минимум: {{ $bonus->min_sum }}, Максимум: {{ $bonus->max_sum }}, Коэффициэнт бонуса: {{ $bonus->koef }}</a>
                                 Обновлено {{ $bonus->updated_at }}
-                            
-                               
+
+
                                     <form action="{{ route('admin.bonuses.destroy', $bonus->id) }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger">Удалить тариф</button>  
+                                        <button type="submit" class="btn btn-danger">Удалить тариф</button>
                                     </form>
-                             
+
                             </li>
                         @empty
                             <p>Нет созданных промокодов</p>

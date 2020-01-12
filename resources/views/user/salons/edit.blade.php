@@ -16,7 +16,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Редактирование салона</div>
 
@@ -48,7 +48,7 @@
                             <div class="form-check">
                                 <input type="hidden" name="is_published" value="0">
                                 <input class="form-check-input" type="checkbox" id="salonIsPublished"
-                                       name="is_published" value="1" {{$profile->apartments ? 'checked' : ''}}>
+                                       name="is_published" value="1" {{$salon->is_published ? 'checked' : ''}}>
                                 <label class="form-check-label" for="salonIsPublished">
                                     Опубликовать на сайте
                                 </label>
@@ -59,7 +59,7 @@
                             <hr class="mt-2 mb-5">
                             <div class="col-lg-3 col-md-4 col-6">
                                 <a href="#" class="d-block mb-4 h-100">
-                                    <img class="img-fluid img-thumbnail delpath" delpath="{{'/images/profiles/images/created/' . $salon->image }}" src="{{ '/images/profiles/images/created/' . $salon->image }}" alt="">
+                                    <img class="img-fluid img-thumbnail delpath" delpath="{{asset('/images/salons/created/' . $salon->image) }}" src="{{ asset('/images/salons/created/' . $salon->image) }}" alt="">
                                 </a>
                             </div>
 

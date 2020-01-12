@@ -91,9 +91,8 @@ class ProfileController extends Controller
                 $image = new Image;
                 $image->name = $arr;
                 $image->profile_id = $profile->id;
-                $image->mime_type = '';
                 $image->save();
-                File::move(public_path() . '/images/profiles/images/new_upload/' . $arr, public_path() . '/images/profiles/images/created/' . $arr);
+                File::move(public_path() . '/images/profiles/images/new_upload/' . $image->name, public_path() . '/images/profiles/images/created/' . $image->name);
             }
 
         }
@@ -156,6 +155,19 @@ class ProfileController extends Controller
         if(request()->has('hair')) {
             $profile->hairs()->detach();
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
+        }
+
+        if(request()->has('item_images')) {
+
+            $array = explode(",", request()->item_images);
+            foreach ($array as $arr ) {
+                $image = new Image;
+                $image->name = $arr;
+                $image->profile_id = $profile->id;
+                $image->save();
+                File::move(public_path() . '/images/profiles/images/new_upload/' . $image->name, public_path() . '/images/profiles/images/created/' . $image->name);
+            }
+
         }
 
         return redirect(route('user.profiles.index'));

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Анкеты</div>
+                    <div class="card-header">Салоны пользователей</div>
 
                     <div class="card-body">
                         @forelse ($profiles as $profile)

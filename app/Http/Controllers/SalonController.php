@@ -6,7 +6,10 @@ use App\Profile;
 use App\Salon;
 use App\User;
 use Auth;
+use Transliterate;
+use File;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class SalonController extends Controller
 {
@@ -47,8 +50,18 @@ class SalonController extends Controller
      */
     public function store(Request $request)
     {
-        Profile::create($this->validateSalon());
-        return route('user');
+        $salon_data = $this->validateSalon();
+        $salon_data['user_id'] = Auth::user()->id;
+
+        $_IMAGE = $request->file('image');
+        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        $uploadPath = public_path() . '/images/salons/created';
+        $_IMAGE->move($uploadPath,$filename);
+
+        $salon_data['image'] = $filename;
+
+        Salon::create($salon_data);
+        return view('user.user');
     }
 
     /**
@@ -82,8 +95,19 @@ class SalonController extends Controller
      */
     public function update(Request $request, Salon $salon)
     {
-        $salon->update($this->validateSalon());
-        return route('user');
+        $salon_data = $this->validateSalon();
+        $salon_data['user_id'] = Auth::user()->id;
+
+        $_IMAGE = $request->file('image');
+        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        $uploadPath = public_path() . '/images/salons/created';
+        File::delete(public_path() . '/images/salons/created' . $salon->image );
+        $_IMAGE->move($uploadPath,$filename);
+
+        $salon_data['image'] = $filename;
+
+        $salon->update($salon_data);
+        return view('user.user');
     }
 
     /**
@@ -95,7 +119,7 @@ class SalonController extends Controller
     public function destroy(Salon $salon)
     {
         $salon->delete();
-        return route('user');
+        return view('user.user');
 
     }
 
@@ -105,9 +129,13 @@ class SalonController extends Controller
             'address' => 'required',
             'image' => [
                     'required',
-                    Rule::dimensions()->maxWidth(1000)->maxHeight(500)->ratio(3 / 2),
+                    Rule::dimensions()->maxWidth(1500)->maxHeight(1000)->ratio(3/2),
                 ],
             'phone' => 'required|unique:App\Salon,phone|regex:/^((\d)+([0-9]){10})$/i',
         ]);
+    }
+
+    private function regexpImages($imageName) {
+        return Transliterate::make(preg_replace("/[^А-Яа-яA-Za-z\d\.]/", '', $imageName));
     }
 }

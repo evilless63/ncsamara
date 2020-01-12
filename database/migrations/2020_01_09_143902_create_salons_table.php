@@ -21,8 +21,8 @@ class CreateSalonsTable extends Migration
             $table->text("address");
             $table->text("image");
             $table->string("phone");
-            $table->boolean("is_approved");
-            $table->boolean("is_published");
+            $table->boolean("is_approved")->default(false);
+            $table->boolean("is_published")->default(false);
         });
     }
 
