@@ -22,10 +22,10 @@ class SalonController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->salon()->get()) {
-            return route('user.salons.edit', Auth::user()->salon()->get()->id);
+        if(Auth::user()->salon()->get()->count() > 0) {
+            return view('user.salons.edit', ['salon' => Auth::user()->salon()->first()]);
         } else {
-            return route('user.salon.create');
+            return view('user.salons.create');
         }
     }
 

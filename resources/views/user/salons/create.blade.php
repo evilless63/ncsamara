@@ -28,19 +28,19 @@
                                 <label for="salonName">Наименование:</label>
                                 <input name="name" type="text" id="salonName"
                                        class="form-control @error('name') is-invalid @enderror"
-                                       placeholder="Укажите имя в анкете" value="{{ old('name') }}">
+                                       placeholder="Укажите название" value="{{ old('name') }}">
                             </div>
                             <div class="form-group">
                                 <label for="salonPhone">Телефон (Только ЦИФРЫ - 11 цифр номера телефона):</label>
                                 <input name="phone" type="text" id="salonPhone"
                                        class="form-control @error('phone') is-invalid @enderror"
-                                       placeholder="Укажите телефон в анкете" value="{{ old('phone') }}">
+                                       placeholder="Укажите телефон" value="{{ old('phone') }}">
                             </div>
                             <div class="form-group">
                                 <label for="salonAddress">Адрес:</label>
                                 <input name="address" type="text" id="salonAddress"
                                        class="form-control @error('address') is-invalid @enderror"
-                                       placeholder="Укажите адрес анкеты" value="{{ old('address') }}">
+                                       placeholder="Укажите адрес салона" value="{{ old('address') }}">
                                 {{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }}
                                 ">--}}
                                 {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}

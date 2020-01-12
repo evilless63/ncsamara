@@ -27,17 +27,17 @@
                             <div class="form-group">
                                 <label for="salonName">Наименование:</label>
                                 <input name="name" type="text" id="salonName" class="form-control @error('name') is-invalid @enderror"
-                                       placeholder="Укажите имя в анкете" value="{{ $salon->name }}">
+                                       placeholder="Укажите название" value="{{ $salon->name }}">
                             </div>
                             <div class="form-group">
                                 <label for="salonPhone">Телефон (Только ЦИФРЫ - 11 цифр номера телефона) :</label>
                                 <input name="phone" type="text" id="salonPhone" class="form-control @error('phone') is-invalid @enderror"
-                                       placeholder="Укажите телефон в анкете" value="{{ $salon->phone }}">
+                                       placeholder="Укажите телефон" value="{{ $salon->phone }}">
                             </div>
                             <div class="form-group">
                                 <label for="salonAddress">Адрес:</label>
                                 <input name="address" type="text" id="salonAddress" class="form-control @error('address') is-invalid @enderror"
-                                       placeholder="Укажите адрес анкеты" value="{{ $salon->address }}">
+                                       placeholder="Укажите адрес салона" value="{{ $salon->address }}">
                                 {{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }} ">--}}
                                 {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
                                 <input type="hidden" name="address_x" value="1">
