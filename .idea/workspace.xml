@@ -2,28 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/RatejobController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckIfBanned.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ratejob.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Statistic.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/RatejobFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_13_183820_create_ratejobs_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_13_195011_create_statistics_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/RatejobSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RateController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_04_072915_create_profiles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_04_072915_create_profiles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_12_112042_create_bonuses_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_12_112042_create_bonuses_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/BonusSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/BonusSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/RateSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RateSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/bonuses/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/bonuses/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/payments/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/payments/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade copy.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade copy.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +195,7 @@
       <workItem from="1578639253791" duration="2765000" />
       <workItem from="1578840352056" duration="1887000" />
       <workItem from="1578922903697" duration="4190000" />
-      <workItem from="1578934462150" duration="15014000" />
+      <workItem from="1578934462150" duration="15771000" />
     </task>
     <servers />
   </component>

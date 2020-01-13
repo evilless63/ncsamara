@@ -48,7 +48,7 @@
                 font-size: 84px;
             }
 
-            .links > a {
+            .links > a, .links button {
                 color: #636b6f;
                 padding: 0 25px;
                 font-size: 13px;
@@ -56,6 +56,10 @@
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+            }
+
+            .d-flex {
+                display: flex;
             }
 
             .m-b-md {
@@ -66,12 +70,19 @@
     <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
-                <div class="top-right links">
+                <div class="top-right links d-flex">
                     @auth
                         @if(Auth::user()->is_admin)
                             <a href="{{ route('admin') }}">Админпанель</a>
                         @else
                             <a href="{{ route('user') }}">Личный кабинет</a>
+                        @endif
+
+                        @if(Auth::user()->is_banned)
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" >Выход</button>
+                            </form>
                         @endif
 
                     @else
@@ -87,9 +98,11 @@
             <div class="content">
                 <div class="title m-b-md">
                     NC-Samara вход в панель управления
+                    @auth
                     @if(Auth::user()->is_banned)
                         <span class="alert-danger">Вас забанили. Вы не можете воспользоваться личным кабинетом</span>
                     @endif
+                    @endauth
                 </div>
 
             </div>
