@@ -46,6 +46,8 @@ Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function (
     Route::resource('bonuses', 'BonusController');
     Route::patch('verify/{id}', 'ProfileController@verify')->name('profileverify');
     Route::patch('unverify/{id}', 'ProfileController@unverify')->name('profileunverify');
+    Route::patch('userbanoff/{id}', 'ProfileController@userbanoff')->name('userbanoff');
+    Route::patch('userbanon/{id}', 'ProfileController@userbanon')->name('userbanon');
 });
 
 

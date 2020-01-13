@@ -24,6 +24,7 @@ class CreateProfilesTable extends Migration
             $table->integer('address_x');
             $table->integer('address_y');
             $table->string('working_hours');
+            $table->string('verificate_image')->nullable();
 
             $table->integer('boobs');
             $table->integer('age');

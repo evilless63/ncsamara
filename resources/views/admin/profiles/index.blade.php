@@ -13,12 +13,45 @@
                     <div class="accordion" id="accordionExample">
                         <div class="card">
                             <div class="card-header" id="headingOne">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#collapseOne{{$loop->iteration}}" aria-expanded="true" aria-controls="collapseOne">
-                                        {{ $user->name }}
-                                    </button>
-                                </h2>
+                                <table class="table table-sm">
+                                    <tbody>
+                                    <tr>
+                                        <th>
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                                        data-target="#collapseOne{{$loop->iteration}}" aria-expanded="true" aria-controls="collapseOne">
+                                                    {{ $user->name }} Анкеты
+                                                </button>
+                                            </h2>
+                                        </th>
+                                        <td>
+                                            Общий баланс: {{ $user->user_balance }}
+                                        </td>
+                                        <td>
+                                            @if($user->is_banned == 0)
+                                                <form action="{{ route('admin.userbanon', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <button type="submit" class="btn btn-danger">Бан</button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('admin.userbanoff', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <button type="submit" class="btn btn-success">Разбан</button>
+                                                </form>
+                                            @endif
+                                        </td>
+
+                                        @if($user->tickets->where('completed_at', '=', null )->count() > 0)
+                                            <td><a class="nav-link" href="{{ route('tickets.index') }}">Есть сообщения</a></td>
+                                        @else
+                                            <td>Нет сообщений</td>
+                                        @endif
+                                    </tr>
+                                    </tbody>
+                                </table>
+
                             </div>
 
                             <div id="collapseOne{{$loop->iteration}}" class="collapse" aria-labelledby="headingOne"
@@ -32,8 +65,8 @@
                                                 <th scope="col">Телефон</th>
                                                 <th scope="col">Баланс</th>
                                                 <th scope="col">Редактировать</th>
-                                                <th scope="col">Опубликована</th>
-                                                <th scope="col">Подтверждена</th>
+                                                <th scope="col">Публикация</th>
+                                                <th scope="col">Подтверждение</th>
                                             </tr>
                                         </thead>
                                         @forelse ($user->profiles as $profile)
@@ -48,17 +81,33 @@
                                                 <td><a href="{{route('user.profiles.edit', $profile->id)}}">>>>></a>
                                                 </td>
                                                 <td>
-                                                    @if($profile->is_published)
-                                                    Да
+                                                    @if($profile->is_published == 0)
+                                                        <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('patch')
+                                                            <button type="submit">Опубликовать</button>
+                                                        </form>
                                                     @else
-                                                    Нет
+                                                        <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('patch')
+                                                            <button type="submit">Снять с публикации</button>
+                                                        </form>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if($profile->verified)
-                                                    Да
+                                                    @if($profile->verified == 0)
+                                                        <form action="{{ route('admin.profileverify', $profile->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('patch')
+                                                            <button type="submit">Подтвердить</button>
+                                                        </form>
                                                     @else
-                                                    Нет
+                                                        <form action="{{ route('admin.profileunverify', $profile->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('patch')
+                                                            <button type="submit">Снять подтверждение</button>
+                                                        </form>
                                                     @endif
                                                 </td>
                                             </tr>

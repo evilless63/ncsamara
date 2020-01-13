@@ -44,7 +44,9 @@ class ProfileController extends Controller
 
     public function adminindex()
     {
-        return view('admin.profiles.index', ['users' => User::all()]);
+        return view('admin.profiles.index', [
+            'users' => User::all()
+        ]);
     }
 
     /**
@@ -128,6 +130,7 @@ class ProfileController extends Controller
             'services' => $this->services,
             'appearances' => $this->appearances,
             'hairs' => $this->hairs,
+            'rates' => $this->rates,
         ]);
     }
 
@@ -172,6 +175,23 @@ class ProfileController extends Controller
 
         }
 
+        if(request()->has('rate')) {
+            $profile->rates()->detach();
+            $profile->rates()->attach(Rate::findOrFail(request()->rate));
+        }
+
+        if(request()->hasFile('verificate_image')) {
+            $_IMAGE = $request->file('verificate_image');
+            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+
+            $uploadPath = public_path() . '/images/profiles/verificate';
+            $_IMAGE->move($uploadPath,$filename);
+
+            $profile['verificate_image'] = $filename;
+            $profile->update();
+        }
+
+
         if(Auth::user()->is_admin) {
             return redirect(route('admin.adminprofiles'));
         } else {
@@ -181,17 +201,41 @@ class ProfileController extends Controller
     }
 
     public function publish(Request $request, $id) {
-        $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+
+        if(auth()->user()->is_admin) {
+            $profile = Profile::where('id', $id)->firstOrFail();
+        } else {
+            $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        }
+
         $profile['is_published'] = 1;
         $profile->update();
-        return redirect(route('user.profiles.index'));
+
+        if(auth()->user()->is_admin) {
+            return redirect(route('admin.adminprofiles'));
+        } else {
+            return redirect(route('user.profiles.index'));
+        }
     }
 
     public function unpublish(Request $request, $id) {
-        $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+
+        if(auth()->user()->is_admin) {
+            $profile = Profile::where('id', $id)->firstOrFail();
+        } else {
+            $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        }
+
         $profile['is_published'] = 0;
         $profile->update();
-        return redirect(route('user.profiles.index'));
+
+        if(auth()->user()->is_admin) {
+            return redirect(route('admin.adminprofiles'));
+        } else {
+            return redirect(route('user.profiles.index'));
+        }
+
+
     }
 
     public function verify(Request $request, $id) {
@@ -207,6 +251,21 @@ class ProfileController extends Controller
         $profile->update();
         return redirect(route('admin.adminprofiles'));
     }
+
+    public function userbanoff(Request $request, $id) {
+        $user = User::where('id', $id)->firstOrFail();
+        $user['is_banned'] = 0;
+        $user->update();
+        return redirect(route('admin.adminprofiles'));
+    }
+
+    public function userbanon(Request $request, $id) {
+        $user = User::where('id', $id)->firstOrFail();
+        $user['is_banned'] = 1;
+        $user->update();
+        return redirect(route('admin.adminprofiles'));
+    }
+
 
     /**
      * Remove the specified resource from storage.

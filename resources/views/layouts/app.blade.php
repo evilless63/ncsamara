@@ -45,7 +45,7 @@
                     @elseif(Auth::user()->is_admin)
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.adminprofiles') }}">Анкеты пользователей</a>
+                            <a class="nav-link" href="{{ route('admin.adminprofiles') }}">Пользователи (+анкеты)</a>
                         </li>
 
                         <li class="nav-item">

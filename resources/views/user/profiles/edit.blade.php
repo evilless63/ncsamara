@@ -226,6 +226,47 @@
                                 data-target="#myModal"> <i class="fa fa-image"></i> Upload Images</button>
                         </div>
 
+                        <h2>Тарифный план:
+                            @if($profile->rates->count() == 0)
+                                Не назначен
+                            @else
+                                {{$profile->rates->first()->name}}
+                            @endif
+                        </h2>
+                        <div class="form-group">
+                            <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а в полночь (00:00)</p>
+                            <p>Переключение тарифного плана произойдет только в случае достаточного количества Пойнтов на балансе анкеты</p>
+                            <p>На данный момент на балансе анкеты: {{ $profile->profile_balance }} пойнтов</p>
+                            <input type="hidden" name="rate" value="
+                                @if($profile->rates->count() > 0)
+                                    {{$profile->rates->first()}}
+                                @endif">
+                            <select class="form-control" name="rate" id="profileRate">
+                                <option></option>
+                                @foreach($rates as $rate)
+                                    <option
+                                        value="{{$rate->id}} {{$profile->rates->find($rate->id) <> null ? 'selected' : ''}}">
+                                        {{ $rate->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="verificate_image">Изображение для подтверждения</label>
+                            <br>
+                            <input type="file" autocomplete="OFF" name="verificate_image" id="verificate_image" placeholder=""
+                                   class="form-control input-sm" />
+                        </div>
+
+                        <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение для подтверждения/ назначить новое</h5>
+
+                        <hr class="mt-2 mb-5">
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <a href="#" class="d-block mb-4 h-100">
+                                <img class="img-fluid delpath" delpath="{{ asset('/images/profiles/verificate/' . $profile->verificate_image )}}" src="{{ asset('/images/profiles/verificate/' . $profile->verificate_image) }}" alt="">
+                            </a>
+                        </div>
+
 
                         <button type="submit" class="btn btn-primary">Обновить анкету</button>
                     </form>
