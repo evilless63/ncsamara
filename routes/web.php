@@ -39,6 +39,8 @@ Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->gro
     Route::resource('rates', 'RateController');
     Route::resource('promotionals', 'PromotionalController');
     Route::resource('bonuses', 'BonusController');
+    Route::patch('verify/{id}', 'ProfileController@verify')->name('profileverify');
+    Route::patch('unverify/{id}', 'ProfileController@unverify')->name('profileunverify');
 });
 
 

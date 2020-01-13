@@ -188,6 +188,20 @@ class ProfileController extends Controller
         return redirect(route('user.profiles.index'));
     }
 
+    public function verify(Request $request, $id) {
+        $profile = Profile::where('id', $id)->firstOrFail();
+        $profile['verified'] = 1;
+        $profile->update();
+        return redirect(route('admin.adminprofiles'));
+    }
+
+    public function unverify(Request $request, $id) {
+        $profile = Profile::where('id', $id)->firstOrFail();
+        $profile['verified'] = 0;
+        $profile->update(); 
+        return redirect(route('admin.adminprofiles'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
