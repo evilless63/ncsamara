@@ -36,7 +36,7 @@ class RateController extends Controller
     public function store(Request $request)
     {
         Rate::create($this->validateRate());
-        return view('admin.rates.index');
+        return redirect(route('admin.rates.index'));
     }
 
     /**
@@ -71,7 +71,7 @@ class RateController extends Controller
     public function update(Request $request, Rate $rate)
     {
         Rate::update($this->validateRate());
-        return view('admin.rates.index');
+        return redirect(route('admin.rates.index'));
     }
 
     /**

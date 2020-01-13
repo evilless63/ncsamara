@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Редактирование промокода "{{$promotional->name}}"</div>
+                    <div class="card-header">Редактирование промокода "{{$promotional->code}}"</div>
 
                     <div class="card-body">
                         <form action="{{ route('admin.promotionals.update', $promotional->id) }}" method="POST" enctype="multipart/form-data">
@@ -25,7 +25,7 @@
                                        placeholder="Укажите промокод" value="{{ $promotional->replenish_summ }}">
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Создать промокод</button>
+                            <button type="submit" class="btn btn-primary">Изменить промокод</button>
 
                         </form>
                     </div>

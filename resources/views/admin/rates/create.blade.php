@@ -19,7 +19,7 @@
 
                             <div class="form-group">
                                 <label for="salonCost">Стоимость:</label>
-                                <input name="name" type="text" id="salonCost"
+                                <input name="cost" type="number" id="salonCost"
                                        class="form-control @error('cost') is-invalid @enderror"
                                        placeholder="Укажите стоимоть тарифа" value="{{ old('cost') }}">
                             </div>

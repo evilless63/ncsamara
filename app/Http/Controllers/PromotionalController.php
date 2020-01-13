@@ -36,7 +36,7 @@ class PromotionalController extends Controller
     public function store(Request $request)
     {
         Promotional::create($this->promotionalValidate());
-        return view('admin.promotionals.index');
+        return view('admin.promotionals.index', ['promotionals' => Promotional::all()]);
     }
 
     /**
@@ -71,7 +71,7 @@ class PromotionalController extends Controller
     public function update(Request $request, Promotional $promotional)
     {
         $promotional->update($this->promotionalValidate());
-        return view('admin.promotionals.index');
+        return view('admin.promotionals.index', ['promotionals' => Promotional::all()]);
     }
 
     /**
