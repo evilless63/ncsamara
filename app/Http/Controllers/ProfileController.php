@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Profile;
 use App\Promotional;
 use App\Rate;
+use App\Bonus;
+use App\Statistic;
 use App\User;
 use App\Service;
 use App\Appearance;
@@ -12,6 +14,7 @@ use App\Hair;
 use App\Image;
 use Auth;
 use File;
+use Illuminate\Support\Carbon;
 use Transliterate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -30,6 +33,7 @@ class ProfileController extends Controller
         $this->appearances = Appearance::all();
         $this->hairs = Hair::all();
         $this->rates = Rate::all();
+        $this->bonuses = Bonus::all();
     }
 
     /**
@@ -101,6 +105,9 @@ class ProfileController extends Controller
             }
 
         }
+
+        $profile->rates()->attach(Rate::first());
+
 
         return redirect(route('user.profiles.index'));
 
@@ -266,6 +273,74 @@ class ProfileController extends Controller
         return redirect(route('admin.adminprofiles'));
     }
 
+    //Для крона
+    public function activateJob(Request $request, $id) {
+        $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $user = $profile->user;
+        $rate = $profile->rates->first();
+
+        if(($user->user_balance - $rate->cost) < 0) {
+            $profile['is_archived'] = true;
+            $profile->update();
+            return redirect(route('user.payments'));
+        }
+
+        $user['user_balance'] = $user->user_balance - $rate->cost;
+        $user->update();
+
+        $statistic = new Statistic();
+        $statistic['user_id'] = Auth::user()->id;
+        $statistic['payment'] = - $rate->cost;
+        $statistic['where_was'] = Carbon::now();
+        $statistic->save();
+
+        $profile['is_archived'] = false;
+        $profile['last_payment'] = Carbon::now();
+        $profile['next_payment'] = Carbon::now()->addDays(1);
+
+        $next_payment = Carbon::parse($profile->next_payment);
+        $last_payment = Carbon::parse($profile->last_payment);
+        $profile['minutes_to_archive'] = $next_payment->diffInMinutes($last_payment);
+
+        $profile->update();
+
+        return redirect(route('user.payments'));
+
+    }
+
+    public function activate(Request $request, $id) {
+        $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $user = $profile->user;
+        $rate = $profile->rates->first();
+
+        if(($user->user_balance - $rate->cost) < 0) {
+            $profile['is_archived'] = true;
+            $profile->update();
+            return redirect(route('user.payments'));
+        }
+
+        $user['user_balance'] = $user->user_balance - $rate->cost;
+        $user->update();
+
+        $statistic = new Statistic();
+        $statistic['user_id'] = Auth::user()->id;
+        $statistic['payment'] = - $rate->cost;
+        $statistic['where_was'] = Carbon::now();
+        $statistic->save();
+
+        $profile['is_archived'] = false;
+        $profile['last_payment'] = Carbon::now();
+        $profile['next_payment'] = Carbon::now()->addDays(1);
+
+        $next_payment = Carbon::parse($profile->next_payment);
+        $last_payment = Carbon::parse($profile->last_payment);
+        $profile['minutes_to_archive'] = $next_payment->diffInMinutes($last_payment);
+
+        $profile->update();
+
+        return redirect(route('user.payments'));
+
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -389,14 +464,30 @@ class ProfileController extends Controller
         return view('user.payments.index', [
             'profiles' => Auth::user()->profiles,
             'hairs' => $this->hairs,
+            'rates' => $this->rates,
+            'bonuses' => $this->bonuses,
         ]);
     }
 
     public function makepayment() {
         $current_balance = Auth::user()->user_balance;
-        Auth::user()->user_balance = $current_balance + request()->payment;
+
+        $bonus = Bonus::where('min_sum','<',request()->payment)->where('max_sum','>=', request()->payment)->first();
+        $payment = request()->payment;
+        if($bonus <> null) {
+            $payment = $payment + ($payment * $bonus->koef / 100);
+        }
+
+        Auth::user()->user_balance = $current_balance + $payment;
         Auth::user()->save();
-        return view('user.payments.index');
+
+        $statistic = new Statistic();
+        $statistic['user_id'] = Auth::user()->id;
+        $statistic['payment'] = $payment;
+        $statistic['where_was'] = Carbon::now();
+        $statistic->save();
+
+        return redirect(route('user.payments'));
     }
 
     public function promotionalpayment() {
@@ -416,8 +507,14 @@ class ProfileController extends Controller
             $code['is_activated'] = 1;
 
             $code->save();
+
+            $statistic = new Statistic();
+            $statistic['user_id'] = Auth::user()->id;
+            $statistic['payment'] = $sum;
+            $statistic['where_was'] = Carbon::now();
+            $statistic->save();
         }
 
-        return view('user.payments.index');
+        return redirect(route('user.payments'));
     }
 }

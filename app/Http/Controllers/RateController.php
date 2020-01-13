@@ -111,7 +111,7 @@ class RateController extends Controller
         return request()->validate([
             'name' => 'required',
             'description' => 'required',
-            'image' => 'required',
+//            'image' => 'required',
             'cost' => 'integer|required'
         ]);
     }

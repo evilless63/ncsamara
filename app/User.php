@@ -51,4 +51,8 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class);
     }
 
+    public function statistics() {
+        return $this->hasMany('App\Statistic');
+    }
+
 }

@@ -22,16 +22,18 @@ Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('admin')->middleware(['verified','is_admin']);
 
-Route::get('/user', 'HomeController@user')->name('user')->middleware('verified');
+Route::get('/user', 'HomeController@user')->name('user')->middleware(['verified','is_banned']);
 
 //Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
-Route::prefix('user')->name('user.')->group(function () {
+Route::prefix('user')->middleware('is_banned')->name('user.')->group(function () {
     Route::resource('profiles', 'ProfileController');
     Route::resource('salons', 'SalonController');
 
     Route::get('payments', 'ProfileController@payments')->name('payments');
     Route::post('makepayment', 'ProfileController@makepayment')->name('makepayment');
     Route::post('promotionalpayment', 'ProfileController@promotionalpayment')->name('promotionalpayment');
+
+    Route::post('activateprofile/{id}', 'ProfileController@activate')->name('activateprofile');
 
     Route::patch('publish/{id}', 'ProfileController@publish')->name('profilepublish');
     Route::patch('unpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');

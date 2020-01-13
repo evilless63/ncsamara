@@ -39,7 +39,10 @@ class CreateProfilesTable extends Migration
             $table->boolean('apartments')->default(false);
             $table->boolean('check_out')->default(false);
             $table->boolean('verified')->default(false);
-            $table->date('last_payment')->nullable();
+            $table->dateTime('last_payment')->nullable();
+            $table->dateTime('next_payment')->nullable();
+            $table->integer('minutes_to_archive')->nullable();
+            $table->boolean('is_archived')->default(true);
             $table->unsignedInteger('profile_balance')->default(0);
         });
     }

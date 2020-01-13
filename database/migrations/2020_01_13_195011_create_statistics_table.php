@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBonusesTable extends Migration
+class CreateStatisticsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateBonusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bonuses', function (Blueprint $table) {
+        Schema::create('statistics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-
-            $table->unsignedInteger('min_sum');
-            $table->unsignedInteger('max_sum')->default(9999999);
-            $table->unsignedInteger('koef')->default(0);
+            $table->unsignedInteger('user_id');
+            $table->float('payment');
+            $table->dateTime('where_was');
         });
     }
 
@@ -30,6 +29,6 @@ class CreateBonusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bonuses');
+        Schema::dropIfExists('statistics');
     }
 }
