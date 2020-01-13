@@ -42,7 +42,7 @@ class ProfileController extends Controller
 
     public function adminindex()
     {
-        return view('admin.profiles.index', ['profiles' => Profile::all()]);
+        return view('admin.profiles.index', ['users' => User::all()]);
     }
 
     /**
@@ -171,6 +171,20 @@ class ProfileController extends Controller
 
         }
 
+        return redirect(route('user.profiles.index'));
+    }
+
+    public function publish(Request $request, $id) {
+        $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $profile['is_published'] = 1;
+        $profile->update();
+        return redirect(route('user.profiles.index'));
+    }
+
+    public function unpublish(Request $request, $id) {
+        $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $profile['is_published'] = 0;
+        $profile->update(); 
         return redirect(route('user.profiles.index'));
     }
 

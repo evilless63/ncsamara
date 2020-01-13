@@ -18,7 +18,22 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Редактирование анкеты</div>
+                    <div class="card-header">
+                        Редактирование анкеты
+                        @if($profile->is_published == 0)
+                        <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
+                            @csrf
+                            @method('patch')
+                            <button type="submit">Опубликовать</button>    
+                        </form>
+                        @else
+                        <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
+                            @csrf
+                            @method('patch')
+                            <button type="submit">Снять с публикации</button>    
+                        </form>
+                        @endif
+                    </div>
 
                     <div class="card-body">
                         <form action="{{ route('user.profiles.update', $profile->id) }}" method="POST" enctype="multipart/form-data">

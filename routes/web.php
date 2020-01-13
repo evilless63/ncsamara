@@ -28,6 +28,9 @@ Route::prefix('user')->name('user.')->middleware('verified')->group(function () 
     Route::get('payments', 'ProfileController@payments')->name('payments');
     Route::post('makepayment', 'ProfileController@makepayment')->name('makepayment');
     Route::post('promotionalpayment', 'ProfileController@promotionalpayment')->name('promotionalpayment');
+
+    Route::patch('publish/{id}', 'ProfileController@publish')->name('profilepublish');
+    Route::patch('unpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
 });
 
 Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
