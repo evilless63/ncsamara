@@ -79,7 +79,7 @@
                             {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
                             <input type="hidden" name="address_x" value="1">
                             <input type="hidden" name="address_y" value="1">
-                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                            <input type="hidden" name="user_id" value="{{ $profile->user_id }}">
                         </div>
                         <div class="form-group">
                             <label for="profileAbout">О себе (минимум 50 символов):</label>

@@ -158,8 +158,7 @@ class ProfileController extends Controller
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
         }
 
-        if(request()->has('item_images')) {
-
+        if(request()->has('item_images') && request()->item_images <> null) {
             $array = explode(",", request()->item_images);
             foreach ($array as $arr ) {
                 $image = new Image;
@@ -171,7 +170,12 @@ class ProfileController extends Controller
 
         }
 
-        return redirect(route('user.profiles.index'));
+        if(Auth::user()->is_admin) {
+            return redirect(route('admin.adminprofiles'));
+        } else {
+            return redirect(route('user.profiles.index'));
+        }
+        
     }
 
     public function publish(Request $request, $id) {
@@ -215,6 +219,7 @@ class ProfileController extends Controller
 
     protected function validateProfile($isNew = false)
     {
+        
 
         if ($isNew) {
             $this->newValidate();
@@ -223,8 +228,9 @@ class ProfileController extends Controller
         }
 
         $profileArr = request()->all();
+
         if (Auth::user()->is_admin && !$isNew) {
-        } else {
+        } else { 
             $profileArr['user_id'] = Auth::user()->id;
         }
 
