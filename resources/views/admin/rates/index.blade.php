@@ -11,12 +11,13 @@
                     <a href="{{ route('admin.rates.create')  }}" type="button" class="btn btn-primary">Создать новый
                         тариф</a>
 
-                    <table class="table table-sm">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Наименование</th>
                                 <th scope="col">Сумма к списанию</th>
+                                <th scope="col">Редактировать</th>
                             </tr>
                         </thead>
                         @forelse ($rates as $rate)
@@ -27,10 +28,11 @@
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $rate->name }}</td>
                                 <td>{{ $rate->cost }}</td>
+                                <td><a href="{{ route('admin.rates.edit', $rate->id) }}">>>></a></td>
                             </tr>
                         </tbody>
                         @empty
-                        <p>Нет созданных анкет</p>
+                        <p>Нет созданных тарифов</p>
                         @endforelse
                     </table>
                 </div>

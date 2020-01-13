@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Rate;
+use Transliterate;
 use Illuminate\Http\Request;
 
 class RateController extends Controller
@@ -35,7 +36,16 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        Rate::create($this->validateRate());
+        $rate_data = $this->validateRate();
+
+        $_IMAGE = $request->file('image');
+        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        $uploadPath = public_path() . '/images/rates/created';
+        $_IMAGE->move($uploadPath,$filename);
+
+        $rate_data['image'] = $filename;
+
+        Rate::create($rate_data);
         return redirect(route('admin.rates.index'));
     }
 
@@ -70,7 +80,19 @@ class RateController extends Controller
      */
     public function update(Request $request, Rate $rate)
     {
-        Rate::update($this->validateRate());
+        $rate_data = $this->validateRate();
+//        Rate::update($this->validateRate());
+
+        $_IMAGE = $request->file('image');
+        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        $uploadPath = public_path() . '/images/rates/created';
+        File::delete(public_path() . '/images/rates/created' . $rate->image );
+        $_IMAGE->move($uploadPath,$filename);
+
+        $rate_data['image'] = $filename;
+
+        $rate->update($rate_data);
+
         return redirect(route('admin.rates.index'));
     }
 
@@ -92,5 +114,9 @@ class RateController extends Controller
             'image' => 'required',
             'cost' => 'integer|required'
         ]);
+    }
+
+    private function regexpImages($imageName) {
+        return Transliterate::make(preg_replace("/[^А-Яа-яA-Za-z\d\.]/", '', $imageName));
     }
 }

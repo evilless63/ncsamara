@@ -19,7 +19,7 @@ class CreateBonusesTable extends Migration
 
             $table->unsignedInteger('min_sum');
             $table->unsignedInteger('max_sum')->nullable();
-            $table->unsignedInteger('koef')->default(0);
+            $table->float('koef')->default(0);
         });
     }
 

@@ -40,8 +40,13 @@ class BonusController extends Controller
      */
     public function store(Request $request)
     {
-        Bonus::create($this->bonusValidate());
-        return view('admin.bonuses.index');
+        request()->validate([
+            'min_sum' => 'integer|required',
+            'koef' => 'numeric|required',
+        ]);
+
+        Bonus::create(request()->all());
+        return view('admin.bonuses.index', ['bonuses' => Bonus::all()]);
     }
 
     /**
@@ -75,8 +80,12 @@ class BonusController extends Controller
      */
     public function update(Request $request, Bonus $bonus)
     {
-        $bonus->update($this->promotionalValidate());
-        return view('admin.bonuses.index');
+        request()->validate([
+            'min_sum' => 'integer|required',
+            'koef' => 'numeric|required',
+        ]);
+        $bonus->update(request()->all());
+        return view('admin.bonuses.index', ['bonuses' => Bonus::all()]);
     }
 
     /**
@@ -88,13 +97,7 @@ class BonusController extends Controller
     public function destroy(Bonus $bonus)
     {
         $bonus->delete();
-        return view('admin.bonuses.index');
+        return view('admin.bonuses.index', ['bonuses' => Bonus::all()]);
     }
 
-    private function bonusValidate() {
-        return request()->validate([
-            'min_sum' => 'integer|required',
-            'koef' => 'integer|required',
-        ]);
-    }
 }

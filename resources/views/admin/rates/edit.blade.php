@@ -20,7 +20,7 @@
 
                             <div class="form-group">
                                 <label for="salonCost">Стоимость:</label>
-                                <input name="name" type="text" id="salonCost"
+                                <input name="cost" type="text" id="salonCost"
                                        class="form-control @error('cost') is-invalid @enderror"
                                        placeholder="Укажите стоимоть тарифа" value="{{ $rate->cost }}">
                             </div>
@@ -45,7 +45,7 @@
                             <hr class="mt-2 mb-5">
                             <div class="col-lg-3 col-md-4 col-6">
                                 <a href="#" class="d-block mb-4 h-100">
-                                    <img class="img-fluid img-thumbnail delpath" delpath="{{'/images/profiles/images/created/' . $rate->image }}" src="{{ '/images/profiles/images/created/' . $rate->image }}" alt="">
+                                    <img class="img-fluid img-thumbnail delpath" delpath="{{ asset('/images/rates/created/' . $rate->image )}}" src="{{ asset('/images/rates/created/' . $rate->image) }}" alt="">
                                 </a>
                             </div>
 

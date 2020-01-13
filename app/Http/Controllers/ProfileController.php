@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Profile;
 use App\Promotional;
+use App\Rate;
 use App\User;
 use App\Service;
 use App\Appearance;
@@ -28,6 +29,7 @@ class ProfileController extends Controller
         $this->services = Service::with('childrenRecursive')->whereNull('parent_id')->get();
         $this->appearances = Appearance::all();
         $this->hairs = Hair::all();
+        $this->rates = Rate::all();
     }
 
     /**
@@ -175,7 +177,7 @@ class ProfileController extends Controller
         } else {
             return redirect(route('user.profiles.index'));
         }
-        
+
     }
 
     public function publish(Request $request, $id) {
@@ -188,7 +190,7 @@ class ProfileController extends Controller
     public function unpublish(Request $request, $id) {
         $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         $profile['is_published'] = 0;
-        $profile->update(); 
+        $profile->update();
         return redirect(route('user.profiles.index'));
     }
 
@@ -202,7 +204,7 @@ class ProfileController extends Controller
     public function unverify(Request $request, $id) {
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['verified'] = 0;
-        $profile->update(); 
+        $profile->update();
         return redirect(route('admin.adminprofiles'));
     }
 
@@ -219,7 +221,7 @@ class ProfileController extends Controller
 
     protected function validateProfile($isNew = false)
     {
-        
+
 
         if ($isNew) {
             $this->newValidate();
@@ -230,7 +232,7 @@ class ProfileController extends Controller
         $profileArr = request()->all();
 
         if (Auth::user()->is_admin && !$isNew) {
-        } else { 
+        } else {
             $profileArr['user_id'] = Auth::user()->id;
         }
 
@@ -325,7 +327,10 @@ class ProfileController extends Controller
     }
 
     public function payments() {
-        return view('user.payments.index');
+        return view('user.payments.index', [
+            'profiles' => Auth::user()->profiles,
+            'hairs' => $this->hairs,
+        ]);
     }
 
     public function makepayment() {

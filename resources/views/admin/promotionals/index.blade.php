@@ -11,7 +11,7 @@
                     <a href="{{ route('admin.promotionals.create')  }}" type="button" class="btn btn-primary">Создать
                         новый промокод</a>
 
-                    <table class="table table-sm">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -29,7 +29,7 @@
                                 <td>{{ $promotional->replenish_summ }}</td>
                                 <td><a
                                         href="
-                                        @if (!$promotional->is_active) 
+                                        @if (!$promotional->is_active)
                                         {{ route('admin.promotionals.edit', $promotional->id) }}
                                         @endif
                                         ">{{ $promotional->code }}</a>

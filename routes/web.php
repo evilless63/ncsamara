@@ -11,17 +11,21 @@
 |
 */
 
+//Пока что отключим проверку верификации, так как у нас не настроен драйвер и для теста это не так актуально
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
+//Auth::routes(['verify' => true]);
 
 Route::get('/admin', 'HomeController@index')->name('admin')->middleware(['verified','is_admin']);
 
 Route::get('/user', 'HomeController@user')->name('user')->middleware('verified');
 
-Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
+//Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
+Route::prefix('user')->name('user.')->group(function () {
     Route::resource('profiles', 'ProfileController');
     Route::resource('salons', 'SalonController');
 
@@ -33,7 +37,8 @@ Route::prefix('user')->name('user.')->middleware('verified')->group(function () 
     Route::patch('unpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
 });
 
-Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
+//Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
+Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function () {
     Route::get('profiles', 'ProfileController@adminindex')->name('adminprofiles');
     Route::resource('services', 'ServiceController');
     Route::resource('rates', 'RateController');

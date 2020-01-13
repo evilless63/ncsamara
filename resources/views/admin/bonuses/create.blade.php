@@ -27,7 +27,7 @@
 
                             <div class="form-group">
                                 <label for="bonusKoef">Коэффициэнт бонуса:</label>
-                                <input name="koef" type="number" id="bonusKoef"
+                                <input name="koef" type="number" step="0.1" id="bonusKoef"
                                        class="form-control @error('koef') is-invalid @enderror"
                                        placeholder="" value="{{ old('koef') }}">
                             </div>
