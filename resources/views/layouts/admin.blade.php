@@ -58,7 +58,19 @@
                     @elseif(Auth::user()->is_admin)
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.adminprofiles') }}">Пользователи (+анкеты)</a>
+                            <a class="nav-link" href="{{ route('user.profiles.index') }}">Мои анкеты</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.salons.index') }}">Мой салон</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.payments') }}">Мой баланс и оплата</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.adminprofiles') }}">Пользователи</a>
                         </li>
 
                         <li class="nav-item">
@@ -70,7 +82,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.bonuses.index') }}">Бонусы при оплатах</a>
+                            <a class="nav-link" href="{{ route('admin.bonuses.index') }}">Бонусы</a>
                         </li>
 
                         <li class="nav-item"><a class="nav-link" href="{{ route('tickets.index') }}">
