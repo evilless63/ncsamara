@@ -20,7 +20,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex">
-                    <span>Редактирование анкеты @if($profile->verified) (Подтверждена) @endif</span>
+                    <span>Редактирование анкеты 
+                        @if($profile->verified) 
+                        (Подтверждена) 
+                        @else 
+                        (Не подтверждена) 
+                        @endif</span>
                     @if($profile->is_published == 0)
                     <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
                         @csrf
@@ -56,215 +61,267 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('patch')
-                        <div class="form-group">
-                            <label for="profileName">Имя:</label>
-                            <input name="name" type="text" id="profileName"
-                                class="form-control @error('name') is-invalid @enderror"
-                                placeholder="Укажите имя в анкете" value="{{ $profile->name }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="profilePhone">Телефон (Только ЦИФРЫ - 11 цифр номера телефона, номер должен
-                                начинаться с 8) :</label>
-                            <input name="phone" type="text" id="profilePhone"
-                                class="form-control @error('phone') is-invalid @enderror"
-                                placeholder="Укажите телефон в анкете" value="{{ $profile->phone }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="profileAddress">Адрес:</label>
-                            <input name="address" type="text" id="profileAddress"
-                                class="form-control @error('address') is-invalid @enderror"
-                                placeholder="Укажите адрес анкеты" value="{{ $profile->address }}">
-                            {{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }}
-                            ">--}}
-                            {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
-                            <input type="hidden" name="address_x" value="1">
-                            <input type="hidden" name="address_y" value="1">
-                            <input type="hidden" name="user_id" value="{{ $profile->user_id }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="profileAbout">О себе (минимум 50 символов):</label>
-                            <textarea name="about" class="form-control @error('about') is-invalid @enderror"
-                                id="profileAbout" rows="3">
-                                    {!! $profile->name !!}
-                                </textarea>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="profileWorkingHours">Время работы:</label>
-                            <input name="working_hours" type="text" id="profileWorkingHours"
-                                class="form-control @error('working_hours') is-invalid @enderror"
-                                placeholder="Укажите время работы" value="{{$profile->name}}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="profileBoobs">Размер груди (1-10):</label>
-                            <input name="boobs" type="number" id="profileBoobs"
-                                class="form-control @error('boobs') is-invalid @enderror" placeholder=""
-                                value="{{$profile->boobs }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="profileAge">Возраст (18-65):</label>
-                            <input name="age" type="number" id="profileAge"
-                                class="form-control @error('age') is-invalid @enderror" placeholder=""
-                                value="{{ $profile->age }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="profileWeight">Вес (40-100):</label>
-                            <input name="weight" type="number" id="profileWeight"
-                                class="form-control @error('weight') is-invalid @enderror" placeholder=""
-                                value="{{ $profile->weight }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="profileHeight">Рост (150-195):</label>
-                            <input name="height" type="number" id="profileHeight"
-                                class="form-control @error('height') is-invalid @enderror" placeholder=""
-                                value="{{ $profile->height }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="profileOneHour">Цена за 1 час (1000-50000):</label>
-                            <input name="one_hour" type="number" id="profileOneHour"
-                                class="form-control @error('one_hour') is-invalid @enderror" placeholder=""
-                                value="{{ $profile->one_hour }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="profileTwoHour">Цена за 2 часа (1000-100000):</label>
-                            <input name="two_hour" type="number" id="profileTwoHour"
-                                class="form-control @error('two_hour') is-invalid @enderror" placeholder=""
-                                value="{{ $profile->two_hour }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="profileAllNight">Цена за всю ночь (1000-1000000):</label>
-                            <input name="all_night" type="number" id="profileAllNight"
-                                class="form-control @error('all_night') is-invalid @enderror" placeholder=""
-                                value="{{ $profile->all_night }}">
-                        </div>
-
-                        <div class="form-check">
-                            <input type="hidden" name="check_out" value="0">
-                            <input class="form-check-input" type="checkbox" id="profileCheckOut" name="check_out"
-                                value="1" {{$profile->check_out ? 'checked' : ''}}>
-                            <label class="form-check-label" for="profileCheckOut">
-                                Есть выезд
-                            </label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="hidden" name="apartments" value="0">
-                            <input class="form-check-input" type="checkbox" id="profileApartaments" name="apartments"
-                                value="1" {{$profile->apartments ? 'checked' : ''}}>
-                            <label class="form-check-label" for="profileApartaments">
-                                Есть апартаменты
-                            </label>
-                        </div>
-
-                        @foreach($services as $service)
-
-                        <h6>{{$service->name}}</h6>
-
-                        @foreach($service->childrenRecursive as $service)
-                        <div class="form-check ml-2">
-                            <input class="form-check-input" type="checkbox" id="profileService" name="services[]"
-                                value="{{$service->id}}"
-                                {{$profile->services->find($service->id) <> null ? 'checked' : ''}}>
-                            <label class="form-check-label" for="profileApartaments">
-                                {{$service->name}}
-                            </label>
-                        </div>
-                        @endforeach
-                        @endforeach
-
-                        <div class="form-group">
-                            <label for="profileAppearance">Внешность</label>
-                            <select class="form-control" name="appearance" id="profileAppearance">
-                                @foreach($appearances as $appearance)
-                                <option
-                                    value="{{$appearance->id}} {{$profile->appearances->find($appearance->id) <> null ? 'selected' : ''}}">
-                                    {{ $appearance->name }}</option>
+                        @if(count($errors))
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
                                 @endforeach
-                            </select>
+                            </ul>
                         </div>
+                        @endif
+                        
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#panel1">Основные
+                                    данные</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel2">Услуги</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel3">Изображения</a>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel4">Настройки
+                                    тарифа</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel5">Подтверждение
+                                    анкеты</a>
+                        </ul>
 
-                        <div class="form-group">
-                            <label for="profileAppearance">Цвет волос</label>
-                            <select class="form-control" name="hair" id="profileHair">
-                                @foreach($hairs as $hair)
-                                <option
-                                    value="{{$hair->id}} {{$profile->hairs->find($hair->id) <> null ? 'selected' : ''}}">
-                                    {{ $hair->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <div class="tab-content">
+                            <div id="panel1" class="tab-pane fadein active">
+                                <div class="form-group">
+                                    <label for="profileName">Имя:</label>
+                                    <input name="name" type="text" id="profileName"
+                                        class="form-control @error('name') is-invalid @enderror"
+                                        placeholder="Укажите имя в анкете" value="{{ $profile->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profilePhone">Телефон (Только ЦИФРЫ - 11 цифр номера телефона, номер
+                                        должен
+                                        начинаться с 8) :</label>
+                                    <input name="phone" type="text" id="profilePhone"
+                                        class="form-control @error('phone') is-invalid @enderror"
+                                        placeholder="Укажите телефон в анкете" value="{{ $profile->phone }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileAddress">Адрес:</label>
+                                    <input name="address" type="text" id="profileAddress"
+                                        class="form-control @error('address') is-invalid @enderror"
+                                        placeholder="Укажите адрес анкеты" value="{{ $profile->address }}">
+                                    {{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }}
+                                    ">--}}
+                                    {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
+                                    <input type="hidden" name="address_x" value="1">
+                                    <input type="hidden" name="address_y" value="1">
+                                    <input type="hidden" name="user_id" value="{{ $profile->user_id }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileAbout">О себе (минимум 50 символов):</label>
+                                    <textarea name="about" class="form-control @error('about') is-invalid @enderror"
+                                        id="profileAbout" rows="3">
+                                                    {!! $profile->name !!}
+                                                </textarea>
+                                </div>
 
-                        <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Thumbnail Gallery</h5>
+                                <div class="form-group">
+                                    <label for="profileWorkingHours">Время работы:</label>
+                                    <input name="working_hours" type="text" id="profileWorkingHours"
+                                        class="form-control @error('working_hours') is-invalid @enderror"
+                                        placeholder="Укажите время работы" value="{{$profile->name}}">
+                                </div>
 
-                        <hr class="mt-2 mb-5">
+                                <div class="form-group">
+                                    <label for="profileBoobs">Размер груди (1-10):</label>
+                                    <input name="boobs" type="number" id="profileBoobs"
+                                        class="form-control @error('boobs') is-invalid @enderror" placeholder=""
+                                        value="{{$profile->boobs }}">
+                                </div>
 
-                        <div class="row text-center text-lg-left">
-                            @foreach($profile->images as $image)
-                            <div class="col-lg-3 col-md-4 col-6">
-                                <a href="#" class="d-block mb-4 h-100">
-                                    <img class="img-fluid img-thumbnail delpath"
-                                        delpath="{{'/images/profiles/images/created/' . $image->name }}"
-                                        src="{{ '/images/profiles/images/created/' . $image->name }}" alt="">
-                                </a>
+                                <div class="form-group">
+                                    <label for="profileAge">Возраст (18-65):</label>
+                                    <input name="age" type="number" id="profileAge"
+                                        class="form-control @error('age') is-invalid @enderror" placeholder=""
+                                        value="{{ $profile->age }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileWeight">Вес (40-100):</label>
+                                    <input name="weight" type="number" id="profileWeight"
+                                        class="form-control @error('weight') is-invalid @enderror" placeholder=""
+                                        value="{{ $profile->weight }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileHeight">Рост (150-195):</label>
+                                    <input name="height" type="number" id="profileHeight"
+                                        class="form-control @error('height') is-invalid @enderror" placeholder=""
+                                        value="{{ $profile->height }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileOneHour">Цена за 1 час (1000-50000):</label>
+                                    <input name="one_hour" type="number" id="profileOneHour"
+                                        class="form-control @error('one_hour') is-invalid @enderror" placeholder=""
+                                        value="{{ $profile->one_hour }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileTwoHour">Цена за 2 часа (1000-100000):</label>
+                                    <input name="two_hour" type="number" id="profileTwoHour"
+                                        class="form-control @error('two_hour') is-invalid @enderror" placeholder=""
+                                        value="{{ $profile->two_hour }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileAllNight">Цена за всю ночь (1000-1000000):</label>
+                                    <input name="all_night" type="number" id="profileAllNight"
+                                        class="form-control @error('all_night') is-invalid @enderror" placeholder=""
+                                        value="{{ $profile->all_night }}">
+                                </div>
+
+                                <div class="form-check">
+                                    <input type="hidden" name="check_out" value="0">
+                                    <input class="form-check-input" type="checkbox" id="profileCheckOut"
+                                        name="check_out" value="1" {{$profile->check_out ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="profileCheckOut">
+                                        Есть выезд
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input type="hidden" name="apartments" value="0">
+                                    <input class="form-check-input" type="checkbox" id="profileApartaments"
+                                        name="apartments" value="1" {{$profile->apartments ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="profileApartaments">
+                                        Есть апартаменты
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profileAppearance">Внешность</label>
+                                    <select class="form-control" name="appearance" id="profileAppearance">
+                                        @foreach($appearances as $appearance)
+                                        <option
+                                            value="{{$appearance->id}} {{$profile->appearances->find($appearance->id) <> null ? 'selected' : ''}}">
+                                            {{ $appearance->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileAppearance">Цвет волос</label>
+                                    <select class="form-control" name="hair" id="profileHair">
+                                        @foreach($hairs as $hair)
+                                        <option
+                                            value="{{$hair->id}} {{$profile->hairs->find($hair->id) <> null ? 'selected' : ''}}">
+                                            {{ $hair->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            @endforeach
-                        </div>
+                            <div id="panel2" class="tab-pane fade">
+                                @foreach($services as $service)
 
-                        <div class="form-group">
-                            <label for="">Images <span class="required">*</span></label>
-                            <br>
-                            <input type="hidden" autocomplete="OFF" name="item_images" id="item_images" placeholder=""
-                                class="form-control input-sm" required />
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                data-target="#myModal"> <i class="fa fa-image"></i> Upload Images</button>
-                        </div>
+                                <h6>{{$service->name}}</h6>
 
-                        <h2>Тарифный план:
-                            @if($profile->rates->count() == 0)
-                                Не назначен
-                            @else
-                                {{$profile->rates->first()->name}}
-                            @endif
-                        </h2>
-                        <div class="form-group">
-                            <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей попытки активации анкеты</p>
-                            <p>Переключение тарифного плана произойдет только в случае достаточного количества Пойнтов на балансе анкеты</p>
-                            <input type="hidden" name="rate" value="
-                                @if($profile->rates->count() > 0)
-                                    {{$profile->rates->first()}}
-                                @endif">
-                            <select class="form-control" name="rate" id="profileRate">
-                                <option></option>
-                                @foreach($rates as $rate)
-                                    <option
-                                        value="{{$rate->id}} {{$profile->rates->find($rate->id) <> null ? 'selected' : ''}}">
-                                        {{ $rate->name }}</option>
+                                @foreach($service->childrenRecursive as $service)
+                                <div class="form-check ml-2">
+                                    <input class="form-check-input" type="checkbox" id="profileService"
+                                        name="services[]" value="{{$service->id}}"
+                                        {{$profile->services->find($service->id) <> null ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="profileApartaments">
+                                        {{$service->name}}
+                                    </label>
+                                </div>
                                 @endforeach
-                            </select>
+                                @endforeach
+                            </div>
+                            <div id="panel3" class="tab-pane fade">
+                                <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Галлерея загруженных
+                                    изображений</h5>
+
+                                <hr class="mt-2 mb-5">
+
+                                <div class="row text-center text-lg-left">
+                                    @foreach($profile->images as $image)
+                                    <div class="col-lg-3 col-md-4 col-6">
+                                        <a href="#" class="d-block mb-4 h-100">
+                                            <img class="img-fluid img-thumbnail delpath"
+                                                delpath="{{'/images/profiles/images/created/' . $image->name }}"
+                                                src="{{ '/images/profiles/images/created/' . $image->name }}" alt="">
+                                        </a>
+                                    </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Images <span class="required">*</span></label>
+                                    <br>
+                                    <input type="hidden" autocomplete="OFF" name="item_images" id="item_images"
+                                        placeholder="" class="form-control input-sm" required />
+                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                        data-target="#myModal"> <i class="fa fa-image"></i> Upload Images</button>
+                                </div>
+                            </div>
+                            <div id="panel4" class="tab-pane fade">
+                                <h2>Тарифный план:
+                                    @if($profile->rates->count() == 0)
+                                    Не назначен
+                                    @else
+                                    {{$profile->rates->first()->name}}
+                                    @endif
+                                </h2>
+                                <div class="form-group">
+                                    <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
+                                        попытки
+                                        активации анкеты</p>
+                                    <p>Переключение тарифного плана произойдет только в случае достаточного количества
+                                        Пойнтов
+                                        на балансе анкеты</p>
+                                    <input type="hidden" name="rate" value="
+                                                @if($profile->rates->count() > 0)
+                                                    {{$profile->rates->first()}}
+                                                @endif">
+                                    <select class="form-control" name="rate" id="profileRate">
+                                        <option></option>
+                                        @foreach($rates as $rate)
+                                        <option
+                                            value="{{$rate->id}} {{$profile->rates->find($rate->id) <> null ? 'selected' : ''}}">
+                                            {{ $rate->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="panel5" class="tab-pane fade">
+                                <div class="form-group">
+                                    <label for="verificate_image">Изображение для подтверждения</label>
+                                    <br>
+                                    <input type="file" autocomplete="OFF" name="verificate_image" id="verificate_image"
+                                        placeholder="" class="form-control input-sm" />
+                                </div>
+
+                                <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение для
+                                    подтверждения/ назначить новое</h5>
+
+                                <hr class="mt-2 mb-5">
+                                <div class="col-lg-3 col-md-4 col-6">
+                                    <a href="#" class="d-block mb-4 h-100">
+                                        <img class="img-fluid delpath"
+                                            delpath="{{ asset('/images/profiles/verificate/' . $profile->verificate_image )}}"
+                                            src="{{ asset('/images/profiles/verificate/' . $profile->verificate_image) }}"
+                                            alt="">
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="verificate_image">Изображение для подтверждения</label>
-                            <br>
-                            <input type="file" autocomplete="OFF" name="verificate_image" id="verificate_image" placeholder=""
-                                   class="form-control input-sm" />
-                        </div>
 
-                        <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение для подтверждения/ назначить новое</h5>
 
-                        <hr class="mt-2 mb-5">
-                        <div class="col-lg-3 col-md-4 col-6">
-                            <a href="#" class="d-block mb-4 h-100">
-                                <img class="img-fluid delpath" delpath="{{ asset('/images/profiles/verificate/' . $profile->verificate_image )}}" src="{{ asset('/images/profiles/verificate/' . $profile->verificate_image) }}" alt="">
-                            </a>
-                        </div>
+
+
+
+
+
+
+
+
+
 
 
                         <button type="submit" class="btn btn-primary">Обновить анкету</button>

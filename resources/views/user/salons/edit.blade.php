@@ -66,8 +66,9 @@
                             <div class="form-group">
                                 <label for="image">Новое изображение (формат 3 на 2 максимум 1000 на 500 пикселей)</label>
                                 <br>
+                                <input type="hidden" name="image" value="{{ $salon->image }}">
                                 <input type="file" autocomplete="OFF" name="image" id="image" placeholder=""
-                                       class="form-control input-sm" required />
+                                       class="form-control input-sm" />
                             </div>
 
 

@@ -18,7 +18,7 @@ class CreateRatesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->text('description');
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->unsignedInteger('cost');
         });
     }

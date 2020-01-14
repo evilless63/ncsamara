@@ -50,7 +50,7 @@ class SalonController extends Controller
      */
     public function store(Request $request)
     {
-        $salon_data = $this->validateSalon();
+        $salon_data = $this->validateSalon(true);
         $salon_data['user_id'] = Auth::user()->id;
 
         $_IMAGE = $request->file('image');
@@ -95,18 +95,23 @@ class SalonController extends Controller
      */
     public function update(Request $request, Salon $salon)
     {
-        $salon_data = $this->validateSalon();
+        $salon_data = $this->validateSalon(false);
         $salon_data['user_id'] = Auth::user()->id;
 
         $_IMAGE = $request->file('image');
-        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
-        $uploadPath = public_path() . '/images/salons/created';
-        File::delete(public_path() . '/images/salons/created' . $salon->image );
-        $_IMAGE->move($uploadPath,$filename);
 
-        $salon_data['image'] = $filename;
+        if($_IMAGE <> null) {
+            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+            $uploadPath = public_path() . '/images/salons/created';
+            File::delete(public_path() . '/images/salons/created' . $salon->image );
+            $_IMAGE->move($uploadPath,$filename);
+
+            $salon_data['image'] = $filename;
+
+        }
 
         $salon->update($salon_data);
+        
         return redirect(route('user'))->withSuccess('Успешно обновлено');
     }
 
@@ -123,16 +128,27 @@ class SalonController extends Controller
 
     }
 
-    private function validateSalon() {
-        return request()->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'image' => [
-                    'required',
-                    Rule::dimensions()->maxWidth(1500)->maxHeight(1000)->ratio(3/2),
-                ],
-            'phone' => 'required|unique:App\Salon,phone|regex:/^((\d)+([0-9]){10})$/i',
-        ]);
+    private function validateSalon($isNew) {
+
+        if($isNew) {
+            return request()->validate([
+                'name' => 'required',
+                'address' => 'required',
+                'image' => [
+                        'required',
+                        Rule::dimensions()->maxWidth(1500)->maxHeight(1000)->ratio(3/2),
+                    ],
+                'phone' => 'required|unique:App\Salon,phone|regex:/^((\d)+([0-9]){10})$/i',
+            ]);
+        } else {
+            return request()->validate([
+                'name' => 'required',
+                'address' => 'required',
+                'image' => 'required',
+                'phone' => 'required|regex:/^((\d)+([0-9]){10})$/i',
+            ]); 
+        }
+        
     }
 
     private function regexpImages($imageName) {
