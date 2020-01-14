@@ -89,8 +89,7 @@
                                     Вход</a>
 
                                 @if (Route::has('register'))
-                                    <a class="btn btn-outline-light my-2 my-sm-0 nc-reg-button"
-                                       href="{{ route('register') }}">Регистрация</a>
+                                    <button class="btn btn-outline-light my-2 my-sm-0 nc-reg-button"><a href="{{ route('register') }}">Регистрация</a></button>
                                 @endif
                             @endauth
                         </div>
