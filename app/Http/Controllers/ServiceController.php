@@ -11,7 +11,6 @@ class ServiceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-
     }
 
     /**
@@ -47,7 +46,7 @@ class ServiceController extends Controller
 
 
         Service::create($this->validateService($request));
-        return redirect(route('admin.services.index'));
+        return redirect(route('admin.services.index'))->withSuccess('Успешно создано');;
     }
 
     /**
@@ -85,7 +84,7 @@ class ServiceController extends Controller
             $request->parent_id = 0;
 
         $service::update($this->validateService($request));
-        return redirect(route('admin.services.index'));
+        return redirect(route('admin.services.index'))->withSuccess('Успешно обновлено');;
     }
 
     /**

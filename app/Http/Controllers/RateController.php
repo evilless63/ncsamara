@@ -46,7 +46,7 @@ class RateController extends Controller
         $rate_data['image'] = $filename;
 
         Rate::create($rate_data);
-        return redirect(route('admin.rates.index'));
+        return redirect(route('admin.rates.index'))->withSuccess('Успешно создано');;
     }
 
     /**
@@ -93,7 +93,7 @@ class RateController extends Controller
 
         $rate->update($rate_data);
 
-        return redirect(route('admin.rates.index'));
+        return redirect(route('admin.rates.index'))->withSuccess('Успешно обновлено');;
     }
 
     /**

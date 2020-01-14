@@ -28,6 +28,19 @@
 
 <body>
     <div id="app">
+
+        @if(Session::has('fail'))
+        <div class="alert alert-danger">
+            {{Session::get('fail')}}
+        </div>
+        @endif
+
+        @if(Session::has('success'))
+        <div class="alert alert-success">
+            {{Session::get('success')}}
+        </div>
+        @endif
+
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -133,6 +146,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+
     @yield('google_api_autocomplete')
     @yield('script')
 

@@ -61,7 +61,7 @@ class SalonController extends Controller
         $salon_data['image'] = $filename;
 
         Salon::create($salon_data);
-        return view('user.user');
+        return redirect(route('user'))->withSuccess('Успешно создано');
     }
 
     /**
@@ -107,7 +107,7 @@ class SalonController extends Controller
         $salon_data['image'] = $filename;
 
         $salon->update($salon_data);
-        return view('user.user');
+        return redirect(route('user'))->withSuccess('Успешно обновлено');
     }
 
     /**
@@ -119,7 +119,7 @@ class SalonController extends Controller
     public function destroy(Salon $salon)
     {
         $salon->delete();
-        return view('user.user');
+        return redirect(route('user'))->withSuccess('Успешно удалено');
 
     }
 

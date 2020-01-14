@@ -46,7 +46,8 @@ class BonusController extends Controller
         ]);
 
         Bonus::create(request()->all());
-        return view('admin.bonuses.index', ['bonuses' => Bonus::all()]);
+
+        return redirect(route('admin.bonuses.index'))->withSuccess('Успешно создано');
     }
 
     /**
@@ -85,7 +86,7 @@ class BonusController extends Controller
             'koef' => 'numeric|required',
         ]);
         $bonus->update(request()->all());
-        return view('admin.bonuses.index', ['bonuses' => Bonus::all()]);
+        return redirect(route('admin.bonuses.index'))->withSuccess('Успешно обновлено');
     }
 
     /**
@@ -97,7 +98,7 @@ class BonusController extends Controller
     public function destroy(Bonus $bonus)
     {
         $bonus->delete();
-        return view('admin.bonuses.index', ['bonuses' => Bonus::all()]);
+        return redirect(route('admin.bonuses.index'))->withSuccess('Успешно удалено');
     }
 
 }

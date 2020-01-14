@@ -108,8 +108,7 @@ class ProfileController extends Controller
 
         $profile->rates()->attach(Rate::first());
 
-
-        return redirect(route('user.profiles.index'));
+        return redirect(route('user.profiles.index'))->withSuccess('Успешно создано');
 
     }
 
@@ -200,9 +199,9 @@ class ProfileController extends Controller
 
 
         if(Auth::user()->is_admin) {
-            return redirect(route('admin.adminprofiles'));
+            return redirect(route('admin.adminprofiles'))->withSuccess('Успешно обновлено');
         } else {
-            return redirect(route('user.profiles.index'));
+            return redirect(route('user.profiles.index'))->withSuccess('Успешно обновлено');
         }
 
     }
@@ -219,9 +218,9 @@ class ProfileController extends Controller
         $profile->update();
 
         if(auth()->user()->is_admin) {
-            return redirect(route('admin.adminprofiles'));
+            return redirect(route('admin.adminprofiles'))->withSuccess('Успешно опубликована');
         } else {
-            return redirect(route('user.profiles.index'));
+            return redirect(route('user.profiles.index'))->withSuccess('Успешно опубликована');
         }
     }
 
@@ -237,9 +236,9 @@ class ProfileController extends Controller
         $profile->update();
 
         if(auth()->user()->is_admin) {
-            return redirect(route('admin.adminprofiles'));
+            return redirect(route('admin.adminprofiles'))->withSuccess('Успешно снята с публикации');
         } else {
-            return redirect(route('user.profiles.index'));
+            return redirect(route('user.profiles.index'))->withSuccess('Успешно снята с публикации');
         }
 
 
@@ -249,28 +248,28 @@ class ProfileController extends Controller
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['verified'] = 1;
         $profile->update();
-        return redirect(route('admin.adminprofiles'));
+        return redirect(route('admin.adminprofiles'))->withSuccess('Успешно подтверждена');
     }
 
     public function unverify(Request $request, $id) {
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['verified'] = 0;
         $profile->update();
-        return redirect(route('admin.adminprofiles'));
+        return redirect(route('admin.adminprofiles'))->withSuccess('Успешно снята с подтверждения');
     }
 
     public function userbanoff(Request $request, $id) {
         $user = User::where('id', $id)->firstOrFail();
         $user['is_banned'] = 0;
         $user->update();
-        return redirect(route('admin.adminprofiles'));
+        return redirect(route('admin.adminprofiles'))->withSuccess('Успешно забанен');
     }
 
     public function userbanon(Request $request, $id) {
         $user = User::where('id', $id)->firstOrFail();
         $user['is_banned'] = 1;
         $user->update();
-        return redirect(route('admin.adminprofiles'));
+        return redirect(route('admin.adminprofiles'))->withSuccess('Успешно разбанен');
     }
 
     //Для крона
@@ -316,7 +315,7 @@ class ProfileController extends Controller
         if(($user->user_balance - $rate->cost) < 0) {
             $profile['is_archived'] = true;
             $profile->update();
-            return redirect(route('user.payments'));
+            return redirect(route('user.payments'))->withFail('Не достаточно денег на балансе');
         }
 
         $user['user_balance'] = $user->user_balance - $rate->cost;
@@ -338,7 +337,7 @@ class ProfileController extends Controller
 
         $profile->update();
 
-        return redirect(route('user.payments'));
+        return redirect(route('user.payments'))->withSuccess('Успешно активирована');
 
     }
 
@@ -487,7 +486,7 @@ class ProfileController extends Controller
         $statistic['where_was'] = Carbon::now();
         $statistic->save();
 
-        return redirect(route('user.payments'));
+        return redirect(route('user.payments'))->withSuccess('Успешно пополнен баланс');
     }
 
     public function promotionalpayment() {
@@ -513,8 +512,11 @@ class ProfileController extends Controller
             $statistic['payment'] = $sum;
             $statistic['where_was'] = Carbon::now();
             $statistic->save();
+            return redirect(route('user.payments'))->withSuccess('Успешно пополнен баланс');
         }
-
-        return redirect(route('user.payments'));
+        else {
+            return redirect(route('user.payments'))->withFail('Промокод не найден');
+        }    
+  
     }
 }
