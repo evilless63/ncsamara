@@ -106,6 +106,17 @@ class ProfileController extends Controller
 
         }
 
+        if(request()->hasFile('main_image')) {
+            $_IMAGE = $request->file('main_image');
+            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+
+            $uploadPath = public_path() . '/images/profiles/main/created';
+            $_IMAGE->move($uploadPath,$filename);
+
+            $profile['main_image'] = $filename;
+            $profile->update();
+        }
+
         $profile->rates()->attach(Rate::first());
 
         return redirect(route('user.profiles.index'))->withSuccess('Успешно создано');
@@ -194,6 +205,18 @@ class ProfileController extends Controller
             $_IMAGE->move($uploadPath,$filename);
 
             $profile['verificate_image'] = $filename;
+            $profile->update();
+        }
+
+        $_IMAGE = $request->file('main_image');
+
+        if($_IMAGE <> null) {
+            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+            $uploadPath = public_path() . '/images/profiles/main/created';
+            File::delete(public_path() . '/images/profiles/main/created' . $profile->main_image );
+            $_IMAGE->move($uploadPath,$filename);
+
+            $profile['main_image'] = $filename;
             $profile->update();
         }
 
@@ -516,7 +539,7 @@ class ProfileController extends Controller
         }
         else {
             return redirect(route('user.payments'))->withFail('Промокод не найден');
-        }    
-  
+        }
+
     }
 }

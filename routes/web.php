@@ -11,13 +11,13 @@
 |
 */
 
-//Пока что отключим проверку верификации, так как у нас не настроен драйвер и для теста это не так актуально
-
 Route::get('/', 'SiteController@index')->name('index');
+Route::get('/profiles/{id}', 'SiteController@profile')->name('getprofile');
 Route::get('/on-map', 'SiteController@map')->name('onmap');
 Route::get('/salons', 'SiteController@salons')->name('salons');
 Route::get('/add-profile', 'SiteController@addprofile')->name('addprofile');
 
+//Пока что отключим проверку верификации, так как у нас не настроен драйвер и для теста это не так актуально
 Auth::routes();
 //Auth::routes(['verify' => true]);
 

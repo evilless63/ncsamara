@@ -190,8 +190,19 @@
                             </div>
 
                             <div id="panel3" class="tab-pane fade">
+
+                                <h3>Основное изображение</h3>
                                 <div class="form-group">
-                                    <label for="">Images <span class="required">*</span></label>
+                                    <label for="main_image">Основное изображение</label>
+                                    <br>
+                                    <input type="file" autocomplete="OFF" name="main_image" id="main_image"
+                                           placeholder="" class="form-control input-sm" />
+                                </div>
+
+
+                                <h3>Дополнительные изображения </h3>
+                                <div class="form-group">
+                                    <label for="">Добавить / просмотреть изображения <span class="required">*</span></label>
                                     <br>
                                     <input type="hidden" autocomplete="OFF" name="item_images" id="item_images"
                                         placeholder="" class="form-control input-sm" required />

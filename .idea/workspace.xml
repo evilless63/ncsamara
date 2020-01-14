@@ -2,10 +2,97 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/css/custom.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/MullerBlack.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/MullerBold.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/MullerMedium.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/MullerRegular.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/generator_config.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerblack-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerblack-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerblack-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerbold-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerbold-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerbold-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullermedium-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullermedium-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullermedium-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerregular-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerregular-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/mullerregular-webfont.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/specimen_files/grid_12-825-55-15.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/specimen_files/specimen_stylesheet.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/fonts/stylesheet.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/analog_profiles_left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/analog_profiles_right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/apartments.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/approved.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/background.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/buter.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/buter.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/car.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/carousel/carousel1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/carousel/carousel2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/filter/arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/filter/checkbox-checked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/filter/checkbox-unchecked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/filter/round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/filter/settings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/filter/slider-round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/footer-background-image.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/line.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/location.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profile/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profile/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/profile/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/salons/created/9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/show-more.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/custom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sitepath/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sitepath/map.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sitepath/profile.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/sitepath/salons.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade copy.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade copy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/session.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/ProfileFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/ProfileFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_04_072915_create_profiles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_04_072915_create_profiles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/ProfileSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/ProfileSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/salons/created/1578847850freechristmasimages1540358697443.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/salons/created/1578847873freechristmasimages1540358697443.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/salons/created/1578848099freechristmasimages1540358697443.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/salons/created/1578976856GumNebula21500x.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/salons/created/1578976970GumNebula21500x.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/salons/created/1578977083GumNebula21500x.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/salons/created/1578977261GumNebula21500x.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/salons/created/1578985509GumNebula21500x.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade copy.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/site.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/site.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/site" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +282,8 @@
       <workItem from="1578639253791" duration="2765000" />
       <workItem from="1578840352056" duration="1887000" />
       <workItem from="1578922903697" duration="4190000" />
-      <workItem from="1578934462150" duration="15771000" />
+      <workItem from="1578934462150" duration="16197000" />
+      <workItem from="1579010584218" duration="15922000" />
     </task>
     <servers />
   </component>
@@ -206,6 +294,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="543" y="216" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1579012910775">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="543" y="216" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1579012910775" />
     <state x="499" y="168" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578925457383">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -230,10 +322,10 @@
       <screen x="0" y="23" width="1920" height="977" />
     </state>
     <state x="699" y="319" key="NewPhpClassDialog/0.23.1920.977@0.23.1920.977" timestamp="1578847382159" />
-    <state x="781" y="438" key="NewPhpFileDialog" timestamp="1578851030690">
-      <screen x="0" y="23" width="1920" height="977" />
+    <state x="625" y="350" key="NewPhpFileDialog" timestamp="1579012927030">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="625" y="350" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1578581883435" />
+    <state x="625" y="350" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1579012927030" />
     <state x="781" y="438" key="NewPhpFileDialog/0.23.1920.977@0.23.1920.977" timestamp="1578851030690" />
     <state x="697" y="238" key="SettingsEditor" timestamp="1578655782227">
       <screen x="0" y="23" width="1920" height="977" />
@@ -243,23 +335,23 @@
       <screen x="0" y="23" width="1920" height="977" />
     </state>
     <state x="560" y="247" key="Vcs.Push.Dialog.v2/0.23.1920.977@0.23.1920.977" timestamp="1578129069464" />
-    <state x="499" y="271" key="com.intellij.ide.util.TipDialog" timestamp="1578934465985">
+    <state x="499" y="271" key="com.intellij.ide.util.TipDialog" timestamp="1579010585456">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="271" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1578934465985" />
+    <state x="499" y="271" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1579010585456" />
     <state x="624" y="344" key="com.intellij.ide.util.TipDialog/0.23.1920.977@0.23.1920.977" timestamp="1578639326414" />
-    <state x="493" y="84" width="611" height="656" key="find.popup" timestamp="1578924014620">
+    <state x="493" y="84" width="611" height="656" key="find.popup" timestamp="1579025059659">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="493" y="84" width="611" height="656" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1578924014620" />
+    <state x="493" y="84" width="611" height="656" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1579025059659" />
     <state x="616" y="123" width="687" height="777" key="find.popup/0.23.1920.977@0.23.1920.977" timestamp="1578852078393" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1578924983553">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1578924983553" />
-    <state x="425" y="66" width="670" height="676" key="search.everywhere.popup" timestamp="1578383878960">
+    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup" timestamp="1579012798134">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="66" width="670" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1578383878960" />
+    <state x="425" y="66" width="672" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1579012798134" />
   </component>
 </project>

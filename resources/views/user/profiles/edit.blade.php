@@ -20,11 +20,11 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex">
-                    <span>Редактирование анкеты 
-                        @if($profile->verified) 
-                        (Подтверждена) 
-                        @else 
-                        (Не подтверждена) 
+                    <span>Редактирование анкеты
+                        @if($profile->verified)
+                        (Подтверждена)
+                        @else
+                        (Не подтверждена)
                         @endif</span>
                     @if($profile->is_published == 0)
                     <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
@@ -71,7 +71,7 @@
                             </ul>
                         </div>
                         @endif
-                        
+
                         <ul class="nav nav-tabs">
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#panel1">Основные
                                     данные</a></li>
@@ -233,6 +233,27 @@
                                 @endforeach
                             </div>
                             <div id="panel3" class="tab-pane fade">
+
+                                <h3>Основное изображение</h3>
+
+                                <h5>Текущее основное изображение</h5>
+                                <div class="col-lg-3 col-md-4 col-6">
+                                    <a href="#" class="d-block mb-4 h-100">
+                                        <img class="img-fluid delpath"
+                                             delpath="{{ asset('/images/profiles/main/created/' . $profile->main_image )}}"
+                                             src="{{ asset('/images/profiles/main/created/' . $profile->main_image) }}"
+                                             alt="">
+                                    </a>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="main_image">Новое основное изображение</label>
+                                    <br>
+                                    <input type="hidden" name="main_image" value="{{ $profile->main_image }}">
+                                    <input type="file" autocomplete="OFF" name="main_image" id="main_image"
+                                           placeholder="" class="form-control input-sm" />
+                                </div>
+
                                 <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Галлерея загруженных
                                     изображений</h5>
 
@@ -292,6 +313,7 @@
                                 <div class="form-group">
                                     <label for="verificate_image">Изображение для подтверждения</label>
                                     <br>
+                                    <input type="hidden" name="verificate_image" value="{{ $profile->verificate_image }}">
                                     <input type="file" autocomplete="OFF" name="verificate_image" id="verificate_image"
                                         placeholder="" class="form-control input-sm" />
                                 </div>
