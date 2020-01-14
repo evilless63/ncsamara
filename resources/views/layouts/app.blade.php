@@ -56,43 +56,43 @@
                     <!-- Left Side Of Navbar -->
                     @guest
                     @elseif(Auth::user()->is_admin)
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto" style="font-size: 0.9em;">
 
                             <li class="nav-item">
                                     <a class="nav-link" href="{{ route('user.profiles.index') }}">Мои анкеты</a>
                                 </li>
-        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('user.salons.index') }}">Мой салон</a>
                                 </li>
-        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('user.payments') }}">Мой баланс и оплата</a>
                                 </li>
-        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.adminprofiles') }}">Пользователи</a>
                                 </li>
-        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.rates.index') }}">Тарифы</a>
                                 </li>
-        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.promotionals.index') }}">Промокоды</a>
                                 </li>
-        
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.bonuses.index') }}">Бонусы</a>
                                 </li>
-        
+
                                 <li class="nav-item"><a class="nav-link" href="{{ route('tickets.index') }}">
                                         Техническая поддержка</a>
                                 </li>
 
                     </ul>
                     @else
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto" style="font-size: 0.9em;">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.profiles.index') }}">Мои анкеты</a>
                         </li>

@@ -56,7 +56,7 @@
                     <!-- Left Side Of Navbar -->
                     @guest
                     @elseif(Auth::user()->is_admin)
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto" style="font-size: 0.9em;">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.profiles.index') }}">Мои анкеты</a>
                         </li>
@@ -91,7 +91,7 @@
 
                     </ul>
                     @else
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto" style="font-size: 0.9em;">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.profiles.index') }}">Мои анкеты</a>
                         </li>
