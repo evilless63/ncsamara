@@ -45,9 +45,6 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{route('index')}}">Главная <span class="sr-only">(current)</span></a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('index')}}">Индивидуалки</a>
                         </li>
@@ -74,13 +71,6 @@
                                     <a class="btn mr-sm-3" href="{{ route('user') }}">
                                         <img src="images/user.png" class="mr-2" alt="">
                                         {{Auth::user()->name}}</a>
-                                @endif
-
-                                @if(Auth::user()->is_banned)
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" >Выход</button>
-                                    </form>
                                 @endif
 
                             @else

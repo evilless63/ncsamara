@@ -54,7 +54,7 @@ class SiteController extends Controller
         $all_night_min = Profile::min('all_night');
         $all_night_max = Profile::max('all_night');
 
-        $profiles = Profile::where('is_published', 1)->where('is_archived', 0)->take(18)->get();
+        $profiles = Profile::take(18)->get();
 
         return view('sitepath.index')->with([
             'profiles' => $profiles,

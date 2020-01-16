@@ -180,6 +180,11 @@ body {
     font-size: .8rem;
 }
 
+.nc-card a:hover {
+    text-decoration: none;
+        color: #ff5d6e;
+}
+
 .slider-horizontal .in {
     opacity: 1 !important;
 }
@@ -449,4 +454,10 @@ body {
 
 .profileContainer .age {
     font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+  .nc-top-info {
+    padding-bottom: 0.7rem;
+    }
 }

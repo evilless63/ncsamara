@@ -13,11 +13,11 @@
                         <img src="images/carousel/carousel2.png" class="d-block w-100">
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#nc-carouselSalons" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#nc-carouselSalons" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
@@ -248,28 +248,28 @@
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check10"
+                                                <input type="checkbox" class="custom-control-input" id="checkVerified"
                                                        checked>
                                                 <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check10">Только
+                                                <label class="custom-control-label" for="checkVerified">Только
                                                     проверенные</label>
                                             </div>
                                         </li>
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check11">
+                                                <input type="checkbox" class="custom-control-input" id="checkApartments">
                                                 <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check11">Апартаменты</label>
+                                                <label class="custom-control-label" for="checkApartments">Апартаменты</label>
                                             </div>
                                         </li>
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check12"
+                                                <input type="checkbox" class="custom-control-input" id="checkCheckout"
                                                        checked>
                                                 <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check12">Выезд</label>
+                                                <label class="custom-control-label" for="checkCheckout">Выезд</label>
                                             </div>
                                         </li>
                                     </ul>
@@ -363,7 +363,7 @@
                                 </div>
                             </div>
                             <div class="nc-card-bottom">
-                                <h4 class="h4"><a href="{{route('getprofile', $profile->id)}}">{{$profile->name}} <span>| {{$profile->age}} года</span></a> </h4>
+                                <h4 class="h4" style="    font-size: 1.1rem;"><a href="{{route('getprofile', $profile->id)}}">{{$profile->name}} <span>| {{$profile->age}} года</span></a> </h4>
                                 <div class="d-flex justify-content-around">
                                     <p class="nc-price"><span>за час</span><br> {{$profile->one_hour}}</p>
                                     <p class="nc-price"><span>за 2 часа</span><br> {{$profile->two_hour}}</p>

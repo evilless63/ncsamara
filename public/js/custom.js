@@ -1,5 +1,7 @@
 /* КАРУСЕЛЬ  BEGIN*/
-$('#nc-carouselSalons').carousel()
+$('#nc-carouselSalons').carousel({
+    interval : 2500
+})
 /* КАРУСЕЛЬ  END*/
 
 // СЛАЙДЕРЫ ФИЛЬТРА
