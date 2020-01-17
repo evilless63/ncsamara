@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/District.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/DistrictController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/factories/DistrictFactory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_17_062515_create_districts_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_17_062844_create_district_profile_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/DistrictSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/captcha.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/captcha.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_09_143902_create_salons_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_09_143902_create_salons_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sitepath/salons.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sitepath/salons.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_04_072915_create_profiles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_04_072915_create_profiles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/sitepath/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sitepath/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/salons/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/salons/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/salons/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/salons/edit.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +199,7 @@
       <workItem from="1578922903697" duration="4190000" />
       <workItem from="1578934462150" duration="16197000" />
       <workItem from="1579010584218" duration="17199000" />
-      <workItem from="1579241748828" duration="1709000" />
+      <workItem from="1579241748828" duration="3423000" />
     </task>
     <servers />
   </component>

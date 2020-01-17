@@ -373,7 +373,22 @@
                                     <img class="img-fluid align-self-center" src="images/location.png">
                                     <div class="align-self-center ml-2 d-flex flex-column">
                                         <span>{{ $profile->phone }}</span>
-                                        <span>{{ $profile->address }} / {{$profile->working_hours}}</span>
+                                        <span>{{ $profile->districts->first()->name }}
+
+                                           @if($profile->profileWork24Hours || $profile->working_hours_from)
+
+                                                /
+
+                                                @if($profile->profileWork24Hours)
+                                                    Всегда на связи
+                                                @else
+                                                    На связи с {{$profile->working_hours_from}} до {{$profile->working_hours_to}}
+                                                @endif
+
+                                           @endif
+                                            {{$profile->working_hours}}
+
+                                        </span>
                                     </div>
                                 </div>
                             </div>

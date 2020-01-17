@@ -23,7 +23,9 @@ class CreateProfilesTable extends Migration
             $table->text('address');
             $table->integer('address_x');
             $table->integer('address_y');
-            $table->string('working_hours');
+            $table->integer('working_hours_from')->nullable();
+            $table->integer('working_hours_to')->nullable();
+            $table->boolean('working_24_hours')->nullable();
             $table->string('verificate_image')->nullable();
             $table->string('main_image')->nullable();
 
@@ -34,6 +36,7 @@ class CreateProfilesTable extends Migration
 
             $table->integer('one_hour');
             $table->integer('two_hour');
+            $table->integer('euro_hour')->nullable();
             $table->integer('all_night');
 
             $table->boolean('is_published')->default(false);

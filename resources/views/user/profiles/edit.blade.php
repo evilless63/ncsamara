@@ -143,10 +143,26 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="profileWorkingHours">Время работы:</label>
-                                    <input name="working_hours" type="text" id="profileWorkingHours"
-                                        class="form-control @error('working_hours') is-invalid @enderror"
-                                        placeholder="Укажите время работы" value="{{$profile->name}}">
+                                    <label for="profileWorkingHoursFrom">Время работы c (часов):</label>
+                                    <input name="working_hours_from" type="number" min="0" max="24" id="profileWorkingHoursFrom"
+                                           class="form-control @error('working_hours_from') is-invalid @enderror"
+                                           value="{{ $profile->working_hours_from }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileWorkingHoursTo">Время работы до (часов):</label>
+                                    <input name="working_hours_to" type="number" min="0" max="24" id="profileWorkingHoursTo"
+                                           class="form-control @error('working_hours_to') is-invalid @enderror"
+                                           value="{{ $profile->working_hours_to }}">
+                                </div>
+
+                                <div class="form-check">
+                                    <input type="hidden" name="working_24_hours" value="0">
+                                    <input class="form-check-input" type="checkbox" id="profileWork24Hours"
+                                           name="working_24_hours" value="1" {{$profile->profileWork24Hours ? 'checked' : ''}}>
+                                    <label class="form-check-label" for="profileWork24Hours">
+                                        Всегда
+                                    </label>
                                 </div>
 
                                 <div class="form-group">
@@ -189,6 +205,13 @@
                                     <input name="two_hour" type="number" id="profileTwoHour"
                                         class="form-control @error('two_hour') is-invalid @enderror" placeholder=""
                                         value="{{ $profile->two_hour }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileEuroHour">Цена за 1 Еврочас (1000-50000):</label>
+                                    <input name="euro_hour" type="number" id="profileEuroHour"
+                                           class="form-control @error('euro_hour') is-invalid @enderror" placeholder=""
+                                           value="{{ $profile->euro_hour }}">
                                 </div>
 
                                 <div class="form-group">
