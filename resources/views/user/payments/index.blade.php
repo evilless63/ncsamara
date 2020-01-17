@@ -18,10 +18,12 @@
                                     @foreach($bonuses as $bonus)
                                     от {{$bonus->min_sum}} до {{$bonus->max_sum}} +{{$bonus->koef}}%,
                                     @endforeach
-                                    ) :</label>
+                                    :</label>
                                 <input name="payment" type="number" step="0.1" id="userPayment"
                                        class="form-control @error('payment') is-invalid @enderror"
                                        placeholder="Укажите на какую сумму необходимо выполнить пополнение баланса" value="{{ old('payment') }}">
+
+                                <div id="bonusinfo"></div>
 
                                 <button type="submit" class="btn btn-primary">Пополнить баланс</button>
                             </div>
@@ -121,4 +123,28 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('bonuscheck')
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#userPayment').keyup(function(e){
+            e.preventDefault();
+            var payment = $("input[name=payment]").val();
+
+            $.ajax({
+                type:'POST',
+                url:'/user/plusbonusinfo',
+                data:{payment:payment},
+                success:function(data){
+                    $('#bonusinfo').text(data);
+                }
+            });
+        });
+    </script>
 @endsection

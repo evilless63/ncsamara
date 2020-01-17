@@ -160,6 +160,7 @@
 
     @yield('google_api_autocomplete')
     @yield('script')
+    @yield('bonuscheck')
     @yield('footer')
 </body>
 

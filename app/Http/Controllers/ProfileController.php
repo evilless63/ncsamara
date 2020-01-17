@@ -509,6 +509,18 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function plusbonusinfo() {
+
+        $bonus = Bonus::where('min_sum','<',request()->payment)->where('max_sum','>=', request()->payment)->first();
+
+        if($bonus <> null) {
+            return response()->json_encode('Бонусы при пополнении: ' . $bonus . 'Пойнтов');
+        } else {
+            return response()->json_encode('');
+        }
+
+    }
+
     public function makepayment() {
         $current_balance = Auth::user()->user_balance;
 

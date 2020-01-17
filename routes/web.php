@@ -32,6 +32,7 @@ Route::prefix('user')->middleware('is_banned')->name('user.')->group(function ()
 
     Route::get('payments', 'ProfileController@payments')->name('payments');
     Route::post('makepayment', 'ProfileController@makepayment')->name('makepayment');
+    Route::post('plusbonusinfo', 'ProfileController@plusbonusinfo')->name('plusbonusinfo');
     Route::post('promotionalpayment', 'ProfileController@promotionalpayment')->name('promotionalpayment');
 
     Route::post('activateprofile/{id}', 'ProfileController@activate')->name('activateprofile');
