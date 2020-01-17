@@ -14,7 +14,7 @@ class Profile extends Model
     }
 
     public function services() {
-        return $this->belongsToMany('App\Service');
+        return $this->belongsToMany('App\Service')->withPivot('price');
     }
 
     public function appearances() {

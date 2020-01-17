@@ -17,6 +17,7 @@ class CreateProfileServiceTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('profile_id');
             $table->unsignedBigInteger('service_id');
+            $table->integer('price')->nullable($value = true);
             $table->timestamps();
 
             $table->unique(['profile_id','service_id']);

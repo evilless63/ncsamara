@@ -560,4 +560,30 @@ class ProfileController extends Controller
         }
 
     }
+
+
+    public function changeServicePrice(Request $request, Profile $profile, Service $service)
+    {
+
+//        $usercard = Usercard::find($usercardId);
+
+//        if (Auth::check()) {
+            if($profile->user_id == Auth::user()->id){
+
+                $profile->services()->detach($service);
+                $profile->services()->attach([
+                    $service => ['price' => $request->price]
+                ]);
+
+                return redirect(route('user.profiles.edit', $profile->id))->withSuccess('Цена услуги успешно изменена');
+            } else{
+                Session::flash('alert-danger', 'Карточку может редактировать только её владелец !');
+                return redirect()->back();
+            }
+
+//        } else {
+//            Session::flash('alert-danger', 'Сначала необходимо войти на сайт или пройти процедуру регистрации.');
+//            return redirect()->back();
+//        }
+    }
 }
