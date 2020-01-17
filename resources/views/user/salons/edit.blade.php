@@ -35,6 +35,12 @@
                                        placeholder="Укажите телефон" value="{{ $salon->phone }}">
                             </div>
                             <div class="form-group">
+                                <label for="salonMinPrice">Минимальная стоимость услуг:</label>
+                                <input name="min_price" type="number" id="salonMinPrice"
+                                       class="form-control @error('min_price') is-invalid @enderror"
+                                       placeholder="" value="{{ $salon->min_price }}">
+                            </div>
+                            <div class="form-group">
                                 <label for="salonAddress">Адрес:</label>
                                 <input name="address" type="text" id="salonAddress" class="form-control @error('address') is-invalid @enderror"
                                        placeholder="Укажите адрес салона" value="{{ $salon->address }}">

@@ -100,18 +100,40 @@
                                         class="form-control @error('phone') is-invalid @enderror"
                                         placeholder="Укажите телефон в анкете" value="{{ $profile->phone }}">
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="profileAddress">Адрес:</label>
-                                    <input name="address" type="text" id="profileAddress"
-                                        class="form-control @error('address') is-invalid @enderror"
-                                        placeholder="Укажите адрес анкеты" value="{{ $profile->address }}">
-                                    {{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }}
-                                    ">--}}
-                                    {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
-                                    <input type="hidden" name="address_x" value="1">
-                                    <input type="hidden" name="address_y" value="1">
-                                    <input type="hidden" name="user_id" value="{{ $profile->user_id }}">
+                                    <label for="profileDistrict">Район города</label>
+                                    <select class="form-control" name="hair" id="profileDistrict">
+                                        @foreach($districts as $district)
+                                            <option
+                                                value="{{$district->id}} {{$profile->districts->find($district->id) <> null ? 'selected' : ''}}">
+                                                {{ $district->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="profileAppearance">Цвет волос</label>
+                                    <select class="form-control" name="hair" id="profileHair">
+                                        @foreach($hairs as $hair)
+                                            <option
+                                                value="{{$hair->id}} {{$profile->hairs->find($hair->id) <> null ? 'selected' : ''}}">
+                                                {{ $hair->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="profileAddress">Адрес:</label>--}}
+{{--                                    <input name="address" type="text" id="profileAddress"--}}
+{{--                                        class="form-control @error('address') is-invalid @enderror"--}}
+{{--                                        placeholder="Укажите адрес анкеты" value="{{ $profile->address }}">--}}
+{{--                                    --}}{{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }}--}}
+{{--                                    ">--}}
+{{--                                    --}}{{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
+{{--                                    <input type="hidden" name="address_x" value="1">--}}
+{{--                                    <input type="hidden" name="address_y" value="1">--}}
+{{--                                    <input type="hidden" name="user_id" value="{{ $profile->user_id }}">--}}
+{{--                                </div>--}}
                                 <div class="form-group">
                                     <label for="profileAbout">О себе (минимум 50 символов):</label>
                                     <textarea name="about" class="form-control @error('about') is-invalid @enderror"

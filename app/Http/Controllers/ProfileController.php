@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\District;
 use App\Profile;
 use App\Promotional;
 use App\Rate;
@@ -25,6 +26,9 @@ class ProfileController extends Controller
     public $services;
     public $appearances;
     public $hairs;
+    public $districts;
+    public $bonuses;
+    public $rates;
 
     public function __construct()
     {
@@ -34,6 +38,7 @@ class ProfileController extends Controller
         $this->hairs = Hair::all();
         $this->rates = Rate::all();
         $this->bonuses = Bonus::all();
+        $this->districts = District::all();
     }
 
     /**
@@ -65,6 +70,7 @@ class ProfileController extends Controller
             'services' => $this->services,
             'appearances' => $this->appearances,
             'hairs' => $this->hairs,
+            'districts' => $this->districts,
         ]);
     }
 
@@ -91,6 +97,10 @@ class ProfileController extends Controller
 
         if(request()->has('hair')) {
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
+        }
+
+        if(request()->has('district')) {
+            $profile->districts()->attach(District::findOrFail(request()->district));
         }
 
         if(request()->has('item_images')) {
@@ -148,6 +158,7 @@ class ProfileController extends Controller
             'appearances' => $this->appearances,
             'hairs' => $this->hairs,
             'rates' => $this->rates,
+            'rates' => $this->districts,
         ]);
     }
 
@@ -178,6 +189,11 @@ class ProfileController extends Controller
         if(request()->has('hair')) {
             $profile->hairs()->detach();
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
+        }
+
+        if(request()->has('district')) {
+            $profile->districts()->detach();
+            $profile->districts()->attach(District::findOrFail(request()->district));
         }
 
         if(request()->has('item_images') && request()->item_images <> null) {
@@ -401,9 +417,9 @@ class ProfileController extends Controller
             'name' => 'required',
             'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
             'about' => 'required',
-            'address' => 'required',
-            'address_x' => 'required',
-            'address_y' => 'required',
+//            'address' => 'required',
+//            'address_x' => 'required',
+//            'address_y' => 'required',
             'working_hours' => 'required',
             'boobs' => 'required|integer|between:1,10',
             'age' => 'required|integer|between:18,65',
@@ -421,9 +437,9 @@ class ProfileController extends Controller
             'name' => 'required',
             'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
             'about' => 'required',
-            'address' => 'required',
-            'address_x' => 'required',
-            'address_y' => 'required',
+//            'address' => 'required',
+//            'address_x' => 'required',
+//            'address_y' => 'required',
             'working_hours' => 'required',
             'boobs' => 'required|integer|between:1,10',
             'age' => 'required|integer|between:18,65',

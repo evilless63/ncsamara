@@ -20,7 +20,7 @@ class CreateSalonsTable extends Migration
             $table->text("name");
             $table->text("address");
             $table->text("image");
-            $table->string("phone");
+            $table->integer('min_price')->nullable();
             $table->boolean("is_approved")->default(false);
             $table->boolean("is_published")->default(false);
         });

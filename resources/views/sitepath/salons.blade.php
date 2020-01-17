@@ -5,6 +5,8 @@
         <div class="row">
             <div class="col-md-6 col-sm-12 mt-3">
                 <img src="{{asset('/images/salons/created/1.png')}}" class="img-fluid">
+
+                
             </div>
             <div class="col-md-6 col-sm-12 mt-3">
                 <img src="{{asset('/images/salons/created/2.png')}}" class="img-fluid">

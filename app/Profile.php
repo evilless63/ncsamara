@@ -32,4 +32,8 @@ class Profile extends Model
     public function rates() {
         return $this->belongsToMany('App\Rate');
     }
+
+    public function districts() {
+        return $this->belongsToMany('App\District');
+    }
 }
