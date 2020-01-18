@@ -107,7 +107,7 @@
 <!-- ШАПКА END -->
 
 @yield('content')
-
+@yield('scripts')
 <!-- ПОДВАЛ BEGIN -->
 <div class="container-fluid nc-footer">
     <div class="container">
@@ -145,6 +145,7 @@
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 @yield('google_api_autocomplete')
+
 </body>
 
 </html>

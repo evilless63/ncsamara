@@ -268,14 +268,18 @@
                     </div>
 
                     <div class="nc-filter-buttons mt-3 mb-1">
-                        <a class="btn btn-outline-dark btn-block">Бюджетные</a>
-                        <a class="btn btn-outline-dark btn-block">Элитные</a>
-                        <a class="btn btn-outline-dark btn-block">Молодые</a>
-                        <a class="btn btn-outline-dark btn-block">Проверенные</a>
-                        <a class="btn btn-outline-dark btn-block">Новые</a>
+                        <a class="btn btn-outline-dark btn-block" data-min-price="0" data-max-price="2999" id="budget">Бюджетные</a>
+                        <a class="btn btn-outline-dark btn-block" data-min-price="3000" data-max-price="99999999" id="elite">Элитные</a>
+                        <a class="btn btn-outline-dark btn-block" data-min-age="18" data-max-age="25" id="young">Молодые</a>
+                        <a class="btn btn-outline-dark btn-block" id="verified">Проверенные</a>
+                        <a class="btn btn-outline-dark btn-block" id="new_profiles" >Новые</a>
+                        <a class="btn btn-outline-dark btn-block" id="load_filter">Применить фильтр</a>
+                        <a class="btn btn-outline-dark btn-block" id="fresh_filter">Сбросить фильтр</a>
                     </div>
 
                 </div>
+
+                {{ csrf_field() }}
             </div>
 
             <div class="col-md-9 nc-col position-relative">
@@ -329,17 +333,13 @@
                     </div>
                 </div>
 
-                {{ csrf_field() }}
-                <div id="post_data"></div>
+                <div id="post_data" class="post_data"></div>
 
             </div>
         </div>
-
-
     </div>
-
-
     <!-- ОСНОВНАЯ ЧАСТЬ END -->
+
     <script>
         /* КАРУСЕЛЬ  BEGIN*/
         $('#nc-carouselSalons').carousel({
@@ -396,15 +396,25 @@
         $(document).ready(function(){
 
             var _token = $('input[name="_token"]').val();
+            var data = {};
+            load_data('', _token, null, data);
 
-            load_data('', _token);
+            function load_data(id="", _token, obj=null, data) {
+                data.id = id
+                data._token = _token
 
-            function load_data(id="", _token)
-            {
+                if(obj !== null) {
+                    for (var i in obj) {
+                        data[i] = obj[i]
+                    }
+                }
+
+                console.log(data);
+
                 $.ajax({
                     url:"{{ route('loadmore.load_data') }}",
                     method:"POST",
-                    data:{id:id, _token:_token},
+                    data:data,
                     success:function(data)
                     {
                         $('.load_more_button').remove();
@@ -413,10 +423,102 @@
                 })
             }
 
+            $(document).on('click', '#fresh_filter', function(){
+                data = {}
+                var _token = $('input[name="_token"]').val();
+                $('#load_more_button').html('<b>Загружаю...</b>');
+                $('#post_data').empty();
+                load_data('', _token, null, data);
+            });
+
             $(document).on('click', '#load_more_button', function(){
                 var id = $(this).data('id');
                 $('#load_more_button').html('<b>Загружаю...</b>');
-                load_data(id, _token);
+                load_data(id, _token, null, data);
+            });
+
+            $(document).on('click', '#load_filter', function(){
+                $('#load_more_button').html('<b>Загружаю...</b>');
+                $('#post_data').empty();
+
+                obj = {}
+
+                obj.one_hour_min = $( "input[name=one_hour_min]" ).val();
+                obj.one_hour_max = $( "input[name=one_hour_max]" ).val();
+                obj.two_hour_min = $( "input[name=two_hour_min]" ).val();
+                obj.two_hour_max = $( "input[name=two_hour_max]" ).val();
+                obj.all_night_min = $( "input[name=all_night_min]" ).val();
+                obj.all_night_max = $( "input[name=all_night_max]" ).val();
+                obj.age_min = $('input[id=nc-age]').val().split(',')[0];
+                obj.age_max = $('input[id=nc-age]').val().split(',')[1];
+                obj.height_min = $('input[id=nc-height]').val().split(',')[0];
+                obj.height_max = $('input[id=nc-height]').val().split(',')[1];
+                obj.boobs_min = $('input[id=nc-boobs]').val().split(',')[0];
+                obj.boobs_max = $('input[id=nc-boobs]').val().split(',')[1];
+                obj.services = $( "input[name=services]" ).val();
+                obj.appearances = $( "input[type=checkbox][name=appearances]:checked" ).val();
+                obj.hairs = $( "input[type=checkbox][name=hairs]:checked" ).val();
+                obj.districts = $( "input[type=checkbox][name=districts]:checked" ).val();
+                obj.apartments = $( "input[type=checkbox][name=apartments]:checked" ).val();
+                obj.check_out = $( "input[type=checkbox][name=check_out]:checked" ).val();
+                obj.verified = $( "input[type=checkbox][name=verified]:checked" ).val();
+                load_data('', _token, obj, data);
+            });
+
+            $(document).on('click', '#budget', function(){
+                $('#load_more_button').html('<b>Загружаю...</b>');
+                $('#post_data').empty();
+                data = {}
+                obj = {}
+                obj.one_hour_min = $('#budget').attr('data-min-price');
+                obj.one_hour_max = $('#budget').attr('data-max-price');
+
+                var _token = $('input[name="_token"]').val();
+                load_data('', _token, obj, data);
+            });
+
+            $(document).on('click', '#elite', function(){
+                $('#load_more_button').html('<b>Загружаю...</b>');
+                $('#post_data').empty();
+                data={}
+                obj = {}
+                obj.one_hour_min = $('#elite').attr('data-min-price');
+                obj.one_hour_max = $('#elite').attr('data-max-price');
+
+                var _token = $('input[name="_token"]').val();
+                load_data('', _token, obj, data);
+            });
+
+            $(document).on('click', '#young', function(){
+                $('#load_more_button').html('<b>Загружаю...</b>');
+                $('#post_data').empty();
+                data={}
+                obj = {}
+                obj.age_min = $('#young').attr('data-min-age');
+                obj.age_max = $('#young').attr('data-max-age');
+
+                var _token = $('input[name="_token"]').val();
+                load_data('', _token, obj, data);
+            });
+
+            $(document).on('click', '#verified', function(){
+                $('#load_more_button').html('<b>Загружаю...</b>');
+                $('#post_data').empty();
+                data={}
+                obj = {}
+                obj.verified = 1;
+                var _token = $('input[name="_token"]').val();
+                load_data('', _token, obj, data);
+            });
+
+            $(document).on('click', '#new_profiles', function(){
+                $('#load_more_button').html('<b>Загружаю...</b>');
+                $('#post_data').empty();
+                data={}
+                obj = {}
+                obj.new_profiles = 1;
+                var _token = $('input[name="_token"]').val();
+                load_data('', _token, obj, data);
             });
 
         });

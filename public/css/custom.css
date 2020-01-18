@@ -461,3 +461,7 @@ body {
     padding-bottom: 0.7rem;
     }
 }
+
+.post_data {
+    transition: 1s;
+}
