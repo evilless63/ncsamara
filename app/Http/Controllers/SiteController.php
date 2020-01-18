@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\District;
 use App\Profile;
 use App\Promotional;
 use App\Rate;
@@ -32,6 +33,7 @@ class SiteController extends Controller
         $services = Service::all();
         $hairs = Hair::all();
         $appearances = Appearance::all();
+        $districts = District::all();
 
         $age_min = Profile::min('age');
         $age_max = Profile::max('age');
@@ -54,13 +56,142 @@ class SiteController extends Controller
         $all_night_min = Profile::min('all_night');
         $all_night_max = Profile::max('all_night');
 
-        $profiles = Profile::take(18)->get();
+        $profiles = Profile::where('is_published', '1')->where('is_archived', '0')->take(18)->get();
+
+        $collection = collect(['boobs_min', 'boobs_max', 'age_min', 'age_max', 'weight_min', 'weight_max', 'height_min', 'height_max',
+            'one_hour_min', 'one_hour_max', 'two_hour_min', 'two_hour_max', 'all_night_min', 'all_night_max']);
+
+        $filtersDefaultCollection = $collection->combine([$boobs_min, $boobs_max, $age_min, $age_max, $weight_min, $weight_max, $height_min, $height_max,
+            $one_hour_min, $one_hour_max, $two_hour_min, $two_hour_max, $all_night_min, $all_night_max]);
 
         return view('sitepath.index')->with([
             'profiles' => $profiles,
             'services' => $services,
-            'service_iterator' => 0,
+            'hairs' => $hairs,
+            'appearances' => $appearances,
+            'districts' => $districts,
+
+            'filtersDefaultCollection' => $filtersDefaultCollection,
+
         ]);
+    }
+
+    function load_data(Request $request)
+    {
+        if($request->ajax())
+        {
+            if($request->id > 0)
+            {
+                $data = Profile::
+                    where('id', '<', $request->id); 
+            }
+            else
+            {
+                $data = Profile::
+                    orderBy('id', 'DESC');
+            }
+            $output = '<div class="row">';
+            $last_id = '';
+
+            $data = $data->where('is_published', 1)
+            ->where('is_archived', 0)
+            ->orderBy('id', 'DESC')
+            ->limit(18)
+            ->get();
+
+            if(!$data->isEmpty())
+            {
+                $iteration = 0;
+                foreach($data as $row)
+                {
+                    $iteration += 1;
+
+                    if($row->verified) {
+                        $verified = '<a class="nc-point" href="#"><img src="images/approved.png" alt="Подтверждена"></a>';
+                    } else {
+                        $verified = '';
+                    };
+
+                    if($row->apartments) {
+                        $apartments = '<a class="nc-point" href = "#" ><img src = "images/apartments.png" alt = "Апартаменты" ></a >';
+                    } else {
+                        $apartments = '';
+                    };
+
+                    if($row->check_out) {
+                        $check_out = '<a class="nc-point" href = "#" ><img src = "images/car.png" alt = "Выезд" ></a >';
+                    } else {
+                        $check_out = '';
+                    };
+
+                    if($row->profileWork24Hours || $row->working_hours_from) {
+                        $timework = ' /';
+                        if($row->profileWork24Hours) {
+                            $timework .= ' Всегда';   
+                        } else {
+                            $timework .= ' с ' . $row->working_hours_from . ' до '. $row->working_hours_to . ' чвсов';
+                        }
+                    } else {
+                        $timework = '';
+                    };
+
+                    
+
+                    $output .= '<div class="col-md-4 col-sx-6 nc-col">
+                                    <div class="nc-card d-flex flex-column justify-content-between">
+                                        <div class="nc-card-top">
+                                            <div class="d-flex flex-column justify-content-between align-items-end">
+                                                '. $verified . $apartments . $check_out .'
+                                            </div>
+                                        </div>
+                                        <div class="nc-card-bottom">
+                                            <h4 class="h4" style="    font-size: 1.1rem;"><a href="' . route("getprofile", $row->id) . '">'.$row->name. '<span>| '.$row->age.' года</span></a> </h4>
+                                            <div class="d-flex justify-content-around">
+                                                <p class="nc-price"><span>за час</span><br> ' . $row->one_hour .'</p>
+                                                <p class="nc-price"><span>за 2 часа</span><br> '.$row->two_hour. '</p>
+                                                <p class="nc-price"><span>за ночь</span><br> '.$row->all_night .'</p>
+                                            </div>
+                                            <div class="nc-location d-flex">
+                                                <img class="img-fluid align-self-center" src="images/location.png">
+                                                <div class="align-self-center ml-2 d-flex flex-column">
+                                                    <span>'. $row->phone . '</span>
+                                                    <span>'.$row->districts->first()->name . $timework . '</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+
+                        if($iteration % 3 == 0) { 
+                            $output .= '</div><div class="row mt-3">';
+                        } 
+                         
+                    $last_id = $row->id;
+                }
+                $output .= '</div>';
+                $output .= '<div class="row justify-content-center mt-3 mb-3 load_more_button">
+                                <div class="col-md-4 col-sm-12 nc-col load_more_button">
+                                    <button type="button" data-id="'.$last_id.'" class="btn nc-btn-show-more btn-block load_more_button" id="load_more_button" name="load_more_button">
+                                        <img src="images/show-more.png" class="mr-2" alt="">
+                                        Показать еще 18
+                                        анкет
+                                    </button>
+                                </div>
+                            </div>';
+            }
+            else
+            {
+                $output = '<div class="row justify-content-center mt-3 mb-3 load_more_button">
+                    <div class="col-md-4 col-sm-12 nc-col load_more_button">
+                        <button type="button" class="btn nc-btn-show-more btn-block load_more_button">
+                            <img src="images/show-more.png" class="mr-2" alt="">
+                            Новых анкет не найдено
+                        </button>
+                    </div></div>
+                ';
+            }
+            echo $output;
+        }
     }
 
     public function map() {

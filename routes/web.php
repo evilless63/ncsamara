@@ -16,6 +16,7 @@ Route::get('/profiles/{id}', 'SiteController@profile')->name('getprofile');
 Route::get('/on-map', 'SiteController@map')->name('onmap');
 Route::get('/salons', 'SiteController@salons')->name('salons');
 Route::get('/add-profile', 'SiteController@addprofile')->name('addprofile');
+Route::post('/loadmore/load_data', 'SiteController@load_data')->name('loadmore.load_data');
 
 //Пока что отключим проверку верификации, так как у нас не настроен драйвер и для теста это не так актуально
 Auth::routes();

@@ -17,13 +17,12 @@ class CreateDistrictProfileTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
 
-            $table->unsignedBigInteger('disctrict_id');
+            $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('profile_id');
-            $table->timestamps();
 
-            $table->unique(['disctrict_id','profile_id']);
+            $table->unique(['district_id','profile_id']);
 
-            $table->foreign('disctrict_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
         });
     }

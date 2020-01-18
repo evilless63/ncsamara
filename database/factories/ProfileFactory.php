@@ -14,7 +14,9 @@ $factory->define(Profile::class, function (Faker $faker) {
         'address' => $faker->address,
         'address_x' => '1',
         'address_y' => '1',
-        'working_hours' => '1',
+        'working_hours_from' => random_int(1, 24),
+        'working_hours_to' => random_int(1, 24),
+        'working_24_hours' => random_int(0,1),
 
         'main_image' => str_replace(' ', '', strtolower($faker->name)).'.jpg',
 

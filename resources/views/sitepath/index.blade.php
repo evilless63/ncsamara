@@ -42,29 +42,25 @@
                     </div>
                     <ul class="mt-3 nc-actions">
                         <li><a href="#" id="services">Выбрать услуги</a></li>
-                        <li><a href="#">Указать район</a></li>
-                        <li><a href="#">Дополнительно</a></li>
                     </ul>
-
                     <div class="nc-filter-sliders mt-2">
                         <div class="nc-slider-box">
                             <h6 class="h6">Возраст</h6>
                             <input id="nc-age" type="text" class="nc-slider" value="" />
                         </div>
                         <div class="d-flex justify-content-between nc-values">
-                            <p>18</p>
-                            <p>66</p>
+                            <p>{{ $filtersDefaultCollection['age_min'] }}</p>
+                            <p>{{ $filtersDefaultCollection['age_max'] }}</p>
                         </div>
                     </div>
-
                     <div class="nc-filter-sliders mt-2">
                         <div class="nc-slider-box">
                             <h6 class="h6">Рост</h6>
                             <input id="nc-height" type="text" class="nc-slider" value="" />
                         </div>
                         <div class="d-flex justify-content-between nc-values">
-                            <p>150</p>
-                            <p>200</p>
+                            <p>{{ $filtersDefaultCollection['height_min'] }}</p>
+                            <p>{{ $filtersDefaultCollection['height_max'] }}</p>
                         </div>
                     </div>
 
@@ -74,51 +70,51 @@
                             <input id="nc-boobs" type="text" class="nc-slider" value="" />
                         </div>
                         <div class="d-flex justify-content-between nc-values">
-                            <p>1</p>
-                            <p>10</p>
+                            <p>{{ $filtersDefaultCollection['boobs_min'] }}</p>
+                            <p>{{ $filtersDefaultCollection['boobs_max'] }}</p>
                         </div>
                     </div>
 
                     <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за 1 час</h6>
-                        <form>
-                            <div class="form-row">
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="от">
-                                </div>
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="до">
-                                </div>
+                        <h6 class="h6 mb-2">Цена за 1 час (от {{$filtersDefaultCollection['one_hour_min'] }} до {{$filtersDefaultCollection['one_hour_max']}})</h6>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="от" name="one_hour_min"
+                                    {{ app('request')->has('one_hour_min') == true ? app('request')->one_hour_min : $filtersDefaultCollection['one_hour_min']  }}>
                             </div>
-                        </form>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="до" name="one_hour_max"
+                                    {{ app('request')->has('one_hour_max') == true ? app('request')->one_hour_max : $filtersDefaultCollection['one_hour_max']  }}>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за 2 часа</h6>
-                        <form>
-                            <div class="form-row">
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="от">
-                                </div>
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="до">
-                                </div>
+                        <h6 class="h6 mb-2">Цена за 2 часа (от {{$filtersDefaultCollection['two_hour_min']}} до {{$filtersDefaultCollection['two_hour_max']}})</h6>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="от" name="two_hour_min"
+                                    {{ app('request')->has('two_hour_min') == true ? app('request')->two_hour_min : $filtersDefaultCollection['two_hour_min']  }}>
                             </div>
-                        </form>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="до" name="two_hour_max"
+                                    {{ app('request')->has('two_hour_max') == true ? app('request')->two_hour_max : $filtersDefaultCollection['two_hour_max']  }}>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за ночь</h6>
-                        <form>
-                            <div class="form-row">
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="от">
-                                </div>
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="до">
-                                </div>
+                        <h6 class="h6 mb-2">Цена за ночь (от {{$filtersDefaultCollection['all_night_min']}} до {{$filtersDefaultCollection['all_night_max']}})</h6>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="от" name="all_night_min"
+                                    {{ app('request')->has('all_night_min') == true ? app('request')->all_night_min : $filtersDefaultCollection['all_night_min']  }}>
                             </div>
-                        </form>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="до" name="all_night_max"
+                                    {{ app('request')->has('all_night_max') == true ? app('request')->all_night_max : $filtersDefaultCollection['all_night_max']  }}>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -137,38 +133,21 @@
                                  aria-labelledby="headingOne">
                                 <div class="panel-body">
                                     <ul class="list-group list-group-flush">
+                                        @foreach($appearances as $appearance)
                                         <li class="list-group-item">
                                             <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check1" checked>
+                                            <div class="custom-control custom-checkbox ">
+                                                <input type="checkbox" class="custom-control-input" id="checkAppearance{{$loop->iteration}}" value="{{$appearance->id}}" name="appearances[]"
+                                                    @if(app('request')->has('appearances'))
+                                                        @if(app('request')->appearances->find($appearance->id))
+                                                            'checked'
+                                                        @endif
+                                                    @endif>
                                                 <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check1">Славянская</label>
+                                                <label class="custom-control-label" for="checkAppearance{{$loop->iteration}}">{{ $appearance->name }}</label>
                                             </div>
                                         </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check2">
-                                                <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check2">Азиатская</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check3" checked>
-                                                <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check3">Африканская</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check4" checked>
-                                                <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check4">Кавказская</label>
-                                            </div>
-                                        </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -187,46 +166,54 @@
                                  aria-labelledby="headingTwo">
                                 <div class="panel-body">
                                     <ul class="list-group list-group-flush">
+                                        @foreach($hairs as $hair)
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check5" checked>
+                                                <input type="checkbox" class="custom-control-input" id="checkHair{{ $hair->name }}" value="{{$hair->id}}" name="hairs[]"
+                                                @if(app('request')->has('hairs'))
+                                                    @if(app('request')->hairs->find($hair->id))
+                                                        'checked'
+                                                    @endif
+                                                @endif>
                                                 <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check5">Брюнетки</label>
+                                                <label class="custom-control-label" for="checkHair{{ $hair->name }}">{{ $hair->name }}</label>
                                             </div>
                                         </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check6">
-                                                <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check6">Блондинки</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check7" checked>
-                                                <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check7">Рыжие</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check8" checked>
-                                                <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check8">Шатенки</label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <!-- Default checked -->
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="check9" checked>
-                                                <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="check9">Русые</label>
-                                            </div>
-                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h6 class="panel-title h6">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                       href="#collapseDistrict" aria-expanded="false" aria-controls="collapseTwo">
+                                        Указать район
+                                    </a>
+                                </h6>
+
+                            </div>
+                            <div id="collapseDistrict" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <ul class="list-group list-group-flush">
+                                        @foreach($districts as $district)
+                                            <li class="list-group-item">
+                                                <!-- Default checked -->
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkHair{{ $district->name }}" value="{{$district->id}}" name="districts[]"
+                                                    @if(app('request')->has('districts'))
+                                                        @if(app('request')->districts->find($district->id))
+                                                            'checked'
+                                                        @endif
+                                                    @endif>
+                                                    <span class="checkmark"></span>
+                                                    <label class="custom-control-label" for="checkHair{{ $district->name }}">{{ $district->name }}</label>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -249,7 +236,7 @@
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="checkVerified"
-                                                       checked>
+                                                       value="1" name="verified" id="checkVerified" {{ app('request')->input('verified') == 1 ? 'checked' : '' }}>
                                                 <span class="checkmark"></span>
                                                 <label class="custom-control-label" for="checkVerified">Только
                                                     проверенные</label>
@@ -258,7 +245,8 @@
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="checkApartments">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       value="1" name="apartments" id="checkApartments" {{ app('request')->input('apartments') == 1 ? 'checked' : '' }}>
                                                 <span class="checkmark"></span>
                                                 <label class="custom-control-label" for="checkApartments">Апартаменты</label>
                                             </div>
@@ -266,8 +254,9 @@
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="checkCheckout"
-                                                       checked>
+                                                <input type="checkbox" class="custom-control-input" id="checkCheckout" value="1" name="check_out"
+                                                       {{ app('request')->input('check_out') == 1 ? 'checked' : '' }}
+                                                       >
                                                 <span class="checkmark"></span>
                                                 <label class="custom-control-label" for="checkCheckout">Выезд</label>
                                             </div>
@@ -311,8 +300,12 @@
                                                     <li class="list-group-item">
                                                         <!-- Default checked -->
                                                         <div class="custom-control custom-checkbox">
-                                                            <input value="{{$serviceChild->id}}" type="checkbox" name="services[]" class="custom-control-input" id="check{{$serviceChild->id}}"
-                                                                   >
+                                                            <input value="{{$serviceChild->id}}" type="checkbox" name="services[]" class="custom-control-input" id="check{{$serviceChild->id}}
+                                                            @if(app('request')->has('districts'))
+                                                                @if(app('request')->services->find($serviceChild->id))
+                                                                    'checked'
+                                                                @endif
+                                                            @endif>
                                                             <span class="checkmark"></span>
                                                             <label class="custom-control-label" for="check{{$serviceChild->id}}">{{$serviceChild->name}}
                                                                 </label>
@@ -336,80 +329,9 @@
                     </div>
                 </div>
 
+                {{ csrf_field() }}
+                <div id="post_data"></div>
 
-                <div class="row">
-                    @foreach($profiles as $profile)
-                    <div class="col-md-4 col-sx-6 nc-col">
-                        <div class="nc-card d-flex flex-column justify-content-between">
-                            <div class="nc-card-top">
-                                <div class="d-flex flex-column justify-content-between align-items-end">
-                                    @if($profile->verified)
-                                    <a class="nc-point" href="#">
-                                        <img src="images/approved.png" alt="Подтверждена">
-                                    </a>
-                                    @endif
-
-                                    @if($profile->apartments)
-                                    <a class="nc-point" href="#">
-                                        <img src="images/apartments.png" alt="Апартаменты">
-                                    </a>
-                                    @endif
-
-                                    @if($profile->check_out)
-                                    <a class="nc-point" href="#">
-                                        <img src="images/car.png" alt="Выезд">
-                                    </a>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="nc-card-bottom">
-                                <h4 class="h4" style="    font-size: 1.1rem;"><a href="{{route('getprofile', $profile->id)}}">{{$profile->name}} <span>| {{$profile->age}} года</span></a> </h4>
-                                <div class="d-flex justify-content-around">
-                                    <p class="nc-price"><span>за час</span><br> {{$profile->one_hour}}</p>
-                                    <p class="nc-price"><span>за 2 часа</span><br> {{$profile->two_hour}}</p>
-                                    <p class="nc-price"><span>за ночь</span><br> {{$profile->all_night}}</p>
-                                </div>
-                                <div class="nc-location d-flex">
-                                    <img class="img-fluid align-self-center" src="images/location.png">
-                                    <div class="align-self-center ml-2 d-flex flex-column">
-                                        <span>{{ $profile->phone }}</span>
-                                        <span>{{ $profile->districts->first()->name }}
-
-                                           @if($profile->profileWork24Hours || $profile->working_hours_from)
-
-                                                /
-
-                                                @if($profile->profileWork24Hours)
-                                                    Всегда на связи
-                                                @else
-                                                    На связи с {{$profile->working_hours_from}} до {{$profile->working_hours_to}}
-                                                @endif
-
-                                           @endif
-                                            {{$profile->working_hours}}
-
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                        @if($loop->iteration % 3 == 0)
-                </div>
-                <div class="row mt-3">
-                    @endif
-                    @endforeach
-                </div>
-
-                <div class="row justify-content-center mt-3 mb-3">
-                    <div class="col-md-4 col-sm-12 nc-col">
-                        <button type="button" class="btn nc-btn-show-more btn-block" id="showMore">
-                            <img src="images/show-more.png" class="mr-2" alt="">
-                            Посмотреть еще (2567)
-                            анкет</button>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -418,4 +340,85 @@
 
 
     <!-- ОСНОВНАЯ ЧАСТЬ END -->
+    <script>
+        /* КАРУСЕЛЬ  BEGIN*/
+        $('#nc-carouselSalons').carousel({
+            interval : 2500
+        })
+        /* КАРУСЕЛЬ  END*/
+
+        // СЛАЙДЕРЫ ФИЛЬТРА
+
+        $("#nc-age").slider({
+            id: "nc-age",
+            min: {{ app('request')->has('age_min') == true ? app('request')->age_min : $filtersDefaultCollection['age_min'] }},
+            max: {{ app('request')->has('age_max') == true ? app('request')->age_max : $filtersDefaultCollection['age_max']}},
+            step: 1,
+            value: [{{ $filtersDefaultCollection['age_min'] }}, {{$filtersDefaultCollection['age_max']}}],
+
+            tooltip:'show',
+
+            tooltip_split: true,
+        });
+
+        $("#nc-height").slider({
+            id: "nc-height",
+            min: {{ app('request')->has('height_min') == true ? app('request')->height_min : $filtersDefaultCollection['height_min'] }},
+            max: {{ app('request')->has('height_max') == true ? app('request')->height_max : $filtersDefaultCollection['height_max'] }},
+            step: 1,
+            value: [{{ $filtersDefaultCollection['height_min'] }}, {{ $filtersDefaultCollection['height_max'] }}],
+
+            tooltip:'show',
+
+            tooltip_split: true,
+        });
+
+        $("#nc-boobs").slider({
+            id: "nc-boobs",
+            min: {{ app('request')->has('boobs_min') == true ? app('request')->boobs_min : $filtersDefaultCollection['boobs_min'] }},
+            max: {{ app('request')->has('boobs_max') == true ? app('request')->boobs_max : $filtersDefaultCollection['boobs_max'] }},
+            step: 1,
+            value: [{{ $filtersDefaultCollection['boobs_min'] }}, {{ $filtersDefaultCollection['boobs_max'] }}],
+
+            tooltip:'show',
+
+            tooltip_split: true,
+        });
+
+        //ОТКРЫТИЕ ЗАКРЫТИЕ УСЛУГ
+        $('#services-desk').css('margin-bottom','15px');
+        $('#services').click(function(){
+            $('#services-desk').toggle();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+            var _token = $('input[name="_token"]').val();
+
+            load_data('', _token);
+
+            function load_data(id="", _token)
+            {
+                $.ajax({
+                    url:"{{ route('loadmore.load_data') }}",
+                    method:"POST",
+                    data:{id:id, _token:_token},
+                    success:function(data)
+                    {
+                        $('.load_more_button').remove();
+                        $('#post_data').append(data);
+                    }
+                })
+            }
+
+            $(document).on('click', '#load_more_button', function(){
+                var id = $(this).data('id');
+                $('#load_more_button').html('<b>Загружаю...</b>');
+                load_data(id, _token);
+            });
+
+        });
+    </script>
 @endsection
