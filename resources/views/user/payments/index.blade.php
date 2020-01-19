@@ -116,7 +116,7 @@
                         <h3>Информация об активированных анкетах</h3>
                         @foreach($rates as $rate)
                             <h5>{{ $rate->name }}</h5>
-                            <p>Активированно {{ $rate->profiles->where('is_archived', '0')->count() }} анкет</p>
+                            <p>Активированно {{ $rate->profiles->where('is_archived', '0')->where('user_id', Auth::user()->id)->count() }} анкет</p>
                         @endforeach
                     </div>
                 </div>
@@ -146,6 +146,6 @@
             }
         });
     })
-   
+
     </script>
 @endsection

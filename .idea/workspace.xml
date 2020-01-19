@@ -4,21 +4,16 @@
     <list default="true" id="ebbe23cd-ef67-4452-9b87-83c9bb8fd82d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SalonController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SalonController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SiteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_09_143902_create_salons_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_09_143902_create_salons_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Service.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Service.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_01_06_183506_create_profile_service_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_01_06_183506_create_profile_service_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/ProfileSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/ProfileSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sitepath/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sitepath/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/sitepath/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sitepath/profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sitepath/salons.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sitepath/salons.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/payments/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/payments/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/profiles/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/salons/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/salons/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/salons/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/salons/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -270,10 +265,10 @@
     </state>
     <state x="499" y="271" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1579241751986" />
     <state x="624" y="344" key="com.intellij.ide.util.TipDialog/0.23.1920.977@0.23.1920.977" timestamp="1579432451737" />
-    <state x="493" y="84" width="611" height="656" key="find.popup" timestamp="1579025059659">
+    <state x="493" y="84" width="611" height="656" key="find.popup" timestamp="1579466791287">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="493" y="84" width="611" height="656" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1579025059659" />
+    <state x="493" y="84" width="611" height="656" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1579466791287" />
     <state x="616" y="123" width="687" height="777" key="find.popup/0.23.1920.977@0.23.1920.977" timestamp="1578852078393" />
     <state width="600" height="440" key="javadoc.popup" timestamp="1579436203847">
       <screen x="0" y="23" width="1920" height="977" />

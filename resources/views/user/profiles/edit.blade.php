@@ -154,7 +154,7 @@
                                     <input class="form-check-input" type="checkbox" id="profileWork24Hours"
                                            name="working_24_hours" value="1" {{$profile->profileWork24Hours ? 'checked' : ''}}>
                                     <label class="form-check-label" for="profileWork24Hours">
-                                        Всегда
+                                        Работаю всегда (без перерыва и выходных)
                                     </label>
                                 </div>
 
@@ -261,7 +261,7 @@
                                 @foreach($service->childrenRecursive as $service)
                                 <div class="form-check ml-2">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input class="form-check-input" type="checkbox" id="profileService{{$service->id}}"
                                                    name="services[]" value="{{$service->id}}"
                                                 {{$profile->services->find($service->id) <> null ? 'checked' : ''}}>
@@ -269,24 +269,24 @@
                                                 {{$service->name}}
                                             </label>
                                         </div>
-                                        <div class="col-md-6">
-                                            @if(Auth::user()->id === $profile->user_id)
-                                                
+                                        <div class="col-md-8">
+                                            @if(Auth::user()->id === $profile->user_id && $profile->services->find($service->id) <> null)
+
                                                 <div class="row">
-                                                    <div class="col">
-                                                        <input class="form-control" data-price = "{{ $service->pivot <> null ? $service->pivot->price : '' }}" data-service-id = "{{$service->id}}" name="price" type="text" value="{{ $service->pivot <> null ? $service->pivot->price : '' }}">
+                                                    <div class="col-md-4">
+                                                        <span>доп. цена: {{ $service->pivot <> null ? $service->pivot->price : 'не указана' }}</span>
                                                     </div>
-                                                    <div class="col">
-                                                        <div class="btn btn-success btn-fab btn-fab-mini btn-round" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги">
-                                                            <i class="material-icons">
+                                                    <div class="col-md-8 d-flex justify-content-between servicePriceUpdate">
+                                                        <input style="    width: 65%;" class="form-control" data-price = "{{ $service->pivot <> null ? $service->pivot->price : '' }}" data-service-id = "{{$service->id}}" data-profile-id = "{{$profile->id}}" name="priceupdate" type="text" value="{{ $service->pivot <> null ? $service->pivot->price : '' }}">
+
+                                                        <div class="btn btn-success btn-fab btn-fab-mini btn-round" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги" onclick="updateServicePrice(event)">
                                                                 Обновить цену
-                                                            </i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             @else
-                                                <span>{{ $service->pivot->price <> null ? $service->pivot->price . 'р.' : ''}} </span>
+                                                <span>{{ $service->pivot<> null ? $service->pivot->price . 'р.' : ''}} </span>
                                             @endif
                                         </div>
                                     </div>
@@ -496,5 +496,33 @@
                 }
             });
         }
+</script>
+<script>
+    function updateServicePrice(event) {
+        event.preventDefault();
+
+        var price = $(event.target).parent('.servicePriceUpdate').find('input[name=priceupdate]').val()
+        var service_id = $(event.target).parent('.servicePriceUpdate').find('input[name=priceupdate]').attr('data-service-id')
+        var profile_id = $(event.target).parent('.servicePriceUpdate').find('input[name=priceupdate]').attr('data-profile-id')
+        console.log(price);
+        console.log(service_id);
+        console.log(profile_id);
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('user.service.pricechange')}}",
+            type: "post",
+            data: {
+                profile_id: profile_id,
+                service_id: service_id,
+                price: price
+            },
+            success: function(response){
+            }
+        });
+
+    }
 </script>
 @endsection

@@ -175,7 +175,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        
+
         $this->validateProfile(false);
 
         $profileArr = request()->all();
@@ -202,12 +202,12 @@ class ProfileController extends Controller
             $profile->hairs()->detach();
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
         }
-        
+
         if(request()->filled('district')) {
             $profile->districts()->detach();
             $profile->districts()->attach(District::findOrFail(request()->district));
         }
-        
+
         if(request()->filled('item_images') && request()->item_images <> null) {
             $array = explode(",", request()->item_images);
             foreach ($array as $arr ) {
@@ -219,7 +219,7 @@ class ProfileController extends Controller
             }
 
         }
-        
+
         if(request()->filled('rate')) {
             $profile->rates()->detach();
             $profile->rates()->attach(Rate::findOrFail(request()->rate));
@@ -441,7 +441,7 @@ class ProfileController extends Controller
                 // 'one_hour' => 'required|integer|between:1000,50000',
                 // 'two_hour' => 'required|integer|between:1000,100000',
                 // 'all_night' => 'required|integer|between:1000,1000000',
-            // ]); 
+            // ]);
         }
 
     }
@@ -507,13 +507,13 @@ class ProfileController extends Controller
         if(request()->has('payment')) {
             if(request()->payment <> null) {
                 $bonus = Bonus::where('min_sum','<',request()->payment)->where('max_sum','>=', request()->payment)->first();
-  
+
                 if($bonus <> null) {
                     return 'Бонусы при пополнении: +' . round(request()->payment * $bonus->koef / 100) . ' Пойнтов';
                 } else {
                     return '';
                 }
-            }          
+            }
         }
     }
 
@@ -573,16 +573,16 @@ class ProfileController extends Controller
     public function changeServicePrice()
     {
 
-          $profile = Profile::find(request()->profile_id);  
+          $profile = Profile::find(request()->profile_id);
           $service = Profile::find(request()->service_id);
 
             if($profile->user_id == Auth::user()->id){
 
                 $profile->services()->detach($service);
-                $profile->services()->attach([
-                    $service => ['price' => request()->price]
-                ]);
-                
-            } 
+                $profile->services()->attach(
+                    $service,  ['price' => request()->price]
+                );
+
+            }
     }
 }

@@ -315,18 +315,21 @@ class SiteController extends Controller
         $profile = Profile::where('id', $id)->first();
         $similarProfiles = Profile::where('is_published', '1')->where('is_archived', '0')->take(18)->get();
 
+        $parentServicesNeeds = $profile->services->pluck('parent_id');
+        $parent_services = $this->services->whereIn('id', $parentServicesNeeds)->all();
+
         return view('sitepath.profile')->with([
             'profile' => $profile,
             'phone' => $this->formatPhone($profile->phone),
-            'services' => $this->services,
+            'services' => $parent_services,
             'similarProfiles' => $similarProfiles
         ]);
     }
 
     public function formatPhone($phone) {
-        if(  preg_match( '/^\d(\d{3})(\d{3})(\d{4})$/', $phone,  $matches ) )
+        if(  preg_match( '/^(\d)(\d{3})(\d{3})(\d{2})(\d{2})$/', $phone,  $matches ) )
         {
-            $phone = $matches[1] . '-' .$matches[2] . '-' . $matches[3];
+            $phone = $matches[1] . '(' .$matches[2] . ')' . $matches[3] . '-' . $matches[4] . '-' . $matches[5];
             return $phone;
         } else {
             return $phone;

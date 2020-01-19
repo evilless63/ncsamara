@@ -8,7 +8,7 @@
     <div class="container profileContainer" style="background-color:rgba(0, 0, 0, 0.1);
         padding: 60px 60px 60px 30px !important;">
         <div class="row">
-            <div class="col-md-7 col-sm-12">
+            <div class="col-md-8 col-sm-12">
                 <div class="d-flex align-self-center justify-content-between">
                     <span class="name">
                         {{ $profile->name }} <span class="age">| {{ $profile->age }} лет</span>
@@ -21,7 +21,7 @@
                     <div class="nc-location d-flex">
                         <img class="img-fluid align-self-center" src="{{asset('/images/location.png')}}">
                         <div class="align-self-center ml-2 d-flex flex-column address">
-                       
+
                             <span> {{ $profile->districts->first()->name }} /
                                 @if($profile->working_24_hours)
                                     Круглосуточно
@@ -157,7 +157,6 @@
                 <div class="row ">
                     <div class="col">
                     @foreach($services as $service)
-                    @if($profile->services->where('parent_id', $service->id)->count() > 0)
                         <div class="col d-flex">
                             <div class="row flex-column">
                                 <div class="col mt-3">
@@ -166,7 +165,7 @@
                                     <div class="d-flex flex-column">
                                         @foreach($service->childrenRecursive as $serviceChild)
                                             @if($profile->services->where('id', $serviceChild->id)->first())
-                                                <span class="font-italic">{{ $profile->services->where('id', $serviceChild->id)->first()->name }} @if($profile->services->where('id', $serviceChild->id)->first()->pivot->price) + {{$profiles->services->where('id', $serviceChild->id)->first()->pivot->price}} руб. @endif</span>
+                                                <span class="font-italic">{{ $profile->services->where('id', $serviceChild->id)->first()->name }} @if($profile->services->where('id', $serviceChild->id)->first()->pivot <> null) {{$profile->services->where('id', $serviceChild->id)->first()->pivot->price}} руб. @endif</span>
                                             @endif
                                         @endforeach
                                     </div>
@@ -174,12 +173,11 @@
                                 </div>
                             </div>
                         </div>
-                    @endif    
                     @if($loop->iteration % 3 == 0 && !$loop->last)
                     </div>
                     <div class="col">
                         @elseif($loop->last)
-                        
+
                     @endif
                     @endforeach
                     </div>
@@ -187,7 +185,7 @@
             </div>
             <div class="col-md-4 col-sm-12 d-flex flex-column">
                 <div id="nc-carouselSimilars" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
-                
+
                 <div class="d-flex justify-content-between">
                     <h5 class="font-italic">Похожие анкеты</h5>
 
@@ -201,7 +199,7 @@
                     </div>
                 </div>
 
-                
+
                     <div class="carousel-inner">
                         @foreach($similarProfiles as $similar)
                         <div class="carousel-item @if($loop->iteration == 1) active @endif">

@@ -11,7 +11,7 @@ class ProfileSeeder extends Seeder
      */
     public function run()
     {
-        $services = App\Service::where('is_category','0');
+        $services = App\Service::where('is_category','0')->get();
         $rates = App\Rate::all();
         $hairs = App\Hair::all();
         $appearances = App\Appearance::all();
@@ -25,21 +25,25 @@ class ProfileSeeder extends Seeder
 
         });
 
-        App\Profile::all()->each(function ($profile) use ($rates, $districts, $hairs, $appearances) { 
+        App\Profile::all()->each(function ($profile) use ($rates, $districts, $hairs, $appearances, $services) {
             $profile->rates()->attach(
-                $rates->random(rand(1, 3))->pluck('id')->toArray()
+                $rates->random(rand(1, 3))->first()
             );
 
             $profile->hairs()->attach(
-                $hairs->random(rand(1, 5))->pluck('id')->toArray()
+                $hairs->random(rand(1, 5))->first()
             );
 
             $profile->appearances()->attach(
-                $appearances->random(rand(1, 4))->pluck('id')->toArray()
+                $appearances->random(rand(1, 4))->first()
             );
 
             $profile->districts()->attach(
-                $districts->random(rand(1,8))->pluck('id')->toArray()
+                $districts->random(rand(1,8))->first()
+            );
+
+            $profile->services()->attach(
+                $services->random(5)->pluck('id')->toArray()
             );
         });
 

@@ -40,7 +40,7 @@ Route::prefix('user')->middleware('is_banned')->name('user.')->group(function ()
 
     Route::patch('publish/{id}', 'ProfileController@publish')->name('profilepublish');
     Route::patch('unpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
-    Route::patch('/changeserviceprice', 'ProfileController@changeServicePrice')->name('service.pricechange');
+    Route::post('/changeserviceprice', 'ProfileController@changeServicePrice')->name('service.pricechange');
 });
 
 //Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
