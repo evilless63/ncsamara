@@ -11,7 +11,10 @@
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>
+
+
 @endsection
 
 @section('content')
@@ -112,16 +115,6 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="profileAppearance">Цвет волос</label>
-                                    <select class="form-control" name="hair" id="profileHair">
-                                        @foreach($hairs as $hair)
-                                            <option
-                                                value="{{$hair->id}} {{$profile->hairs->find($hair->id) <> null ? 'selected' : ''}}">
-                                                {{ $hair->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
 {{--                                <div class="form-group">--}}
 {{--                                    <label for="profileAddress">Адрес:</label>--}}
 {{--                                    <input name="address" type="text" id="profileAddress"--}}
@@ -269,7 +262,7 @@
                                 <div class="form-check ml-2">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input class="form-check-input" type="checkbox" id="profileService"
+                                            <input class="form-check-input" type="checkbox" id="profileService{{$service->id}}"
                                                    name="services[]" value="{{$service->id}}"
                                                 {{$profile->services->find($service->id) <> null ? 'checked' : ''}}>
                                             <label class="form-check-label" for="profileApartaments">
@@ -278,22 +271,20 @@
                                         </div>
                                         <div class="col-md-6">
                                             @if(Auth::user()->id === $profile->user_id)
-                                                <form method="post" action="{{ route('service.pricechange', [$profile->id, $service->id]) }}">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <input class="form-control" name="price" type="text" value="{{ $service->pivot->price }}">
-                                                        </div>
-                                                        <div class="col">
-                                                            <button type="submit" class="btn btn-danger btn-fab btn-fab-mini btn-round" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги">
-                                                                <i class="material-icons">
-                                                                    loop
-                                                                </i>
-                                                            </button>
+                                                
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input class="form-control" data-price = "{{ $service->pivot <> null ? $service->pivot->price : '' }}" data-service-id = "{{$service->id}}" name="price" type="text" value="{{ $service->pivot <> null ? $service->pivot->price : '' }}">
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="btn btn-success btn-fab btn-fab-mini btn-round" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги">
+                                                            <i class="material-icons">
+                                                                Обновить цену
+                                                            </i>
                                                         </div>
                                                     </div>
-                                                </form>
+                                                </div>
+                                                
                                             @else
                                                 <span>{{ $service->pivot->price <> null ? $service->pivot->price . 'р.' : ''}} </span>
                                             @endif
@@ -406,20 +397,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <button type="submit" class="btn btn-primary">Обновить анкету</button>
                     </form>
                 </div>
@@ -464,8 +441,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-
         Dropzone.autoDiscover = false;
         var acceptedFileTypes = "image/*"; //dropzone requires this param be a comma separated list
         // imageDataArray variable to set value in crud form
@@ -491,7 +466,6 @@
                     "fileName": file.name,
                     "fileId": i
                 };
-
                 i += 1;
                 $('#item_images').val(imageDataArray);
             });
@@ -505,14 +479,11 @@
                         // get removed database file name
                         rmvFile = fileList[f].serverFileName;
                         // get request to remove the uploaded file from server
-
                         deleteAjaxFile(rmvFile);
                     }
                 }
-
             });
         });
-
         function deleteAjaxFile(rmvFile) {
             $.ajax({
                 headers: {
@@ -525,6 +496,5 @@
                 }
             });
         }
-
 </script>
 @endsection

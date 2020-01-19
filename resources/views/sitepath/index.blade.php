@@ -455,13 +455,15 @@
                 obj.height_max = $('input[id=nc-height]').val().split(',')[1];
                 obj.boobs_min = $('input[id=nc-boobs]').val().split(',')[0];
                 obj.boobs_max = $('input[id=nc-boobs]').val().split(',')[1];
-                obj.services = $( "input[name=services]" ).val();
-                obj.appearances = $( "input[type=checkbox][name=appearances]:checked" ).val();
-                obj.hairs = $( "input[type=checkbox][name=hairs]:checked" ).val();
-                obj.districts = $( "input[type=checkbox][name=districts]:checked" ).val();
-                obj.apartments = $( "input[type=checkbox][name=apartments]:checked" ).val();
+                obj.services = $('input[name="services[]"]:checked').map(function(){return $(this).val();}).get();
+                obj.appearances = $('input[name="appearances[]"]:checked').map(function(){return $(this).val();}).get();
+                obj.hairs = $('input[name="hairs[]"]:checked').map(function(){return $(this).val();}).get();
+                obj.districts = $('input[name="districts[]"]:checked').map(function(){return $(this).val();}).get();
+                obj.apartments = $('input[name="apartments[]"]:checked').map(function(){return $(this).val();}).get();
                 obj.check_out = $( "input[type=checkbox][name=check_out]:checked" ).val();
                 obj.verified = $( "input[type=checkbox][name=verified]:checked" ).val();
+
+                console.log(obj);
                 load_data('', _token, obj, data);
             });
 

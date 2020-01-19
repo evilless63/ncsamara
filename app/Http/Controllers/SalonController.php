@@ -50,7 +50,8 @@ class SalonController extends Controller
      */
     public function store(Request $request)
     {
-        $salon_data = $this->validateSalon(true);
+        $this->validateSalon(true);
+        $salon_data = request()->all();
         $salon_data['user_id'] = Auth::user()->id;
 
         $_IMAGE = $request->file('image');
@@ -95,7 +96,10 @@ class SalonController extends Controller
      */
     public function update(Request $request, Salon $salon)
     {
-        $salon_data = $this->validateSalon(false);
+        
+        $this->validateSalon(false);
+        $salon_data = request()->all();
+  
         $salon_data['user_id'] = Auth::user()->id;
 
         $_IMAGE = $request->file('image');
@@ -109,6 +113,8 @@ class SalonController extends Controller
             $salon_data['image'] = $filename;
 
         }
+
+        
 
         $salon->update($salon_data);
         
@@ -133,17 +139,14 @@ class SalonController extends Controller
         if($isNew) {
             return request()->validate([
                 'name' => 'required',
-                'address' => 'required',
-                'image' => [
-                        'required',
-                        Rule::dimensions()->maxWidth(1500)->maxHeight(1000)->ratio(3/2),
-                    ],
+                // 'address' => 'required',
+                'image' => 'required',
                 'phone' => 'required|unique:App\Salon,phone|regex:/^((\d)+([0-9]){10})$/i',
             ]);
         } else {
             return request()->validate([
                 'name' => 'required',
-                'address' => 'required',
+                // 'address' => 'required',
                 'image' => 'required',
                 'phone' => 'required|regex:/^((\d)+([0-9]){10})$/i',
             ]); 

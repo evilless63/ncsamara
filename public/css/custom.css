@@ -465,3 +465,22 @@ body {
 .post_data {
     transition: 1s;
 }
+
+.salonName {
+    margin-top: 15px;
+    margin-left: 12px;
+    position: absolute;
+    color: #fff;
+}
+
+.salonPhone {
+    margin-top: -25px;
+    margin-left: 12px;
+    position: absolute;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.salonWrapper {
+    position: relative;
+}

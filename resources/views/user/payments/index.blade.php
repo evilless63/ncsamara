@@ -127,24 +127,25 @@
 
 @section('bonuscheck')
     <script type="text/javascript">
+
+    $('#userPayment').on('input', function(){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        $('#userPayment').keyup(function(e){
-            e.preventDefault();
-            var payment = $("input[name=payment]").val();
+        var payment = $("input[name=payment]").val();
 
-            $.ajax({
-                type:'POST',
-                url:'/user/plusbonusinfo',
-                data:{payment:payment},
-                success:function(data){
-                    $('#bonusinfo').text(data);
-                }
-            });
+        $.ajax({
+            type:'POST',
+            url:'/user/plusbonusinfo',
+            data:{payment:payment},
+            success:function(data){
+                $('#bonusinfo').text(data);
+            }
         });
+    })
+   
     </script>
 @endsection

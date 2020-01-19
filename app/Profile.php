@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
 
-    protected $guarded = ['services', 'appearance', 'hair', 'item_images', 'profile_balance', 'rate'];
+    protected $guarded = ['services', 'appearance', 'hair', 'item_images', 'profile_balance', 'rate', 'price'];
 
     public function user() {
         return $this->belongsTo('App\User');

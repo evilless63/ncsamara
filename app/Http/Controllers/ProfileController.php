@@ -82,28 +82,32 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validateProfile(true);
 
-        $profile = Profile::create($this->validateProfile(true));
+        $profileArr = request()->all();
+        $profileArr['user_id'] = Auth::user()->id;
 
-        if(request()->has('services')) {
+        $profile = Profile::create($profileArr);
+
+        if(request()->filled('services')) {
             foreach (request('services') as $service) {
                 $profile->services()->attach(Service::findOrFail($service));
             }
         }
 
-        if(request()->has('appearance')) {
+        if(request()->filled('appearance')) {
             $profile->appearances()->attach(Appearance::findOrFail(request()->appearance));
         }
 
-        if(request()->has('hair')) {
+        if(request()->filled('hair')) {
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
         }
 
-        if(request()->has('district')) {
+        if(request()->filled('district')) {
             $profile->districts()->attach(District::findOrFail(request()->district));
         }
 
-        if(request()->has('item_images')) {
+        if(request()->filled('item_images')) {
 
             $array = explode(",", request()->item_images);
             foreach ($array as $arr ) {
@@ -158,7 +162,7 @@ class ProfileController extends Controller
             'appearances' => $this->appearances,
             'hairs' => $this->hairs,
             'rates' => $this->rates,
-            'rates' => $this->districts,
+            'districts' => $this->districts,
         ]);
     }
 
@@ -171,32 +175,40 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
+        
+        $this->validateProfile(false);
 
-        $profile->update($this->validateProfile(false));
+        $profileArr = request()->all();
 
-        if(request()->has('services')) {
+        if (Auth::user()->is_admin) {
+        } else {
+            $profileArr['user_id'] = Auth::user()->id;
+        }
+
+        if(request()->filled('services')) {
             $profile->services()->detach();
             foreach (request('services') as $service) {
                 $profile->services()->attach(Service::findOrFail($service));
             }
         }
+        $profile->update($profileArr);
 
-        if(request()->has('appearance')) {
+        if(request()->filled('appearance')) {
             $profile->appearances()->detach();
             $profile->appearances()->attach(Appearance::findOrFail(request()->appearance));
         }
 
-        if(request()->has('hair')) {
+        if(request()->filled('hair')) {
             $profile->hairs()->detach();
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
         }
-
-        if(request()->has('district')) {
+        
+        if(request()->filled('district')) {
             $profile->districts()->detach();
             $profile->districts()->attach(District::findOrFail(request()->district));
         }
-
-        if(request()->has('item_images') && request()->item_images <> null) {
+        
+        if(request()->filled('item_images') && request()->item_images <> null) {
             $array = explode(",", request()->item_images);
             foreach ($array as $arr ) {
                 $image = new Image;
@@ -207,8 +219,8 @@ class ProfileController extends Controller
             }
 
         }
-
-        if(request()->has('rate')) {
+        
+        if(request()->filled('rate')) {
             $profile->rates()->detach();
             $profile->rates()->attach(Rate::findOrFail(request()->rate));
         }
@@ -394,63 +406,44 @@ class ProfileController extends Controller
     protected function validateProfile($isNew = false)
     {
 
-
-        if ($isNew) {
-            $this->newValidate();
+        if($isNew) {
+            // return request()->validate([
+            //     'name' => 'required',
+            //     'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
+            //     'about' => 'required',
+            //     'district' => 'required',
+    //            'address' => 'required',
+    //            'address_x' => 'required',
+    //            'address_y' => 'required',
+                // 'working_hours' => 'required',
+                // 'boobs' => 'required|integer|between:1,10',
+                // 'age' => 'required|integer|between:18,65',
+                // 'weight' => 'required|integer|between:40,100',
+                // 'height' => 'required|integer|between:150,195',
+                // 'one_hour' => 'required|integer|between:1000,50000',
+                // 'two_hour' => 'required|integer|between:1000,100000',
+                // 'all_night' => 'required|integer|between:1000,1000000',
+            // ]);
         } else {
-            $this->oldValidate();
+            // return request()->validate([
+            //     'name' => 'required',
+            //     'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
+            //     'about' => 'required',
+            //     'district' => 'required',
+    //            'address' => 'required',
+    //            'address_x' => 'required',
+    //            'address_y' => 'required',
+                // 'working_hours' => 'required',
+                // 'boobs' => 'required|integer|between:1,10',
+                // 'age' => 'required|integer|between:18,65',
+                // 'weight' => 'required|integer|between:40,100',
+                // 'height' => 'required|integer|between:150,195',
+                // 'one_hour' => 'required|integer|between:1000,50000',
+                // 'two_hour' => 'required|integer|between:1000,100000',
+                // 'all_night' => 'required|integer|between:1000,1000000',
+            // ]); 
         }
 
-        $profileArr = request()->all();
-
-        if (Auth::user()->is_admin && !$isNew) {
-        } else {
-            $profileArr['user_id'] = Auth::user()->id;
-        }
-
-        return $profileArr;
-    }
-
-    protected function newValidate()
-    {
-        request()->validate([
-            'name' => 'required',
-            'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
-            'about' => 'required',
-            'district' => 'required',
-//            'address' => 'required',
-//            'address_x' => 'required',
-//            'address_y' => 'required',
-            'working_hours' => 'required',
-            'boobs' => 'required|integer|between:1,10',
-            'age' => 'required|integer|between:18,65',
-            'weight' => 'required|integer|between:40,100',
-            'height' => 'required|integer|between:150,195',
-            'one_hour' => 'required|integer|between:1000,50000',
-            'two_hour' => 'required|integer|between:1000,100000',
-            'all_night' => 'required|integer|between:1000,1000000',
-        ]);
-    }
-
-    protected function oldValidate()
-    {
-        request()->validate([
-            'name' => 'required',
-            'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
-            'about' => 'required',
-            'district' => 'required',
-//            'address' => 'required',
-//            'address_x' => 'required',
-//            'address_y' => 'required',
-            'working_hours' => 'required',
-            'boobs' => 'required|integer|between:1,10',
-            'age' => 'required|integer|between:18,65',
-            'weight' => 'required|integer|between:40,100',
-            'height' => 'required|integer|between:150,195',
-            'one_hour' => 'required|integer|between:1000,50000',
-            'two_hour' => 'required|integer|between:1000,100000',
-            'all_night' => 'required|integer|between:1000,1000000',
-        ]);
     }
 
     public function fileUpload(Request $request)
@@ -511,14 +504,17 @@ class ProfileController extends Controller
 
     public function plusbonusinfo() {
 
-        $bonus = Bonus::where('min_sum','<',request()->payment)->where('max_sum','>=', request()->payment)->first();
-
-        if($bonus <> null) {
-            return response()->json_encode('Бонусы при пополнении: ' . $bonus . 'Пойнтов');
-        } else {
-            return response()->json_encode('');
+        if(request()->has('payment')) {
+            if(request()->payment <> null) {
+                $bonus = Bonus::where('min_sum','<',request()->payment)->where('max_sum','>=', request()->payment)->first();
+  
+                if($bonus <> null) {
+                    return 'Бонусы при пополнении: +' . round(request()->payment * $bonus->koef / 100) . ' Пойнтов';
+                } else {
+                    return '';
+                }
+            }          
         }
-
     }
 
     public function makepayment() {
@@ -574,28 +570,19 @@ class ProfileController extends Controller
     }
 
 
-    public function changeServicePrice(Request $request, Profile $profile, Service $service)
+    public function changeServicePrice()
     {
 
-//        $usercard = Usercard::find($usercardId);
+          $profile = Profile::find(request()->profile_id);  
+          $service = Profile::find(request()->service_id);
 
-//        if (Auth::check()) {
             if($profile->user_id == Auth::user()->id){
 
                 $profile->services()->detach($service);
                 $profile->services()->attach([
-                    $service => ['price' => $request->price]
+                    $service => ['price' => request()->price]
                 ]);
-
-                return redirect(route('user.profiles.edit', $profile->id))->withSuccess('Цена услуги успешно изменена');
-            } else{
-                Session::flash('alert-danger', 'Карточку может редактировать только её владелец !');
-                return redirect()->back();
-            }
-
-//        } else {
-//            Session::flash('alert-danger', 'Сначала необходимо войти на сайт или пройти процедуру регистрации.');
-//            return redirect()->back();
-//        }
+                
+            } 
     }
 }

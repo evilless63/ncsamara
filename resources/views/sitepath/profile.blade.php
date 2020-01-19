@@ -70,6 +70,15 @@
         </div>
 
         <div class="row mt-4">
+            <div class="col-md-12 col-sm-12">
+                <h5 class="font-italic">О себе</h5>
+                <p class="font-italic priceFont">
+                    {{ $profile->about }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
             <div class="col-md-4 col-sm-12">
                 <h5 class="font-italic">Стоимость</h5>
                 <div class="d-flex justify-content-between">
@@ -145,30 +154,40 @@
         <div class="row">
             <div class="col-md-8 col-sm-12">
                 <h5 class="font-italic">Услуги</h5>
-                <div class="row">
-                    @foreach($services->where('is_category','1') as $service)
-                        @if($profiles->services->parent->where('id', $service->id)->first())
-                            <div class="col d-flex">
-                                <div class="row flex-column">
-                                    <div class="col mt-3">
-                                        <h5 class="font-italic mb-2"><u>{{ $service->name }}:</u></h5>
+                <div class="row ">
+                    <div class="col">
+                    @foreach($services as $service)
+                    @if($profile->services->where('parent_id', $service->id)->count() > 0)
+                        <div class="col d-flex">
+                            <div class="row flex-column">
+                                <div class="col mt-3">
+                                    <h5 class="font-italic mb-2"><u>{{ $service->name }}:</u></h5>
 
-                                        <div class="d-flex flex-column">
-                                            @foreach($service->childrenRecursive as $serviceChild)
-                                                @if($profiles->services->where('id', $serviceChild->id)->first())
-                                                    <span class="font-italic">{{ $profiles->services->where('id', $serviceChild->id)->first()->name }} @if($profiles->services->where('id', $serviceChild->id)->first()->pivot->price) + {{$profiles->services->where('id', $serviceChild->id)->first()->pivot->price}} руб. @endif</span>}}
-                                                @endif
-                                            @endforeach
-                                        </div>
-
+                                    <div class="d-flex flex-column">
+                                        @foreach($service->childrenRecursive as $serviceChild)
+                                            @if($profile->services->where('id', $serviceChild->id)->first())
+                                                <span class="font-italic">{{ $profile->services->where('id', $serviceChild->id)->first()->name }} @if($profile->services->where('id', $serviceChild->id)->first()->pivot->price) + {{$profiles->services->where('id', $serviceChild->id)->first()->pivot->price}} руб. @endif</span>
+                                            @endif
+                                        @endforeach
                                     </div>
+
                                 </div>
                             </div>
-                        @endif
+                        </div>
+                    @endif    
+                    @if($loop->iteration % 3 == 0 && !$loop->last)
+                    </div>
+                    <div class="col">
+                        @elseif($loop->last)
+                        
+                    @endif
                     @endforeach
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12 d-flex flex-column">
+                <div id="nc-carouselSimilars" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
+                
                 <div class="d-flex justify-content-between">
                     <h5 class="font-italic">Похожие анкеты</h5>
 
@@ -182,10 +201,12 @@
                     </div>
                 </div>
 
-                <div id="nc-carouselSimilars" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
+                
                     <div class="carousel-inner">
                         @foreach($similarProfiles as $similar)
-                        <img src="{{asset('/images/profiles/main/created/' . $similar->main_image)}}" class="img-fluid mt-3">
+                        <div class="carousel-item @if($loop->iteration == 1) active @endif">
+                            <img src="{{asset('/images/profiles/main/created/' . $similar->main_image)}}" class="img-fluid mt-3">
+                        </div>
                         @endforeach
                     </div>
                 </div>

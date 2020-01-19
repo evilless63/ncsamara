@@ -13,6 +13,7 @@ use App\Service;
 use App\Appearance;
 use App\Hair;
 use App\Image;
+use App\Salon;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -87,13 +88,11 @@ class SiteController extends Controller
         {
             if($request->id > 0)
             {
-                $data = Profile::
-                    where('id', '<', $request->id);
+                $data = Profile::where('id', '<', $request->id);
             }
             else
             {
-                $data = Profile::
-                    orderBy('id', 'DESC');
+                $data = Profile::where('id', '>', 0);
             }
             $output = '<div class="row">';
             $last_id = '';
@@ -164,7 +163,7 @@ class SiteController extends Controller
 
             if($request->has('services')) {
 
-                $request->whereHas('services', function($query) use($request){
+                $data->whereHas('services', function($query) use($request){
                     $query->whereIn('service_id', $request->services);
                 });
 
@@ -172,7 +171,7 @@ class SiteController extends Controller
 
             if($request->has('appearances')) {
 
-                $request->whereHas('appearances', function($query) use($request){
+                $data->whereHas('appearances', function($query) use($request){
                     $query->whereIn('appearance_id', $request->appearances);
                 });
 
@@ -180,7 +179,7 @@ class SiteController extends Controller
 
             if($request->has('hairs')) {
 
-                $request->whereHas('hairs', function($query) use($request){
+                $data->whereHas('hairs', function($query) use($request){
                     $query->whereIn('hair_id', $request->hairs);
                 });
 
@@ -188,7 +187,7 @@ class SiteController extends Controller
 
             if($request->has('districts')) {
 
-                $request->whereHas('districts', function($query) use($request){
+                $data->whereHas('districts', function($query) use($request){
                     $query->whereIn('district_id', $request->districts);
                 });
 
@@ -232,7 +231,7 @@ class SiteController extends Controller
                         if($row->profileWork24Hours) {
                             $timework .= ' Всегда';
                         } else {
-                            $timework .= ' с ' . $row->working_hours_from . ' до '. $row->working_hours_to . ' чвсов';
+                            $timework .= ' с ' . $row->working_hours_from . ' до '. $row->working_hours_to;
                         }
                     } else {
                         $timework = '';
@@ -241,7 +240,12 @@ class SiteController extends Controller
 
 
                     $output .= '<div class="col-md-4 col-sx-6 nc-col">
-                                    <div class="nc-card d-flex flex-column justify-content-between">
+                                    <div class="nc-card d-flex flex-column justify-content-between"
+                                    style = "
+                                    background-size: 100%;
+                                    background: linear-gradient(360deg, rgba(2, 0, 0, 0.5) 0%, rgba(59, 18, 24, 0.5) 18%, rgba(72, 26, 35, 0.5) 33%, rgba(61, 41, 50, 0.5) 54%, rgba(58, 45, 55, 0.5) 100%), url(/images/profiles/main/created/'. $row->main_image .') no-repeat;
+                                    "
+                                    >
                                         <div class="nc-card-top">
                                             <div class="d-flex flex-column justify-content-between align-items-end">
                                                 '. $verified . $apartments . $check_out .'
@@ -302,7 +306,8 @@ class SiteController extends Controller
     }
 
     public function salons() {
-        return view('sitepath.salons');
+        $salons = Salon::where('is_published', '1')->get();
+        return view('sitepath.salons')->with(['salons' => $salons]);
     }
 
     public function profile($id) {

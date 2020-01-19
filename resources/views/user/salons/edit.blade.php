@@ -40,7 +40,7 @@
                                        class="form-control @error('min_price') is-invalid @enderror"
                                        placeholder="" value="{{ $salon->min_price }}">
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="salonAddress">Адрес:</label>
                                 <input name="address" type="text" id="salonAddress" class="form-control @error('address') is-invalid @enderror"
                                        placeholder="Укажите адрес салона" value="{{ $salon->address }}">
@@ -49,8 +49,9 @@
                                 <input type="hidden" name="address_x" value="1">
                                 <input type="hidden" name="address_y" value="1">
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                            </div>
+                            </div> -->
 
+                            @if(Auth::user()->is_admin)
                             <div class="form-check">
                                 <input type="hidden" name="is_published" value="0">
                                 <input class="form-check-input" type="checkbox" id="salonIsPublished"
@@ -59,6 +60,13 @@
                                     Опубликовать на сайте
                                 </label>
                             </div>
+                            @else
+                                @if($salon->is_published)
+                                    <p>Салон успешно опубликован на сайте</p>
+                                @else
+                                    <p>Салон не опубликован, необходимо обратиться в техподдержку для его публикации на сайте</p>
+                                @endif
+                            @endif
 
                             <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение / назначить новое</h5>
 

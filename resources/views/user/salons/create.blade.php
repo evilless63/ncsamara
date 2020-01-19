@@ -42,7 +42,7 @@
                                        class="form-control @error('min_price') is-invalid @enderror"
                                        placeholder="" value="{{ old('min_price') }}">
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="salonAddress">Адрес:</label>
                                 <input name="address" type="text" id="salonAddress"
                                        class="form-control @error('address') is-invalid @enderror"
@@ -53,7 +53,7 @@
                                 <input type="hidden" name="address_x" value="1">
                                 <input type="hidden" name="address_y" value="1">
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                            </div>
+                            </div> -->
 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="salonIsPublished" name="is_published"
