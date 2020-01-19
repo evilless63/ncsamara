@@ -20,6 +20,10 @@ use Illuminate\Support\Carbon;
 class SiteController extends Controller
 {
 
+    public $services;
+    public $appearances;
+    public $profiles;
+
     public function __construct()
     {
 
@@ -84,7 +88,7 @@ class SiteController extends Controller
             if($request->id > 0)
             {
                 $data = Profile::
-                    where('id', '<', $request->id); 
+                    where('id', '<', $request->id);
             }
             else
             {
@@ -163,34 +167,34 @@ class SiteController extends Controller
                 $request->whereHas('services', function($query) use($request){
                     $query->whereIn('service_id', $request->services);
                 });
-    
-            } 
+
+            }
 
             if($request->has('appearances')) {
 
                 $request->whereHas('appearances', function($query) use($request){
                     $query->whereIn('appearance_id', $request->appearances);
                 });
-    
-            } 
+
+            }
 
             if($request->has('hairs')) {
 
                 $request->whereHas('hairs', function($query) use($request){
                     $query->whereIn('hair_id', $request->hairs);
                 });
-    
-            } 
-            
+
+            }
+
             if($request->has('districts')) {
 
                 $request->whereHas('districts', function($query) use($request){
                     $query->whereIn('district_id', $request->districts);
                 });
-    
+
             }
 
-            
+
 
             $data = $data->where('is_published', 1)
             ->where('is_archived', 0)
@@ -226,7 +230,7 @@ class SiteController extends Controller
                     if($row->profileWork24Hours || $row->working_hours_from) {
                         $timework = ' /';
                         if($row->profileWork24Hours) {
-                            $timework .= ' Всегда';   
+                            $timework .= ' Всегда';
                         } else {
                             $timework .= ' с ' . $row->working_hours_from . ' до '. $row->working_hours_to . ' чвсов';
                         }
@@ -234,7 +238,7 @@ class SiteController extends Controller
                         $timework = '';
                     };
 
-                    
+
 
                     $output .= '<div class="col-md-4 col-sx-6 nc-col">
                                     <div class="nc-card d-flex flex-column justify-content-between">
@@ -261,10 +265,10 @@ class SiteController extends Controller
                                     </div>
                                 </div>';
 
-                        if($iteration % 3 == 0) { 
+                        if($iteration % 3 == 0) {
                             $output .= '</div><div class="row mt-3">';
-                        } 
-                         
+                        }
+
                     $last_id = $row->id;
                 }
                 $output .= '</div>';
@@ -301,8 +305,27 @@ class SiteController extends Controller
         return view('sitepath.salons');
     }
 
-    public function profile() {
-        return view('sitepath.profile');
+    public function profile($id) {
+
+        $profile = Profile::where('id', $id)->first();
+        $similarProfiles = Profile::where('is_published', '1')->where('is_archived', '0')->take(18)->get();
+
+        return view('sitepath.profile')->with([
+            'profile' => $profile,
+            'phone' => $this->formatPhone($profile->phone),
+            'services' => $this->services,
+            'similarProfiles' => $similarProfiles
+        ]);
+    }
+
+    public function formatPhone($phone) {
+        if(  preg_match( '/^\d(\d{3})(\d{3})(\d{4})$/', $phone,  $matches ) )
+        {
+            $phone = $matches[1] . '-' .$matches[2] . '-' . $matches[3];
+            return $phone;
+        } else {
+            return $phone;
+        }
     }
 
 }
