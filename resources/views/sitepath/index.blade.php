@@ -6,12 +6,15 @@
         <div class="row">
             <div id="nc-carouselSalons" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="images/carousel/carousel1.png" class="d-block w-100">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/carousel/carousel2.png" class="d-block w-100">
-                    </div>
+                    @foreach($rates->where('for_salons', 1) as $rate)
+                        @foreach($rate->salons->where('is_published', 1)->where('is_approved', 1) as $salon)
+                            @if($salon->image_prem)
+                            <div class="carousel-item @if($loop->first) active @endif">
+                                    <img src="{{ asset('/images/salons/created/' . $salon->image_prem) }}" style="height: 200px"  class="d-block w-100"> 
+                            </div>
+                            @endif
+                        @endforeach
+                    @endforeach
                 </div>
                 <a class="carousel-control-prev" href="#nc-carouselSalons" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -28,7 +31,7 @@
 
     <!-- ОСНОВНАЯ ЧАСТЬ BEGIN -->
 
-    <div class="container mt-3">
+    <div class="container mt-3" style="min-height: 900px;">
         <div class="row justify-content-between">
             <div class="col-md-3 col-sm-12 nc-col-filter">
                 <div class="nc-filter">

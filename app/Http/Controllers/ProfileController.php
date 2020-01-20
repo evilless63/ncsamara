@@ -13,6 +13,7 @@ use App\Service;
 use App\Appearance;
 use App\Hair;
 use App\Image;
+use App\Salon;
 use Auth;
 use File;
 use Illuminate\Support\Carbon;
@@ -29,6 +30,7 @@ class ProfileController extends Controller
     public $districts;
     public $bonuses;
     public $rates;
+    public $salons;
 
     public function __construct()
     {
@@ -39,6 +41,7 @@ class ProfileController extends Controller
         $this->rates = Rate::all();
         $this->bonuses = Bonus::all();
         $this->districts = District::all();
+        $this->salons = Salon::where('user_id', Auth::user())->get();
     }
 
     /**
@@ -392,6 +395,40 @@ class ProfileController extends Controller
 
     }
 
+    public function activatesalon(Request $request, $id) {
+        $salon = Salon::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $user = $salon->user;
+        $rate = $salon->rates->first();
+
+        if(($user->user_balance - $rate->cost) < 0) {
+            $salon['is_approved'] = false;
+            $salon->update();
+            return redirect(route('user.payments'))->withFail('Не достаточно денег на балансе');
+        }
+
+        $user['user_balance'] = $user->user_balance - $rate->cost;
+        $user->update();
+
+        $statistic = new Statistic();
+        $statistic['user_id'] = Auth::user()->id;
+        $statistic['payment'] = - $rate->cost;
+        $statistic['where_was'] = Carbon::now();
+        $statistic->save();
+
+        $salon['is_approved'] = true;
+        $salon['last_payment'] = Carbon::now();
+        $salon['next_payment'] = Carbon::now()->addDays(1);
+
+        $next_payment = Carbon::parse($salon->next_payment);
+        $last_payment = Carbon::parse($salon->last_payment);
+        $salon['minutes_to_archive'] = $next_payment->diffInMinutes($last_payment);
+
+        $salon->update();
+
+        return redirect(route('user.payments'))->withSuccess('Успешно активирована');
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -494,11 +531,13 @@ class ProfileController extends Controller
     }
 
     public function payments() {
+        $salon  = Auth::user()->salon();
         return view('user.payments.index', [
             'profiles' => Auth::user()->profiles,
             'hairs' => $this->hairs,
             'rates' => $this->rates,
             'bonuses' => $this->bonuses,
+            'salon' => $salon,
         ]);
     }
 

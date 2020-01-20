@@ -12,4 +12,8 @@ class Rate extends Model
     public function profiles() {
         return $this->belongsToMany('App\Profile');
     }
+
+    public function salons() {
+        return $this->belongsToMany('App\Salon');
+    }
 }

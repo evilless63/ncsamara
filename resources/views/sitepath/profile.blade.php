@@ -165,7 +165,7 @@
                                     <div class="d-flex flex-column">
                                         @foreach($service->childrenRecursive as $serviceChild)
                                             @if($profile->services->where('id', $serviceChild->id)->first())
-                                                <span class="font-italic">{{ $profile->services->where('id', $serviceChild->id)->first()->name }} @if($profile->services->where('id', $serviceChild->id)->first()->pivot <> null) {{$profile->services->where('id', $serviceChild->id)->first()->pivot->price}} руб. @endif</span>
+                                                <span class="font-italic">{{ $profile->services->where('id', $serviceChild->id)->first()->name }} @if($profile->services->where('id', $serviceChild->id)->first()->pivot->price <> null) {{ ' + ' . $profile->services->where('id', $serviceChild->id)->first()->pivot->price . 'руб.'}} @endif</span>
                                             @endif
                                         @endforeach
                                     </div>

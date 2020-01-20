@@ -37,6 +37,7 @@ Route::prefix('user')->middleware('is_banned')->name('user.')->group(function ()
     Route::post('promotionalpayment', 'ProfileController@promotionalpayment')->name('promotionalpayment');
 
     Route::post('activateprofile/{id}', 'ProfileController@activate')->name('activateprofile');
+    Route::post('activatesalon/{id}', 'ProfileController@activatesalon')->name('activatesalon');
 
     Route::patch('publish/{id}', 'ProfileController@publish')->name('profilepublish');
     Route::patch('unpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');

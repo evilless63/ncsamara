@@ -71,6 +71,7 @@
                             <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение / назначить новое</h5>
 
                             <hr class="mt-2 mb-5">
+                            <h5>Изображение</h5>
                             <div class="col-lg-3 col-md-4 col-6">
                                 <a href="#" class="d-block mb-4 h-100">
                                     <img class="img-fluid img-thumbnail delpath" delpath="{{asset('/images/salons/created/' . $salon->image) }}" src="{{ asset('/images/salons/created/' . $salon->image) }}" alt="">
@@ -78,11 +79,55 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="image">Новое изображение (формат 3 на 2 максимум 1000 на 500 пикселей)</label>
+                                <label for="image">Новое изображение</label>
                                 <br>
                                 <input type="hidden" name="image" value="{{ $salon->image }}">
                                 <input type="file" autocomplete="OFF" name="image" id="image" placeholder=""
                                        class="form-control input-sm" />
+                            </div>
+
+                            <hr class="mt-2 mb-5">
+                            <h5>Изображение для главной</h5>
+                            <div class="col-lg-3 col-md-4 col-6">
+                                <a href="#" class="d-block mb-4 h-100">
+                                    <img class="img-fluid img-thumbnail delpath" delpath="{{asset('/images/salons/created/' . $salon->image_prem) }}" src="{{ asset('/images/salons/created/' . $salon->image_prem) }}" alt="">
+                                </a>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image">Новое изображение для главной</label>
+                                <br>
+                                <input type="hidden" name="image_prem" value="{{ $salon->image_prem }}">
+                                <input type="file" autocomplete="OFF" name="image_prem" id="image" placeholder=""
+                                       class="form-control input-sm" />
+                            </div>
+
+                            <h2>Тарифный план:
+                                @if($salon->rates->count() == 0)
+                                Не назначен
+                                @else
+                                {{$salon->rates->first()->name}}
+                                @endif
+                            </h2>
+                            <div class="form-group">
+                                <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
+                                    попытки
+                                    активации анкеты</p>
+                                <p>Переключение тарифного плана произойдет только в случае достаточного количества
+                                    Пойнтов
+                                    на балансе анкеты</p>
+                                <input type="hidden" name="rate" value="
+                                            @if($salon->rates->count() > 0)
+                                                {{$salon->rates->first()}}
+                                            @endif">
+                                <select class="form-control" name="rate" id="profileRate">
+                                    <option></option>
+                                    @foreach($rates as $rate)
+                                    <option
+                                        value="{{$rate->id}} {{$salon->rates->find($rate->id) <> null ? 'selected' : ''}}">
+                                        {{ $rate->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
 

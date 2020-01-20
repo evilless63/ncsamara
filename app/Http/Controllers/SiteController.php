@@ -24,6 +24,7 @@ class SiteController extends Controller
     public $services;
     public $appearances;
     public $profiles;
+    public $rates;
 
     public function __construct()
     {
@@ -31,6 +32,7 @@ class SiteController extends Controller
         $this->services = Service::with('childrenRecursive')->whereNull('parent_id')->get();
         $this->appearances = Appearance::all();
         $this->profiles = Profile::all();
+        $this->rates = Rate::all();
 
     }
 
@@ -64,6 +66,10 @@ class SiteController extends Controller
 
         $profiles = Profile::where('is_published', '1')->where('is_archived', '0')->take(18)->get();
 
+        foreach ($profiles as $profile) {
+            $profile['phone'] = $this->formatPhone($profile['phone']); 
+        }
+
         $collection = collect(['boobs_min', 'boobs_max', 'age_min', 'age_max', 'weight_min', 'weight_max', 'height_min', 'height_max',
             'one_hour_min', 'one_hour_max', 'two_hour_min', 'two_hour_max', 'all_night_min', 'all_night_max']);
 
@@ -76,6 +82,7 @@ class SiteController extends Controller
             'hairs' => $hairs,
             'appearances' => $appearances,
             'districts' => $districts,
+            'rates' => $this->rates,
 
             'filtersDefaultCollection' => $filtersDefaultCollection,
 
@@ -261,7 +268,7 @@ class SiteController extends Controller
                                             <div class="nc-location d-flex">
                                                 <img class="img-fluid align-self-center" src="images/location.png">
                                                 <div class="align-self-center ml-2 d-flex flex-column">
-                                                    <span>'. $row->phone . '</span>
+                                                    <span>'. $this->formatPhone($row->phone) . '</span>
                                                     <span>'.$row->districts->first()->name . $timework . '</span>
                                                 </div>
                                             </div>
@@ -329,7 +336,7 @@ class SiteController extends Controller
     public function formatPhone($phone) {
         if(  preg_match( '/^(\d)(\d{3})(\d{3})(\d{2})(\d{2})$/', $phone,  $matches ) )
         {
-            $phone = $matches[1] . '(' .$matches[2] . ')' . $matches[3] . '-' . $matches[4] . '-' . $matches[5];
+            $phone = $matches[1] . ' (' .$matches[2] . ') ' . $matches[3] . '-' . $matches[4] . '-' . $matches[5];
             return $phone;
         } else {
             return $phone;

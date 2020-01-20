@@ -87,6 +87,48 @@
                             @endforelse
                         </table>
 
+                        <h3>Настройки оплаты и активности салона</h3>
+
+                        <table class="table table-sm">
+                            <thead>
+                            <tr>
+                                <th scope="col">Название</th>
+                                <th scope="col">Телефон</th>
+                                <th scope="col">Тариф</th>
+                                <th scope="col">Редактировать</th>
+                                <th scope="col">Активна</th>
+                            </tr>
+                            </thead>
+                            
+                         
+
+
+                                <tbody>
+                                <tr>
+                                    <td>{{ $salon->first()->name }}</td>
+                                    <td>{{ $salon->first()->phone }}</td>
+                                    <td>
+                                        {{ $salon->first()->rates()->first()->name }} (Спишется {{$salon->first()->rates()->first()->cost}} в сутки)
+                                    </td>
+                                    <td><a href="{{ route('user.salons.index') }}">>>>></a></td>
+                                    <td>
+                                        @if(!$salon->first()->is_approved)
+
+                                            <form action="{{ route('user.activatesalon', ['id' => $salon->first()->id]) }}" method="post">
+                                                @csrf
+                                                <button type="submit">Нет, активировать</button>
+                                            </form>
+                                        @else
+                                            Да, окончание через
+                                            {{$salon->first()->minutes_to_archive}}
+                                            минут
+                                        @endif
+                                    </td>
+                                </tr>
+                                </tbody>
+                          
+                        </table>
+
                         <h3>История движений средств</h3>
                         <table class="table table-sm">
                             <thead>

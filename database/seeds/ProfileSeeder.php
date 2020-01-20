@@ -17,7 +17,7 @@ class ProfileSeeder extends Seeder
         $appearances = App\Appearance::all();
         $districts = App\District::all();
 
-        factory(App\User::class,5)->create()->each(function ($user){
+        factory(App\User::class,10)->create()->each(function ($user){
 
             factory(App\Profile::class, 20)->create([
                 'user_id' => $user->id,

@@ -277,10 +277,11 @@
                                                         <span>доп. цена: {{ $service->pivot <> null ? $service->pivot->price : 'не указана' }}</span>
                                                     </div>
                                                     <div class="col-md-8 d-flex justify-content-between servicePriceUpdate">
-                                                        <input style="    width: 65%;" class="form-control" data-price = "{{ $service->pivot <> null ? $service->pivot->price : '' }}" data-service-id = "{{$service->id}}" data-profile-id = "{{$profile->id}}" name="priceupdate" type="text" value="{{ $service->pivot <> null ? $service->pivot->price : '' }}">
+                                                        <input style="    width: 65%;" class="form-control" data-price = "{{ $service->pivot <> null ? $service->pivot->price : '' }}" data-service-id = "{{$service->id}}" data-profile-id = "{{$profile->id}}" name="priceupdate" type="text" value="@if($profile->services->where('id', $service->id)->first()->pivot <> null) {{$profile->services->where('id', $service->id)->first()->pivot->price}}@endif">
 
                                                         <div class="btn btn-success btn-fab btn-fab-mini btn-round" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги" onclick="updateServicePrice(event)">
                                                                 Обновить цену
+                                                                <p class="price_update_info"></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -504,9 +505,6 @@
         var price = $(event.target).parent('.servicePriceUpdate').find('input[name=priceupdate]').val()
         var service_id = $(event.target).parent('.servicePriceUpdate').find('input[name=priceupdate]').attr('data-service-id')
         var profile_id = $(event.target).parent('.servicePriceUpdate').find('input[name=priceupdate]').attr('data-profile-id')
-        console.log(price);
-        console.log(service_id);
-        console.log(profile_id);
 
         $.ajax({
             headers: {
@@ -520,6 +518,7 @@
                 price: price
             },
             success: function(response){
+                $(event.target).parent('.servicePriceUpdate').find('.price_update_info').text('Цена успешно обновлена')
             }
         });
 

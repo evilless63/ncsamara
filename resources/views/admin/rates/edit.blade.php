@@ -33,11 +33,29 @@
                                 </textarea>
                             </div>
 
+                            <div class="form-check">
+                                <input type="hidden" name="for_salons" value="0">
+                                <input class="form-check-input" type="checkbox" id="profileWork24Hours"
+                                       name="for_salons" value="1" {{$rate->for_salons ? 'checked' : ''}}>
+                                <label class="form-check-label" for="profileWork24Hours">
+                                    Использовать для салона
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="hidden" name="salons_main" value="0">
+                                <input class="form-check-input" type="checkbox" id="profileWork24Hours"
+                                       name="salons_main" value="1" {{$rate->for_salons ? 'checked' : ''}}>
+                                <label class="form-check-label" for="profileWork24Hours">
+                                    Для главной страницы (салон)
+                                </label>
+                            </div>
+
                             <div class="form-group">
                                 <label for="image">Изображение</label>
                                 <br>
                                 <input type="file" autocomplete="OFF" name="image" id="image" placeholder=""
-                                       class="form-control input-sm" required />
+                                       class="form-control input-sm" />
                             </div>
 
                             <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение / назначить новое</h5>

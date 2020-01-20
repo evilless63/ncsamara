@@ -36,15 +36,16 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        $rate_data = $this->validateRate();
-
+        $this->validateRate();
+        $rate_data = request()->all();
         $_IMAGE = $request->file('image');
+        if($_IMAGE <> null) {
         $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
         $uploadPath = public_path() . '/images/rates/created';
         $_IMAGE->move($uploadPath,$filename);
 
         $rate_data['image'] = $filename;
-
+        }
         Rate::create($rate_data);
         return redirect(route('admin.rates.index'))->withSuccess('Успешно создано');;
     }
@@ -80,17 +81,20 @@ class RateController extends Controller
      */
     public function update(Request $request, Rate $rate)
     {
-        $rate_data = $this->validateRate();
+        $this->validateRate();
+        $rate_data = request()->all();
 //        Rate::update($this->validateRate());
 
-        $_IMAGE = $request->file('image');
-        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
-        $uploadPath = public_path() . '/images/rates/created';
-        File::delete(public_path() . '/images/rates/created' . $rate->image );
-        $_IMAGE->move($uploadPath,$filename);
+    
+            $_IMAGE = $request->file('image');
+            if($_IMAGE <> null) {
+            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+            $uploadPath = public_path() . '/images/rates/created';
+            File::delete(public_path() . '/images/rates/created' . $rate->image );
+            $_IMAGE->move($uploadPath,$filename);
 
-        $rate_data['image'] = $filename;
-
+            $rate_data['image'] = $filename;
+    }
         $rate->update($rate_data);
 
         return redirect(route('admin.rates.index'))->withSuccess('Успешно обновлено');;

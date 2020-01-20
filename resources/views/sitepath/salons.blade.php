@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
-    <div class="container mt-3">
+    <div class="container mt-3" style="min-height: 900px;">
         
         <div class="row">
         @foreach($salons as $salon)

@@ -42,18 +42,6 @@
                                        class="form-control @error('min_price') is-invalid @enderror"
                                        placeholder="" value="{{ old('min_price') }}">
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="salonAddress">Адрес:</label>
-                                <input name="address" type="text" id="salonAddress"
-                                       class="form-control @error('address') is-invalid @enderror"
-                                       placeholder="Укажите адрес салона" value="{{ old('address') }}">
-                                {{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }}
-                                ">--}}
-                                {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
-                                <input type="hidden" name="address_x" value="1">
-                                <input type="hidden" name="address_y" value="1">
-                                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                            </div> -->
 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="salonIsPublished" name="is_published"
@@ -64,10 +52,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="image">Изображение (формат 3 на 2 максимум 1000 на 500 пикселей)</label>
+                                <label for="image">Изображение</label>
                                 <br>
                                 <input type="file" autocomplete="OFF" name="image" id="image" placeholder=""
                                        class="form-control input-sm" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image">Изображение для главной</label>
+                                <br>
+                                <input type="file" autocomplete="OFF" name="image_prem" id="image" placeholder=""
+                                        class="form-control input-sm" />
                             </div>
 
                             <button type="submit" class="btn btn-primary">Создать салон</button>

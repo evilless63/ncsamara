@@ -17,6 +17,8 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Наименование</th>
                                 <th scope="col">Сумма к списанию</th>
+                                <th scope="col">Использовать для салона</th>
+                                <th scope="col">Для главнйо страницы (салон)</th>
                                 <th scope="col">Редактировать</th>
                             </tr>
                         </thead>
@@ -28,6 +30,8 @@
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $rate->name }}</td>
                                 <td>{{ $rate->cost }}</td>
+                                <td>@if($rate->for_salons) Да @else Нет @endif</td>
+                                <td>@if($rate->salons_main) Да @else Нет @endif</td>
                                 <td><a href="{{ route('admin.rates.edit', $rate->id) }}">>>></a></td>
                             </tr>
                         </tbody>

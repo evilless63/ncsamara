@@ -18,6 +18,8 @@ class CreateRatesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->text('description');
+            $table->boolean('for_salons')->default(false);
+            $table->boolean('salons_main')->default(false);
             $table->text('image')->nullable();
             $table->unsignedInteger('cost');
         });
