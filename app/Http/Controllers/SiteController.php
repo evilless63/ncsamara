@@ -89,6 +89,19 @@ class SiteController extends Controller
         ]);
     }
 
+    public function archived(Request $request) {
+
+        $profiles = Profile::where('is_published', '1')->where('is_archived', '1')->take(18)->get();
+
+        foreach ($profiles as $profile) {
+            $profile['phone'] = $this->formatPhone($profile['phone']); 
+        }
+
+        return view('sitepath.archived')->with([
+            'profiles' => $profiles,
+        ]);
+    }
+
     function load_data(Request $request)
     {
         if($request->ajax())
@@ -104,109 +117,119 @@ class SiteController extends Controller
             $output = '<div class="row">';
             $last_id = '';
 
-            if($request->has('one_hour_min') && $request->one_hour_min != null ){
-                $data->where('one_hour', '>=' ,$request->one_hour_min);
-            };
-
-            if($request->has('one_hour_max') && $request->one_hour_max != null ){
-                $data->where('one_hour', '<=' ,$request->one_hour_max);
-            };
-
-            if($request->has('two_hour_min') && $request->two_hour_min != null ){
-                $data->where('two_hour', '>=' ,$request->two_hour_min);
-            };
-
-            if($request->has('two_hour_max') && $request->two_hour_max != null ){
-                $data->where('two_hour', '<=' ,$request->two_hour_max);
-            };
-
-            if($request->has('all_night_min') && $request->all_night_min != null ){
-                $data->where('all_night', '>=' ,$request->all_night_min);
-            };
-
-            if($request->has('all_night_max') && $request->all_night_max != null){
-                $data->where('all_night', '<=' ,$request->all_night_max);
-            };
-
-            if($request->has('age_min') && $request->age_min != null){
-                $data->where('age', '>=' ,$request->age_min);
-            };
-
-            if($request->has('age_max') && $request->age_max != null){
-                $data->where('age', '<=' ,$request->age_max);
-            };
-
-            if($request->has('height_min')){
-                $data->where('height', '>=' ,$request->height_min);
-            };
-
-            if($request->has('height_max')){
-                $data->where('height', '<=' ,$request->height_max);
-            };
-
-            if($request->has('boobs_min')){
-                $data->where('boobs', '>=' ,$request->boobs_min);
-            };
-
-            if($request->has('boobs_max')){
-                $data->where('boobs', '<=' ,$request->boobs_max);
-            };
-
-            if($request->has('verified')){
-                $data->where('verified', $request->verified);
-            };
-
-            if($request->has('apartments')){
-                $data->where('apartments', $request->apartments);
-            };
-
-            if($request->has('check_out')){
-                $data->where('check_out', $request->check_out);
-            };
-
-            if($request->has('new_profiles')){
-                $data->where('created_at', '>=', Carbon::now()->subDays(14));
-            };
-
-            if($request->has('services')) {
-
-                $data->whereHas('services', function($query) use($request){
-                    $query->whereIn('service_id', $request->services);
-                });
-
+            if(!$request->has('archived')){
+                if($request->has('one_hour_min') && $request->one_hour_min != null ){
+                    $data->where('one_hour', '>=' ,$request->one_hour_min);
+                };
+    
+                if($request->has('one_hour_max') && $request->one_hour_max != null ){
+                    $data->where('one_hour', '<=' ,$request->one_hour_max);
+                };
+    
+                if($request->has('two_hour_min') && $request->two_hour_min != null ){
+                    $data->where('two_hour', '>=' ,$request->two_hour_min);
+                };
+    
+                if($request->has('two_hour_max') && $request->two_hour_max != null ){
+                    $data->where('two_hour', '<=' ,$request->two_hour_max);
+                };
+    
+                if($request->has('all_night_min') && $request->all_night_min != null ){
+                    $data->where('all_night', '>=' ,$request->all_night_min);
+                };
+    
+                if($request->has('all_night_max') && $request->all_night_max != null){
+                    $data->where('all_night', '<=' ,$request->all_night_max);
+                };
+    
+                if($request->has('age_min') && $request->age_min != null){
+                    $data->where('age', '>=' ,$request->age_min);
+                };
+    
+                if($request->has('age_max') && $request->age_max != null){
+                    $data->where('age', '<=' ,$request->age_max);
+                };
+    
+                if($request->has('height_min')){
+                    $data->where('height', '>=' ,$request->height_min);
+                };
+    
+                if($request->has('height_max')){
+                    $data->where('height', '<=' ,$request->height_max);
+                };
+    
+                if($request->has('boobs_min')){
+                    $data->where('boobs', '>=' ,$request->boobs_min);
+                };
+    
+                if($request->has('boobs_max')){
+                    $data->where('boobs', '<=' ,$request->boobs_max);
+                };
+    
+                if($request->has('verified')){
+                    $data->where('verified', $request->verified);
+                };
+    
+                if($request->has('apartments')){
+                    $data->where('apartments', $request->apartments);
+                };
+    
+                if($request->has('check_out')){
+                    $data->where('check_out', $request->check_out);
+                };
+    
+                if($request->has('new_profiles')){
+                    $data->where('created_at', '>=', Carbon::now()->subDays(14));
+                };
+    
+                if($request->has('services')) {
+    
+                    $data->whereHas('services', function($query) use($request){
+                        $query->whereIn('service_id', $request->services);
+                    });
+    
+                }
+    
+                if($request->has('appearances')) {
+    
+                    $data->whereHas('appearances', function($query) use($request){
+                        $query->whereIn('appearance_id', $request->appearances);
+                    });
+    
+                }
+    
+                if($request->has('hairs')) {
+    
+                    $data->whereHas('hairs', function($query) use($request){
+                        $query->whereIn('hair_id', $request->hairs);
+                    });
+    
+                }
+    
+                if($request->has('districts')) {
+    
+                    $data->whereHas('districts', function($query) use($request){
+                        $query->whereIn('district_id', $request->districts);
+                    });
+    
+                }
+    
+    
+    
+                $data = $data->where('is_published', 1)
+                ->where('is_archived', 0)
+                ->orderBy('id', 'DESC')
+                ->limit(18)
+                ->get();
+            } else {
+                $data = $data->where('is_published', 1)
+                ->where('is_archived', 1)
+                ->orderBy('id', 'DESC')
+                ->limit(18)
+                ->get();
             }
 
-            if($request->has('appearances')) {
-
-                $data->whereHas('appearances', function($query) use($request){
-                    $query->whereIn('appearance_id', $request->appearances);
-                });
-
-            }
-
-            if($request->has('hairs')) {
-
-                $data->whereHas('hairs', function($query) use($request){
-                    $query->whereIn('hair_id', $request->hairs);
-                });
-
-            }
-
-            if($request->has('districts')) {
-
-                $data->whereHas('districts', function($query) use($request){
-                    $query->whereIn('district_id', $request->districts);
-                });
-
-            }
-
-
-
-            $data = $data->where('is_published', 1)
-            ->where('is_archived', 0)
-            ->orderBy('id', 'DESC')
-            ->limit(18)
-            ->get();
+            
 
             if(!$data->isEmpty())
             {
@@ -233,6 +256,12 @@ class SiteController extends Controller
                         $check_out = '';
                     };
 
+                    if(!$request->has('archived')) {
+                        $phone = '<span>'. $this->formatPhone($row->phone) . '</span>';
+                    } else {
+                        $phone = '';
+                    }
+
                     if($row->profileWork24Hours || $row->working_hours_from) {
                         $timework = ' /';
                         if($row->profileWork24Hours) {
@@ -245,8 +274,42 @@ class SiteController extends Controller
                     };
 
 
+                    if($request->has('archived')) {
+                        $output .= '<div class="col-md-3 col-sx-6 nc-col">
+                        <div class="nc-card d-flex flex-column justify-content-between"
+                        style = "
+                        background-size: 100%;
+                        background: linear-gradient(360deg, rgba(2, 0, 0, 0.5) 0%, rgba(59, 18, 24, 0.5) 18%, rgba(72, 26, 35, 0.5) 33%, rgba(61, 41, 50, 0.5) 54%, rgba(58, 45, 55, 0.5) 100%), url(/images/profiles/main/created/'. $row->main_image .') no-repeat;
+                        "
+                        >
+                            <div class="nc-card-top">
+                                <div class="d-flex flex-column justify-content-between align-items-end">
+                                    '. $verified . $apartments . $check_out .'
+                                </div>
+                            </div>
+                                        <div class="nc-card-bottom">
+                                            <h4 class="h4" style="    font-size: 1.1rem;"><a href="' . route("getprofile", $row->id) . '">'.$row->name. '<span>| '.$row->age.' года</span></a> </h4>
+                                            <div class="d-flex justify-content-around">
+                                                <p class="nc-price"><span>за час</span><br> ' . $row->one_hour .'</p>
+                                                <p class="nc-price"><span>за 2 часа</span><br> '.$row->two_hour. '</p>
+                                                <p class="nc-price"><span>за ночь</span><br> '.$row->all_night .'</p>
+                                            </div>
+                                            <div class="nc-location d-flex">
+                                                <img class="img-fluid align-self-center" src="images/location.png">
+                                                <div class="align-self-center ml-2 d-flex flex-column">
+                                                    '. $phone .'
+                                                    <span>'.$row->districts->first()->name . $timework . '</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
 
-                    $output .= '<div class="col-md-4 col-sx-6 nc-col">
+                        if($iteration % 4 == 0) {
+                            $output .= '</div><div class="row mt-3">';
+                        }
+                    } else {
+                        $output .= '<div class="col-md-4 col-sx-6 nc-col">
                                     <div class="nc-card d-flex flex-column justify-content-between"
                                     style = "
                                     background-size: 100%;
@@ -268,7 +331,7 @@ class SiteController extends Controller
                                             <div class="nc-location d-flex">
                                                 <img class="img-fluid align-self-center" src="images/location.png">
                                                 <div class="align-self-center ml-2 d-flex flex-column">
-                                                    <span>'. $this->formatPhone($row->phone) . '</span>
+                                                    '. $phone .'
                                                     <span>'.$row->districts->first()->name . $timework . '</span>
                                                 </div>
                                             </div>
@@ -279,6 +342,12 @@ class SiteController extends Controller
                         if($iteration % 3 == 0) {
                             $output .= '</div><div class="row mt-3">';
                         }
+                    }
+
+
+                    
+
+
 
                     $last_id = $row->id;
                 }

@@ -135,6 +135,7 @@
                     Email: info@ns-samara.com
                     2019-2020 Copyright by ns-samara.com
                 </p>
+            <a href="{{ route('archived') }}">Архив</a>
             </div>
         </div>
     </div>
