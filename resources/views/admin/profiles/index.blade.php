@@ -13,10 +13,10 @@
                     <div class="accordion" id="accordionExample">
                         <div class="card">
                             <div class="card-header" id="headingOne">
-                                <table class="table table-sm">
+                                <table class="table table-sm" style = "width: 100%;table-layout: fixed;">
                                     <tbody>
                                     <tr>
-                                        <th>
+                                        <th style="width: 100%;">
                                             <h2 class="mb-0">
                                                 <button class="btn btn-link" type="button" data-toggle="collapse"
                                                         data-target="#collapseOne{{$loop->iteration}}" aria-expanded="true" aria-controls="collapseOne">
@@ -24,29 +24,29 @@
                                                 </button>
                                             </h2>
                                         </th>
-                                        <td>
+                                        <td style="width: 100%;">
                                             Общий баланс: {{ $user->user_balance }}
                                         </td>
-                                        <td>
-                                            @if($user->is_banned == 0)
-                                                <form action="{{ route('admin.userbanon', $user->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('patch')
-                                                    <button type="submit" class="btn btn-danger">Бан</button>
-                                                </form>
-                                            @else
-                                                <form action="{{ route('admin.userbanoff', $user->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('patch')
-                                                    <button type="submit" class="btn btn-success">Разбан</button>
-                                                </form>
-                                            @endif
-                                        </td>
+                                       <!--  <td>
+                                           @if($user->is_banned == 0)
+                                               <form action="{{ route('admin.userbanon', $user->id) }}" method="POST">
+                                                   @csrf
+                                                   @method('patch')
+                                                   <button type="submit" class="btn btn-danger">Бан</button>
+                                               </form>
+                                           @else
+                                               <form action="{{ route('admin.userbanoff', $user->id) }}" method="POST">
+                                                   @csrf
+                                                   @method('patch')
+                                                   <button type="submit" class="btn btn-success">Разбан</button>
+                                               </form>
+                                           @endif
+                                       </td> -->
 
                                         @if($user->tickets->where('completed_at', '=', null )->count() > 0)
-                                            <td><a class="nav-link" href="{{ route('tickets.index') }}">Есть сообщения</a></td>
+                                            <td style="width: 100%;"><a class="nav-link" href="{{ route('tickets.index') }}">Есть сообщения</a></td>
                                         @else
-                                            <td>Нет сообщений</td>
+                                            <td style="width: 100%;">Нет сообщений</td>
                                         @endif
                                     </tr>
                                     </tbody>

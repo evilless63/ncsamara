@@ -77,7 +77,7 @@
 
                                 <div class="form-group">
                                     <label for="profileDistrict">Район города</label>
-                                    <select class="form-control" name="hair" id="profileDistrict">
+                                    <select class="form-control" name="district" id="profileDistrict">
                                         @foreach($districts as $district)
                                             <option value="{{$district->id}}">{{ $district->name }}</option>
                                         @endforeach
@@ -102,11 +102,8 @@
 {{--                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">--}}
 {{--                                </div>--}}
                                 <div class="form-group">
-                                    <label for="profileAbout">О себе (минимум 50 символов):</label>
-                                    <textarea name="about" class="form-control @error('about') is-invalid @enderror"
-                                        id="profileAbout" rows="3">
-                                                    {!! old('about') !!}
-                                                </textarea>
+                                    <label for="profileAbout">О себе:</label>
+                                    <textarea name="about"class="form-control @error('about') is-invalid @enderror"id="profileAbout" rows="3">{!! old('about') !!}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="profileWorkingHoursFrom">Время работы c (часов):</label>
@@ -126,7 +123,7 @@
                                     <input class="form-check-input" type="checkbox" id="profileWork24Hours"
                                            name="working_24_hours" value="1">
                                     <label class="form-check-label" for="profileWork24Hours">
-                                        Всегда
+                                        Работаю всегда (без перерыва и выходных)
                                     </label>
                                 </div>
 
@@ -157,6 +154,13 @@
                                         class="form-control @error('height') is-invalid @enderror" placeholder=""
                                         value="{{ old('height') }}">
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label for="profileEuroHour">Цена за 1 Еврочас (1000-50000):</label>
+                                    <input name="euro_hour" type="number" id="profileEuroHour"
+                                           class="form-control @error('euro_hour') is-invalid @enderror" placeholder=""
+                                           value="{{ old('euro_hour') }}">
+                                </div>
 
                                 <div class="form-group">
                                     <label for="profileOneHour">Цена за 1 час (1000-50000):</label>
@@ -170,13 +174,6 @@
                                     <input name="two_hour" type="number" id="profileTwoHour"
                                         class="form-control @error('two_hour') is-invalid @enderror" placeholder=""
                                         value="{{ old('two_hour') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="profileEuroHour">Цена за 1 Еврочас (1000-50000):</label>
-                                    <input name="euro_hour" type="number" id="profileEuroHour"
-                                           class="form-control @error('euro_hour') is-invalid @enderror" placeholder=""
-                                           value="{{ old('euro_hour') }}">
                                 </div>
 
                                 <div class="form-group">
@@ -283,7 +280,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Upload Images</h4>
+                <h4 class="modal-title">Загрузить дополнительные фотографии</h4>
             </div>
             <div class="modal-body">
                 <form action="" class="dropzone" method="post" enctype="multipart/form-data">
@@ -291,7 +288,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
 

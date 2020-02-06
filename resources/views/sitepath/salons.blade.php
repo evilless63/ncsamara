@@ -7,8 +7,8 @@
         @foreach($salons as $salon)
             <div class="col-md-6 col-sm-12 mt-3 salonWrapper">
                 <p class="salonName">{{ $salon->name }} @if($salon->min_price <> null) | от {{$salon->min_price}} руб @endif</p>
-                <img src="{{asset('/images/salons/created/2.png')}}" class="img-fluid">
-                <p class="salonPhone">{{ $salon->phone }}</p>
+                <img src="{{asset('/images/salons/created/' .$salon->image)}}" class="img-fluid">
+                <p class="salonPhone"><a href="tel:{{ $salon->phone }}" style="color: #fff">{{ $salon->phone }}</a></p>
             </div>
         
             @if($loop->iteration % 2 == 0)

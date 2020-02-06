@@ -27,9 +27,7 @@
 
                             <div class="form-group">
                                 <label for="profileDescription">Описание тарифа (преимущества и так далее):</label>
-                                <textarea name="description" class="form-control @error('description') is-invalid @enderror"
-                                          id="profileDescription" rows="3">
-                                    {!! $rate->description !!}
+                                <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="profileDescription" rows="3">{!! $rate->description !!}
                                 </textarea>
                             </div>
 

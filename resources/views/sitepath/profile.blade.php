@@ -4,6 +4,13 @@
     class="profileBody"
 @endsection
 
+@section('assetcarousel')
+    
+    <link rel="stylesheet" href="{{asset('js/owl/assets/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('js/owl/assets/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/carousel-custom.css')}}">
+@endsection
+
 @section('content')
     <div class="container profileContainer" style="background-color:rgba(0, 0, 0, 0.1);
         padding: 60px 60px 60px 30px !important;">
@@ -15,7 +22,7 @@
                     </span>
 
                     <span class="phone align-self-baseline mt-1">
-                        {{ $phone }}
+                        <a href="tel:{{ $phone }}" style="color:#fff">{{ $phone }}</a>
                     </span>
 
                     <div class="nc-location d-flex">
@@ -35,7 +42,7 @@
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row mt-3 mb-4">
             <div class="col-md-7 col-sm-12">
                 <div class="nc-location d-flex">
                     <img class="img-fluid align-self-center" src="{{asset('/images/info.png')}}">
@@ -58,15 +65,19 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-4 col-sm-12">
-                <img src="{{asset('/images/profiles/main/created/' . $profile->main_image)}}" class="img-fluid">
-            </div>
-            @foreach($profile->images as $image)
-            <div class="col-md-4 col-sm-12">
-                <img src="{{asset('/images/profiles/images/created/'. $image->name )}}" class="img-fluid">
-            </div>
-            @endforeach
+        <div class="row owl-carousel">
+
+                        <div class="col-md-12">
+                            <img src="{{asset('/images/profiles/main/created/' . $profile->main_image)}}" class="img-fluid"> 
+                        </div>
+                            
+                        @foreach($profile->images as $image)
+                         <div class="col-md-12">
+                            <img src="{{asset('/images/profiles/images/created/'. $image->name )}}" class="img-fluid">
+                     </div>
+                        @endforeach
+ 
+                    
         </div>
 
         <div class="row mt-4">
@@ -82,6 +93,12 @@
             <div class="col-md-4 col-sm-12">
                 <h5 class="font-italic">Стоимость</h5>
                 <div class="d-flex justify-content-between">
+                    @if($profile->euro_hour)
+                    <div class="d-flex flex-column">
+                        <span class="font-italic">Евро час</span>
+                        <span class="font-italic mt-1 priceFont">{{ $profile->euro_hour }}</span>
+                    </div>
+                    @endif
                     <div class="d-flex flex-column">
                         <span class="font-italic">За час</span>
                         <span class="font-italic mt-1 priceFont">{{ $profile->one_hour }}</span>
@@ -94,12 +111,6 @@
                         <span class="font-italic">За ночь</span>
                         <span class="font-italic mt-1 priceFont">{{ $profile->all_night }}</span>
                     </div>
-                    @if($profile->euro_hour)
-                    <div class="d-flex flex-column">
-                        <span class="font-italic">Евро час</span>
-                        <span class="font-italic mt-1 priceFont">{{ $profile->euro_hour }}</span>
-                    </div>
-                    @endif
                 </div>
             </div>
             <div class="col-md-4 col-sm-12 ml-5">
@@ -203,7 +214,7 @@
                     <div class="carousel-inner">
                         @foreach($similarProfiles as $similar)
                         <div class="carousel-item @if($loop->iteration == 1) active @endif">
-                            <img src="{{asset('/images/profiles/main/created/' . $similar->main_image)}}" class="img-fluid mt-3">
+                            <img src="{{asset('/images/profiles/main/created/' . $similar->main_image)}}" class="img-fluid mt-3" title="{{$similar->name}}">
                         </div>
                         @endforeach
                     </div>
@@ -213,9 +224,34 @@
         </div>
     </div>
 
+    <script src="{{asset('js/owl/owl.carousel.min.js')}}"></script>
     <script >
         $('#nc-carouselSimilars').carousel({
             interval : 2500
-        })
+        });
+        
+       $(document).ready(function(){
+          $(".owl-carousel").owlCarousel({
+               loop:true,
+    responsiveClass:true,
+    nav: true,
+    responsive:{
+        0:{
+            items:1,
+            nav:true
+        },
+        600:{
+            items:2,
+            nav:false
+        },
+        1000:{
+            items:3,
+            nav:true,
+            loop:false
+        }
+    }
+          });
+        });
+
     </script>
 @endsection

@@ -13,6 +13,8 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css">
     <link rel="stylesheet" href="{{asset('/css/custom.css')}}">
+    
+    
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -24,6 +26,8 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js"></script>
+    
+    @yield('assetcarousel')
     <script src="{{asset('/js/custom.js')}}"></script>
 
     <title>Hello, world!</title>
@@ -36,9 +40,9 @@
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light nc-navbar col ">
                 <div class="d-flex flex-column">
-                    <a class="navbar-brand nc-navbar-brand" href="#">
+                    <a class="navbar-brand nc-navbar-brand" href="{{route('index')}}">
                         <div class="d-flex align-items-center">
-                            <img class="img-fluid align-self-center" src="images/logo.png" alt="">
+                            <img class="img-fluid align-self-center" src="{{asset('images/logo.png')}}" alt="">
                             <div class="align-self-center ml-1 d-flex flex-column nc-logo-text">
                                 <span>Night</span>
                                 <span>Cherry</span>

@@ -185,6 +185,6 @@ class SalonController extends Controller
     }
 
     private function regexpImages($imageName) {
-        return Transliterate::make(preg_replace("/[^А-Яа-яA-Za-z\d\.]/", '', $imageName));
+        return Transliterate::make(preg_replace("/[^A-Za-z\d\.]/", '', $imageName));
     }
 }

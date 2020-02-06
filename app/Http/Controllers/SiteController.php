@@ -257,7 +257,7 @@ class SiteController extends Controller
                     };
 
                     if(!$request->has('archived')) {
-                        $phone = '<span>'. $this->formatPhone($row->phone) . '</span>';
+                        $phone = '<span><a href="tel:' . $this->formatPhone($row->phone)  . '" style="color:#fff">'. $this->formatPhone($row->phone) . '</a></span>';
                     } else {
                         $phone = '';
                     }

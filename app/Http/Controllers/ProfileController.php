@@ -85,7 +85,35 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateProfile(true);
+        
+        $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
+                'about' => 'required',
+                'district' => 'required',
+                'boobs' => 'required|integer|between:1,10',
+                'age' => 'required|integer|between:18,65',
+                'weight' => 'required|integer|between:40,100',
+                'height' => 'required|integer|between:150,195',
+                'one_hour' => 'required|integer|between:1000,50000',
+                'two_hour' => 'required|integer|between:1000,100000',
+                'all_night' => 'required|integer|between:1000,1000000',
+        ]);
+        
+        $errString = "Не заполнены, или заполнены не правильно поля:";
+        if ($validator->fails()) {
+            
+            foreach($validator->errors()->all() as $error => $val) {
+                $errString = $errString . ", \n" . $val;
+            }
+            
+           
+            return redirect(route('user.profiles.create'))
+                        ->withErrors($errString)
+                        ->withInput();
+        }
+        
+       
 
         $profileArr = request()->all();
         $profileArr['user_id'] = Auth::user()->id;
@@ -115,10 +143,10 @@ class ProfileController extends Controller
             $array = explode(",", request()->item_images);
             foreach ($array as $arr ) {
                 $image = new Image;
-                $image->name = $arr;
+                $image->name = str_replace('"', '', $arr);
                 $image->profile_id = $profile->id;
                 $image->save();
-                File::move(public_path() . '/images/profiles/images/new_upload/' . $image->name, public_path() . '/images/profiles/images/created/' . $image->name);
+                //File::move(public_path() . '/images/profiles/images/new_upload' . $image->name .'', public_path() . '/images/profiles/images/created' . $image->name .'');
             }
 
         }
@@ -179,7 +207,32 @@ class ProfileController extends Controller
     public function update(Request $request, Profile $profile)
     {
 
-        $this->validateProfile(false);
+        $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
+                'about' => 'required',
+                'district' => 'required',
+                'boobs' => 'required|integer|between:1,10',
+                'age' => 'required|integer|between:18,65',
+                'weight' => 'required|integer|between:40,100',
+                'height' => 'required|integer|between:150,195',
+                'one_hour' => 'required|integer|between:1000,50000',
+                'two_hour' => 'required|integer|between:1000,100000',
+                'all_night' => 'required|integer|between:1000,1000000',
+        ]);
+        
+        $errString = "Не заполнены, или заполнены не правильно поля:";
+        if ($validator->fails()) {
+            
+            foreach($validator->errors()->all() as $error => $val) {
+                $errString = $errString . ", \n" . $val;
+            }
+            
+           
+            return redirect(route('user.profiles.edit', $profile->id))
+                        ->withErrors($errString)
+                        ->withInput();
+        }
 
         $profileArr = request()->all();
 
@@ -215,10 +268,10 @@ class ProfileController extends Controller
             $array = explode(",", request()->item_images);
             foreach ($array as $arr ) {
                 $image = new Image;
-                $image->name = $arr;
+                $image->name = str_replace('"', '', $arr);
                 $image->profile_id = $profile->id;
                 $image->save();
-                File::move(public_path() . '/images/profiles/images/new_upload/' . $image->name, public_path() . '/images/profiles/images/created/' . $image->name);
+                //File::move(public_path() . '/images/profiles/images/new_upload/' . $image->name .'', public_path() . '/images/profiles/images/created/' . $image->name .'');
             }
 
         }
@@ -444,51 +497,44 @@ class ProfileController extends Controller
     {
 
         if($isNew) {
-            // return request()->validate([
-            //     'name' => 'required',
-            //     'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
-            //     'about' => 'required',
-            //     'district' => 'required',
-    //            'address' => 'required',
-    //            'address_x' => 'required',
-    //            'address_y' => 'required',
-                // 'working_hours' => 'required',
-                // 'boobs' => 'required|integer|between:1,10',
-                // 'age' => 'required|integer|between:18,65',
-                // 'weight' => 'required|integer|between:40,100',
-                // 'height' => 'required|integer|between:150,195',
-                // 'one_hour' => 'required|integer|between:1000,50000',
-                // 'two_hour' => 'required|integer|between:1000,100000',
-                // 'all_night' => 'required|integer|between:1000,1000000',
-            // ]);
+             return $this->validate(request(), [
+                 'name' => 'required',
+                'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
+                'about' => 'required',
+                'district' => 'required',
+                 'boobs' => 'required|integer|between:1,10',
+                'age' => 'required|integer|between:18,65',
+                'weight' => 'required|integer|between:40,100',
+                 'height' => 'required|integer|between:150,195',
+                'one_hour' => 'required|integer|between:1000,50000',
+                 'two_hour' => 'required|integer|between:1000,100000',
+                 'all_night' => 'required|integer|between:1000,1000000',
+            ]);
         } else {
-            // return request()->validate([
-            //     'name' => 'required',
-            //     'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
-            //     'about' => 'required',
-            //     'district' => 'required',
-    //            'address' => 'required',
-    //            'address_x' => 'required',
-    //            'address_y' => 'required',
-                // 'working_hours' => 'required',
-                // 'boobs' => 'required|integer|between:1,10',
-                // 'age' => 'required|integer|between:18,65',
-                // 'weight' => 'required|integer|between:40,100',
-                // 'height' => 'required|integer|between:150,195',
-                // 'one_hour' => 'required|integer|between:1000,50000',
-                // 'two_hour' => 'required|integer|between:1000,100000',
-                // 'all_night' => 'required|integer|between:1000,1000000',
-            // ]);
+            return $this->validate(request(), [
+                'name' => 'required',
+                'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
+               'about' => 'required',
+                 'district' => 'required',
+             'boobs' => 'required|integer|between:1,10',
+                 'age' => 'required|integer|between:18,65',
+                 'weight' => 'required|integer|between:40,100',
+                 'height' => 'required|integer|between:150,195',
+                 'one_hour' => 'required|integer|between:1000,50000',
+                'two_hour' => 'required|integer|between:1000,100000',
+                 'all_night' => 'required|integer|between:1000,1000000',
+            ]);
         }
 
     }
 
     public function fileUpload(Request $request)
     {
+
         $_IMAGE = $request->file('file');
-        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
-        $uploadPath = 'images/profiles/images/new_upload';
-        $_IMAGE->move($uploadPath,$filename);
+        $filename = $this->regexpImages(str_replace('"', '', time().$_IMAGE->getClientOriginalName()));
+        $uploadPath = 'images/profiles/images/created';
+        $_IMAGE->move($uploadPath,str_replace('"', '', $filename));
         echo json_encode($filename);
     }
 
@@ -497,7 +543,7 @@ class ProfileController extends Controller
 
         try{
             $image = str_replace('"', '', $request->file);
-            File::delete(public_path() . '/images/profiles/images/new_upload' . $image );
+            File::delete(public_path() . '/images/profiles/images/created' . $image );
         }
         catch(Exception $e) {
 //            echo json_encode('Message: ' .$e->getMessage());
@@ -527,7 +573,7 @@ class ProfileController extends Controller
     }
 
     private function regexpImages($imageName) {
-        return Transliterate::make(preg_replace("/[^А-Яа-яA-Za-z\d\.]/", '', $imageName));
+        return preg_replace("/[^A-Za-z\d\.]/", '', Transliterate::make($imageName));
     }
 
     public function payments() {
@@ -623,5 +669,12 @@ class ProfileController extends Controller
                 );
 
             }
+    }
+    
+    public function deleteimagesattach()
+    {
+        $image = Image::where('id', request()->image_id)->where('profile_id', request()->profile_id);
+        $image->delete();
+        return;
     }
 }

@@ -106,10 +106,11 @@
 
                                 <div class="form-group">
                                     <label for="profileDistrict">Район города</label>
-                                    <select class="form-control" name="hair" id="profileDistrict">
+                                    <select class="form-control" name="district" id="profileDistrict">
                                         @foreach($districts as $district)
-                                            <option
-                                                value="{{$district->id}} {{$profile->districts->find($district->id) <> null ? 'selected' : ''}}">
+
+                                            <option {{$profile->districts->first()->id == $district->id ? 'selected' : ''}}
+                                                value="{{$district->id}}" >
                                                 {{ $district->name }}</option>
                                         @endforeach
                                     </select>
@@ -128,10 +129,9 @@
 {{--                                    <input type="hidden" name="user_id" value="{{ $profile->user_id }}">--}}
 {{--                                </div>--}}
                                 <div class="form-group">
-                                    <label for="profileAbout">О себе (минимум 50 символов):</label>
+                                    <label for="profileAbout">О себе:</label>
                                     <textarea name="about" class="form-control @error('about') is-invalid @enderror"
-                                        id="profileAbout" rows="3">
-                                                    {!! $profile->name !!}
+                                        id="profileAbout" rows="3">{!! $profile->about !!}
                                                 </textarea>
                                 </div>
 
@@ -185,6 +185,13 @@
                                         class="form-control @error('height') is-invalid @enderror" placeholder=""
                                         value="{{ $profile->height }}">
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label for="profileEuroHour">Цена за 1 Еврочас (1000-50000):</label>
+                                    <input name="euro_hour" type="number" id="profileEuroHour"
+                                           class="form-control @error('euro_hour') is-invalid @enderror" placeholder=""
+                                           value="{{ $profile->euro_hour }}">
+                                </div>
 
                                 <div class="form-group">
                                     <label for="profileOneHour">Цена за 1 час (1000-50000):</label>
@@ -198,13 +205,6 @@
                                     <input name="two_hour" type="number" id="profileTwoHour"
                                         class="form-control @error('two_hour') is-invalid @enderror" placeholder=""
                                         value="{{ $profile->two_hour }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="profileEuroHour">Цена за 1 Еврочас (1000-50000):</label>
-                                    <input name="euro_hour" type="number" id="profileEuroHour"
-                                           class="form-control @error('euro_hour') is-invalid @enderror" placeholder=""
-                                           value="{{ $profile->euro_hour }}">
                                 </div>
 
                                 <div class="form-group">
@@ -235,8 +235,8 @@
                                     <label for="profileAppearance">Внешность</label>
                                     <select class="form-control" name="appearance" id="profileAppearance">
                                         @foreach($appearances as $appearance)
-                                        <option
-                                            value="{{$appearance->id}} {{$profile->appearances->find($appearance->id) <> null ? 'selected' : ''}}">
+                                        <option {{$profile->appearances->first()->id == $appearance->id ? 'selected' : ''}}
+                                            value="{{$appearance->id}}">
                                             {{ $appearance->name }}</option>
                                         @endforeach
                                     </select>
@@ -246,8 +246,8 @@
                                     <label for="profileAppearance">Цвет волос</label>
                                     <select class="form-control" name="hair" id="profileHair">
                                         @foreach($hairs as $hair)
-                                        <option
-                                            value="{{$hair->id}} {{$profile->hairs->find($hair->id) <> null ? 'selected' : ''}}">
+                                        <option {{$profile->hairs->first()->id == $hair->id ? 'selected' : ''}}
+                                            value="{{$hair->id}}">
                                             {{ $hair->name }}</option>
                                         @endforeach
                                     </select>
@@ -325,25 +325,27 @@
 
                                 <hr class="mt-2 mb-5">
 
-                                <div class="row text-center text-lg-left">
+                                <div class="row text-center text-lg-left mb-4">
                                     @foreach($profile->images as $image)
-                                    <div class="col-lg-3 col-md-4 col-6">
-                                        <a href="#" class="d-block mb-4 h-100">
+                                    <div class="col-lg-3 col-md-4 col-6 imageContainer mb-3">
+                                        
+                                        
                                             <img class="img-fluid img-thumbnail delpath"
                                                 delpath="{{'/images/profiles/images/created/' . $image->name }}"
                                                 src="{{ '/images/profiles/images/created/' . $image->name }}" alt="">
-                                        </a>
+                                        
+                                        <div class="deleteImage btn btn-danger" onclick="deleteImagesAttached(event)" imageId="{{$image->id}}" >Удалить</div>
                                     </div>
                                     @endforeach
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Images <span class="required">*</span></label>
+                                    <label for="">Фотографии <span class="required">*</span></label>
                                     <br>
                                     <input type="hidden" autocomplete="OFF" name="item_images" id="item_images"
                                         placeholder="" class="form-control input-sm" required />
                                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                        data-target="#myModal"> <i class="fa fa-image"></i> Upload Images</button>
+                                        data-target="#myModal"> <i class="fa fa-image"></i>Загрузить дополнительные фото</button>
                                 </div>
                             </div>
                             <div id="panel4" class="tab-pane fade">
@@ -422,7 +424,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
 
@@ -522,6 +524,24 @@
             }
         });
 
+    }
+    
+    function deleteImagesAttached(event) {
+        var imageId = $(event.target).attr('imageId');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('user.images.deleteimageattach')}}",
+            type: "post",
+            data: {
+                image_id: imageId,
+                profile_id: {{$profile->id}},
+            },
+            success: function(response){
+                $(event.target).parent('.imageContainer').remove()
+            }
+        });
     }
 </script>
 @endsection

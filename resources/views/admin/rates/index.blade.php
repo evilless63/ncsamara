@@ -18,7 +18,7 @@
                                 <th scope="col">Наименование</th>
                                 <th scope="col">Сумма к списанию</th>
                                 <th scope="col">Использовать для салона</th>
-                                <th scope="col">Для главнйо страницы (салон)</th>
+                                <th scope="col">Салон с этим тарифом на главную</th>
                                 <th scope="col">Редактировать</th>
                             </tr>
                         </thead>

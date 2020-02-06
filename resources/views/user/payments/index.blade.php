@@ -88,7 +88,7 @@
                         </table>
 
                         <h3>Настройки оплаты и активности салона</h3>
-
+                        @if($salon->first()->rates()->count())
                         <table class="table table-sm">
                             <thead>
                             <tr>
@@ -128,7 +128,9 @@
                                 </tbody>
                           
                         </table>
-
+                        @else
+                        <p>Укажите тариф для салона</p>
+                        @endif
                         <h3>История движений средств</h3>
                         <table class="table table-sm">
                             <thead>

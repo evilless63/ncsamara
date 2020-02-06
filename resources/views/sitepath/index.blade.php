@@ -269,6 +269,11 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="nc-filter-buttons mt-3 mb-5">
+                        <a class="btn btn-outline-dark btn-block" id="load_filter" style="background: #ae8f82;">Применить фильтр</a>
+                        <a class="btn btn-outline-dark btn-block" id="fresh_filter" style="background: #d92a30;">Сбросить фильтр</a>
+                    </div>
 
                     <div class="nc-filter-buttons mt-3 mb-1">
                         <a class="btn btn-outline-dark btn-block" data-min-price="0" data-max-price="2999" id="budget">Бюджетные</a>
@@ -276,8 +281,6 @@
                         <a class="btn btn-outline-dark btn-block" data-min-age="18" data-max-age="25" id="young">Молодые</a>
                         <a class="btn btn-outline-dark btn-block" id="verified">Проверенные</a>
                         <a class="btn btn-outline-dark btn-block" id="new_profiles" >Новые</a>
-                        <a class="btn btn-outline-dark btn-block" id="load_filter">Применить фильтр</a>
-                        <a class="btn btn-outline-dark btn-block" id="fresh_filter">Сбросить фильтр</a>
                     </div>
 
                 </div>
@@ -295,7 +298,7 @@
                         </div>
 
                         <div class="col-md-12 col-sm-12 nc-col">
-                            <div class="d-flex justify-content-between nc-services-wrapper">
+                            <div class="d-flex justify-content-between nc-services-wrapper pb-4">
 
                                 @foreach($services->where('is_category','1') as $service)
                                     <div class="panel-body col-md-4">
@@ -324,7 +327,10 @@
                                         </div>
                                     </div>
 
-                                @if($loop->iteration % 3 == 0)
+                                @if($loop->iteration % 3 == 0 && $loop->last)
+                                    </div>
+                                    <div class="d-flex justify-content-between nc-services-wrapper pb-4">
+                                @elseif($loop->iteration % 3 == 0)
                                     </div>
                                     <div class="d-flex justify-content-between nc-services-wrapper">
                                 @endif
