@@ -315,6 +315,7 @@
                                 <div class="form-group">
                                     <label for="main_image">Новое основное изображение</label>
                                     <br>
+                                    <!-- https://fengyuanchen.github.io/cropper/ -->
                                     <input type="hidden" name="main_image" value="{{ $profile->main_image }}">
                                     <input type="file" autocomplete="OFF" name="main_image" id="main_image" placeholder="" class="form-control input-sm" />
                                 </div>
