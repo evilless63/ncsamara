@@ -378,7 +378,9 @@ class SiteController extends Controller
     }
 
     public function map() {
-        return view('sitepath.map');
+
+        $profiles = Profile::where('address_x', '<>', '1')->where('address_y', '<>', '1')->get();
+        return view('sitepath.map')->with(['profiles' => $profiles]);
     }
 
     public function salons() {

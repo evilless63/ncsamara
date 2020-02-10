@@ -21,8 +21,8 @@ class CreateProfilesTable extends Migration
             $table->string('phone');
             $table->text('about');
             $table->text('address')->nullable();
-            $table->integer('address_x')->nullable();
-            $table->integer('address_y')->nullable();
+            $table->string('address_x')->nullable();
+            $table->string('address_y')->nullable();
             $table->integer('working_hours_from')->nullable();
             $table->integer('working_hours_to')->nullable();
             $table->boolean('working_24_hours')->nullable();

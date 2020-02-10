@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('google_api_autocomplete')
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2zWS_b-EUkyWjg4cqA_TN-l-lch8-LXo&libraries=places"></script>
+
 
 <script>
     // Initialize and add the map
-    function initMap() {
+    //function initMap() {
         // The location of Uluru
         var first = {lat: 53.224834, lng: 50.190315};
         var second = {lat: 53.225946, lng: 50.201663};
@@ -14,18 +17,13 @@
             document.getElementById('map'), {zoom: 15, center: first});
         // The marker, positioned at Uluru
         var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-        var marker = new google.maps.Marker({position: first, map: map, icon: image, url:'/profiles/1'});
-        var marker = new google.maps.Marker({position: second, map: map , icon: image, url:'/profiles/2'});
-        var marker = new google.maps.Marker({position: third, map: map , icon: image, url:'/profiles/3'});
 
         google.maps.event.addListener(marker, 'click', function() {
             window.location.href = this.url;
         });
-    }
+    //}
 </script>
 
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2zWS_b-EUkyWjg4cqA_TN-l-lch8-LXo&libraries=places"></script>
 
 @endsection
 
@@ -83,11 +81,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-
-                                <div id="map" style="width: 100%;
-   height: 900px;
-   background-color: grey;"></div>
 
 {{--                                <div class="form-group">--}}
 {{--                                    <label for="profileAddress">Адрес:</label>--}}
