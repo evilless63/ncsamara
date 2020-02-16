@@ -35,7 +35,7 @@
                 title: profile.name,
                 icon: {
                     url: '/images/profiles/images/created/' + profile.main_image,
-                    scaledSize: new google.maps.Size(50, 50), // scaled size
+                    scaledSize: new google.maps.Size(50, 75), // scaled size
                     origin: new google.maps.Point(0, 0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor
                 },
