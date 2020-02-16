@@ -17,6 +17,7 @@
                                 <th scope="col">Редактировать</th>
                                 <th scope="col">Опубликована</th>
                                 <th scope="col">Подтверждена</th>
+                                <th scope="col">Активна</th>
                             </tr>
                         </thead>
                         @forelse ($profiles as $profile)
@@ -30,10 +31,18 @@
                                 <td><img src="{{asset('/admin/icons/profilerate.png')}}"> {{ $profile->rates->first()->name }}</td>
                                 <td><a class="btn btn-ncherry" href="{{route('user.profiles.edit', $profile->id)}}"><img src="{{asset('/admin/icons/profileedit.png')}}"> редактировать анкету</a></td>
                                 <td>
-                                    @if($profile->is_published)
-                                    Да
+                                    @if($profile->is_published == 0)
+                                        <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
+                                            @csrf
+                                            @method('patch')
+                                            <button type="submit">Опубликовать</button>
+                                        </form>
                                     @else
-                                    Нет
+                                        <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
+                                            @csrf
+                                            @method('patch')
+                                            <button type="submit">Снять с публикации</button>
+                                        </form>
                                     @endif
                                 </td>
                                 <td>
@@ -41,6 +50,19 @@
                                     Да
                                     @else
                                     Нет
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($profile->is_archived)
+
+                                        <form action="{{ route('user.activateprofile', $profile->id) }}" method="post">
+                                            @csrf
+                                            <button type="submit">Нет, активировать</button>
+                                        </form>
+                                    @else
+                                        Да, окончание через
+                                        {{$profile->minutes_to_archive}}
+                                        минут
                                     @endif
                                 </td>
                             </tr>

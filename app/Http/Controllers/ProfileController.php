@@ -121,6 +121,11 @@ class ProfileController extends Controller
        
 
         $profileArr = request()->all();
+
+        if(Auth::user()->is_admin) {
+            $profileArr['is_archived'] == 0;
+        }
+
         $profileArr['user_id'] = Auth::user()->id;
 
         $profile = Profile::create($profileArr);
@@ -311,11 +316,13 @@ class ProfileController extends Controller
         }
 
 
-        if(Auth::user()->is_admin) {
-            return redirect(route('admin.adminprofiles'))->withSuccess('Успешно обновлено');
-        } else {
-            return redirect(route('user.profiles.index'))->withSuccess('Успешно обновлено');
-        }
+        // if(Auth::user()->is_admin) {
+        //     return redirect(route('admin.adminprofiles'))->withSuccess('Успешно обновлено');
+        // } else {
+        //     return redirect(route('user.profiles.index'))->withSuccess('Успешно обновлено');
+        // }
+
+        return back()->withSuccess('Успешно обновлено');
 
     }
 
@@ -330,11 +337,13 @@ class ProfileController extends Controller
         $profile['is_published'] = 1;
         $profile->update();
 
-        if(auth()->user()->is_admin) {
-            return redirect(route('admin.adminprofiles'))->withSuccess('Успешно опубликована');
-        } else {
-            return redirect(route('user.profiles.index'))->withSuccess('Успешно опубликована');
-        }
+        // if(auth()->user()->is_admin) {
+        //     return redirect(route('admin.adminprofiles'))->withSuccess('Успешно опубликована');
+        // } else {
+        //     return redirect(route('user.profiles.index'))->withSuccess('Успешно опубликована');
+        // }
+
+        return back()->withSuccess('Успешно обновлено');
     }
 
     public function unpublish(Request $request, $id) {
@@ -348,11 +357,13 @@ class ProfileController extends Controller
         $profile['is_published'] = 0;
         $profile->update();
 
-        if(auth()->user()->is_admin) {
-            return redirect(route('admin.adminprofiles'))->withSuccess('Успешно снята с публикации');
-        } else {
-            return redirect(route('user.profiles.index'))->withSuccess('Успешно снята с публикации');
-        }
+        // if(auth()->user()->is_admin) {
+        //     return redirect(route('admin.adminprofiles'))->withSuccess('Успешно снята с публикации');
+        // } else {
+        //     return redirect(route('user.profiles.index'))->withSuccess('Успешно снята с публикации');
+        // }
+
+        return back()->withSuccess('Успешно обновлено');
 
 
     }
@@ -361,28 +372,28 @@ class ProfileController extends Controller
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['verified'] = 1;
         $profile->update();
-        return redirect(route('admin.adminprofiles'))->withSuccess('Успешно подтверждена');
+        return back()->withSuccess('Успешно подтверждена');
     }
 
     public function unverify(Request $request, $id) {
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['verified'] = 0;
         $profile->update();
-        return redirect(route('admin.adminprofiles'))->withSuccess('Успешно снята с подтверждения');
+        return back()->withSuccess('Успешно снята с подтверждения');
     }
 
     public function userbanoff(Request $request, $id) {
         $user = User::where('id', $id)->firstOrFail();
         $user['is_banned'] = 0;
         $user->update();
-        return redirect(route('admin.adminprofiles'))->withSuccess('Успешно забанен');
+        return back()->withSuccess('Успешно забанен');
     }
 
     public function userbanon(Request $request, $id) {
         $user = User::where('id', $id)->firstOrFail();
         $user['is_banned'] = 1;
         $user->update();
-        return redirect(route('admin.adminprofiles'))->withSuccess('Успешно разбанен');
+        return back()->withSuccess('Успешно разбанен');
     }
 
     //Для крона
@@ -428,7 +439,7 @@ class ProfileController extends Controller
         if(($user->user_balance - $rate->cost) < 0) {
             $profile['is_archived'] = true;
             $profile->update();
-            return redirect(route('user.payments'))->withFail('Не достаточно денег на балансе');
+            return back()->withFail('Не достаточно денег на балансе');
         }
 
         $user['user_balance'] = $user->user_balance - $rate->cost;
@@ -450,7 +461,7 @@ class ProfileController extends Controller
 
         $profile->update();
 
-        return redirect(route('user.payments'))->withSuccess('Успешно активирована');
+        return back()->withSuccess('Успешно активирована');
 
     }
 
@@ -462,7 +473,7 @@ class ProfileController extends Controller
         if(($user->user_balance - $rate->cost) < 0) {
             $salon['is_approved'] = false;
             $salon->update();
-            return redirect(route('user.payments'))->withFail('Не достаточно денег на балансе');
+            return back()->withFail('Не достаточно денег на балансе');
         }
 
         $user['user_balance'] = $user->user_balance - $rate->cost;
@@ -484,7 +495,7 @@ class ProfileController extends Controller
 
         $salon->update();
 
-        return redirect(route('user.payments'))->withSuccess('Успешно активирована');
+        return back()->withSuccess('Успешно активирована');
 
     }
 
@@ -625,7 +636,7 @@ class ProfileController extends Controller
         $statistic['where_was'] = Carbon::now();
         $statistic->save();
 
-        return redirect(route('user.payments'))->withSuccess('Успешно пополнен баланс');
+        return back()->withSuccess('Успешно пополнен баланс');
     }
 
     public function promotionalpayment() {
@@ -651,10 +662,10 @@ class ProfileController extends Controller
             $statistic['payment'] = $sum;
             $statistic['where_was'] = Carbon::now();
             $statistic->save();
-            return redirect(route('user.payments'))->withSuccess('Успешно пополнен баланс');
+            return back()->withSuccess('Успешно пополнен баланс');
         }
         else {
-            return redirect(route('user.payments'))->withFail('Промокод не найден');
+            return back()->withFail('Промокод не найден');
         }
 
     }

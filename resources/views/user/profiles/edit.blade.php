@@ -402,9 +402,9 @@
                                                     <div class="col-md-8 d-flex justify-content-between servicePriceUpdate">
                                                         <input style="    width: 65%;" class="form-control" data-price="{{ $service->pivot <> null ? $service->pivot->price : '' }}" data-service-id="{{$service->id}}" data-profile-id="{{$profile->id}}" name="priceupdate" type="text" value="@if($profile->services->where('id', $service->id)->first()->pivot <> null) {{$profile->services->where('id', $service->id)->first()->pivot->price}}@endif">
 
-                                                        <div class="btn btn-success btn-fab btn-fab-mini btn-round" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги" onclick="updateServicePrice(event)">
+                                                        <div class="btn btn-success btn-fab btn-fab-mini btn-round" style="padding:0rem .75rem" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги" onclick="updateServicePrice(event)">
                                                             Обновить цену
-                                                            <p class="price_update_info"></p>
+                                                            <span class="price_update_info"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -573,6 +573,12 @@
             },
             success: function(response) {
                 $(event.target).parent('.servicePriceUpdate').find('.price_update_info').text('Цена успешно обновлена')
+
+                setTimeout(function(){
+09
+                    $(event.target).parent('.servicePriceUpdate').find('.price_update_info').text('');
+10
+                }, 3000);
             }
         });
 
