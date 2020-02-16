@@ -54,11 +54,11 @@
 @endsection
 
 @section('content')
-<div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header d-flex">
+
+                <div class="d-flex">
                     <span>Редактирование анкеты
                         @if($profile->verified)
                         (Подтверждена)
@@ -395,8 +395,7 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
+
 </div>
 
 <!-- MODAL START -->

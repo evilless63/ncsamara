@@ -11,16 +11,19 @@ use Transliterate;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Bonus;
 
 class SalonController extends Controller
 {
 
     public $rates;
+    public $bonuses;
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->rates = Rate::where('for_salons', 1)->get();
+        $this->bonuses = Bonus::all();
     }
     /**
      * Display a listing of the resource.
@@ -30,9 +33,9 @@ class SalonController extends Controller
     public function index()
     {
         if(Auth::user()->salon()->get()->count() > 0) {
-            return view('user.salons.edit', ['salon' => Auth::user()->salon()->first(), 'rates' => $this->rates]);
+            return view('user.salons.edit', ['salon' => Auth::user()->salon()->first(), 'rates' => $this->rates, 'bonuses' => $this->bonuses]);
         } else {
-            return view('user.salons.create');
+            return view('user.salons.create', ['bonuses' => $this->bonuses]);
         }
     }
 
@@ -43,7 +46,7 @@ class SalonController extends Controller
      */
     public function create()
     {
-        return view('user.salons.create');
+        return view('user.salons.create', ['bonuses' => $this->bonuses]);
     }
 
     /**
@@ -102,6 +105,7 @@ class SalonController extends Controller
         return view('user.salons.edit', [
             'salon' => $salon,
             'rates' => $this->rates,
+            'bonuses' => $this->bonuses
             ]);
     }
 

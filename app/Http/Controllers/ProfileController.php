@@ -51,13 +51,17 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('user.profiles.index', ['profiles' => Auth::user()->profiles]);
+        return view('user.profiles.index', [
+            'profiles' => Auth::user()->profiles,
+            'bonuses' => $this->bonuses
+            ]);
     }
 
     public function adminindex()
     {
         return view('admin.profiles.index', [
-            'users' => User::all()
+            'users' => User::all(),
+            'bonuses' => $this->bonuses
         ]);
     }
 
@@ -74,6 +78,7 @@ class ProfileController extends Controller
             'appearances' => $this->appearances,
             'hairs' => $this->hairs,
             'districts' => $this->districts,
+            'bonuses' => $this->bonuses
         ]);
     }
 
@@ -194,6 +199,7 @@ class ProfileController extends Controller
             'hairs' => $this->hairs,
             'rates' => $this->rates,
             'districts' => $this->districts,
+            'bonuses' => $this->bonuses
         ]);
     }
 

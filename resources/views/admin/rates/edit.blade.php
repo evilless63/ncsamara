@@ -1,13 +1,14 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Редактирование тарифа "{{$rate->name}}"</div>
+   
+                    <h2>Редактирование тарифа "{{$rate->name}}"</h2>
 
-                    <div class="card-body">
+                    
                         <form action="{{ route('admin.rates.update', $rate->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('patch')
@@ -68,9 +69,8 @@
 
                             <button type="submit" class="btn btn-primary">Изменить тариф</button>
                         </form>
-                    </div>
-                </div>
-            </div>
+                   
+
         </div>
     </div>
 @endsection

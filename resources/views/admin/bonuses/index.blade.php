@@ -1,14 +1,9 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Бонусы</div>
-
-                    <div class="card-body">
-                        <a href="{{ route('admin.bonuses.create')  }}" type="button" class="btn btn-primary">Создать новый бонус</a>
 
                         <table class="table table-hover">
                             <thead>
@@ -17,6 +12,7 @@
                                 <th scope="col">Минимальная сумма</th>
                                 <th scope="col">Максимальаня сумма</th>
                                 <th scope="col">Коэффициэнт бонуса</th>
+                                <th scope="col">Редактировать</th>
                                 <th scope="col">Удалить бонус</th>
                             </tr>
                             </thead>
@@ -28,11 +24,8 @@
                                     <th scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $bonus->min_sum }}</td>
                                     <td>{{ $bonus->max_sum }}</td>
-                                    <td><a
-                                            href="
-                                            {{ route('admin.bonuses.edit', $bonus->id) }}
-                                                ">{{ $bonus->koef }} >>></a>
-                                    </td>
+                                    <td>{{ $bonus->koef }}</a></td>
+                                    <td><a href="{{ route('admin.bonuses.edit', $bonus->id) }}">Редактировать</a></td>
                                     <td>
                                         <form action="{{ route('admin.bonuses.destroy', $bonus->id) }}"
                                               method="POST">
@@ -49,7 +42,5 @@
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
 @endsection

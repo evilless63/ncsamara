@@ -1,15 +1,11 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('content')
-<div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Тарифы</div>
 
-                <div class="card-body">
-                    <a href="{{ route('admin.rates.create')  }}" type="button" class="btn btn-primary">Создать новый
-                        тариф</a>
 
                     <table class="table table-hover">
                         <thead>
@@ -32,16 +28,15 @@
                                 <td>{{ $rate->cost }}</td>
                                 <td>@if($rate->for_salons) Да @else Нет @endif</td>
                                 <td>@if($rate->salons_main) Да @else Нет @endif</td>
-                                <td><a href="{{ route('admin.rates.edit', $rate->id) }}">>>></a></td>
+                                <td><a href="{{ route('admin.rates.edit', $rate->id) }}">Редактировать</a></td>
                             </tr>
                         </tbody>
                         @empty
                         <p>Нет созданных тарифов</p>
                         @endforelse
                     </table>
-                </div>
+           
             </div>
         </div>
-    </div>
-</div>
+
 @endsection

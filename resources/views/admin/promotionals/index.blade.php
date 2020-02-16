@@ -1,16 +1,11 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('content')
-<div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Промокоды</div>
-
-                <div class="card-body">
-                    <a href="{{ route('admin.promotionals.create')  }}" type="button" class="btn btn-primary">Создать
-                        новый промокод</a>
-
+                    @if($promotionals->count())
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -49,12 +44,13 @@
                             </tr>
                         </tbody>
                         @empty
-                        <p>Нет созданных промокодов</p>
                         @endforelse
+                        
                     </table>
+                    @else
+                        <p>Нет созданных промокодов</p>
+                    @endif
                 </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 @endsection

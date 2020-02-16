@@ -1,13 +1,14 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Создание промокода</div>
 
-                    <div class="card-body">
+                    <h2>Создание промокода</h2>
+
+
                         <form action="{{ route('admin.promotionals.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
@@ -27,9 +28,8 @@
 
                             <button type="submit" class="btn btn-primary">Создать промокод</button>
                         </form>
-                    </div>
-                </div>
+
             </div>
         </div>
-    </div>
+
 @endsection

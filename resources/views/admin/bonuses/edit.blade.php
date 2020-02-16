@@ -1,13 +1,13 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Изменение бонуса</div>
+<h2>Изменение бонуса</h2>
 
-                    <div class="card-body">
+
                         <form action="{{ route('admin.bonuses.update', $bonus->id) }}" method="POST">
                             @csrf
                             @method('patch')
@@ -36,7 +36,5 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
 @endsection

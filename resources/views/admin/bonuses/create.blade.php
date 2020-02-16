@@ -1,13 +1,11 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Создание бонуса</div>
-
-                    <div class="card-body">
+<h2>Создание бонуса</h2>
                         <form action="{{ route('admin.bonuses.store') }}" method="POST">
                             @csrf
 
@@ -34,9 +32,7 @@
 
                             <button type="submit" class="btn btn-primary">Создать бонус</button>
                         </form>
-                    </div>
-                </div>
-            </div>
+
         </div>
-    </div>
+
 @endsection

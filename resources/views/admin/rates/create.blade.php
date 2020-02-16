@@ -1,13 +1,12 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin') --}}
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Создание тарифа</div>
+                <h2>Создание тарифа</h2>
 
-                    <div class="card-body">
+                    
                         <form action="{{ route('admin.rates.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
@@ -55,9 +54,8 @@
 
                             <button type="submit" class="btn btn-primary">Создать тариф</button>
                         </form>
-                    </div>
+                    
                 </div>
-            </div>
-        </div>
+
     </div>
 @endsection

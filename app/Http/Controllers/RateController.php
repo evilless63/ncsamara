@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Rate;
 use Transliterate;
 use Illuminate\Http\Request;
+use App\Bonus;
 
 class RateController extends Controller
 {
+
+    public $bonuses;
+
+    public function __construct()
+    {
+        $this->bonuses = Bonus::all();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,10 @@ class RateController extends Controller
      */
     public function index()
     {
-        return view('admin.rates.index', ['rates' => Rate::all()]);
+        return view('admin.rates.index', [
+            'rates' => Rate::all(),
+            'bonuses' => $this->bonuses
+            ]);
     }
 
     /**
@@ -25,7 +36,7 @@ class RateController extends Controller
      */
     public function create()
     {
-        return view('admin.rates.create');
+        return view('admin.rates.create', ['bonuses' => $this->bonuses]);
     }
 
     /**
@@ -69,7 +80,10 @@ class RateController extends Controller
      */
     public function edit(Rate $rate)
     {
-        return view('admin.rates.edit', ['rate' => $rate]);
+        return view('admin.rates.edit', [
+            'rate' => $rate,
+            'bonuses' => $this->bonuses
+            ]);
     }
 
     /**

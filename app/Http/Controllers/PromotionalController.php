@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Promotional;
 use Illuminate\Http\Request;
+use App\Bonus;
 
 class PromotionalController extends Controller
 {
+
+    public $bonuses;
+
+    public function __construct()
+    {
+        $this->bonuses = Bonus::all();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,10 @@ class PromotionalController extends Controller
      */
     public function index()
     {
-        return view('admin.promotionals.index', ['promotionals' => Promotional::all()]);
+        return view('admin.promotionals.index', [
+            'promotionals' => Promotional::all(),
+            'bonuses' => $this->bonuses
+            ]);
     }
 
     /**
@@ -24,7 +35,7 @@ class PromotionalController extends Controller
      */
     public function create()
     {
-        return view('admin.promotionals.create');
+        return view('admin.promotionals.create', ['bonuses' => $this->bonuses]);
     }
 
     /**
@@ -58,7 +69,10 @@ class PromotionalController extends Controller
      */
     public function edit(Promotional $promotional)
     {
-        return view('admin.promotionals.edit', ['promotional' => $promotional]);
+        return view('admin.promotionals.edit', [
+            'promotional' => $promotional,
+            'bonuses' => $this->bonuses
+            ]);
     }
 
     /**

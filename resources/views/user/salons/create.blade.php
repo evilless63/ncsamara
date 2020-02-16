@@ -15,13 +15,12 @@
 @endsection
 
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">Создание салона</div>
+                    <h2>Создание салона</h2>
 
-                    <div class="card-body">
+                    
                         <form action="{{ route('user.salons.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
@@ -67,9 +66,7 @@
 
                             <button type="submit" class="btn btn-primary">Создать салон</button>
                         </form>
-                    </div>
+                   
                 </div>
-            </div>
-        </div>
     </div>
 @endsection
