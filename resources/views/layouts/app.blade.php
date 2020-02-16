@@ -25,8 +25,9 @@
   <nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-around align-items-center">
     <!-- Left navbar links -->
     <ul class="navbar-nav nav-pills nav-sidebar d-flex justify-content-start align-items-center">
-        @if(Auth::user() == null)
-        @else
+
+        @if(Auth::user() != null)
+        
             @if(Auth::user()->is_admin)
                 <div class="nav-item">
                     <a class="nav-link" style="padding-left:0px !important" href="{{ route('user.profiles.create') }}"><p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Пользователи"> Создать анкету</p></a>
@@ -63,8 +64,7 @@
                 <p class="nav-link">
                     <button data-toggle="modal" data-target="#payment" class="btn btn-success" style="padding: 0px 7.5px;"><img src="{{asset('/admin/icons/balanceup.png')}}"> Пополнить баланс</button>
                 </p>     
-            </div>
-            
+            </div> 
             
         @endif
     </ul>
@@ -126,8 +126,8 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
 
-        @if(Auth::user() == null)
-        @else
+        @if(Auth::user() !== null)
+       
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           @if(Auth::user()->is_admin)
           
@@ -213,6 +213,7 @@
     </div>
 
 <!-- Modal -->
+@if(Auth::user() !== null)
 <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -264,6 +265,7 @@
     </div>
     </div>
 </div>
+@endif
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script>
@@ -287,10 +289,12 @@
 <script src="{{ asset('/admin/plugins/chart.js/Chart.min.js') }}"></script>
 
 <!-- PAGE SCRIPTS -->
-<script src="{{ asset('/admin/dist/js/pages/dashboard2.js') }}"></script>
+{{-- <script src="{{ asset('/admin/dist/js/pages/dashboard2.js') }}"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
     </script>
+
+@yield('assetcarousel')
 
 <script type="text/javascript">
 
