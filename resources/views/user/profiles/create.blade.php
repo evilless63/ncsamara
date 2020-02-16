@@ -225,9 +225,39 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="main_image">Основное изображение</label>
+                                    <p>Основное изображение</p>
+                                    <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки">
+                                    <img class="rounded" id="avatar" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
+                                    <input type="file" class="sr-only" id="input" name="image" accept="image/*">
+                                    </label>
+                                    {{-- <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    </div>
+                                    <div class="alert" role="alert"></div> --}}
+                                    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabel">Выберите учаток изображения для загрузки</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого изображения, перетаскивайте активную зону</p>
+                                            <div class="img-container">
+                                            <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                            <button type="button" class="btn btn-primary" id="crop">Загрузить</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                     <br>
-                                    <input type="file" autocomplete="OFF" name="main_image" id="main_image"
+                                    <input type="hidden" autocomplete="OFF" name="main_image" id="main_image"
                                            placeholder="" class="form-control input-sm" />
                                 </div>
 

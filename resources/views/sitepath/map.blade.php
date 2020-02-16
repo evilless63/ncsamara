@@ -34,7 +34,7 @@
                 map: map,
                 title: profile.name,
                 icon: {
-                    url: '/images/profiles/main/created/' + profile.main_image,
+                    url: '/images/profiles/images/created/' + profile.main_image,
                     scaledSize: new google.maps.Size(50, 50), // scaled size
                     origin: new google.maps.Point(0, 0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor

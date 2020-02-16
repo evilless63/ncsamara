@@ -156,15 +156,15 @@ class ProfileController extends Controller
 
         }
 
-        if(request()->hasFile('main_image')) {
-            $_IMAGE = $request->file('main_image');
-            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        if(request()->has('main_image')) {
+            // $_IMAGE = $request->file('main_image');
+            // $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
 
-            $uploadPath = public_path() . '/images/profiles/main/created';
-            $_IMAGE->move($uploadPath,$filename);
+            // $uploadPath = public_path() . '/images/profiles/main/created';
+            // $_IMAGE->move($uploadPath,$filename);
 
-            $profile['main_image'] = $filename;
-            $profile->update();
+            $profile['main_image'] = str_replace('"', '', request()->main_image);
+            // $profile->update();
         }
 
         $profile->rates()->attach(Rate::first());
@@ -298,15 +298,15 @@ class ProfileController extends Controller
             $profile->update();
         }
 
-        $_IMAGE = $request->file('main_image');
+        // $_IMAGE = $request->has('main_image');
 
-        if($_IMAGE <> null) {
-            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
-            $uploadPath = public_path() . '/images/profiles/main/created';
-            File::delete(public_path() . '/images/profiles/main/created' . $profile->main_image );
-            $_IMAGE->move($uploadPath,$filename);
+        if($request->has('main_image')) {
+            // $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+            // $uploadPath = public_path() . '/images/profiles/main/created';
+            // File::delete(public_path() . '/images/profiles/main/created' . $profile->main_image );
+            // $_IMAGE->move($uploadPath,$filename);
 
-            $profile['main_image'] = $filename;
+            $profile['main_image'] = str_replace('"', '', request()->main_image);
             $profile->update();
         }
 
@@ -536,7 +536,6 @@ class ProfileController extends Controller
 
     public function fileUpload(Request $request)
     {
-
         $_IMAGE = $request->file('file');
         $filename = $this->regexpImages(str_replace('"', '', time().$_IMAGE->getClientOriginalName()));
         $uploadPath = 'images/profiles/images/created';

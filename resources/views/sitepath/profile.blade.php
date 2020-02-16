@@ -68,7 +68,7 @@
         <div class="row owl-carousel">
 
                         <div class="col-md-12">
-                            <img src="{{asset('/images/profiles/main/created/' . $profile->main_image)}}" class="img-fluid"> 
+                            <img src="{{asset('/images/profiles/images/created/' . $profile->main_image)}}" class="img-fluid"> 
                         </div>
                             
                         @foreach($profile->images as $image)
@@ -214,7 +214,7 @@
                     <div class="carousel-inner">
                         @foreach($similarProfiles as $similar)
                         <div class="carousel-item @if($loop->iteration == 1) active @endif">
-                            <img src="{{asset('/images/profiles/main/created/' . $similar->main_image)}}" class="img-fluid mt-3" title="{{$similar->name}}">
+                            <img src="{{asset('/images/profiles/images/created/' . $similar->main_image)}}" class="img-fluid mt-3" title="{{$similar->name}}">
                         </div>
                         @endforeach
                     </div>
