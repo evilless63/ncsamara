@@ -70,19 +70,19 @@
                 @else
                 (Не подтверждена)
                 @endif</h2>
-                <div class="d-flex">
+                <div class="col-md-3 d-flex justify-content-between mt-3 mb-3">
                     
                     @if($profile->is_published == 0)
                     <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
                         @csrf
                         @method('patch')
-                        <button type="submit">Опубликовать</button>
+                        <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
                     </form>
                     @else
                     <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
                         @csrf
                         @method('patch')
-                        <button type="submit">Снять с публикации</button>
+                        <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
                     </form>
                     @endif
                     @if(Auth::user()->is_admin)
@@ -90,13 +90,13 @@
                     <form action="{{ route('admin.profileverify', $profile->id) }}" method="POST">
                         @csrf
                         @method('patch')
-                        <button type="submit">Подтвердить</button>
+                        <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Подтвердить</button>
                     </form>
                     @else
                     <form action="{{ route('admin.profileunverify', $profile->id) }}" method="POST">
                         @csrf
                         @method('patch')
-                        <button type="submit">Снять подтверждение</button>
+                        <button class="btn btn-danger" style="padding: 0px 7.5px;"type="submit">Снять подтверждение</button>
                     </form>
                     @endif
                     @endif
@@ -289,7 +289,7 @@
                                             <label for="main_image">Новое основное изображение</label>
                                             <br>
                                             <input type="hidden" name="main_image" value="{{ $profile->main_image }}">
-                                            <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки">
+                                            <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки нового основного изображения анкеты">
                                                 <img class="rounded" id="avatar" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
                                                 <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                                                 </label>
@@ -363,7 +363,7 @@
                                                 <option></option>
                                                 @foreach($rates as $rate)
                                                 <option value="{{$rate->id}}" {{$profile->rates->first()->id == $rate->id ? 'selected' : ''}}>
-                                                    {{ $rate->name }}</option>
+                                                    {{ $rate->name }} {{ $rate->cost }} руб./сутки</option>
                                                 @endforeach
                                             </select>
                                             

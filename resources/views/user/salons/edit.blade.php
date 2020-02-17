@@ -70,7 +70,7 @@
                             <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение / назначить новое</h5>
 
                             <hr class="mt-2 mb-5">
-                            <h5>Изображение</h5>
+                            <h5>Изображение салона на странице салоны</h5>
                             <div class="col-lg-3 col-md-4 col-6">
                                 <a href="#" class="d-block mb-4 h-100">
                                     <img class="img-fluid img-thumbnail delpath" delpath="{{asset('/images/salons/created/' . $salon->image) }}" src="{{ asset('/images/salons/created/' . $salon->image) }}" alt="">
@@ -82,7 +82,7 @@
                                     Необходимо использовать изображение размером 555 на 159 пикселей или кратный указанному размер<br>
                                     для активации изображения, салон должен быть утвержден администратором сайта.<br>
                                     для запроса на утверждение, пожалуйста, отправьте сообщение через систему техподдержки.</p>
-                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного ищображения салона">
+                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного изображения салона">
                                 <img class="rounded" id="avatar_main" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
                                 <input type="file" class="sr-only" id="input_main" name="image_main" accept="image/*">
                                 </label>
@@ -120,7 +120,7 @@
                             </div>
 
                             <hr class="mt-2 mb-5">
-                            <h5>Изображение для главной</h5>
+                            <h5>Изображение для слайдера на главной странице</h5>
                             <div class="col-lg-3 col-md-4 col-6">
                                 <a href="#" class="d-block mb-4 h-100">
                                     <img class="img-fluid img-thumbnail delpath" delpath="{{asset('/images/salons/created/' . $salon->image_prem) }}" src="{{ asset('/images/salons/created/' . $salon->image_prem) }}" alt="">
@@ -133,7 +133,7 @@
                                 для активации изображения необходимо иметь тариф VIP, а также салон должен быть утвержден администратором сайта.<br>
                                 для запроса на утверждение, пожалуйста, отправьте сообщение через систему техподдержки.
                                 </p>
-                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки изображения салона для слайдера на главной">
+                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки изображения салона для главной страницы сайта (слайдера)">
                                 <img class="rounded" id="avatar_prem" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
                                 <input type="file" class="sr-only" id="input_prem" name="image_prem" accept="image/*">
                                 </label>
@@ -170,35 +170,44 @@
                                        placeholder="" class="form-control input-sm" required/>
                             </div>
 
-                            <h2>Тарифный план:
-                                @if($salon->rates->count() == 0)
-                                Не назначен
-                                @else
-                                {{$salon->rates->first()->name}}
-                                @endif
-                            </h2>
-                            <div class="form-group">
-                                <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
-                                    попытки
-                                    активации анкеты</p>
-                                <p>Переключение тарифного плана произойдет только в случае достаточного количества
-                                    Пойнтов
-                                    на балансе анкеты</p>
-                                <input type="hidden" name="rate" value="
-                                            @if($salon->rates->count() > 0)
-                                                {{$salon->rates->first()}}
-                                            @endif">
-                                <select class="form-control" name="rate" id="profileRate">
-                                    <option></option>
-                                    @foreach($rates as $rate)
-                                    <option
-                                        value="{{$rate->id}} {{$salon->rates->find($rate->id) <> null ? 'selected' : ''}}">
-                                        {{ $rate->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="row mt-5">
+                                <div class="col-md-12">
+                                    <div class="form-group form-inline">
+                                        <label for="">Тарифный план: </span></label>
+                                        <input type="hidden" name="rate" value="
+                                                    @if($salon->rates->count() > 0)
+                                                        {{$salon->rates->first()}}
+                                                    @endif">
+                                        <select class="form-control" style="width:100%" name="rate" id="profileRate">
+                                            <option></option>
+                                            @foreach($rates as $rate)
+                                            <option value="{{$rate->id}}" {{$salon->rates->first()->id == $rate->id ? 'selected' : ''}}>
+                                            {{ $rate->name }} {{$rate->cost}} руб. / сутки</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                        
+                                    </div>
+
+                                    <label for="">Управление активностью салона: </span></label>
+                                    @if(!$salon->is_approved)
+
+                                        <form action="{{ route('user.activatesalon', ['id' => $salon->first()->id]) }}" method="post">
+                                            @csrf
+                                            <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Активировать (спишется сумма согласно вашему тарифному плану)</button>
+                                        </form>
+                                    @else
+                                        Да, окончание через
+                                        {{$salon->first()->minutes_to_archive}}
+                                        минут
+                                    @endif
+                                    <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
+                                        попытки
+                                        активации салона<br>Переключение тарифного плана произойдет только в случае достаточного количества
+                                        Пойнтов
+                                        на балансе профиля пользователя</p>
+                                </div>
                             </div>
-
-
                             <button type="submit" class="btn btn-primary">Обновить информацию о салоне</button>
                         </form>
 

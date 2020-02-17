@@ -35,13 +35,13 @@
                                         <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
                                             @csrf
                                             @method('patch')
-                                            <button type="submit">Опубликовать</button>
+                                            <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
                                         </form>
                                     @else
                                         <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
                                             @csrf
                                             @method('patch')
-                                            <button type="submit">Снять с публикации</button>
+                                            <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
                                         </form>
                                     @endif
                                 </td>

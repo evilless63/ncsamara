@@ -235,7 +235,7 @@
                         <input name="payment" type="number" step="0.1" id="userPayment"
                            class="form-control @error('payment') is-invalid @enderror"
                            placeholder="Укажите на какую сумму необходимо выполнить пополнение баланса" value="{{ old('payment') }}">
-                           <button type="submit" class="btn btn-success">Пополнить</button>
+                           <button type="submit" class="btn btn-success" style="padding: 0px 7.5px;margin-left: 1em;">Пополнить</button>
                     </div>
                     
                     <div id="bonusinfo"></div>
@@ -252,7 +252,7 @@
                         <input name="promotionalpayment" type="text" id="userPromotionalPayment"
                            class="form-control @error('promotionalpayment') is-invalid @enderror"
                            placeholder="Укажите промокод для пополнения баланса" value="">
-                           <button type="submit" class="btn btn-success">Активировать</button>
+                           <button type="submit" class="btn btn-success" style="padding: 0px 7.5px;margin-left: 1em;">Активировать</button>
                     </div>
                     
 

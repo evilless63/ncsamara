@@ -86,13 +86,13 @@
                                                     <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <button type="submit">Опубликовать</button>
+                                                        <button  class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
                                                     </form>
                                                 @else
                                                     <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <button type="submit">Снять с публикации</button>
+                                                        <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
                                                     </form>
                                                 @endif
                                             </td>
@@ -108,13 +108,13 @@
                                                     <form action="{{ route('admin.profileverify', $profile->id) }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <button type="submit">Подтвердить</button>
+                                                        <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Подтвердить</button>
                                                     </form>
                                                 @else
                                                     <form action="{{ route('admin.profileunverify', $profile->id) }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <button type="submit">Снять подтверждение</button>
+                                                        <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять подтверждение</button>
                                                     </form>
                                                 @endif
                                             </td>
@@ -210,13 +210,13 @@
                                                     <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <button type="submit">Опубликовать</button>
+                                                        <button  class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
                                                     </form>
                                                 @else
                                                     <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <button type="submit">Снять с публикации</button>
+                                                        <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
                                                     </form>
                                                 @endif
                                             </td>
@@ -232,13 +232,13 @@
                                                     <form action="{{ route('admin.profileverify', $profile->id) }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <button type="submit">Подтвердить</button>
+                                                        <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Подтвердить</button>
                                                     </form>
                                                 @else
                                                     <form action="{{ route('admin.profileunverify', $profile->id) }}" method="POST">
                                                         @csrf
                                                         @method('patch')
-                                                        <button type="submit">Снять подтверждение</button>
+                                                        <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять подтверждение</button>
                                                     </form>
                                                 @endif
                                             </td>

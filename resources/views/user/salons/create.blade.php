@@ -55,7 +55,7 @@
                                 Необходимо использовать изображение размером 555 на 159 пикселей или кратный указанному размер<br>
                                 для активации изображения, салон должен быть утвержден администратором сайта.<br>
                                 для запроса на утверждение, пожалуйста, отправьте сообщение через систему техподдержки.</p>
-                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного ищображения салона">
+                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного изображения салона">
                                 <img class="rounded" id="avatar_main" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
                                 <input type="file" class="sr-only" id="input_main" name="image_main" accept="image/*">
                                 </label>
@@ -97,7 +97,7 @@
                                     необходимо загрузить изображение размером 1140 на 181 пикселей  или кратный указанному размер<br>
                                     для активации изображения необходимо иметь тариф VIP, а также салон должен быть утвержден администратором сайта.<br>
                                     для запроса на утверждение, пожалуйста, отправьте сообщение через систему техподдержки.</p>
-                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного ищображения салона">
+                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки изображения для главной страницы сайта (слайдера)">
                                 <img class="rounded" id="avatar_prem" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
                                 <input type="file" class="sr-only" id="input_prem" name="image_prem" accept="image/*">
                                 </label>

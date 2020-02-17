@@ -226,7 +226,7 @@
 
                                 <div class="form-group">
                                     <p>Основное изображение</p>
-                                    <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки">
+                                    <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного изображения анкеты">
                                     <img class="rounded" id="avatar" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
                                     <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                                     </label>
