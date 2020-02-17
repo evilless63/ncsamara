@@ -5,7 +5,11 @@
 
     <div class="row justify-content-center">
         <div class="col-md-12">
-
+            @if (!empty(session('success')))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
             <button class="btn btn-primary btn-block mt-2 admin-profile-choose" type="button" data-toggle="collapse" data-target="#collapseAdminProfiles">
                 Аккаунты администраторов
             </button>

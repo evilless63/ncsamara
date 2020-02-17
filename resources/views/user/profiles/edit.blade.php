@@ -108,13 +108,19 @@
                         @method('patch')
 
                         @if(count($errors))
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                    <li>Не заполнено, или неправильно заполнено: {{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (!empty(session('success')))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
                         @endif
 
                         <ul class="nav nav-pils nav-pills-userpanel">

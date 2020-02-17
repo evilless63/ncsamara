@@ -8,7 +8,21 @@
 
                     <h2>Создание промокода</h2>
 
+                    @if(count($errors))
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                            <li>Не заполнено, или неправильно заполнено: {{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
+                @if (!empty(session('success')))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                         <form action="{{ route('admin.promotionals.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 

@@ -5,6 +5,11 @@
 
     <div class="row justify-content-center">
         <div class="col-md-12">
+            @if (!empty(session('success')))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
                     @if($promotionals->count())
                     <table class="table table-hover">
                         <thead>
@@ -12,7 +17,8 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Сумма к пополнению</th>
                                 <th scope="col">Код</th>
-                                <th scope="col">#</th>
+                                <th scope="col">Статус</th>
+                                <th scope="col">Действия</th>
                             </tr>
                         </thead>
                         @forelse ($promotionals as $promotional)
@@ -24,15 +30,20 @@
                                 <td>{{ $promotional->replenish_summ }}</td>
                                 <td><a
                                         href="
-                                        @if (!$promotional->is_active)
+                                        @if (!$promotional->is_activated)
                                         {{ route('admin.promotionals.edit', $promotional->id) }}
                                         @endif
                                         ">{{ $promotional->code }}</a>
                                 </td>
                                 <td>
-                                    @if($promotional->is_active)
+                                    @if($promotional->is_activated)
                                     <span style="color: red">уже активирован !</span>
                                     @else
+                                    <span style="color: green">не активирован !</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($promotional->is_activated != 1)
                                     <form action="{{ route('admin.promotionals.destroy', $promotional->id) }}"
                                         method="POST">
                                         @csrf

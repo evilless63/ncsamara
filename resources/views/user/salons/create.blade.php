@@ -20,7 +20,22 @@
             <div class="col-md-12">
                     <h2>Создание салона</h2>
 
-                    
+                        @if(count($errors))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                    <li>Не заполнено, или неправильно заполнено: {{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (!empty(session('success')))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <form action="{{ route('user.salons.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
@@ -87,7 +102,7 @@
                                 </div>
                                 <br>
                                 <input type="hidden" autocomplete="OFF" name="image" id="main_salon_image"
-                                       placeholder="" class="form-control input-sm" required/>
+                                       placeholder="" class="form-control input-sm"/>
                                 {{-- <input type="file" autocomplete="OFF" name="image" id="image" placeholder=""
                                        class="form-control input-sm" required /> --}}
                             </div>
@@ -129,7 +144,7 @@
                                 </div>
                                 <br>
                                 <input type="hidden" autocomplete="OFF" name="image_prem" id="image_prem_salon"
-                                       placeholder="" class="form-control input-sm" required/>
+                                       placeholder="" class="form-control input-sm"/>
                                 {{-- <label for="image">Изображение для главной</label>
                                 <br>
                                 <input type="file" autocomplete="OFF" name="image_prem" id="image" placeholder=""

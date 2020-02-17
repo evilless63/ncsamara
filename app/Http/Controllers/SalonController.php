@@ -82,7 +82,7 @@ class SalonController extends Controller
         
 
         Salon::create($salon_data);
-        return redirect(route('user'))->withSuccess('Успешно создано');
+        return redirect(route('user.salons.index'))->withSuccess('Успешно создано');
     }
 
     /**
@@ -162,7 +162,7 @@ class SalonController extends Controller
             $salon->rates()->attach(Rate::findOrFail(request()->rate));
         }
         
-        return redirect(route('user'))->withSuccess('Успешно обновлено');
+        return back()->withSuccess('Успешно обновлено');
     }
 
     /**
@@ -174,7 +174,7 @@ class SalonController extends Controller
     public function destroy(Salon $salon)
     {
         $salon->delete();
-        return redirect(route('user'))->withSuccess('Успешно удалено');
+        return back()->withSuccess('Успешно удалено');
 
     }
 

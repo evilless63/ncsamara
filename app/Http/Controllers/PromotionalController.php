@@ -96,7 +96,8 @@ class PromotionalController extends Controller
      */
     public function destroy(Promotional $promotional)
     {
-
+        $promotional->delete();
+        return redirect(route('admin.promotionals.index'))->withSuccess('Успешно удалено');
     }
 
     private function promotionalValidate() {

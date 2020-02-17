@@ -4,7 +4,11 @@
 @section('content')
         <div class="row justify-content-center">
             <div class="col-md-12">
-
+                @if (!empty(session('success')))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
                         <table class="table table-hover">
                             <thead>
                             <tr>

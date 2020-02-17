@@ -20,6 +20,22 @@
    
                     <h2>Редактирование салона</h2>
 
+                        @if(count($errors))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                    <li>Не заполнено, или неправильно заполнено: {{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (!empty(session('success')))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <form action="{{ route('user.salons.update', $salon->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('patch')
@@ -114,9 +130,9 @@
                                 </div>
                                 <br>
 
-                                <input type="hidden" name="image" value="{{ $salon->image }}">
+                                {{-- <input type="hidden" name="image" value="{{ $salon->image }}"> --}}
                                 <input type="hidden" autocomplete="OFF" name="image" id="main_salon_image"
-                                       placeholder="" class="form-control input-sm" required/>
+                                       placeholder="" class="form-control input-sm" value="{{ $salon->image }}"/>
                             </div>
 
                             <hr class="mt-2 mb-5">
@@ -135,7 +151,7 @@
                                 </p>
                                 <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки изображения салона для главной страницы сайта (слайдера)">
                                 <img class="rounded" id="avatar_prem" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
-                                <input type="file" class="sr-only" id="input_prem" name="image_prem" accept="image/*">
+                                <input type="file" class="sr-only" id="input_prem" name="image_prem" accept="image_prem/*">
                                 </label>
                                 {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
@@ -165,11 +181,11 @@
                                 </div>
                                 <br>
                                 
-                                <input type="hidden" name="image_prem" value="{{ $salon->image_prem }}">
+                                {{-- <input type="hidden" name="image_prem" value="{{ $salon->image_prem }}"> --}}
                                 <input type="hidden" autocomplete="OFF" name="image_prem" id="image_prem_salon"
-                                       placeholder="" class="form-control input-sm" required/>
+                                       placeholder="" class="form-control input-sm" value="{{ $salon->image_prem }}"/>
                             </div>
-
+                           
                             <div class="row mt-5">
                                 <div class="col-md-12">
                                     <div class="form-group form-inline">
@@ -180,42 +196,48 @@
                                                     @endif">
                                         <select class="form-control" style="width:100%" name="rate" id="profileRate">
                                             <option></option>
+                                            
                                             @foreach($rates as $rate)
-                                            <option value="{{$rate->id}}" {{$salon->rates->first()->id == $rate->id ? 'selected' : ''}}>
+                                            @if($rate->id)
+                                            <option value="{{$rate->id}}" {{$salon->rates->count() > 0 && $salon->rates->first()->id  == $rate->id ? 'selected' : ''}}>
                                             {{ $rate->name }} {{$rate->cost}} руб. / сутки</option>
+                                            @endif
                                             @endforeach
-                                        </select>
-                                        
-                                        
-                                    </div>
-
-                                    <label for="">Управление активностью салона: </span></label>
-                                    @if(!$salon->is_approved)
-
-                                        <form action="{{ route('user.activatesalon', ['id' => $salon->first()->id]) }}" method="post">
-                                            @csrf
-                                            <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Активировать (спишется сумма согласно вашему тарифному плану)</button>
-                                        </form>
-                                    @else
-                                        Да, окончание через
-                                        {{$salon->first()->minutes_to_archive}}
-                                        минут
-                                    @endif
-                                    <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
-                                        попытки
-                                        активации салона<br>Переключение тарифного плана произойдет только в случае достаточного количества
-                                        Пойнтов
-                                        на балансе профиля пользователя</p>
+                                        </select> 
+                                    </div>                                 
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Обновить информацию о салоне</button>
                         </form>
+                        
+                        <label for="">Управление активностью салона: </span></label>
+                        @if($salon->rates->count())
+                        
+                        @if(!$salon->is_approved)
+
+                            <form action="{{ route('user.activatesalon', ['id' => $salon->first()->id]) }}" method="post">
+                                @csrf
+                                <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Активировать (спишется сумма согласно вашему тарифному плану)</button>
+                            </form>
+                        @else
+                            Да, окончание через
+                            {{$salon->first()->minutes_to_archive}}
+                            минут
+                        @endif
+                        <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
+                            попытки
+                            активации салона<br>Переключение тарифного плана произойдет только в случае достаточного количества
+                            Пойнтов
+                            на балансе профиля пользователя</p>
 
                         <form action="{{ route('user.salons.destroy', $salon->id) }}" method="POST">
                             @csrf
                             @method('delete')
                             <button type="submit" class="btn btn-danger">Удалить салон</button>
                         </form>
+                        @else
+                        <p>Сначала необходимо выбрать тариф и сохранить изменения !!!</p> 
+                        @endif
 
             </div>
         </div>
