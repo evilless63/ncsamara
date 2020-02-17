@@ -51,17 +51,89 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="image">Изображение</label>
+                                <p>Основное изображение<br>
+                                Необходимо использовать изображение размером 555 на 159 пикселей или кратный указанному размер<br>
+                                для активации изображения, салон должен быть утвержден администратором сайта.<br>
+                                для запроса на утверждение, пожалуйста, отправьте сообщение через систему техподдержки.</p>
+                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного ищображения салона">
+                                <img class="rounded" id="avatar_main" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
+                                <input type="file" class="sr-only" id="input_main" name="image_main" accept="image/*">
+                                </label>
+                                {{-- <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                </div>
+                                <div class="alert" role="alert"></div> --}}
+                                <div class="modal fade" id="modal_main" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel_main">Выберите учаток изображения для загрузки</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого изображения, перетаскивайте активную зону</p>
+                                        <div class="img-container">
+                                        <img id="image_main" src="https://avatars0.githubusercontent.com/u/3456749">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                        <button type="button" class="btn btn-primary" id="crop_main">Загрузить</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
                                 <br>
-                                <input type="file" autocomplete="OFF" name="image" id="image" placeholder=""
-                                       class="form-control input-sm" required />
+                                <input type="hidden" autocomplete="OFF" name="image" id="main_salon_image"
+                                       placeholder="" class="form-control input-sm" required/>
+                                {{-- <input type="file" autocomplete="OFF" name="image" id="image" placeholder=""
+                                       class="form-control input-sm" required /> --}}
                             </div>
 
                             <div class="form-group">
-                                <label for="image">Изображение для главной</label>
+                                <p>Изображение для рекламы на главной странице (в слайдере фотографий)<br>
+                                    необходимо загрузить изображение размером 1140 на 181 пикселей  или кратный указанному размер<br>
+                                    для активации изображения необходимо иметь тариф VIP, а также салон должен быть утвержден администратором сайта.<br>
+                                    для запроса на утверждение, пожалуйста, отправьте сообщение через систему техподдержки.</p>
+                                <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного ищображения салона">
+                                <img class="rounded" id="avatar_prem" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
+                                <input type="file" class="sr-only" id="input_prem" name="image_prem" accept="image/*">
+                                </label>
+                                {{-- <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                </div>
+                                <div class="alert" role="alert"></div> --}}
+                                <div class="modal fade" id="modal_prem" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel_prem">Выберите учаток изображения для загрузки</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого изображения, перетаскивайте активную зону</p>
+                                        <div class="img-container">
+                                        <img id="image_prem" src="https://avatars0.githubusercontent.com/u/3456749">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                        <button type="button" class="btn btn-primary" id="crop_prem">Загрузить</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <br>
+                                <input type="hidden" autocomplete="OFF" name="image_prem" id="image_prem_salon"
+                                       placeholder="" class="form-control input-sm" required/>
+                                {{-- <label for="image">Изображение для главной</label>
                                 <br>
                                 <input type="file" autocomplete="OFF" name="image_prem" id="image" placeholder=""
-                                        class="form-control input-sm" />
+                                        class="form-control input-sm" /> --}}
                             </div>
 
                             <button type="submit" class="btn btn-primary">Создать салон</button>

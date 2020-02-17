@@ -62,3 +62,6 @@ Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function (
 
 Route::post('/user/profiles/upload', 'ProfileController@fileUpload');
 Route::post('/user/profiles/delete', 'ProfileController@removeUpload');
+
+Route::post('user/salons/uploadsalonimage', 'SalonController@fileUpload');
+Route::post('user/salons/uploadsalonslider', 'SalonController@fileUploadSlider');

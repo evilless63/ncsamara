@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
-            <button class="btn btn-primary btn-block mt-2" type="button" data-toggle="collapse" data-target="#collapseAdminProfiles">
+            <button class="btn btn-primary btn-block mt-2 admin-profile-choose" type="button" data-toggle="collapse" data-target="#collapseAdminProfiles">
                 Аккаунты администраторов
             </button>
             <div class="collapse" id="collapseAdminProfiles">    
@@ -130,7 +130,7 @@
             </div> 
             
 
-            <button class="btn btn-primary btn-block mt-2" type="button" data-toggle="collapse" data-target="#collapseUserProfiles">
+            <button class="btn btn-primary btn-block mt-2 admin-profile-choose" type="button" data-toggle="collapse" data-target="#collapseUserProfiles">
                 Аккаунты пользователей
             </button>
             <div class="collapse" id="collapseUserProfiles">    

@@ -61,20 +61,23 @@ class SalonController extends Controller
         $salon_data = request()->all();
         $salon_data['user_id'] = Auth::user()->id;
 
-        $_IMAGE = $request->file('image');
-        $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
-        $uploadPath = public_path() . '/images/salons/created';
-        $_IMAGE->move($uploadPath,$filename);
+        // $_IMAGE = $request->file('image');
+        // $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        // $uploadPath = public_path() . '/images/salons/created';
+        // $_IMAGE->move($uploadPath,$filename);
 
-        $salon_data['image'] = $filename;
+        $salon_data['image'] = str_replace('"', '', request()->image);
 
-        $_IMAGE2 = $request->file('image_prem');
-        if($_IMAGE2 <> null) {
-            $filename2 = $this->regexpImages(time().$_IMAGE2->getClientOriginalName());
-            $uploadPath = public_path() . '/images/salons/created';
-            $_IMAGE2->move($uploadPath,$filename2);
+        // $_IMAGE2 = $request->file('image_prem');
+        // if($_IMAGE2 <> null) {
+        //     $filename2 = $this->regexpImages(time().$_IMAGE2->getClientOriginalName());
+        //     $uploadPath = public_path() . '/images/salons/created';
+        //     $_IMAGE2->move($uploadPath,$filename2);
 
-            $salon_data['image_prem'] = $filename2;
+        //     $salon_data['image_prem'] = $filename2;
+        // }
+        if($request->has('image_prem')){
+            $salon_data['image_prem'] = str_replace('"', '', request()->image_prem);
         }
         
 
@@ -126,23 +129,30 @@ class SalonController extends Controller
 
         $_IMAGE = $request->file('image');
         
-        if($_IMAGE <> null) {
-            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
-            $uploadPath = public_path() . '/images/salons/created';
-            File::delete(public_path() . '/images/salons/created' . $salon->image );
-            $_IMAGE->move($uploadPath,$filename);
+        // if($_IMAGE <> null) {
+        //     $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        //     $uploadPath = public_path() . '/images/salons/created';
+        //     File::delete(public_path() . '/images/salons/created' . $salon->image );
+        //     $_IMAGE->move($uploadPath,$filename);
 
-            $salon_data['image'] = $filename;
+        //     $salon_data['image'] = $filename;
 
+        // }
+
+        // $_IMAGE2 = $request->file('image_prem');
+        // if($_IMAGE2 <> null) {
+        //     $filename2 = $this->regexpImages(time().$_IMAGE2->getClientOriginalName());
+        //     $uploadPath = public_path() . '/images/salons/created';
+        //     $_IMAGE2->move($uploadPath,$filename2);
+
+        //     $salon_data['image_prem'] = $filename2;
+        // }
+        if($request->has('image')){    
+        $salon_data['image'] = str_replace('"', '', request()->image);
         }
 
-        $_IMAGE2 = $request->file('image_prem');
-        if($_IMAGE2 <> null) {
-            $filename2 = $this->regexpImages(time().$_IMAGE2->getClientOriginalName());
-            $uploadPath = public_path() . '/images/salons/created';
-            $_IMAGE2->move($uploadPath,$filename2);
-
-            $salon_data['image_prem'] = $filename2;
+        if($request->has('image_prem')){
+            $salon_data['image_prem'] = str_replace('"', '', request()->image_prem);
         }
 
         $salon->update($salon_data);
@@ -187,6 +197,25 @@ class SalonController extends Controller
         }
         
     }
+
+    public function fileUpload(Request $request)
+    {
+        $_IMAGE = $request->file('image');
+        $filename = $this->regexpImages(str_replace('"', '', time().$_IMAGE->getClientOriginalName()));
+        $uploadPath = 'images/salons/created';
+        $_IMAGE->move($uploadPath,str_replace('"', '', $filename));
+        echo json_encode($filename);
+    }
+
+    public function fileUploadSlider(Request $request)
+    {
+        $_IMAGE = $request->file('image_prem');
+        $filename = $this->regexpImages(str_replace('"', '', time().$_IMAGE->getClientOriginalName()));
+        $uploadPath = 'images/salons/created';
+        $_IMAGE->move($uploadPath,str_replace('"', '', $filename));
+        echo json_encode($filename);
+    }
+
 
     private function regexpImages($imageName) {
         return Transliterate::make(preg_replace("/[^A-Za-z\d\.]/", '', $imageName));
