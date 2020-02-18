@@ -52,7 +52,7 @@
                                 <th scope="col">Телефон</th>
                                 <th scope="col">Тариф</th>
                                 <th scope="col">Редактировать</th>
-                                <th scope="col">Активна</th>
+                                <th scope="col">Оплачена/Неоплачена</th>
                             </tr>
                             </thead>
                             @forelse ($profiles as $profile)
@@ -96,7 +96,7 @@
                                 <th scope="col">Телефон</th>
                                 <th scope="col">Тариф</th>
                                 <th scope="col">Редактировать</th>
-                                <th scope="col">Активна</th>
+                                <th scope="col">Оплачена/Неоплачена</th>
                             </tr>
                             </thead>
 

@@ -178,7 +178,7 @@
                   <li class="nav-header">Информация о моих анкетах</li>
                   <li class="nav-item"><i class="nav-icon far fa-circle text-yellow"></i> <span style="color: #fff">Всего: {{ Auth::user()->profiles()->count()}}</span></li>
                   <li class="nav-item"><i class="nav-icon far fa-circle text-green"></i> <span style="color: #fff">Активно: {{ Auth::user()->profiles()->where('is_archived', 0)->count()}}</span></li>
-                  <li class="nav-item"><i class="nav-icon far fa-circle text-red"></i> <span style="color: #fff">Не активированных: {{ Auth::user()->profiles()->where('is_archived', 1)->count()}}</span></li>
+                  <li class="nav-item"><i class="nav-icon far fa-circle text-red"></i> <span style="color: #fff">Не оплаченных: {{ Auth::user()->profiles()->where('is_archived', 1)->count()}}</span></li>
               @endif
           </ul>
         @endif

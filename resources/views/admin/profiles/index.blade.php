@@ -72,8 +72,8 @@
                                         <th scope="col">Тариф</th>
                                         <th scope="col">Редактировать</th>
                                         <th scope="col">Опубликована</th>
-                                        <th scope="col">Активна</th>
-                                        <th scope="col">Подтвержденна</th>
+                                        <th scope="col">Оплачена/Неоплачена</th>
+                                        <th scope="col">Подтверждена</th>
                                     </tr>
                                 </thead>
                                 @forelse ($user->profiles as $profile)
@@ -102,9 +102,9 @@
                                             </td>
                                             <td>
                                                 @if($profile->is_archived == 0)
-                                                    Активна
+                                                    Оплачена/Активна
                                                 @else
-                                                    Неактивна
+                                                    Неоплачена/Неактивна
                                                 @endif
                                             </td>
                                             <td>
@@ -196,8 +196,8 @@
                                         <th scope="col">Тариф</th>
                                         <th scope="col">Редактировать</th>
                                         <th scope="col">Опубликована</th>
-                                        <th scope="col">Активна</th>
-                                        <th scope="col">Подтвержденна</th>
+                                        <th scope="col">Оплачена/Неоплачена</th>
+                                        <th scope="col">Подтверждена</th>
                                     </tr>
                                 </thead>
                                 @forelse ($user->profiles as $profile)
@@ -226,9 +226,9 @@
                                             </td>
                                             <td>
                                                 @if($profile->is_archived == 0)
-                                                    Активна
+                                                    Оплачена/Активна
                                                 @else
-                                                    Неактивна
+                                                    Не оплачена/Неактивна
                                                 @endif
                                             </td>
                                             <td>

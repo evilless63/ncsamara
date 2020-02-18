@@ -21,7 +21,7 @@
                                 <th scope="col">Редактировать</th>
                                 <th scope="col">Опубликована</th>
                                 <th scope="col">Подтверждена</th>
-                                <th scope="col">Активна</th>
+                                <th scope="col">Оплачена/Неоплачена</th>
                             </tr>
                         </thead>
                         @forelse ($profiles as $profile)
@@ -61,7 +61,7 @@
 
                                         <form action="{{ route('user.activateprofile', $profile->id) }}" method="post">
                                             @csrf
-                                            <button type="submit">Нет, активировать</button>
+                                            <button type="submit" class="btn btn-success" style="padding: 0px 7.5px;" >Нет, оплатить</button>
                                         </form>
                                     @else
                                         Да, окончание через

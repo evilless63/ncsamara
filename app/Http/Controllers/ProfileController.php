@@ -461,11 +461,12 @@ class ProfileController extends Controller
 
         $profile->update();
 
-        return back()->withSuccess('Успешно активирована');
+        return back()->withSuccess('Успешно оплачена');
 
     }
 
     public function activatesalon(Request $request, $id) {
+   
         $salon = Salon::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         $user = $salon->user;
         $rate = $salon->rates->first();
@@ -492,10 +493,9 @@ class ProfileController extends Controller
         $next_payment = Carbon::parse($salon->next_payment);
         $last_payment = Carbon::parse($salon->last_payment);
         $salon['minutes_to_archive'] = $next_payment->diffInMinutes($last_payment);
-
         $salon->update();
 
-        return back()->withSuccess('Успешно активирована');
+        return back()->withSuccess('Успешно оплачена');
 
     }
 

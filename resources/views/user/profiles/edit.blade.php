@@ -368,7 +368,7 @@
                                             <select class="form-control" style="width:100%" name="rate" id="profileRate">
                                                 <option></option>
                                                 @foreach($rates as $rate)
-                                                <option value="{{$rate->id}}" {{$profile->rates->first()->id == $rate->id ? 'selected' : ''}}>
+                                                <option value="{{$rate->id}}" {{$profile->rates->count() > 0 && $profile->rates->first()->id == $rate->id ? 'selected' : ''}}>
                                                     {{ $rate->name }} {{ $rate->cost }} руб./сутки</option>
                                                 @endforeach
                                             </select>
@@ -377,7 +377,7 @@
                                         </div>
                                         <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
                                             попытки
-                                            активации анкеты<br>Переключение тарифного плана произойдет только в случае достаточного количества
+                                            оплаты анкеты<br>Переключение тарифного плана произойдет только в случае достаточного количества
                                             Пойнтов
                                             на балансе анкеты</p>
                                     </div>
@@ -446,8 +446,34 @@
                                 </div>
                             </div>
                         </div>
+
+                        
+
                         <button type="submit" class="btn btn-success">Обновить анкету</button>
                     </form>
+
+                    <label for="">Управление оплатой анкеты: </span></label>
+                        @if($profile->rates->count())
+                        
+                        @if($profile->is_archived)
+
+                            <form action="{{ route('user.activateprofile', $profile->id) }}" method="post">
+                                @csrf
+                                <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Оплатить (спишется сумма согласно вашему тарифному плану)</button>
+                            </form>
+                        @else
+                            Оплачена, окончание через
+                            {{$profile->minutes_to_archive}}
+                            минут (оплата будет повторно списана после окончания при наличии средств на балансе)
+                        @endif
+                        <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
+                            попытки
+                            оплаты анкеты<br>Переключение тарифного плана произойдет только в случае достаточного количества
+                            Пойнтов
+                            на балансе профиля пользователя</p>
+                        @else
+                        <p>Сначала необходимо выбрать тариф и сохранить изменения !!!</p> 
+                        @endif
             </div>
 
 </div>
