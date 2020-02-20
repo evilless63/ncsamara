@@ -361,7 +361,7 @@
 
       $modal.on('shown.bs.modal', function () {
         cropper = new Cropper(image, {
-          aspectRatio: 2 / 3,
+          aspectRatio: 275 / 390,
           viewMode: 0,
         });
       }).on('hidden.bs.modal', function () {

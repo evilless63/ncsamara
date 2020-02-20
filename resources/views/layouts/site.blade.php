@@ -81,7 +81,7 @@
                         <div class="top-right links d-flex">
                             @auth
                                 @if(Auth::user()->is_admin)
-                                    <a class="btn mr-sm-3" href="{{ route('admin') }}">
+                                    <a class="btn mr-sm-3" href="{{ route('user') }}">
                                         <img src="images/user.png" class="mr-2" alt="">
                                         {{Auth::user()->name}}</a>
                                 @else
