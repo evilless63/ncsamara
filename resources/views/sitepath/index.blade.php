@@ -409,7 +409,23 @@
             load_data('', _token, null, data);
 
             function load_data(id="", _token, obj=null, data) {
+
+                arrIds = []
+                $('.profile_wrapper').each(function(){
+                    arrIds.push($(this).attr('profile_id')); 
+                });
+
+                if(id == "") {
+                    id = 0;
+                }
+
                 data.id = id
+
+                if(id !== 0) {
+                    data.ids = arrIds
+                    console.log(arrIds);
+                }
+                
                 data._token = _token
 
                 if(obj !== null) {

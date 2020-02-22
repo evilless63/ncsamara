@@ -17,6 +17,7 @@ use App\Salon;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Arr;
 
 class SiteController extends Controller
 {
@@ -104,18 +105,17 @@ class SiteController extends Controller
 
     function load_data(Request $request)
     {
+
         if($request->ajax())
         {
-            if($request->id > 0)
-            {
-                $data = Profile::where('id', '<', $request->id);
-            }
-            else
-            {
-                $data = Profile::where('id', '>', 0);
-            }
             $output = '<div class="row">';
             $last_id = '';
+
+            if($request->ids == null || !is_array($request->ids)) {
+                $ids = [0];
+            } else {
+                $ids = $request->ids;
+            }
 
             if(!$request->has('archived')){
                 if($request->has('one_hour_min') && $request->one_hour_min != null ){
@@ -213,23 +213,35 @@ class SiteController extends Controller
                     });
     
                 }
-    
-    
-    
-                $data = $data->where('is_published', 1)
-                ->where('is_archived', 0)
-                ->orderBy('id', 'DESC')
-                ->limit(18)
-                ->get();
+
+                $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($ids) {
+                    $query->where('is_archived', 0)->where('is_published', 1)->whereNotIn('profile_id', $ids);
+                }])->get();
             } else {
-                $data = $data->where('is_published', 1)
-                ->where('is_archived', 1)
-                ->orderBy('id', 'DESC')
-                ->limit(18)
-                ->get();
+                $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($request) {
+                    $query->where('is_archived', 1)->where('is_published', 1)->whereNotIn('profile_id', $ids);
+                }])->get();
             }
 
             
+
+            $arrCollections = array();
+            foreach($data as $rate) {
+                $shuffled = $rate->profiles->shuffle();
+                array_push($arrCollections, $shuffled);
+            }
+
+            $collection = collect($arrCollections)->collapse();
+            $request_id = (int)$request->get('id');
+            if(!is_int($request_id)) {
+                $request_id = 0;
+            } elseif($collection->count() < $request_id){
+                $request_id = 0;
+            }
+
+            $data = $collection->slice($request_id)->take(18);
+           
+           
 
             if(!$data->isEmpty())
             {
@@ -275,7 +287,7 @@ class SiteController extends Controller
 
 
                     if($request->has('archived')) {
-                        $output .= '<div class="col-md-3 col-sx-6 nc-col">
+                        $output .= '<div class="col-md-3 col-sx-6 nc-col profile_wrapper" profile_id="' . $row->id . '" >
                         <div class="nc-card d-flex flex-column justify-content-between"
                         style = "
                         background-size: 100%;
@@ -309,7 +321,7 @@ class SiteController extends Controller
                             $output .= '</div><div class="row mt-3">';
                         }
                     } else {
-                        $output .= '<div class="col-md-4 col-sx-6 nc-col">
+                        $output .= '<div class="col-md-4 col-sx-6 nc-col profile_wrapper" profile_id="' . $row->id . '">
                                     <div class="nc-card d-flex flex-column justify-content-between"
                                     style = "
                                     background-size: 100%;
@@ -349,7 +361,7 @@ class SiteController extends Controller
 
 
 
-                    $last_id = $row->id;
+                    $last_id = $iteration + $request_id;
                 }
                 $output .= '</div>';
                 $output .= '<div class="row justify-content-center mt-3 mb-3 load_more_button">
