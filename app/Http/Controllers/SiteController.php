@@ -290,8 +290,9 @@ class SiteController extends Controller
                         $output .= '<div class="col-md-3 col-sx-6 nc-col profile_wrapper" profile_id="' . $row->id . '" >
                         <div class="nc-card d-flex flex-column justify-content-between"
                         style = "
-                        background-size: cover;
+                        
                         background: linear-gradient(360deg, rgba(2, 0, 0, 0.5) 0%, rgba(59, 18, 24, 0.5) 18%, rgba(72, 26, 35, 0.5) 33%, rgba(61, 41, 50, 0.5) 54%, rgba(58, 45, 55, 0.5) 100%), url(/images/profiles/images/created/'. $row->main_image .') no-repeat;
+                        background-size: cover;
                         "
                         >
                             <div class="nc-card-top">
@@ -324,8 +325,9 @@ class SiteController extends Controller
                         $output .= '<div class="col-md-4 col-sx-6 nc-col profile_wrapper" profile_id="' . $row->id . '">
                                     <div class="nc-card d-flex flex-column justify-content-between"
                                     style = "
-                                    background-size: cover;
+                                    
                                     background: linear-gradient(360deg, rgba(2, 0, 0, 0.5) 0%, rgba(59, 18, 24, 0.5) 18%, rgba(72, 26, 35, 0.5) 33%, rgba(61, 41, 50, 0.5) 54%, rgba(58, 45, 55, 0.5) 100%), url(/images/profiles/images/created/'. $row->main_image .') no-repeat;
+                                    background-size: cover;
                                     "
                                     >
                                         <div class="nc-card-top">
