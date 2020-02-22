@@ -10,7 +10,7 @@
                         @foreach($rate->salons->where('is_published', 1)->where('is_approved', 1) as $salon)
                             @if($salon->image_prem)
                             <div class="carousel-item @if($loop->first) active @endif">
-                                    <img src="{{ asset('/images/salons/created/' . $salon->image_prem) }}" style="height: 200px"  class="d-block w-100"> 
+                                    <img src="{{ asset('/images/salons/created/' . $salon->image_prem) }}"  class="d-block w-100"> 
                             </div>
                             @endif
                         @endforeach
