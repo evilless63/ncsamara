@@ -34,15 +34,20 @@
     <div class="container mt-3" style="min-height: 900px;">
         <div class="row justify-content-between">
             <div class="col-md-3 col-sm-12 nc-col-filter">
-                <div class="nc-filter">
+                <div class="nc-filter navbar-expand-lg navbar-expand-lg-nc">
                     <div class="d-flex justify-content-between">
                         <span>
                             Выбрать параметры
                         </span>
                         <span>
-                            <img src="images/filter/settings.png" alt="">
+                            <button class="navbar-toggler d-xl-none d-lg-none d-md-none" type="button" data-toggle="collapse"
+                                    data-target="#navbarFilterContent" aria-controls="navbarFilterContent"
+                                    aria-expanded="false" aria-label="Toggle navigation" style="padding: 0;">
+                                    <img src="images/filter/settings.png">
+                            </button> 
                         </span>
                     </div>
+                    <div class="collapse navbar-collapse-nc" id="navbarFilterContent">
                     <ul class="mt-3 nc-actions">
                         <li><a href="#" id="services">Выбрать услуги</a></li>
                     </ul>
@@ -282,7 +287,7 @@
                         <a class="btn btn-outline-dark btn-block" id="verified">Проверенные</a>
                         <a class="btn btn-outline-dark btn-block" id="new_profiles" >Новые</a>
                     </div>
-
+                </div>        
                 </div>
 
                 {{ csrf_field() }}

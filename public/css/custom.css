@@ -7,11 +7,13 @@ body {
     background-size: cover;
 }
 
-.h3, h4 {
+.h3,
+h4 {
     font-family: 'mullerbold';
 }
 
-.h3 span, h4 span {
+.h3 span,
+h4 span {
     font-family: 'mullermedium';
     font-size: .9rem;
 }
@@ -30,7 +32,8 @@ body {
     font-size: 1.65rem;
 }
 
-.nc-navbar *, .nc-navbar .nav-link {
+.nc-navbar *,
+.nc-navbar .nav-link {
     color: #fff !important;
 }
 
@@ -116,7 +119,9 @@ body {
     color: #fff;
 }
 
-.nc-filter-sliders .h6, .nc-prices .h6, .nc-collapse .h6 {
+.nc-filter-sliders .h6,
+.nc-prices .h6,
+.nc-collapse .h6 {
     font-size: .9rem;
 }
 
@@ -125,7 +130,8 @@ body {
     height: 20px;
 }
 
-.slider-track, .slider-selection {
+.slider-track,
+.slider-selection {
     border-radius: 5px;
     background: #6c030e;
 }
@@ -182,7 +188,7 @@ body {
 
 .nc-card a:hover {
     text-decoration: none;
-        color: #ff5d6e;
+    color: #ff5d6e;
 }
 
 .slider-horizontal .in {
@@ -234,7 +240,9 @@ body {
     content: "\f067";
 }
 
-.panel-title>a:hover, .panel-title>a:active, .panel-title>a:focus {
+.panel-title>a:hover,
+.panel-title>a:active,
+.panel-title>a:focus {
     text-decoration: none;
 }
 
@@ -416,6 +424,7 @@ body {
     .nc-footer .nc-footer-col-left {
         margin-left: -1rem;
     }
+
     .nc-bg-image {
         background: url(../images/footer-background-image.png) no-repeat right bottom;
     }
@@ -435,11 +444,11 @@ body {
     background-size: cover;
 }
 
-.profileContainer{
+.profileContainer {
     color: #fff;
 }
 
-.tagsInfo{
+.tagsInfo {
     list-style-image: url(../images/filter/round.png);
 }
 
@@ -457,8 +466,8 @@ body {
 }
 
 @media (max-width: 600px) {
-  .nc-top-info {
-    padding-bottom: 0.7rem;
+    .nc-top-info {
+        padding-bottom: 0.7rem;
     }
 }
 
@@ -487,25 +496,32 @@ body {
 }
 
 .salonWrapper {
-	position: relative;
-	max-width: 100%;
-	float: left;
-	}
-    
-    .salonWrapper::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		box-shadow: inset 197px 11px 89px rgba(0,0,0,.8);
-		-moz-box-shadow: inset 197px 11px 89px rgba(0,0,0,.8);
-        -webkit-box-shadow: inset 197px 11px 89px rgba(0,0,0,.8);
-	   } 
-	   
+    position: relative;
+    max-width: 100%;
+    float: left;
+}
+
+.salonWrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: inset 197px 11px 89px rgba(0, 0, 0, .8);
+    -moz-box-shadow: inset 197px 11px 89px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: inset 197px 11px 89px rgba(0, 0, 0, .8);
+}
+
 .salonWrapper img {
-	float: left;
-	} 
+    float: left;
+}
 
-
+@media (min-width: 992px) {
+    .navbar-expand-lg.navbar-expand-lg-nc .navbar-collapse-nc {
+        display: -ms-flexbox !important;
+        display: block;
+        -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    }
+}
