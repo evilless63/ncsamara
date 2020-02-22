@@ -42,7 +42,7 @@
                 <h2>Создание анкеты</h2>
 
                 
-                    <form action="{{ route('user.profiles.store') }}" method="POST" enctype="multipart/form-data">
+                    <div action="{{ route('user.profiles.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         @if(count($errors))
@@ -268,10 +268,14 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <p>Дополнительные изображения</p>
                                     <input type="hidden" autocomplete="OFF" name="item_images" id="item_images"
                                         placeholder="" class="form-control input-sm" required />
-                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                        data-target="#myModal"> <i class="fa fa-image"></i> Загрузить дополнительные фотографии</button>
+                                        <div class="dropzone">
+                                            <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или нажмите сюда и выберите их)</span></div>
+                                        </div>
+                                    {{-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                        data-target="#myModal"> <i class="fa fa-image"></i> Загрузить дополнительные фотографии</button> --}}
                                 </div>
 
 
@@ -307,7 +311,7 @@
 </div>
 
 <!-- MODAL START -->
-<div class="modal fade" id="myModal" role="dialog">
+{{-- <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -329,7 +333,7 @@
         </div>
 
     </div>
-</div>
+</div> --}}
 <!-- MODAL END -->
 @endsection
 
@@ -341,11 +345,7 @@
 
 
 <script>
-    $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
+ 
 Dropzone.autoDiscover = false;
 var acceptedFileTypes = "image/*"; //dropzone requires this param be a comma separated list
 // imageDataArray variable to set value in crud form
@@ -359,6 +359,9 @@ $(function(){
         paramName : "file",
         uploadMultiple :false,
         acceptedFiles : "image/*",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         addRemoveLinks: true,
         forceFallback: false,
         maxFilesize: 4, // Set the maximum file size to 256 MB

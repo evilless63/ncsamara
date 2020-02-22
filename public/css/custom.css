@@ -474,15 +474,38 @@ body {
 }
 
 .salonPhone {
-    margin-top: -25px;
+    margin-bottom: 1px;
     margin-left: 12px;
     position: absolute;
     color: #fff;
     font-size: 0.9rem;
+    bottom: 10px;
 }
 
 .salonWrapper {
     position: relative;
 }
+
+.salonWrapper {
+	position: relative;
+	max-width: 100%;
+	float: left;
+	}
+    
+    .salonWrapper::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		box-shadow: inset 197px 11px 89px rgba(0,0,0,.8);
+		-moz-box-shadow: inset 197px 11px 89px rgba(0,0,0,.8);
+        -webkit-box-shadow: inset 197px 11px 89px rgba(0,0,0,.8);
+	   } 
+	   
+.salonWrapper img {
+	float: left;
+	} 
 
 

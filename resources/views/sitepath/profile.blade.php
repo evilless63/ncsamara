@@ -4,6 +4,10 @@
     class="profileBody"
 @endsection
 
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+@endsection
+
 @section('assetcarousel')
     
     <link rel="stylesheet" href="{{asset('js/owl/assets/owl.carousel.min.css')}}">
@@ -65,16 +69,20 @@
             </div>
         </div>
 
-        <div class="row owl-carousel">
-
-                        <div class="col-md-12">
-                            <img src="{{asset('/images/profiles/images/created/' . $profile->main_image)}}" class="img-fluid"> 
-                        </div>
+        <div class="row owl-carousel" style="cursor:pointer">
+                        
+                            <a data-index="0" data-fancybox="gallery" href="{{asset('/images/profiles/images/created/' . $profile->main_image)}}" class="col-md-12" style="display:block">
+                                <img src="{{asset('/images/profiles/images/created/' . $profile->main_image)}}" class="img-fluid"> 
+                            </a>
+                        
+                        
                             
                         @foreach($profile->images as $image)
-                         <div class="col-md-12">
-                            <img src="{{asset('/images/profiles/images/created/'. $image->name )}}" class="img-fluid">
-                     </div>
+                        
+                            <a data-index="{{$loop->index + 1}}" data-fancybox="gallery" href="{{asset('/images/profiles/images/created/'. $image->name )}}" class="col-md-12" style="display:block">
+                                <img src="{{asset('/images/profiles/images/created/'. $image->name )}}" class="img-fluid">
+                            </a>
+                        
                         @endforeach
  
                     
@@ -253,5 +261,7 @@
           });
         });
 
+
+       
     </script>
 @endsection

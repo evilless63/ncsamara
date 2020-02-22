@@ -62,7 +62,7 @@
 
                     <div id="collapseOne{{$loop->iteration}}1" class="collapse"
                         data-parent="#accordionExample">
-                        <div class="card-body">
+                        <div class="">
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
@@ -186,7 +186,7 @@
 
                     <div id="collapseOne{{$loop->iteration}}2" class="collapse"
                         data-parent="#accordionExample">
-                        <div class="card-body">
+                        <div class="">
                             <table class="table table-sm">
                                 <thead>
                                     <tr>

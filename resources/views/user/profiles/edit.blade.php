@@ -127,8 +127,7 @@
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#panel1">Основные
                                     данные</a></li>
                             <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel2">Услуги</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel5">Подтверждение
-                                    анкеты</a>
+                            
                         </ul>
 
                         <div class="tab-content">
@@ -355,6 +354,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr class="mt-2 mb-5">
+                                <div class="form-group">
+                                    <label for="verificate_image">Изображение для подтверждения</label>
+                                    <br>
+                                    <input type="hidden" name="verificate_image" value="{{ $profile->verificate_image }}">
+                                    <input type="file" autocomplete="OFF" name="verificate_image" id="verificate_image" placeholder="" class="form-control input-sm" />
+                                </div>
+
+                                <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение для
+                                    подтверждения:</h5>
+                                <div class="col-lg-3 col-md-4 col-6">
+                                    @if($profile->verificate_image)
+                                    <a href="#" class="d-block mb-4 h-100">
+                                        <img class="img-fluid delpath" delpath="{{ asset('/images/profiles/verificate/' . $profile->verificate_image )}}" src="{{ asset('/images/profiles/verificate/' . $profile->verificate_image) }}" alt="">
+                                    </a>
+                                    @else
+                                    <p style="text-danger">Не загружено !</p>
+                                    @endif
+                                </div>
                                 
 
                                 <div class="row mt-5">
@@ -427,31 +445,13 @@
                                 @endforeach
                                 @endforeach
                             </div>
-                            <div id="panel5" class="tab-pane fade">
-                                <div class="form-group">
-                                    <label for="verificate_image">Изображение для подтверждения</label>
-                                    <br>
-                                    <input type="hidden" name="verificate_image" value="{{ $profile->verificate_image }}">
-                                    <input type="file" autocomplete="OFF" name="verificate_image" id="verificate_image" placeholder="" class="form-control input-sm" />
-                                </div>
-
-                                <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение для
-                                    подтверждения/ назначить новое</h5>
-
-                                <hr class="mt-2 mb-5">
-                                <div class="col-lg-3 col-md-4 col-6">
-                                    <a href="#" class="d-block mb-4 h-100">
-                                        <img class="img-fluid delpath" delpath="{{ asset('/images/profiles/verificate/' . $profile->verificate_image )}}" src="{{ asset('/images/profiles/verificate/' . $profile->verificate_image) }}" alt="">
-                                    </a>
-                                </div>
-                            </div>
                         </div>
 
                         
 
-                        <button type="submit" class="btn btn-success">Обновить анкету</button>
+                        <button type="submit" class="btn btn-success">Сохранить изменения в анкете</button>
                     </form>
-
+                    <hr class="mt-2 mb-5">
                     <label for="">Управление оплатой анкеты: </span></label>
                         @if($profile->rates->count())
                         
@@ -485,7 +485,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Загрузка изображений</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Загрузка новых изображений</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -493,6 +493,7 @@
             <div class="modal-body">
                 <form action="" class="dropzone" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
+                    <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или нажмите сюда и выберите их)</span>
                 </form>
             </div>
             <div class="modal-footer">
