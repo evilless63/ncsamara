@@ -118,104 +118,106 @@ class SiteController extends Controller
             }
 
             if(!$request->has('archived')){
-                if($request->has('one_hour_min') && $request->one_hour_min != null ){
-                    $data->where('one_hour', '>=' ,$request->one_hour_min);
-                };
-    
-                if($request->has('one_hour_max') && $request->one_hour_max != null ){
-                    $data->where('one_hour', '<=' ,$request->one_hour_max);
-                };
-    
-                if($request->has('two_hour_min') && $request->two_hour_min != null ){
-                    $data->where('two_hour', '>=' ,$request->two_hour_min);
-                };
-    
-                if($request->has('two_hour_max') && $request->two_hour_max != null ){
-                    $data->where('two_hour', '<=' ,$request->two_hour_max);
-                };
-    
-                if($request->has('all_night_min') && $request->all_night_min != null ){
-                    $data->where('all_night', '>=' ,$request->all_night_min);
-                };
-    
-                if($request->has('all_night_max') && $request->all_night_max != null){
-                    $data->where('all_night', '<=' ,$request->all_night_max);
-                };
-    
-                if($request->has('age_min') && $request->age_min != null){
-                    $data->where('age', '>=' ,$request->age_min);
-                };
-    
-                if($request->has('age_max') && $request->age_max != null){
-                    $data->where('age', '<=' ,$request->age_max);
-                };
-    
-                if($request->has('height_min')){
-                    $data->where('height', '>=' ,$request->height_min);
-                };
-    
-                if($request->has('height_max')){
-                    $data->where('height', '<=' ,$request->height_max);
-                };
-    
-                if($request->has('boobs_min')){
-                    $data->where('boobs', '>=' ,$request->boobs_min);
-                };
-    
-                if($request->has('boobs_max')){
-                    $data->where('boobs', '<=' ,$request->boobs_max);
-                };
-    
-                if($request->has('verified')){
-                    $data->where('verified', $request->verified);
-                };
-    
-                if($request->has('apartments')){
-                    $data->where('apartments', $request->apartments);
-                };
-    
-                if($request->has('check_out')){
-                    $data->where('check_out', $request->check_out);
-                };
-    
-                if($request->has('new_profiles')){
-                    $data->where('created_at', '>=', Carbon::now()->subDays(14));
-                };
-    
-                if($request->has('services')) {
-    
-                    $data->whereHas('services', function($query) use($request){
-                        $query->whereIn('service_id', $request->services);
-                    });
-    
-                }
-    
-                if($request->has('appearances')) {
-    
-                    $data->whereHas('appearances', function($query) use($request){
-                        $query->whereIn('appearance_id', $request->appearances);
-                    });
-    
-                }
-    
-                if($request->has('hairs')) {
-    
-                    $data->whereHas('hairs', function($query) use($request){
-                        $query->whereIn('hair_id', $request->hairs);
-                    });
-    
-                }
-    
-                if($request->has('districts')) {
-    
-                    $data->whereHas('districts', function($query) use($request){
-                        $query->whereIn('district_id', $request->districts);
-                    });
-    
-                }
+                
 
-                $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($ids) {
+                $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($ids, $request) {
                     $query->where('is_archived', 0)->where('is_published', 1)->whereNotIn('profile_id', $ids);
+
+                    if($request->has('one_hour_min') && $request->one_hour_min != null ){
+                        $query->where('one_hour', '>=' ,$request->one_hour_min);
+                    };
+        
+                    if($request->has('one_hour_max') && $request->one_hour_max != null ){
+                        $query->where('one_hour', '<=' ,$request->one_hour_max);
+                    };
+        
+                    if($request->has('two_hour_min') && $request->two_hour_min != null ){
+                        $query->where('two_hour', '>=' ,$request->two_hour_min);
+                    };
+        
+                    if($request->has('two_hour_max') && $request->two_hour_max != null ){
+                        $query->where('two_hour', '<=' ,$request->two_hour_max);
+                    };
+        
+                    if($request->has('all_night_min') && $request->all_night_min != null ){
+                        $query->where('all_night', '>=' ,$request->all_night_min);
+                    };
+        
+                    if($request->has('all_night_max') && $request->all_night_max != null){
+                        $query->where('all_night', '<=' ,$request->all_night_max);
+                    };
+        
+                    if($request->has('age_min') && $request->age_min != null){
+                        $query->where('age', '>=' ,$request->age_min);
+                    };
+        
+                    if($request->has('age_max') && $request->age_max != null){
+                        $query->where('age', '<=' ,$request->age_max);
+                    };
+        
+                    if($request->has('height_min')){
+                        $query->where('height', '>=' ,$request->height_min);
+                    };
+        
+                    if($request->has('height_max')){
+                        $query->where('height', '<=' ,$request->height_max);
+                    };
+        
+                    if($request->has('boobs_min')){
+                        $query->where('boobs', '>=' ,$request->boobs_min);
+                    };
+        
+                    if($request->has('boobs_max')){
+                        $query->where('boobs', '<=' ,$request->boobs_max);
+                    };
+        
+                    if($request->has('verified')){
+                        $query->where('verified', $request->verified);
+                    };
+        
+                    if($request->has('apartments')){
+                        $query->where('apartments', $request->apartments);
+                    };
+        
+                    if($request->has('check_out')){
+                        $query->where('check_out', $request->check_out);
+                    };
+        
+                    if($request->has('new_profiles')){
+                        $query->where('created_at', '>=', Carbon::now()->subDays(14));
+                    };
+        
+                    if($request->has('services')) {
+        
+                        $query->whereHas('services', function($query) use($request){
+                            $query->whereIn('service_id', $request->services);
+                        });
+        
+                    }
+        
+                    if($request->has('appearances')) {
+        
+                        $query->whereHas('appearances', function($query) use($request){
+                            $query->whereIn('appearance_id', $request->appearances);
+                        });
+        
+                    }
+        
+                    if($request->has('hairs')) {
+        
+                        $query->whereHas('hairs', function($query) use($request){
+                            $query->whereIn('hair_id', $request->hairs);
+                        });
+        
+                    }
+        
+                    if($request->has('districts')) {
+        
+                        $query->whereHas('districts', function($query) use($request){
+                            $query->whereIn('district_id', $request->districts);
+                        });
+        
+                    }
                 }])->get();
             } else {
                 $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($request) {

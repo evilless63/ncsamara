@@ -48,8 +48,47 @@
                         </span>
                     </div>
                     <div class="collapse navbar-collapse-nc" id="navbarFilterContent">
-                    <ul class="mt-3 nc-actions">
-                        <li><a href="#" id="services">Выбрать услуги</a></li>
+                    <ul class="mt-3 nc-actions navbar-expand-lg navbar-expand-lg-nc">
+                        <div class="d-flex justify-content-between">
+                                <li><a href="#" id="services">Выбрать услуги</a></li>
+                                <button class="navbar-toggler d-xl-none d-lg-none d-md-none" type="button" data-toggle="collapse"
+                                    data-target="#navbarServicesContent" aria-controls="navbarServicesContent"
+                                    aria-expanded="false" aria-label="Toggle navigation" style="padding: 0;">
+                                    <img src="images/filter/settings.png">
+                            </button>
+                        </div>
+                        <ul class="collapse" id="navbarServicesContent" style="padding:0px">
+
+                            @foreach($services->where('is_category','1') as $service)
+                                
+                                    <div class="nc-service-column">
+                                        <h5 class="h5">{{$service->name}}</h5>
+                                        <ul class="list-group list-group-flush">
+
+                                            @foreach($service->childrenRecursive as $serviceChild)
+                                                <li class="list-group-item">
+                                                    <!-- Default checked -->
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input value="{{$serviceChild->id}}" type="checkbox" name="services[]" class="custom-control-input" id="check{{$serviceChild->id}}"
+                                                        @if(app('request')->has('districts'))
+                                                            @if(app('request')->services->find($serviceChild->id))
+                                                                'checked'
+                                                            @endif
+                                                        @endif>
+                                                        <span class="checkmark"></span>
+                                                        <label class="custom-control-label" for="check{{$serviceChild->id}}">{{$serviceChild->name}}
+                                                            </label>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+
+                                        </ul>
+                                    </div>
+                                
+
+                            @endforeach
+
+                        </ul>
                     </ul>
                     <div class="nc-filter-sliders mt-2">
                         <div class="nc-slider-box">
@@ -400,13 +439,44 @@
         });
 
         //ОТКРЫТИЕ ЗАКРЫТИЕ УСЛУГ
-        $('#services-desk').css('margin-bottom','15px');
+        if(window.screen.width > 992) {
+            $('#services-desk').css('margin-bottom','15px');
         $('#services').click(function(){
             $('#services-desk').toggle();
         });
+        }
+        
     </script>
 
     <script>
+        document.getElementById('load_filter').addEventListener('click', function (clicked) {
+        return function () {
+            if (!clicked) {
+                var last = this.innerHTML;
+                this.innerHTML = 'Фильтр применен';
+                clicked = true;
+                setTimeout(function () {
+                    this.innerHTML = last;
+                    clicked = false;
+                }.bind(this), 4000);
+            }
+        };
+        }(false), this);
+
+        document.getElementById('fresh_filter').addEventListener('click', function (clicked) {
+        return function () {
+            if (!clicked) {
+                var last = this.innerHTML;
+                this.innerHTML = 'Фильтр сброшен';
+                clicked = true;
+                setTimeout(function () {
+                    this.innerHTML = last;
+                    clicked = false;
+                }.bind(this), 4000);
+            }
+        };
+        }(false), this);
+
         $(document).ready(function(){
 
             var _token = $('input[name="_token"]').val();
@@ -492,6 +562,9 @@
                 obj.apartments = $('input[name="apartments[]"]:checked').map(function(){return $(this).val();}).get();
                 obj.check_out = $( "input[type=checkbox][name=check_out]:checked" ).val();
                 obj.verified = $( "input[type=checkbox][name=verified]:checked" ).val();
+
+
+                console.log(obj);
 
                 console.log(obj);
                 load_data('', _token, obj, data);
