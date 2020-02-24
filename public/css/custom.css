@@ -525,3 +525,34 @@ h4 span {
         flex-basis: auto;
     }
 }
+
+.customMarker {
+    position:absolute;
+    cursor:pointer;
+    background:rgba(85, 9, 17, 1);
+    width:80px;
+    height:80px;
+    /* -width/2 */
+    margin-left:-26px;
+    /* -height + arrow */
+    margin-top:-110px;
+    border-radius:50%;
+    padding:0px;
+}
+.customMarker:after {
+    content:"";
+    position: absolute;
+    bottom: -10px;
+    left: 29px;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: rgba(85, 9, 17, 1) transparent;
+    display: block;
+    width: 0;
+}
+.customMarker img {
+    width:70px;
+    height:70px;
+    margin:5px;
+    border-radius:50%;
+}
