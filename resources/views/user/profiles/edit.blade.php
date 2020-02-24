@@ -22,7 +22,7 @@
             zoom: 15
         });
 
-        let latLng = new google.maps.LatLng({{$profile->address_x}}, {{$profile->address_y}});
+        let latLng = new google.maps.LatLng({{ $profile->address_x ? $profile->address_x : '1' }}, {{ $profile->address_y ? $profile->address_y : '1' }});
         addMarker(latLng);
         
 

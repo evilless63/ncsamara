@@ -42,7 +42,7 @@
                 <h2>Создание анкеты</h2>
 
                 
-                    <div action="{{ route('user.profiles.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('user.profiles.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         @if(count($errors))
@@ -64,8 +64,8 @@
                         <ul class="nav nav-pils nav-pills-userpanel">
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#panel1">Основные
                                     данные</a></li>
-                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel2">Услуги</a></li>
-                            </li>
+                            {{-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel2">Услуги</a></li>
+                            </li> --}}
                         </ul>
 
                         <div class="tab-content mt-5">
@@ -279,12 +279,12 @@
                                 </div>
 
 
-                                <button type="submit" class="btn btn-success">Создать анкету</button>
+                                <button type="submit" class="btn btn-success">Создать анкету и перейти к выбору услуг</button>
                                 
                                 
                             </div>
 
-                            <div id="panel2" class="tab-pane fade">
+                            {{-- <div id="panel2" class="tab-pane fade">
                                 @foreach($services as $service)
 
                                 <h6>{{$service->name}}</h6>
@@ -301,7 +301,7 @@
                                 @endforeach
 
                                 <button type="submit" class="btn btn-success">Создать анкету</button> 
-                            </div>
+                            </div> --}}
                         </div>
 
 

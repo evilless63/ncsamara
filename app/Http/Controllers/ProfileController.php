@@ -123,7 +123,7 @@ class ProfileController extends Controller
         $profileArr = request()->all();
 
         if(Auth::user()->is_admin) {
-            $profileArr['is_archived'] == 0;
+            // $profileArr = Arr::add($profileArr, 'is_archived', 0);
         }
 
         $profileArr['user_id'] = Auth::user()->id;
@@ -174,7 +174,8 @@ class ProfileController extends Controller
 
         $profile->rates()->attach(Rate::first());
 
-        return redirect(route('user.profiles.index'))->withSuccess('Успешно создано');
+        // return redirect(route('user.profiles.index'))->withSuccess('Успешно создано');
+        return redirect(route('user.profiles.edit', $profile->id))->withSuccess('Успешно создано. Нажмите "Услуги" чтобы перейти к выбору услуг');
 
     }
 
