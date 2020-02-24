@@ -82,17 +82,17 @@
                             @auth
                                 @if(Auth::user()->is_admin)
                                     <a class="btn mr-sm-3" href="{{ route('user') }}">
-                                        <img src="images/user.png" class="mr-2" alt="">
+                                        <img src="{{asset('images/user.png')}}" class="mr-2" alt="">
                                         {{Auth::user()->name}}</a>
                                 @else
                                     <a class="btn mr-sm-3" href="{{ route('user') }}">
-                                        <img src="images/user.png" class="mr-2" alt="">
+                                        <img src="{{asset('images/user.png')}}" class="mr-2" alt="">
                                         {{Auth::user()->name}}</a>
                                 @endif
 
                             @else
                                 <a class="btn mr-sm-3" href="{{ route('login') }}">
-                                    <img src="images/user.png" class="mr-2" alt="">
+                                    <img src="{{asset('images/user.png')}}" class="mr-2" alt="">
                                     Вход</a>
 
                                 @if (Route::has('register'))
