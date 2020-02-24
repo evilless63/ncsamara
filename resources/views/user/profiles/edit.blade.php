@@ -409,14 +409,14 @@
 
                                 @foreach($service->childrenRecursive as $service)
                                 <div class="form-check ml-2">
-                                    <div class="row">
+                                    <div class="row profileServiceBlock" profile-id = "{{$profile->id}}" service-id = "{{$service->id}}">
                                         <div class="col-md-4">
-                                            <input class="form-check-input" type="checkbox" id="profileService{{$service->id}}" name="services[]" value="{{$service->id}}" {{$profile->services->find($service->id) <> null ? 'checked' : ''}}>
+                                            <input class="form-check-input profileServiceCheckbox" onclick="initializePriseField(event)" type="checkbox" id="profileService{{$service->id}}" name="services[]" value="{{$service->id}}" {{$profile->services->find($service->id) <> null ? 'checked' : ''}}>
                                             <label class="form-check-label" for="profileApartaments">
                                                 {{$service->name}}
                                             </label>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-8 profileServicePrice">
                                             @if(Auth::user()->id === $profile->user_id && $profile->services->find($service->id) <> null)
 
                                                 <div class="row">
@@ -433,9 +433,15 @@
                                                     </div>
                                                 </div>
 
-                                                @else
-                                                <span>{{ $service->pivot<> null ? $service->pivot->price . 'р.' : ''}} </span>
-                                                @endif
+                                            @else
+                                                <div class="row profileServicePriceRow">
+                                                    <div class="col-md-4">
+                                                        <span>{{ $service->pivot<> null ? $service->pivot->price . 'р.' : ''}} </span>
+                                                    </div>
+                                
+                                                </div>
+                                                
+                                            @endif
                                         </div>
                                     </div>
 
@@ -584,6 +590,27 @@
         markersArray.forEach(function callback(marker, index, array) {
             marker.setMap(null)
         });
+    }
+
+    function initializePriseField(event) {
+        var service_id = $(event.target).parent().parent().attr('service-id')
+        var profile_id = $(event.target).parent().parent().attr('profile-id')
+
+        if($(event.target).prop("checked")) {
+            $(event.target).parent().parent().find('.profileServicePriceRow').append(
+            '<div class="col-md-8 d-flex justify-content-between servicePriceUpdate">' +
+                '<input style="    width: 65%;" class="form-control" data-service-id="' + service_id + '" data-profile-id="' + profile_id + '" name="priceupdate" type="text" value="">' +
+
+                '<div class="btn btn-success btn-fab btn-fab-mini btn-round" style="padding:0rem .75rem" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги" onclick="updateServicePrice(event)">' +
+                    'Обновить цену' +
+                    '<span class="price_update_info"></span>' +
+                '</div>' +
+            '</div>'
+            ) 
+        } else {
+            $(event.target).parent().parent().find('.servicePriceUpdate').remove()
+        }
+       
     }
 
     function updateServicePrice(event) {
