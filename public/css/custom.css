@@ -527,32 +527,30 @@ h4 span {
 }
 
 .customMarker {
-    position:absolute;
-    cursor:pointer;
-    background:rgba(85, 9, 17, 1);
-    width:80px;
-    height:80px;
-    /* -width/2 */
-    margin-left:-26px;
-    /* -height + arrow */
-    margin-top:-110px;
-    border-radius:50%;
-    padding:0px;
+    position: absolute;
+    cursor: pointer;
+    background: rgba(85, 9, 17, 1);
+    width: 56px;
+    height: 80px;
+    margin-left: -30px;
+    margin-top: -90px;
+    border-radius: 10px;
+    padding: 0px;
 }
 .customMarker:after {
-    content:"";
+    content: "";
     position: absolute;
-    bottom: -10px;
-    left: 29px;
-    border-width: 10px 10px 0;
+    bottom: -6px;
+    left: 21px;
+    border-width: 6px 7px 0;
     border-style: solid;
     border-color: rgba(85, 9, 17, 1) transparent;
     display: block;
     width: 0;
 }
 .customMarker img {
-    width:70px;
-    height:70px;
-    margin:5px;
-    border-radius:50%;
+    width: 50px;
+    height: 75px;
+    margin: 3px 3px;
+    border-radius: 10px;
 }
