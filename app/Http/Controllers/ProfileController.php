@@ -621,11 +621,11 @@ class ProfileController extends Controller
     }
 
     public function errorpayment() {
-        return redirect(route('user.errorpayment'));
+        return view('user.payments.error');
     }
 
     public function successpayment() {
-        return redirect(route('user.successpayment'));    
+        return view('user.payments.success');    
     }
 
     public function makepayment() {
