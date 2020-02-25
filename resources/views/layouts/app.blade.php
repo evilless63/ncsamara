@@ -323,7 +323,7 @@
             url:'/user/plusbonusinfo',
             data:{payment:payment},
             success:function(data){
-                $('#bonusinfo').text('Бонусы при пополнении: +' + data + ' Пойнтов');
+                $('#bonusinfo').text(data);
             }
         });
     })

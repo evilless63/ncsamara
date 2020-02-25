@@ -612,7 +612,7 @@ class ProfileController extends Controller
                 $bonus = Bonus::where('min_sum','<',request()->payment)->where('max_sum','>=', request()->payment)->first();
 
                 if($bonus <> null) {
-                    return round(request()->payment * $bonus->koef / 100);
+                    return 'Бонусы при пополнении: +' . round(request()->payment * $bonus->koef / 100) . ' Пойнтов';;
                 } else {
                     return '';
                 }
