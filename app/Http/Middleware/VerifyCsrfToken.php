@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'https://nc-samara.com/user/successpayment',
+        'https://nc-samara.com/user/errorpayment',
+        'https://nc-samara.com/user/makepayment',
     ];
 }

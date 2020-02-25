@@ -620,11 +620,34 @@ class ProfileController extends Controller
         }
     }
 
-    public function makepayment() {
-        $current_balance = Auth::user()->user_balance;
+    public function errorpayment() {
+        return redirect(route('user.errorpayment'));
+    }
 
-        $bonus = Bonus::where('min_sum','<',request()->payment)->where('max_sum','>=', request()->payment)->first();
-        $payment = request()->payment;
+    public function successpayment() {
+        return redirect(route('user.successpayment'));    
+    }
+
+    public function makepayment() {
+
+        $key = hash('sha256', $_POST['LMI_PAYEE_PURSE'].
+        $_POST['LMI_PAYMENT_AMOUNT'].
+        $_POST['LMI_PAYMENT_NO'].
+        $_POST['LMI_MODE'].
+        $_POST['LMI_SYS_INVS_NO'].
+        $_POST['LMI_SYS_TRANS_NO'].
+        $_POST['LMI_SYS_TRANS_DATE'].
+        '5140237D-B9C2-461B-B590-EC224BBC55AD'.
+        $_POST['LMI_PAYER_PURSE'].
+        $_POST['LMI_PAYER_WM']);
+
+        if(strtoupper($key) != $_POST['LMI_HASH'])
+            return redirect(route('user.errorpayment'));
+
+        $current_balance = Auth::user()->user_balance;
+        $payment = $_POST('LMI_PAYMENT_AMOUNT');
+        $bonus = Bonus::where('min_sum','<',  $payment)->where('max_sum','>=', $payment)->first();
+
         if($bonus <> null) {
             $payment = $payment + ($payment * $bonus->koef / 100);
         }
