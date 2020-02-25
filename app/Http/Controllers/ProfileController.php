@@ -313,9 +313,10 @@ class ProfileController extends Controller
             // $_IMAGE->move($uploadPath,$filename);
 
             $profile['main_image'] = str_replace('"', '', request()->main_image);
+           
             $profile->update();
         }
-
+      
 
         // if(Auth::user()->is_admin) {
         //     return redirect(route('admin.adminprofiles'))->withSuccess('Успешно обновлено');

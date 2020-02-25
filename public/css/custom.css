@@ -554,3 +554,7 @@ h4 span {
     margin: 3px 3px;
     border-radius: 10px;
 }
+
+.swiper-slide img {
+    width: 100%;
+}
