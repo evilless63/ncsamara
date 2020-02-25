@@ -558,3 +558,19 @@ h4 span {
 .swiper-slide img {
     width: 100%;
 }
+
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+    right: 10px;
+    background-color: #272727;
+    opacity: .6;
+    left: auto;
+    transition: 300ms;
+}
+
+.swiper-button-next:hover, .swiper-container-rtl .swiper-button-prev:hover {
+    opacity: 1;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 18px !important;
+}
