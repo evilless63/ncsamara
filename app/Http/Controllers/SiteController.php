@@ -220,7 +220,7 @@ class SiteController extends Controller
                     }
                 }])->get();
             } else {
-                $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($request) {
+                $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($ids, $request) {
                     $query->where('is_archived', 1)->where('is_published', 1)->whereNotIn('profile_id', $ids);
                 }])->get();
             }

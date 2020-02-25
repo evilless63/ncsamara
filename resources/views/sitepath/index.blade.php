@@ -354,14 +354,14 @@
                                                     <li class="list-group-item">
                                                         <!-- Default checked -->
                                                         <div class="custom-control custom-checkbox">
-                                                            <input value="{{$serviceChild->id}}" type="checkbox" name="services[]" class="custom-control-input" id="check{{$serviceChild->id}}"
+                                                            <input value="{{$serviceChild->id}}" type="checkbox" name="services[]" class="custom-control-input" id="checkn{{$serviceChild->id}}"
                                                             @if(app('request')->has('districts'))
                                                                 @if(app('request')->services->find($serviceChild->id))
                                                                     'checked'
                                                                 @endif
                                                             @endif>
                                                             <span class="checkmark"></span>
-                                                            <label class="custom-control-label" for="check{{$serviceChild->id}}">{{$serviceChild->name}}
+                                                            <label class="custom-control-label" for="checkn{{$serviceChild->id}}">{{$serviceChild->name}}
                                                                 </label>
                                                         </div>
                                                     </li>
