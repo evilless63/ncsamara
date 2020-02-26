@@ -90,7 +90,7 @@
                                     <div class="modal-body">
                                         <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого изображения, перетаскивайте активную зону</p>
                                         <div class="img-container">
-                                        <img id="image_main" src="https://avatars0.githubusercontent.com/u/3456749">
+                                        <img id="image_main" src="">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -132,7 +132,7 @@
                                     <div class="modal-body">
                                         <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого изображения, перетаскивайте активную зону</p>
                                         <div class="img-container">
-                                        <img id="image_prem" src="https://avatars0.githubusercontent.com/u/3456749">
+                                        <img id="image_prem" src="">
                                         </div>
                                     </div>
                                     <div class="modal-footer">

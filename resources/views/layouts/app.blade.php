@@ -372,7 +372,7 @@
       $modal.on('shown.bs.modal', function () {
         cropper = new Cropper(image, {
           aspectRatio: 275 / 390,
-          viewMode: 0,
+          viewMode: 2,
         });
       }).on('hidden.bs.modal', function () {
         cropper.destroy();
@@ -488,7 +488,7 @@
       $modal.on('shown.bs.modal', function () {
         cropper = new Cropper(image, {
           aspectRatio: 185 / 53,
-          viewMode: 0,
+          viewMode: 2,
         });
       }).on('hidden.bs.modal', function () {
         cropper.destroy();
@@ -604,7 +604,7 @@
       $modal.on('shown.bs.modal', function () {
         cropper = new Cropper(image, {
           aspectRatio: 1140 / 181,
-          viewMode: 0,
+          viewMode: 2,
         });
       }).on('hidden.bs.modal', function () {
         cropper.destroy();
