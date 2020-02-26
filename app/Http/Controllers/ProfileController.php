@@ -444,7 +444,7 @@ class ProfileController extends Controller
 
     //Для крона
     public function activateCron() {
-        $profiles = Profile::where('is_published')->get();
+        $profiles = Profile::where('is_published', '1')->where('allowed', '1')->get();
 
         foreach($profiles as $profile) {
            $this->activate($profile->id, true);       
