@@ -16,6 +16,7 @@ use App\Image;
 use App\Salon;
 use Auth;
 use File;
+use Config;
 use Illuminate\Support\Carbon;
 use Transliterate;
 use Illuminate\Support\Facades\Validator;
@@ -340,41 +341,62 @@ class ProfileController extends Controller
 
         if(auth()->user()->is_admin) {
             $profile = Profile::where('id', $id)->firstOrFail();
+
+            $profile['is_published'] = 1;
+            $profile['is_archived'] = 0;
+            $profile->update();
+        
+            return back()->withSuccess('Успешно опубликована');
+            
         } else {
             $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+            activate($request, $id);
+
+            if(!$profile->is_archived) {
+                return back()->withSuccess('Успешно оплачена и опубликована');
+            } else {
+                return back()->withSuccess('Недостаточно средств на балансе !');
+            }
         }
-
-        $profile['is_published'] = 1;
-        $profile->update();
-
-        // if(auth()->user()->is_admin) {
-        //     return redirect(route('admin.adminprofiles'))->withSuccess('Успешно опубликована');
-        // } else {
-        //     return redirect(route('user.profiles.index'))->withSuccess('Успешно опубликована');
-        // }
-
-        return back()->withSuccess('Успешно обновлено');
+ 
     }
 
-    public function unpublish(Request $request, $id) {
+    public function unpublish($id, $is_cron = false) {
 
+        $profile = Profile::where('id', $id)->firstOrFail();
         if(auth()->user()->is_admin) {
-            $profile = Profile::where('id', $id)->firstOrFail();
+            
+            $profile['is_published'] = 0;
+            $profile['is_archived'] = 1;
+            $profile->update();
+            
         } else {
-            $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+            
+            if(!$profile->is_arhived) {
+
+                if(!$is_cron) {
+                    $user = $profile->user; 
+                    $rate = $profile->rates->first();
+                    $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
+                    $cost = ($rate->cost / 24 * (24 - $hour));
+                    $user['user_balance'] = $user->user_balance + $cost;
+                    $user->update();
+                }
+
+                $profile['is_archived'] = true;
+                $profile['is_published'] = false;
+            
+                return back()->withSuccess('Успешно снята с публикации');
+            }
         }
 
-        $profile['is_published'] = 0;
-        $profile->update();
-
-        // if(auth()->user()->is_admin) {
-        //     return redirect(route('admin.adminprofiles'))->withSuccess('Успешно снята с публикации');
+        $profile = Profile::where('id', $id)->firstOrFail();
         // } else {
-        //     return redirect(route('user.profiles.index'))->withSuccess('Успешно снята с публикации');
+        //     $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         // }
+       
 
-        return back()->withSuccess('Успешно обновлено');
-
+        $profile->update();
 
     }
 
@@ -421,61 +443,48 @@ class ProfileController extends Controller
     }
 
     //Для крона
-    public function activateJob(Request $request, $id) {
-        $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
-        $user = $profile->user;
-        $rate = $profile->rates->first();
+    public function activateCron() {
+        $profiles = Profile::where('is_published')->get();
 
-        if(($user->user_balance - $rate->cost) < 0) {
-            $profile['is_archived'] = true;
-            $profile->update();
-            return redirect(route('user.payments'));
+        foreach($profiles as $profile) {
+           $this->activate($profile->id, true);       
         }
-
-        $user['user_balance'] = $user->user_balance - $rate->cost;
-        $user->update();
-
-        $statistic = new Statistic();
-        $statistic['user_id'] = Auth::user()->id;
-        $statistic['payment'] = - $rate->cost;
-        $statistic['where_was'] = Carbon::now();
-        $statistic->save();
-
-        $profile['is_archived'] = false;
-        $profile['last_payment'] = Carbon::now();
-        $profile['next_payment'] = Carbon::now()->addDays(1);
-
-        $next_payment = Carbon::parse($profile->next_payment);
-        $last_payment = Carbon::parse($profile->last_payment);
-        $profile['minutes_to_archive'] = $next_payment->diffInMinutes($last_payment);
-
-        $profile->update();
-
-        return redirect(route('user.payments'));
-
     }
 
-    public function activate(Request $request, $id) {
+    public function activate(Request $request = null, $id, $is_cron = false) {
+
         $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         $user = $profile->user;
-        $rate = $profile->rates->first();
 
-        if(($user->user_balance - $rate->cost) < 0) {
-            $profile['is_archived'] = true;
-            $profile->update();
-            return back()->withFail('Не достаточно денег на балансе');
+        if($user->is_admin) {
+            return;
         }
 
-        $user['user_balance'] = $user->user_balance - $rate->cost;
+        $rate = $profile->rates->first();
+        $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
+
+        if($is_cron) {
+            $cost = $rate->cost;
+        } else {
+            $cost = ($rate->cost / 24 * (24 - $hour));
+        }
+
+        if(($user->user_balance - $cost) < 0) {
+           $this->unpublish($id, $is_cron); 
+           return
+        }
+
+        $user['user_balance'] = $user->user_balance - $cost;
         $user->update();
 
         $statistic = new Statistic();
         $statistic['user_id'] = Auth::user()->id;
-        $statistic['payment'] = - $rate->cost;
+        $statistic['payment'] = $cost;
         $statistic['where_was'] = Carbon::now();
         $statistic->save();
 
         $profile['is_archived'] = false;
+        $profile['is_published'] = true;
         $profile['last_payment'] = Carbon::now();
         $profile['next_payment'] = Carbon::now()->addDays(1);
 
@@ -484,8 +493,6 @@ class ProfileController extends Controller
         $profile['minutes_to_archive'] = $next_payment->diffInMinutes($last_payment);
 
         $profile->update();
-
-        return back()->withSuccess('Успешно оплачена');
 
     }
 

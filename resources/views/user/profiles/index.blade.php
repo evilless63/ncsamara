@@ -21,7 +21,7 @@
                                 <th scope="col">Редактировать</th>
                                 <th scope="col">Опубликована</th>
                                 <th scope="col">Подтверждена</th>
-                                <th scope="col">Оплачена/Неоплачена</th>
+                                {{-- <th scope="col">Оплачена/Неоплачена</th> --}}
                                 <th scope="col">Разрешена к публикации</th>
                             </tr>
                         </thead>
@@ -57,7 +57,7 @@
                                     Нет
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     @if($profile->is_archived)
 
                                         <form action="{{ route('user.activateprofile', $profile->id) }}" method="post">
@@ -69,7 +69,7 @@
                                         {{$profile->minutes_to_archive}}
                                         минут
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>
                                     @if($profile->allowed)
                                     Да
