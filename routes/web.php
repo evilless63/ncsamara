@@ -44,6 +44,7 @@ Route::prefix('user')->middleware('is_banned')->name('user.')->group(function ()
 
     Route::patch('publish/{id}', 'ProfileController@publish')->name('profilepublish');
     Route::patch('unpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
+    
     Route::post('/changeserviceprice', 'ProfileController@changeServicePrice')->name('service.pricechange');
     Route::post('/deleteimagesattach', 'ProfileController@deleteimagesattach')->name('images.deleteimageattach');
 });
@@ -55,8 +56,16 @@ Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function (
     Route::resource('rates', 'RateController');
     Route::resource('promotionals', 'PromotionalController');
     Route::resource('bonuses', 'BonusController');
+
     Route::patch('verify/{id}', 'ProfileController@verify')->name('profileverify');
     Route::patch('unverify/{id}', 'ProfileController@unverify')->name('profileunverify');
+
+    Route::patch('moderateallow/{id}', 'ProfileController@moderateallow')->name('moderateallow');
+    Route::patch('moderatedisallow/{id}', 'ProfileController@moderatedisallow')->name('moderatedisallow');
+
+    Route::patch('salonmoderateallow/{id}', 'SalonController@moderateallow')->name('salonmoderateallow');
+    Route::patch('salonmoderatedisallow/{id}', 'SalonController@moderatedisallow')->name('salonmoderatedisallow');
+
     Route::patch('userbanoff/{id}', 'ProfileController@userbanoff')->name('userbanoff');
     Route::patch('userbanon/{id}', 'ProfileController@userbanon')->name('userbanon');
 });

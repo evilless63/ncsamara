@@ -120,10 +120,16 @@ class ProfileController extends Controller
         
        
 
-        $profileArr = request()->all();
+        $profileArr = request()->all()->toArray();
 
         if(Auth::user()->is_admin) {
-            // $profileArr = Arr::add($profileArr, 'is_archived', 0);
+            $profileArr = Arr::add($profileArr, 'is_archived', 0);
+            $profileArr = Arr::add($profileArr, 'allowed', 1);
+            $profileArr = Arr::add($profileArr, 'on_moderate', 0);
+        } else {
+            $profileArr = Arr::add($profileArr, 'on_moderate', 1);
+            $profileArr = Arr::add($profileArr, 'allowed', 0);
+            $profileArr = Arr::add($profileArr, 'is_archived', 1);
         }
 
         $profileArr['user_id'] = Auth::user()->id;
@@ -246,11 +252,13 @@ class ProfileController extends Controller
                         ->withInput();
         }
 
-        $profileArr = request()->all();
+        $profileArr = request()->all()->toArray();
 
         if (Auth::user()->is_admin) {
         } else {
             $profileArr['user_id'] = Auth::user()->id;
+            $profileArr = Arr::add($profileArr, 'on_moderate', 1);
+            $profileArr = Arr::add($profileArr, 'allowed', 0);
         }
 
         if(request()->filled('services')) {
@@ -382,6 +390,20 @@ class ProfileController extends Controller
         $profile['verified'] = 0;
         $profile->update();
         return back()->withSuccess('Успешно снята с подтверждения');
+    }
+
+    public function moderateallow(Request $request, $id) {
+        $profile = Profile::where('id', $id)->firstOrFail();
+        $profile['allowed'] = 1;
+        $profile->update();
+        return back()->withSuccess('Успешно запрещена к публикации');
+    }
+
+    public function moderatedisallow(Request $request, $id) {
+        $profile = Profile::where('id', $id)->firstOrFail();
+        $profile['allowed'] = 0;
+        $profile->update();
+        return back()->withSuccess('Успешно запрещена к публикации');
     }
 
     public function userbanoff(Request $request, $id) {

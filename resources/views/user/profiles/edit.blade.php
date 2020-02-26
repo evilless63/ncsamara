@@ -71,7 +71,7 @@
                 (Не подтверждена)
                 @endif</h2>
                 <div class="col-md-3 d-flex justify-content-between mt-3 mb-3">
-                    
+                @if($profile->allowed)    
                     @if($profile->is_published == 0)
                     <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
                         @csrf
@@ -84,8 +84,28 @@
                         @method('patch')
                         <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
                     </form>
+
+                        @if(Auth::user()->is_admin)
+                        <form action="{{ route('admin.moderatedisallow', $profile->id) }}" method="POST">
+                            @csrf
+                            @method('patch')
+                            <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Запретить публикацию</button>
+                        </form>
+                        @endif
                     @endif
+                @else
                     @if(Auth::user()->is_admin)
+                    <form action="{{ route('admin.moderateallow', $profile->id) }}" method="POST">
+                        @csrf
+                        @method('patch')
+                        <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Разрешить публикацию</button>
+                    </form>
+                    @else
+                        Анкета на модерации администрации сайта
+                    @endif
+                @endif
+
+                @if(Auth::user()->is_admin)
                     @if($profile->verified == 0)
                     <form action="{{ route('admin.profileverify', $profile->id) }}" method="POST">
                         @csrf
@@ -99,7 +119,7 @@
                         <button class="btn btn-danger" style="padding: 0px 7.5px;"type="submit">Снять подтверждение</button>
                     </form>
                     @endif
-                    @endif
+                @endif
                 </div>
 
   

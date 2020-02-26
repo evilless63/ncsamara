@@ -22,6 +22,7 @@
                                 <th scope="col">Опубликована</th>
                                 <th scope="col">Подтверждена</th>
                                 <th scope="col">Оплачена/Неоплачена</th>
+                                <th scope="col">Разрешена к публикации</th>
                             </tr>
                         </thead>
                         @forelse ($profiles as $profile)
@@ -67,6 +68,13 @@
                                         Да, окончание через
                                         {{$profile->minutes_to_archive}}
                                         минут
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($profile->allowed)
+                                    Да
+                                    @else
+                                    Нет (На модерации)
                                     @endif
                                 </td>
                             </tr>

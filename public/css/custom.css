@@ -567,10 +567,24 @@ h4 span {
     transition: 300ms;
 }
 
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+    right: 10px;
+    background-color: #272727;
+    opacity: .6;
+    left: auto;
+    transition: 300ms;
+}
+
+
+
 .swiper-button-next:hover, .swiper-container-rtl .swiper-button-prev:hover {
     opacity: 1;
 }
 
-.swiper-button-next:after, .swiper-button-prev:after {
+.swiper-button-prev:hover, .swiper-container-rtl .swiper-button-next:hover {
+    opacity: 1;
+}
+
+.swiper-button-next:after, .swiper-container-rtl .swiper-button-prev:after {
     font-size: 18px !important;
 }

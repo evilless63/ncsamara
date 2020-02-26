@@ -58,7 +58,7 @@ class SalonController extends Controller
     public function store(Request $request)
     {
         $this->validateSalon(true);
-        $salon_data = request()->all();
+        $salon_data = request()->all()->toArray();
         $salon_data['user_id'] = Auth::user()->id;
 
         // $_IMAGE = $request->file('image');
@@ -78,6 +78,13 @@ class SalonController extends Controller
         // }
         if($request->has('image_prem')){
             $salon_data['image_prem'] = str_replace('"', '', request()->image_prem);
+        }
+
+        if(Auth::user()->is_admin) {
+            $salon_data = Arr::add($salon_data, 'is_archived', 0);
+        } else {
+            $salon_data = Arr::add($salon_data, 'on_moderate', 1);
+            $salon_data = Arr::add($salon_data, 'allowed', 0);
         }
         
 
@@ -155,6 +162,12 @@ class SalonController extends Controller
             $salon_data['image_prem'] = str_replace('"', '', request()->image_prem);
         }
 
+        if(Auth::user()->is_admin) {
+        } else {
+            $salon_data = Arr::add($salon_data, 'on_moderate', 1);
+            $salon_data = Arr::add($salon_data, 'allowed', 0);
+        }
+
         $salon->update($salon_data);
 
         if(request()->filled('rate')) {
@@ -219,5 +232,19 @@ class SalonController extends Controller
 
     private function regexpImages($imageName) {
         return Transliterate::make(preg_replace("/[^A-Za-z\d\.]/", '', $imageName));
+    }
+
+    public function moderateallow(Request $request, $id) {
+        $salon = Salon::where('id', $id)->firstOrFail();
+        $salon['allowed'] = 0;
+        $salon->update();
+        return back()->withSuccess('Успешно разрешен к публикации');
+    }
+
+    public function moderatedisallow(Request $request, $id) {
+        $salon = Salon::where('id', $id)->firstOrFail();
+        $salon['allowed'] = 0;
+        $salon->update();
+        return back()->withSuccess('Успешно запрещена к публикации');
     }
 }

@@ -72,7 +72,7 @@
                                         <th scope="col">Тариф</th>
                                         <th scope="col">Редактировать</th>
                                         <th scope="col">Опубликована</th>
-                                        <th scope="col">Оплачена/Неоплачена</th>
+                                        {{-- <th scope="col">Оплачена/Неоплачена</th> --}}
                                         <th scope="col">Подтверждена</th>
                                     </tr>
                                 </thead>
@@ -100,13 +100,13 @@
                                                     </form>
                                                 @endif
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 @if($profile->is_archived == 0)
                                                     Оплачена/Активна
                                                 @else
                                                     Неоплачена/Неактивна
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 @if($profile->verified == 0)
                                                     <form action="{{ route('admin.profileverify', $profile->id) }}" method="POST">
@@ -196,8 +196,9 @@
                                         <th scope="col">Тариф</th>
                                         <th scope="col">Редактировать</th>
                                         <th scope="col">Опубликована</th>
-                                        <th scope="col">Оплачена/Неоплачена</th>
-                                        <th scope="col">Подтверждена</th>
+                                        {{-- <th scope="col">Оплачена/Неоплачена</th> --}}
+                                        <th scope="col">Фото подтверждены</th>
+                                        <th scope="col">Разрешить к публикации</th>
                                     </tr>
                                 </thead>
                                 @forelse ($user->profiles as $profile)
@@ -211,26 +212,18 @@
                                             </td>
                                             <td>
                                                 @if($profile->is_published == 0)
-                                                    <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('patch')
-                                                        <button  class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
-                                                    </form>
+                                                    Опубликована
                                                 @else
-                                                    <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('patch')
-                                                        <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
-                                                    </form>
+                                                    Неопубликована
                                                 @endif
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 @if($profile->is_archived == 0)
-                                                    Оплачена/Активна
+                                                    Оплачена
                                                 @else
-                                                    Не оплачена/Неактивна
+                                                    Не оплачена
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 @if($profile->verified == 0)
                                                     <form action="{{ route('admin.profileverify', $profile->id) }}" method="POST">
@@ -243,6 +236,21 @@
                                                         @csrf
                                                         @method('patch')
                                                         <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять подтверждение</button>
+                                                    </form>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($profile->allowed == 0)
+                                                    <form action="{{ route('admin.moderateallow', $profile->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('patch')
+                                                        <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Разрешить публикацию</button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ route('admin.moderatedisallow', $profile->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('patch')
+                                                        <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Запретить публикацию</button>
                                                     </form>
                                                 @endif
                                             </td>

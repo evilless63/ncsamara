@@ -65,7 +65,7 @@ class SiteController extends Controller
         $all_night_min = Profile::min('all_night');
         $all_night_max = Profile::max('all_night');
 
-        $profiles = Profile::where('is_published', '1')->where('is_archived', '0')->take(18)->get();
+        $profiles = Profile::where('is_published', '1')->where('allowed', '1')->where('is_archived', '0')->take(18)->get();
 
         foreach ($profiles as $profile) {
             $profile['phone'] = $this->formatPhone($profile['phone']); 
@@ -92,7 +92,7 @@ class SiteController extends Controller
 
     public function archived(Request $request) {
 
-        $profiles = Profile::where('is_published', '1')->where('is_archived', '1')->take(18)->get();
+        $profiles = Profile::where('is_published', '1')->where('allowed', '1')->where('is_archived', '1')->take(18)->get();
 
         foreach ($profiles as $profile) {
             $profile['phone'] = $this->formatPhone($profile['phone']); 
@@ -121,7 +121,7 @@ class SiteController extends Controller
                 
 
                 $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($ids, $request) {
-                    $query->where('is_archived', 0)->where('is_published', 1)->whereNotIn('profile_id', $ids);
+                    $query->where('is_archived', 0)->where('is_published', 1)->where('allowed', '1')->whereNotIn('profile_id', $ids);
 
                     if($request->has('one_hour_min') && $request->one_hour_min != null ){
                         $query->where('one_hour', '>=' ,$request->one_hour_min);
@@ -221,7 +221,7 @@ class SiteController extends Controller
                 }])->get();
             } else {
                 $data = Rate::OrderBy('cost', 'desc')->with(['profiles' => function($query) use ($ids, $request) {
-                    $query->where('is_archived', 1)->where('is_published', 1)->whereNotIn('profile_id', $ids);
+                    $query->where('is_archived', 1)->where('is_published', 1)->where('allowed', '1')->whereNotIn('profile_id', $ids);
                 }])->get();
             }
 
@@ -395,19 +395,19 @@ class SiteController extends Controller
 
     public function map() {
 
-        $profiles = Profile::where('address_x', '<>', '1')->where('address_y', '<>', '1')->get();
+        $profiles = Profile::where('address_x', '<>', '1')->where('address_y', '<>', '1')->where('allowed', '1')->where('is_published', '1')->where('archived', '0')->get();
         return view('sitepath.map')->with(['profiles' => $profiles]);
     }
 
     public function salons() {
-        $salons = Salon::where('is_published', '1')->get();
+        $salons = Salon::where('is_published', '1')->where('allowed', '1')->get();
         return view('sitepath.salons')->with(['salons' => $salons]);
     }
 
     public function profile($id) {
 
-        $profile = Profile::where('id', $id)->first();
-        $similarProfiles = Profile::where('is_published', '1')->where('is_archived', '0')->take(18)->get();
+        $profile = Profile::where('id', $id)->where('allowed', '1')->where('is_published', '1')->first();
+        $similarProfiles = Profile::where('is_published', '1')->where('allowed', '1')->where('is_archived', '0')->take(18)->get();
 
         $parentServicesNeeds = $profile->services->pluck('parent_id');
         $parent_services = $this->services->whereIn('id', $parentServicesNeeds)->all();
