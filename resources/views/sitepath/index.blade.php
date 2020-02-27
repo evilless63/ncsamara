@@ -1,90 +1,94 @@
 @extends('layouts.site')
 
 @section('content')
-    <!-- КАРУСЕЛЬ BEGIN -->
-    <div class="container">
-        <div class="row">
-            <div id="nc-carouselSalons" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach($rates->where('for_salons', 1) as $rate)
-                        @foreach($rate->salons->where('is_published', 1)->where('is_approved', 1) as $salon)
-                            @if($salon->image_prem)
-                            <div class="carousel-item @if($loop->first) active @endif">
-                                    <img src="{{ asset('/images/salons/created/' . $salon->image_prem) }}"  class="d-block w-100"> 
-                            </div>
-                            @endif
-                        @endforeach
-                    @endforeach
+<!-- КАРУСЕЛЬ BEGIN -->
+<div class="container">
+    <div class="row">
+        <div id="nc-carouselSalons" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
+            <div class="carousel-inner">
+                @foreach($rates->where('for_salons', 1) as $rate)
+                @foreach($rate->salons->where('is_published', 1)->where('is_approved', 1) as $salon)
+                @if($salon->image)
+                <div class="carousel-item @if($loop->first) active @endif">
+                    <img src="{{ asset('/images/salons/created/' . $salon->image) }}" class="d-block w-100">
                 </div>
-                <a class="carousel-control-prev" href="#nc-carouselSalons" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#nc-carouselSalons" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+                @endif
+                @endforeach
+                @endforeach
             </div>
+            <a class="carousel-control-prev" href="#nc-carouselSalons" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#nc-carouselSalons" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
     </div>
-    <!-- КАРУСЕЛЬ END -->
+</div>
+<!-- КАРУСЕЛЬ END -->
 
-    <!-- ОСНОВНАЯ ЧАСТЬ BEGIN -->
+<!-- ОСНОВНАЯ ЧАСТЬ BEGIN -->
 
-    <div class="container mt-3" style="min-height: 900px;">
-        <div class="row justify-content-between">
-            <div class="col-md-3 col-sm-12 nc-col-filter">
-                <div class="nc-filter navbar-expand-lg navbar-expand-lg-nc">
-                    <div class="d-flex justify-content-between">
-                        <span>
-                            Выбрать параметры
-                        </span>
-                        <span>
-                            <button class="navbar-toggler d-xl-none d-lg-none d-md-none" type="button" data-toggle="collapse"
-                                    data-target="#navbarFilterContent" aria-controls="navbarFilterContent"
-                                    aria-expanded="false" aria-label="Toggle navigation" style="padding: 0;">
-                                    <img src="images/filter/settings.png">
-                            </button> 
-                        </span>
-                    </div>
-                    <div class="collapse navbar-collapse-nc" id="navbarFilterContent">
+<div class="container mt-3" style="min-height: 900px;">
+    <div class="row justify-content-between">
+        <div class="col-md-3 col-sm-12 nc-col-filter">
+            <div class="nc-filter navbar-expand-lg navbar-expand-lg-nc">
+                <div class="d-flex justify-content-between">
+                    <span>
+                        Выбрать параметры
+                    </span>
+                    <span>
+                        <button class="navbar-toggler d-xl-none d-lg-none d-md-none" type="button"
+                            data-toggle="collapse" data-target="#navbarFilterContent"
+                            aria-controls="navbarFilterContent" aria-expanded="false" aria-label="Toggle navigation"
+                            style="padding: 0;">
+                            <img src="images/filter/settings.png">
+                        </button>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse-nc" id="navbarFilterContent">
                     <ul class="mt-3 nc-actions navbar-expand-lg navbar-expand-lg-nc">
                         <div class="d-flex justify-content-between">
-                                <li><a href="#" id="services">Выбрать услуги</a></li>
-                                <button class="navbar-toggler d-xl-none d-lg-none d-md-none" type="button" data-toggle="collapse"
-                                    data-target="#navbarServicesContent" aria-controls="navbarServicesContent"
-                                    aria-expanded="false" aria-label="Toggle navigation" style="padding: 0;">
-                                    <img src="images/filter/settings.png">
+                            <li><a href="#" id="services">Выбрать услуги</a></li>
+                            <button class="navbar-toggler d-xl-none d-lg-none d-md-none" type="button"
+                                data-toggle="collapse" data-target="#navbarServicesContent"
+                                aria-controls="navbarServicesContent" aria-expanded="false"
+                                aria-label="Toggle navigation" style="padding: 0;">
+                                <img src="images/filter/settings.png">
                             </button>
                         </div>
                         <ul class="collapse" id="navbarServicesContent" style="padding:0px">
 
                             @foreach($services->where('is_category','1') as $service)
-                                
-                                    <div class="nc-service-column">
-                                        <h5 class="h5">{{$service->name}}</h5>
-                                        <ul class="list-group list-group-flush">
 
-                                            @foreach($service->childrenRecursive as $serviceChild)
-                                                <li class="list-group-item">
-                                                    <!-- Default checked -->
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input value="{{$serviceChild->id}}" type="checkbox" name="services[]" class="custom-control-input" id="check{{$serviceChild->id}}"
-                                                        @if(app('request')->has('districts'))
-                                                            @if(app('request')->services->find($serviceChild->id))
-                                                                'checked'
-                                                            @endif
-                                                        @endif>
-                                                        <span class="checkmark"></span>
-                                                        <label class="custom-control-label" for="check{{$serviceChild->id}}">{{$serviceChild->name}}
-                                                            </label>
-                                                    </div>
-                                                </li>
-                                            @endforeach
+                            <div class="nc-service-column">
+                                <h5 class="h5">{{$service->name}}</h5>
+                                <ul class="list-group list-group-flush">
 
-                                        </ul>
-                                    </div>
-                                
+                                    @foreach($service->childrenRecursive as $serviceChild)
+                                    <li class="list-group-item">
+                                        <!-- Default checked -->
+                                        <div class="custom-control custom-checkbox">
+                                            <input value="{{$serviceChild->id}}" type="checkbox" name="services[]"
+                                                class="custom-control-input" id="check{{$serviceChild->id}}"
+                                                @if(app('request')->has('districts'))
+                                            @if(app('request')->services->find($serviceChild->id))
+                                            'checked'
+                                            @endif
+                                            @endif>
+                                            <span class="checkmark"></span>
+                                            <label class="custom-control-label"
+                                                for="check{{$serviceChild->id}}">{{$serviceChild->name}}
+                                            </label>
+                                        </div>
+                                    </li>
+                                    @endforeach
+
+                                </ul>
+                            </div>
+
 
                             @endforeach
 
@@ -123,7 +127,8 @@
                     </div>
 
                     <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за 1 час (от {{$filtersDefaultCollection['one_hour_min'] }} до {{$filtersDefaultCollection['one_hour_max']}})</h6>
+                        <h6 class="h6 mb-2">Цена за 1 час (от {{$filtersDefaultCollection['one_hour_min'] }} до
+                            {{$filtersDefaultCollection['one_hour_max']}})</h6>
                         <div class="form-row">
                             <div class="col">
                                 <input type="text" class="form-control" placeholder="от" name="one_hour_min"
@@ -137,7 +142,8 @@
                     </div>
 
                     <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за 2 часа (от {{$filtersDefaultCollection['two_hour_min']}} до {{$filtersDefaultCollection['two_hour_max']}})</h6>
+                        <h6 class="h6 mb-2">Цена за 2 часа (от {{$filtersDefaultCollection['two_hour_min']}} до
+                            {{$filtersDefaultCollection['two_hour_max']}})</h6>
                         <div class="form-row">
                             <div class="col">
                                 <input type="text" class="form-control" placeholder="от" name="two_hour_min"
@@ -151,7 +157,8 @@
                     </div>
 
                     <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за ночь (от {{$filtersDefaultCollection['all_night_min']}} до {{$filtersDefaultCollection['all_night_max']}})</h6>
+                        <h6 class="h6 mb-2">Цена за ночь (от {{$filtersDefaultCollection['all_night_min']}} до
+                            {{$filtersDefaultCollection['all_night_max']}})</h6>
                         <div class="form-row">
                             <div class="col">
                                 <input type="text" class="form-control" placeholder="от" name="all_night_min"
@@ -170,28 +177,30 @@
                             <div class="panel-heading" role="tab" id="headingOne">
                                 <h6 class="panel-title h6">
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                       href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         Внешность
                                     </a>
                                 </h6>
 
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingOne">
+                                aria-labelledby="headingOne">
                                 <div class="panel-body">
                                     <ul class="list-group list-group-flush">
                                         @foreach($appearances as $appearance)
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox ">
-                                                <input type="checkbox" class="custom-control-input" id="checkAppearance{{$loop->iteration}}" value="{{$appearance->id}}" name="appearances[]"
-                                                    @if(app('request')->has('appearances'))
-                                                        @if(app('request')->appearances->find($appearance->id))
-                                                            'checked'
-                                                        @endif
-                                                    @endif>
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="checkAppearance{{$loop->iteration}}" value="{{$appearance->id}}"
+                                                    name="appearances[]" @if(app('request')->has('appearances'))
+                                                @if(app('request')->appearances->find($appearance->id))
+                                                'checked'
+                                                @endif
+                                                @endif>
                                                 <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="checkAppearance{{$loop->iteration}}">{{ $appearance->name }}</label>
+                                                <label class="custom-control-label"
+                                                    for="checkAppearance{{$loop->iteration}}">{{ $appearance->name }}</label>
                                             </div>
                                         </li>
                                         @endforeach
@@ -203,28 +212,30 @@
                             <div class="panel-heading" role="tab" id="headingTwo">
                                 <h6 class="panel-title h6">
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                       href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                         Цвет волос
                                     </a>
                                 </h6>
 
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingTwo">
+                                aria-labelledby="headingTwo">
                                 <div class="panel-body">
                                     <ul class="list-group list-group-flush">
                                         @foreach($hairs as $hair)
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="checkHair{{ $hair->name }}" value="{{$hair->id}}" name="hairs[]"
-                                                @if(app('request')->has('hairs'))
-                                                    @if(app('request')->hairs->find($hair->id))
-                                                        'checked'
-                                                    @endif
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="checkHair{{ $hair->name }}" value="{{$hair->id}}" name="hairs[]"
+                                                    @if(app('request')->has('hairs'))
+                                                @if(app('request')->hairs->find($hair->id))
+                                                'checked'
+                                                @endif
                                                 @endif>
                                                 <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="checkHair{{ $hair->name }}">{{ $hair->name }}</label>
+                                                <label class="custom-control-label"
+                                                    for="checkHair{{ $hair->name }}">{{ $hair->name }}</label>
                                             </div>
                                         </li>
                                         @endforeach
@@ -236,30 +247,32 @@
                             <div class="panel-heading" role="tab" id="headingTwo">
                                 <h6 class="panel-title h6">
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                       href="#collapseDistrict" aria-expanded="false" aria-controls="collapseTwo">
+                                        href="#collapseDistrict" aria-expanded="false" aria-controls="collapseTwo">
                                         Указать район
                                     </a>
                                 </h6>
 
                             </div>
                             <div id="collapseDistrict" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingTwo">
+                                aria-labelledby="headingTwo">
                                 <div class="panel-body">
                                     <ul class="list-group list-group-flush">
                                         @foreach($districts as $district)
-                                            <li class="list-group-item">
-                                                <!-- Default checked -->
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="checkHair{{ $district->name }}" value="{{$district->id}}" name="districts[]"
-                                                    @if(app('request')->has('districts'))
-                                                        @if(app('request')->districts->find($district->id))
-                                                            'checked'
-                                                        @endif
-                                                    @endif>
-                                                    <span class="checkmark"></span>
-                                                    <label class="custom-control-label" for="checkHair{{ $district->name }}">{{ $district->name }}</label>
-                                                </div>
-                                            </li>
+                                        <li class="list-group-item">
+                                            <!-- Default checked -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="checkHair{{ $district->name }}" value="{{$district->id}}"
+                                                    name="districts[]" @if(app('request')->has('districts'))
+                                                @if(app('request')->districts->find($district->id))
+                                                'checked'
+                                                @endif
+                                                @endif>
+                                                <span class="checkmark"></span>
+                                                <label class="custom-control-label"
+                                                    for="checkHair{{ $district->name }}">{{ $district->name }}</label>
+                                            </div>
+                                        </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -269,21 +282,22 @@
                             <div class="panel-heading" role="tab" id="headingThree">
                                 <h6 class="panel-title h6">
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                       href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                         Дополнительно
                                     </a>
                                 </h6>
 
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingThree">
+                                aria-labelledby="headingThree">
                                 <div class="panel-body">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="checkVerified"
-                                                       value="1" name="verified" id="checkVerified" {{ app('request')->input('verified') == 1 ? 'checked' : '' }}>
+                                                    value="1" name="verified" id="checkVerified"
+                                                    {{ app('request')->input('verified') == 1 ? 'checked' : '' }}>
                                                 <span class="checkmark"></span>
                                                 <label class="custom-control-label" for="checkVerified">Только
                                                     проверенные</label>
@@ -292,18 +306,20 @@
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                       value="1" name="apartments" id="checkApartments" {{ app('request')->input('apartments') == 1 ? 'checked' : '' }}>
+                                                <input type="checkbox" class="custom-control-input" value="1"
+                                                    name="apartments" id="checkApartments"
+                                                    {{ app('request')->input('apartments') == 1 ? 'checked' : '' }}>
                                                 <span class="checkmark"></span>
-                                                <label class="custom-control-label" for="checkApartments">Апартаменты</label>
+                                                <label class="custom-control-label"
+                                                    for="checkApartments">Апартаменты</label>
                                             </div>
                                         </li>
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="checkCheckout" value="1" name="check_out"
-                                                       {{ app('request')->input('check_out') == 1 ? 'checked' : '' }}
-                                                       >
+                                                <input type="checkbox" class="custom-control-input" id="checkCheckout"
+                                                    value="1" name="check_out"
+                                                    {{ app('request')->input('check_out') == 1 ? 'checked' : '' }}>
                                                 <span class="checkmark"></span>
                                                 <label class="custom-control-label" for="checkCheckout">Выезд</label>
                                             </div>
@@ -313,88 +329,95 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="nc-filter-buttons mt-3 mb-5">
-                        <a class="btn btn-outline-dark btn-block" id="load_filter" style="background: #ae8f82;">Применить фильтр</a>
-                        <a class="btn btn-outline-dark btn-block" id="fresh_filter" style="background: #d92a30;">Сбросить фильтр</a>
+                        <a class="btn btn-outline-dark btn-block" id="load_filter"
+                            style="background: #ae8f82;">Применить фильтр</a>
+                        <a class="btn btn-outline-dark btn-block" id="fresh_filter"
+                            style="background: #d92a30;">Сбросить фильтр</a>
                     </div>
 
                     <div class="nc-filter-buttons mt-3 mb-1">
-                        <a class="btn btn-outline-dark btn-block" data-min-price="0" data-max-price="2999" id="budget">Бюджетные</a>
-                        <a class="btn btn-outline-dark btn-block" data-min-price="3000" data-max-price="99999999" id="elite">Элитные</a>
-                        <a class="btn btn-outline-dark btn-block" data-min-age="18" data-max-age="25" id="young">Молодые</a>
+                        <a class="btn btn-outline-dark btn-block" data-min-price="0" data-max-price="2999"
+                            id="budget">Бюджетные</a>
+                        <a class="btn btn-outline-dark btn-block" data-min-price="3000" data-max-price="99999999"
+                            id="elite">Элитные</a>
+                        <a class="btn btn-outline-dark btn-block" data-min-age="18" data-max-age="25"
+                            id="young">Молодые</a>
                         <a class="btn btn-outline-dark btn-block" id="verified">Проверенные</a>
-                        <a class="btn btn-outline-dark btn-block" id="new_profiles" >Новые</a>
+                        <a class="btn btn-outline-dark btn-block" id="new_profiles">Новые</a>
                     </div>
-                </div>        
                 </div>
-
-                {{ csrf_field() }}
             </div>
 
-            <div class="col-md-9 nc-col position-relative">
-                <div id="services-desk" class="nc-service-desk">
-                    <div class="row">
+            {{ csrf_field() }}
+        </div>
 
-                        <div class="col-md-12  nc-col">
-                            <h3 class="h3 header">Услуги</h3>
+        <div class="col-md-9 nc-col position-relative">
+            <div id="services-desk" class="nc-service-desk">
+                <div class="row">
 
-                        </div>
+                    <div class="col-md-12  nc-col">
+                        <h3 class="h3 header">Услуги</h3>
 
-                        <div class="col-md-12 col-sm-12 nc-col">
-                            <div class="d-flex justify-content-between nc-services-wrapper pb-4">
+                    </div>
 
-                                @foreach($services->where('is_category','1') as $service)
-                                    <div class="panel-body col-md-4">
-                                        <div class="nc-service-column">
-                                            <h5 class="h5">{{$service->name}}</h5>
-                                            <ul class="list-group list-group-flush">
+                    <div class="col-md-12 col-sm-12 nc-col">
+                        <div class="d-flex justify-content-between nc-services-wrapper pb-4">
 
-                                                @foreach($service->childrenRecursive as $serviceChild)
-                                                    <li class="list-group-item">
-                                                        <!-- Default checked -->
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input value="{{$serviceChild->id}}" type="checkbox" name="services[]" class="custom-control-input" id="checkn{{$serviceChild->id}}"
-                                                            @if(app('request')->has('districts'))
-                                                                @if(app('request')->services->find($serviceChild->id))
-                                                                    'checked'
-                                                                @endif
-                                                            @endif>
-                                                            <span class="checkmark"></span>
-                                                            <label class="custom-control-label" for="checkn{{$serviceChild->id}}">{{$serviceChild->name}}
-                                                                </label>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
+                            @foreach($services->where('is_category','1') as $service)
+                            <div class="panel-body col-md-4">
+                                <div class="nc-service-column">
+                                    <h5 class="h5">{{$service->name}}</h5>
+                                    <ul class="list-group list-group-flush">
 
-                                            </ul>
-                                        </div>
-                                    </div>
+                                        @foreach($service->childrenRecursive as $serviceChild)
+                                        <li class="list-group-item">
+                                            <!-- Default checked -->
+                                            <div class="custom-control custom-checkbox">
+                                                <input value="{{$serviceChild->id}}" type="checkbox" name="services[]"
+                                                    class="custom-control-input" id="checkn{{$serviceChild->id}}"
+                                                    @if(app('request')->has('districts'))
+                                                @if(app('request')->services->find($serviceChild->id))
+                                                'checked'
+                                                @endif
+                                                @endif>
+                                                <span class="checkmark"></span>
+                                                <label class="custom-control-label"
+                                                    for="checkn{{$serviceChild->id}}">{{$serviceChild->name}}
+                                                </label>
+                                            </div>
+                                        </li>
+                                        @endforeach
 
-                                @if($loop->iteration % 3 == 0 && $loop->last)
-                                    </div>
-                                    <div class="d-flex justify-content-between nc-services-wrapper pb-4">
-                                @elseif($loop->iteration % 3 == 0)
-                                    </div>
-                                    <div class="d-flex justify-content-between nc-services-wrapper">
-                                @endif
-
-                                @endforeach
+                                    </ul>
+                                </div>
                             </div>
 
+                            @if($loop->iteration % 3 == 0 && $loop->last)
                         </div>
+                        <div class="d-flex justify-content-between nc-services-wrapper pb-4">
+                            @elseif($loop->iteration % 3 == 0)
+                        </div>
+                        <div class="d-flex justify-content-between nc-services-wrapper">
+                            @endif
+
+                            @endforeach
+                        </div>
+
                     </div>
                 </div>
-
-                <div id="post_data" class="post_data"></div>
-
             </div>
+
+            <div id="post_data" class="post_data"></div>
+
         </div>
     </div>
-    <!-- ОСНОВНАЯ ЧАСТЬ END -->
+</div>
+<!-- ОСНОВНАЯ ЧАСТЬ END -->
 
-    <script>
-        /* КАРУСЕЛЬ  BEGIN*/
+<script>
+    /* КАРУСЕЛЬ  BEGIN*/
         $('#nc-carouselSalons').carousel({
             interval : 2500
         })
@@ -446,10 +469,10 @@
         });
         }
         
-    </script>
+</script>
 
-    <script>
-        document.getElementById('load_filter').addEventListener('click', function (clicked) {
+<script>
+    document.getElementById('load_filter').addEventListener('click', function (clicked) {
         return function () {
             if (!clicked) {
                 var last = this.innerHTML;
@@ -627,5 +650,5 @@
             });
 
         });
-    </script>
+</script>
 @endsection

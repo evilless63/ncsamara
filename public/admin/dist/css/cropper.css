@@ -303,6 +303,6 @@
     cursor: not-allowed;
   }
 
-  #image_main, #image_prem, #image {
+  #image {
     max-width: 100% !important;
   }

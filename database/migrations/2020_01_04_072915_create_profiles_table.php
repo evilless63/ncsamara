@@ -39,16 +39,15 @@ class CreateProfilesTable extends Migration
             $table->integer('euro_hour')->nullable();
             $table->integer('all_night');
 
-            $table->boolean('is_published')->default(false);
             $table->boolean('apartments')->default(false);
             $table->boolean('check_out')->default(false);
             $table->boolean('verified')->default(false);
+
+            $table->boolean('is_published')->default(false);
+            $table->boolean('was_published')->default(false);
+            // $table->boolean('on_moderate')->default(true);
             $table->boolean('allowed')->default(false);
-            $table->boolean('on_moderate')->default(false);
-            $table->dateTime('last_payment')->nullable();
-            $table->dateTime('next_payment')->nullable();
-            $table->integer('minutes_to_archive')->nullable();
-            $table->boolean('is_archived')->default(true);
+            
             $table->unsignedInteger('profile_balance')->default(0);
         });
     }

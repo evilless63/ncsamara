@@ -14,22 +14,22 @@ class CreateSalonsTable extends Migration
     public function up()
     {
         Schema::create('salons', function (Blueprint $table) {
+
             $table->bigIncrements('id');
             $table->timestamps();
             $table->text("user_id");
             $table->text("name");
             $table->text("image");
-            $table->text("image_prem")->nullable();
+            
             $table->integer('min_price')->nullable();
             $table->string('phone')->nullable();
-            $table->boolean("is_approved")->default(false);
+
+            // $table->boolean("is_approved")->default(false);
+
             $table->boolean("is_published")->default(false);
+            $table->boolean("was_published")->default(false);
+            // $table->boolean('on_moderate')->default(false);
             $table->boolean("allowed")->default(false);
-            $table->boolean('is_archived')->default(true);
-            $table->boolean('on_moderate')->default(false);
-            $table->dateTime('last_payment')->nullable();
-            $table->dateTime('next_payment')->nullable();
-            $table->integer('minutes_to_archive')->nullable();
         });
     }
 

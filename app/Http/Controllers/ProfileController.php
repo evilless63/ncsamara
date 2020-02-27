@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Appearance;
+use App\Bonus;
 use App\District;
+use App\Hair;
+use App\Image;
 use App\Profile;
 use App\Promotional;
 use App\Rate;
-use App\Bonus;
+use App\Salon;
+use App\Service;
 use App\Statistic;
 use App\User;
-use App\Service;
-use App\Appearance;
-use App\Hair;
-use App\Image;
-use App\Salon;
 use Auth;
-use File;
 use Config;
-use Illuminate\Support\Carbon;
-use Transliterate;
-use Illuminate\Support\Facades\Validator;
+use File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
+use Transliterate;
 
 class ProfileController extends Controller
 {
@@ -54,15 +54,15 @@ class ProfileController extends Controller
     {
         return view('user.profiles.index', [
             'profiles' => Auth::user()->profiles,
-            'bonuses' => $this->bonuses
-            ]);
+            'bonuses' => $this->bonuses,
+        ]);
     }
 
     public function adminindex()
     {
         return view('admin.profiles.index', [
             'users' => User::all(),
-            'bonuses' => $this->bonuses
+            'bonuses' => $this->bonuses,
         ]);
     }
 
@@ -79,7 +79,7 @@ class ProfileController extends Controller
             'appearances' => $this->appearances,
             'hairs' => $this->hairs,
             'districts' => $this->districts,
-            'bonuses' => $this->bonuses
+            'bonuses' => $this->bonuses,
         ]);
     }
 
@@ -91,92 +91,88 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
-                'about' => 'required',
-                'district' => 'required',
-                'boobs' => 'required|integer|between:1,10',
-                'age' => 'required|integer|between:18,65',
-                'weight' => 'required|integer|between:40,100',
-                'height' => 'required|integer|between:150,195',
-                'one_hour' => 'required|integer|between:1000,50000',
-                'two_hour' => 'required|integer|between:1000,100000',
-                'all_night' => 'required|integer|between:1000,1000000',
+            'name' => 'required',
+            'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
+            'about' => 'required',
+            'district' => 'required',
+            'boobs' => 'required|integer|between:1,10',
+            'age' => 'required|integer|between:18,65',
+            'weight' => 'required|integer|between:40,100',
+            'height' => 'required|integer|between:150,195',
+            'one_hour' => 'required|integer|between:1000,50000',
+            'two_hour' => 'required|integer|between:1000,100000',
+            'all_night' => 'required|integer|between:1000,1000000',
         ]);
-        
+
         $errString = "Не заполнены, или заполнены не правильно поля:";
         if ($validator->fails()) {
-            
-            foreach($validator->errors()->all() as $error => $val) {
+
+            foreach ($validator->errors()->all() as $error => $val) {
                 $errString = $errString . ", \n" . $val;
             }
-            
-           
+
             return redirect(route('user.profiles.create'))
-                        ->withErrors($errString)
-                        ->withInput();
+                ->withErrors($errString)
+                ->withInput();
         }
-        
-       
 
         $profileArr = request()->all()->toArray();
 
-        if(Auth::user()->is_admin) {
-            $profileArr = Arr::add($profileArr, 'is_archived', 0);
+        if (Auth::user()->is_admin) {
             $profileArr = Arr::add($profileArr, 'allowed', 1);
-            $profileArr = Arr::add($profileArr, 'on_moderate', 0);
+            // $profileArr = Arr::add($profileArr, 'on_moderate', 0);
         } else {
-            $profileArr = Arr::add($profileArr, 'on_moderate', 1);
+            // $profileArr = Arr::add($profileArr, 'on_moderate', 1);
             $profileArr = Arr::add($profileArr, 'allowed', 0);
-            $profileArr = Arr::add($profileArr, 'is_archived', 1);
         }
 
         $profileArr['user_id'] = Auth::user()->id;
 
         $profile = Profile::create($profileArr);
 
-        if(request()->filled('services')) {
+        if (request()->filled('services')) {
             foreach (request('services') as $service) {
                 $profile->services()->attach(Service::findOrFail($service));
             }
         }
 
-        if(request()->filled('appearance')) {
+        if (request()->filled('appearance')) {
             $profile->appearances()->attach(Appearance::findOrFail(request()->appearance));
         }
 
-        if(request()->filled('hair')) {
+        if (request()->filled('hair')) {
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
         }
 
-        if(request()->filled('district')) {
+        if (request()->filled('district')) {
             $profile->districts()->attach(District::findOrFail(request()->district));
         }
 
-        if(request()->filled('item_images')) {
-
+        if (request()->filled('item_images')) {
             $array = explode(",", request()->item_images);
-            foreach ($array as $arr ) {
+            foreach ($array as $arr) {
                 $image = new Image;
                 $image->name = str_replace('"', '', $arr);
                 $image->profile_id = $profile->id;
                 $image->save();
-                //File::move(public_path() . '/images/profiles/images/new_upload' . $image->name .'', public_path() . '/images/profiles/images/created' . $image->name .'');
             }
-
         }
 
-        if(request()->has('main_image')) {
-            // $_IMAGE = $request->file('main_image');
-            // $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
+        if (request()->filled('item_images_verification') && request()->item_images_verification != null) {
+            $array = explode(",", request()->item_images_verification);
+            foreach ($array as $arr) {
+                $image = new Image;
+                $image->name = str_replace('"', '', $arr);
+                $image->verification_img = true;
+                $image->profile_id = $profile->id;
+                $image->save();
+            }
+        }
 
-            // $uploadPath = public_path() . '/images/profiles/main/created';
-            // $_IMAGE->move($uploadPath,$filename);
-
+        if (request()->has('main_image')) {
             $profile['main_image'] = str_replace('"', '', request()->main_image);
-            // $profile->update();
         }
 
         $profile->rates()->attach(Rate::first());
@@ -212,7 +208,7 @@ class ProfileController extends Controller
             'hairs' => $this->hairs,
             'rates' => $this->rates,
             'districts' => $this->districts,
-            'bonuses' => $this->bonuses
+            'bonuses' => $this->bonuses,
         ]);
     }
 
@@ -227,42 +223,52 @@ class ProfileController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
-                'about' => 'required',
-                'district' => 'required',
-                'boobs' => 'required|integer|between:1,10',
-                'age' => 'required|integer|between:18,65',
-                'weight' => 'required|integer|between:40,100',
-                'height' => 'required|integer|between:150,195',
-                'one_hour' => 'required|integer|between:1000,50000',
-                'two_hour' => 'required|integer|between:1000,100000',
-                'all_night' => 'required|integer|between:1000,1000000',
+            'name' => 'required',
+            'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
+            'about' => 'required',
+            'district' => 'required',
+            'boobs' => 'required|integer|between:1,10',
+            'age' => 'required|integer|between:18,65',
+            'weight' => 'required|integer|between:40,100',
+            'height' => 'required|integer|between:150,195',
+            'one_hour' => 'required|integer|between:1000,50000',
+            'two_hour' => 'required|integer|between:1000,100000',
+            'all_night' => 'required|integer|between:1000,1000000',
         ]);
-        
+
         $errString = "Не заполнены, или заполнены не правильно поля:";
         if ($validator->fails()) {
-            
-            foreach($validator->errors()->all() as $error => $val) {
+
+            foreach ($validator->errors()->all() as $error => $val) {
                 $errString = $errString . ", \n" . $val;
             }
-            
-           
+
             return redirect(route('user.profiles.edit', $profile->id))
-                        ->withErrors($errString)
-                        ->withInput();
+                ->withErrors($errString)
+                ->withInput();
         }
 
         $profileArr = request()->all()->toArray();
 
-        if (Auth::user()->is_admin) {
-        } else {
+        if (Auth::user()->is_admin == false) {
             $profileArr['user_id'] = Auth::user()->id;
-            $profileArr = Arr::add($profileArr, 'on_moderate', 1);
-            $profileArr = Arr::add($profileArr, 'allowed', 0);
+
+            if ((request()->filled('item_images') && request()->item_images != null) ||
+                ($request->has('main_image') && $profile->main_image != $request->main_image) ||
+                ($request->has('name') && $profile->name != $request->name) ||
+                ($request->has('about') && $profile->about != $request->about)) {
+
+                // $profileArr = Arr::add($profileArr, 'on_moderate', 1);
+                $profileArr = Arr::add($profileArr, 'allowed', 0);
+
+                if($profile->is_published) {
+                    $profile->was_published = true;
+                    $this->unpublish($profile->id);
+                }
+            }
         }
 
-        if(request()->filled('services')) {
+        if (request()->filled('services')) {
             $profile->services()->detach();
             foreach (request('services') as $service) {
                 $profile->services()->attach(Service::findOrFail($service));
@@ -270,112 +276,93 @@ class ProfileController extends Controller
         }
         $profile->update($profileArr);
 
-        if(request()->filled('appearance')) {
+        if (request()->filled('appearance')) {
             $profile->appearances()->detach();
             $profile->appearances()->attach(Appearance::findOrFail(request()->appearance));
         }
 
-        if(request()->filled('hair')) {
+        if (request()->filled('hair')) {
             $profile->hairs()->detach();
             $profile->hairs()->attach(Hair::findOrFail(request()->hair));
         }
 
-        if(request()->filled('district')) {
+        if (request()->filled('district')) {
             $profile->districts()->detach();
             $profile->districts()->attach(District::findOrFail(request()->district));
         }
 
-        if(request()->filled('item_images') && request()->item_images <> null) {
+        if (request()->filled('item_images') && request()->item_images != null) {
             $array = explode(",", request()->item_images);
-            foreach ($array as $arr ) {
+            foreach ($array as $arr) {
                 $image = new Image;
                 $image->name = str_replace('"', '', $arr);
                 $image->profile_id = $profile->id;
                 $image->save();
-                //File::move(public_path() . '/images/profiles/images/new_upload/' . $image->name .'', public_path() . '/images/profiles/images/created/' . $image->name .'');
             }
-
         }
 
-        if(request()->filled('rate')) {
+        if (request()->filled('item_images_verification') && request()->item_images_verification != null) {
+            $array = explode(",", request()->item_images_verification);
+            foreach ($array as $arr) {
+                $image = new Image;
+                $image->name = str_replace('"', '', $arr);
+                $image->verification_img = true;
+                $image->profile_id = $profile->id;
+                $image->save();
+            }
+        }
+
+        if (request()->filled('rate')) {
             $profile->rates()->detach();
             $profile->rates()->attach(Rate::findOrFail(request()->rate));
         }
 
-        if(request()->hasFile('verificate_image')) {
-            $_IMAGE = $request->file('verificate_image');
-            $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
-
-            $uploadPath = public_path() . '/images/profiles/verificate';
-            $_IMAGE->move($uploadPath,$filename);
-
-            $profile['verificate_image'] = $filename;
-            $profile->update();
-        }
-
-        // $_IMAGE = $request->has('main_image');
-
-        if($request->has('main_image')) {
-            // $filename = $this->regexpImages(time().$_IMAGE->getClientOriginalName());
-            // $uploadPath = public_path() . '/images/profiles/main/created';
-            // File::delete(public_path() . '/images/profiles/main/created' . $profile->main_image );
-            // $_IMAGE->move($uploadPath,$filename);
+        if ($request->has('main_image')) {
 
             $profile['main_image'] = str_replace('"', '', request()->main_image);
-           
             $profile->update();
         }
-      
-
-        // if(Auth::user()->is_admin) {
-        //     return redirect(route('admin.adminprofiles'))->withSuccess('Успешно обновлено');
-        // } else {
-        //     return redirect(route('user.profiles.index'))->withSuccess('Успешно обновлено');
-        // }
 
         return back()->withSuccess('Успешно обновлено');
 
     }
 
-    public function publish(Request $request, $id) {
+    public function publish(Request $request, $id)
+    {
 
-        if(auth()->user()->is_admin) {
+        if (auth()->user()->is_admin) {
             $profile = Profile::where('id', $id)->firstOrFail();
 
             $profile['is_published'] = 1;
-            $profile['is_archived'] = 0;
             $profile->update();
-        
+
             return back()->withSuccess('Успешно опубликована');
-            
+
         } else {
             $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
-            activate($request, $id);
+            $this->activate($request, $id);
 
-            if(!$profile->is_archived) {
+            if ($profile->is_published) {
                 return back()->withSuccess('Успешно оплачена и опубликована');
             } else {
                 return back()->withSuccess('Недостаточно средств на балансе !');
             }
         }
- 
+
     }
 
-    public function unpublish($id, $is_cron = false) {
+    public function unpublish($id, $is_cron = false)
+    {
 
         $profile = Profile::where('id', $id)->firstOrFail();
-        if(auth()->user()->is_admin) {
-            
-            $profile['is_published'] = 0;
-            $profile['is_archived'] = 1;
-            $profile->update();
-            
-        } else {
-            
-            if(!$profile->is_arhived) {
+        if (auth()->user()->is_admin) {
 
-                if(!$is_cron) {
-                    $user = $profile->user; 
+            $profile['is_published'] = false;
+
+        } else {
+
+                if (!$is_cron) {
+                    $user = $profile->user;
                     $rate = $profile->rates->first();
                     $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
                     $cost = ($rate->cost / 24 * (24 - $hour));
@@ -383,59 +370,63 @@ class ProfileController extends Controller
                     $user->update();
                 }
 
-                $profile['is_archived'] = true;
                 $profile['is_published'] = false;
-            
-                return back()->withSuccess('Успешно снята с публикации');
-            }
+                
         }
 
-        $profile = Profile::where('id', $id)->firstOrFail();
-        // } else {
-        //     $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
-        // }
-       
-
         $profile->update();
+        return back()->withSuccess('Успешно снята с публикации');
 
     }
 
-    public function verify(Request $request, $id) {
+    public function verify(Request $request, $id)
+    {
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['verified'] = 1;
         $profile->update();
         return back()->withSuccess('Успешно подтверждена');
     }
 
-    public function unverify(Request $request, $id) {
+    public function unverify(Request $request, $id)
+    {
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['verified'] = 0;
         $profile->update();
         return back()->withSuccess('Успешно снята с подтверждения');
     }
 
-    public function moderateallow(Request $request, $id) {
+    public function moderateallow(Request $request, $id)
+    {
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['allowed'] = 1;
         $profile->update();
-        return back()->withSuccess('Успешно запрещена к публикации');
+
+        if($profile->was_published) {
+            $profile->was_published = false;
+            $this->publish($request, $id);
+        }
+
+        return back()->withSuccess('Успешно разрешена к публикации');
     }
 
-    public function moderatedisallow(Request $request, $id) {
+    public function moderatedisallow(Request $request, $id)
+    {
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['allowed'] = 0;
         $profile->update();
         return back()->withSuccess('Успешно запрещена к публикации');
     }
 
-    public function userbanoff(Request $request, $id) {
+    public function userbanoff(Request $request, $id)
+    {
         $user = User::where('id', $id)->firstOrFail();
         $user['is_banned'] = 0;
         $user->update();
         return back()->withSuccess('Успешно забанен');
     }
 
-    public function userbanon(Request $request, $id) {
+    public function userbanon(Request $request, $id)
+    {
         $user = User::where('id', $id)->firstOrFail();
         $user['is_banned'] = 1;
         $user->update();
@@ -443,35 +434,37 @@ class ProfileController extends Controller
     }
 
     //Для крона
-    public function activateCron() {
+    public function activateCron()
+    {
         $profiles = Profile::where('is_published', '1')->where('allowed', '1')->get();
 
-        foreach($profiles as $profile) {
-           $this->activate($profile->id, true);       
+        foreach ($profiles as $profile) {
+            $this->activate($profile->id, true);
         }
     }
 
-    public function activate(Request $request = null, $id, $is_cron = false) {
+    public function activate(Request $request = null, $id, $is_cron = false)
+    {
 
         $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         $user = $profile->user;
 
-        if($user->is_admin) {
+        if ($user->is_admin) {
             return;
         }
 
         $rate = $profile->rates->first();
         $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
 
-        if($is_cron) {
+        if ($is_cron) {
             $cost = $rate->cost;
         } else {
             $cost = ($rate->cost / 24 * (24 - $hour));
         }
 
-        if(($user->user_balance - $cost) < 0) {
-           $this->unpublish($id, $is_cron); 
-           return
+        if (($user->user_balance - $cost) < 0) {
+            $this->unpublish($id, $is_cron);
+            return;
         }
 
         $user['user_balance'] = $user->user_balance - $cost;
@@ -483,26 +476,20 @@ class ProfileController extends Controller
         $statistic['where_was'] = Carbon::now();
         $statistic->save();
 
-        $profile['is_archived'] = false;
         $profile['is_published'] = true;
-        $profile['last_payment'] = Carbon::now();
-        $profile['next_payment'] = Carbon::now()->addDays(1);
-
-        $next_payment = Carbon::parse($profile->next_payment);
-        $last_payment = Carbon::parse($profile->last_payment);
-        $profile['minutes_to_archive'] = $next_payment->diffInMinutes($last_payment);
 
         $profile->update();
 
     }
 
-    public function activatesalon(Request $request, $id) {
-   
+    public function activatesalon(Request $request, $id)
+    {
+
         $salon = Salon::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         $user = $salon->user;
         $rate = $salon->rates->first();
 
-        if(($user->user_balance - $rate->cost) < 0) {
+        if (($user->user_balance - $rate->cost) < 0) {
             $salon['is_approved'] = false;
             $salon->update();
             return back()->withFail('Не достаточно денег на балансе');
@@ -513,17 +500,11 @@ class ProfileController extends Controller
 
         $statistic = new Statistic();
         $statistic['user_id'] = Auth::user()->id;
-        $statistic['payment'] = - $rate->cost;
+        $statistic['payment'] = -$rate->cost;
         $statistic['where_was'] = Carbon::now();
         $statistic->save();
 
         $salon['is_approved'] = true;
-        $salon['last_payment'] = Carbon::now();
-        $salon['next_payment'] = Carbon::now()->addDays(1);
-
-        $next_payment = Carbon::parse($salon->next_payment);
-        $last_payment = Carbon::parse($salon->last_payment);
-        $salon['minutes_to_archive'] = $next_payment->diffInMinutes($last_payment);
         $salon->update();
 
         return back()->withSuccess('Успешно оплачена');
@@ -538,39 +519,40 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        $profile->delete();
+        return back()->withSuccess('Успешно удалено');
     }
 
     protected function validateProfile($isNew = false)
     {
 
-        if($isNew) {
-             return $this->validate(request(), [
-                 'name' => 'required',
+        if ($isNew) {
+            return $this->validate(request(), [
+                'name' => 'required',
                 'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
                 'about' => 'required',
                 'district' => 'required',
-                 'boobs' => 'required|integer|between:1,10',
+                'boobs' => 'required|integer|between:1,10',
                 'age' => 'required|integer|between:18,65',
                 'weight' => 'required|integer|between:40,100',
-                 'height' => 'required|integer|between:150,195',
+                'height' => 'required|integer|between:150,195',
                 'one_hour' => 'required|integer|between:1000,50000',
-                 'two_hour' => 'required|integer|between:1000,100000',
-                 'all_night' => 'required|integer|between:1000,1000000',
+                'two_hour' => 'required|integer|between:1000,100000',
+                'all_night' => 'required|integer|between:1000,1000000',
             ]);
         } else {
             return $this->validate(request(), [
                 'name' => 'required',
                 'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
-               'about' => 'required',
-                 'district' => 'required',
-             'boobs' => 'required|integer|between:1,10',
-                 'age' => 'required|integer|between:18,65',
-                 'weight' => 'required|integer|between:40,100',
-                 'height' => 'required|integer|between:150,195',
-                 'one_hour' => 'required|integer|between:1000,50000',
+                'about' => 'required',
+                'district' => 'required',
+                'boobs' => 'required|integer|between:1,10',
+                'age' => 'required|integer|between:18,65',
+                'weight' => 'required|integer|between:40,100',
+                'height' => 'required|integer|between:150,195',
+                'one_hour' => 'required|integer|between:1000,50000',
                 'two_hour' => 'required|integer|between:1000,100000',
-                 'all_night' => 'required|integer|between:1000,1000000',
+                'all_night' => 'required|integer|between:1000,1000000',
             ]);
         }
 
@@ -579,24 +561,20 @@ class ProfileController extends Controller
     public function fileUpload(Request $request)
     {
         $_IMAGE = $request->file('file');
-        $filename = $this->regexpImages(str_replace('"', '', time().$_IMAGE->getClientOriginalName()));
+        $filename = $this->regexpImages(str_replace('"', '', time() . $_IMAGE->getClientOriginalName()));
         $uploadPath = 'images/profiles/images/created';
-        $_IMAGE->move($uploadPath,str_replace('"', '', $filename));
+        $_IMAGE->move($uploadPath, str_replace('"', '', $filename));
         echo json_encode($filename);
     }
 
     public function removeUpload(Request $request)
     {
 
-        try{
+        try {
             $image = str_replace('"', '', $request->file);
-            File::delete(public_path() . '/images/profiles/images/created' . $image );
-        }
-        catch(Exception $e) {
-//            echo json_encode('Message: ' .$e->getMessage());
-        }
-        finally{
-//            $message = "success";
+            File::delete(public_path() . '/images/profiles/images/created' . $image);
+        } catch (Exception $e) {
+        } finally {
         }
         return json_encode($image);
 
@@ -605,26 +583,24 @@ class ProfileController extends Controller
     public function removeCreated(Request $request)
     {
 
-        try{
+        try {
             $image = str_replace('"', '', $request->file);
-            File::delete(public_path() . '/images/profiles/images/created' . $image );
-        }
-        catch(Exception $e) {
-//            echo json_encode('Message: ' .$e->getMessage());
-        }
-        finally{
-//            $message = "success";
+            File::delete(public_path() . '/images/profiles/images/created' . $image);
+        } catch (Exception $e) {
+        } finally {
         }
         return json_encode($image);
 
     }
 
-    private function regexpImages($imageName) {
+    private function regexpImages($imageName)
+    {
         return preg_replace("/[^A-Za-z\d\.]/", '', Transliterate::make($imageName));
     }
 
-    public function payments() {
-        $salon  = Auth::user()->salon();
+    public function payments()
+    {
+        $salon = Auth::user()->salons();
         return view('user.payments.index', [
             'profiles' => Auth::user()->profiles,
             'hairs' => $this->hairs,
@@ -634,14 +610,15 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function plusbonusinfo() {
+    public function plusbonusinfo()
+    {
 
-        if(request()->has('payment')) {
-            if(request()->payment <> null) {
-                $bonus = Bonus::where('min_sum','<',request()->payment)->where('max_sum','>=', request()->payment)->first();
+        if (request()->has('payment')) {
+            if (request()->payment != null) {
+                $bonus = Bonus::where('min_sum', '<', request()->payment)->where('max_sum', '>=', request()->payment)->first();
 
-                if($bonus <> null) {
-                    return 'Бонусы при пополнении: +' . round(request()->payment * $bonus->koef / 100) . ' Пойнтов';;
+                if ($bonus != null) {
+                    return 'Бонусы при пополнении: +' . round(request()->payment * $bonus->koef / 100) . ' Пойнтов';
                 } else {
                     return '';
                 }
@@ -649,35 +626,39 @@ class ProfileController extends Controller
         }
     }
 
-    public function errorpayment() {
+    public function errorpayment()
+    {
         return view('user.payments.error');
     }
 
-    public function successpayment() {
-        return view('user.payments.success');    
+    public function successpayment()
+    {
+        return view('user.payments.success');
     }
 
-    public function makepayment() {
+    public function makepayment()
+    {
 
-        $key = hash('sha256', $_POST['LMI_PAYEE_PURSE'].
-        $_POST['LMI_PAYMENT_AMOUNT'].
-        $_POST['LMI_PAYMENT_NO'].
-        $_POST['LMI_MODE'].
-        $_POST['LMI_SYS_INVS_NO'].
-        $_POST['LMI_SYS_TRANS_NO'].
-        $_POST['LMI_SYS_TRANS_DATE'].
-        '5140237D-B9C2-461B-B590-EC224BBC55AD'.
-        $_POST['LMI_PAYER_PURSE'].
-        $_POST['LMI_PAYER_WM']);
+        $key = hash('sha256', $_POST['LMI_PAYEE_PURSE'] .
+            $_POST['LMI_PAYMENT_AMOUNT'] .
+            $_POST['LMI_PAYMENT_NO'] .
+            $_POST['LMI_MODE'] .
+            $_POST['LMI_SYS_INVS_NO'] .
+            $_POST['LMI_SYS_TRANS_NO'] .
+            $_POST['LMI_SYS_TRANS_DATE'] .
+            '5140237D-B9C2-461B-B590-EC224BBC55AD' .
+            $_POST['LMI_PAYER_PURSE'] .
+            $_POST['LMI_PAYER_WM']);
 
-        if(strtoupper($key) != $_POST['LMI_HASH'])
+        if (strtoupper($key) != $_POST['LMI_HASH']) {
             return redirect(route('user.errorpayment'));
+        }
 
         $current_balance = Auth::user()->user_balance;
         $payment = $_POST('LMI_PAYMENT_AMOUNT');
-        $bonus = Bonus::where('min_sum','<',  $payment)->where('max_sum','>=', $payment)->first();
+        $bonus = Bonus::where('min_sum', '<', $payment)->where('max_sum', '>=', $payment)->first();
 
-        if($bonus <> null) {
+        if ($bonus != null) {
             $payment = $payment + ($payment * $bonus->koef / 100);
         }
 
@@ -693,14 +674,15 @@ class ProfileController extends Controller
         return back()->withSuccess('Успешно пополнен баланс');
     }
 
-    public function promotionalpayment() {
+    public function promotionalpayment()
+    {
 
         request()->validate([
-            'promotionalpayment' => 'required|exists:promotionals,code'
+            'promotionalpayment' => 'required|exists:promotionals,code',
         ]);
 
         $codes = Promotional::where('code', request()->promotionalpayment)->where('is_activated', false);
-        if($codes->count() > 0) {
+        if ($codes->count() > 0) {
             $sum = $codes->first()->replenish_summ;
             $current_balance = Auth::user()->user_balance;
             Auth::user()->user_balance = $current_balance + $sum;
@@ -717,30 +699,28 @@ class ProfileController extends Controller
             $statistic['where_was'] = Carbon::now();
             $statistic->save();
             return back()->withSuccess('Успешно пополнен баланс');
-        }
-        else {
+        } else {
             return back()->withFail('Промокод не найден');
         }
 
     }
 
-
     public function changeServicePrice()
     {
 
-          $profile = Profile::find(request()->profile_id);
-          $service = Profile::find(request()->service_id);
+        $profile = Profile::find(request()->profile_id);
+        $service = Profile::find(request()->service_id);
 
-            if($profile->user_id == Auth::user()->id){
+        if ($profile->user_id == Auth::user()->id) {
 
-                $profile->services()->detach($service);
-                $profile->services()->attach(
-                    $service,  ['price' => request()->price]
-                );
+            $profile->services()->detach($service);
+            $profile->services()->attach(
+                $service, ['price' => request()->price]
+            );
 
-            }
+        }
     }
-    
+
     public function deleteimagesattach()
     {
         $image = Image::where('id', request()->image_id)->where('profile_id', request()->profile_id);

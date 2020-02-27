@@ -86,7 +86,7 @@ class="profileBody"
 
 
 
-            @foreach($profile->images as $image)
+            @foreach($profile->images->where('verification_img', '0')->all() as $image)
             <div class="swiper-slide">
                 <a data-index="{{$loop->index + 1}}" data-fancybox="gallery"
                     href="{{asset('/images/profiles/images/created/'. $image->name )}}" style="display:block">

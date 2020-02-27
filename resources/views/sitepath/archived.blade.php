@@ -2,23 +2,23 @@
 
 @section('content')
 
-    <!-- ОСНОВНАЯ ЧАСТЬ BEGIN -->
+<!-- ОСНОВНАЯ ЧАСТЬ BEGIN -->
 
-    <div class="container mt-3" style="min-height: 900px;">
-        <div class="row justify-content-between">
-            @csrf
-            <div class="col-md-12 nc-col position-relative">
+<div class="container mt-3" style="min-height: 900px;">
+    <div class="row justify-content-between">
+        @csrf
+        <div class="col-md-12 nc-col position-relative">
 
-                <div id="post_data" class="post_data"></div>
+            <div id="post_data" class="post_data"></div>
 
-            </div>
         </div>
     </div>
-    <!-- ОСНОВНАЯ ЧАСТЬ END -->
+</div>
+<!-- ОСНОВНАЯ ЧАСТЬ END -->
 
 
-    <script>
-        $(document).ready(function(){
+<script>
+    $(document).ready(function(){
 
             var _token = $('input[name="_token"]').val();
             var data = {};
@@ -56,5 +56,5 @@
             });
 
         });
-    </script>
+</script>
 @endsection

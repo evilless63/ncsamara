@@ -9,7 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', 'SiteController@index')->name('index');
 Route::get('/profiles/{id}', 'SiteController@profile')->name('getprofile');
@@ -23,9 +23,9 @@ Route::post('/loadmore/load_data', 'SiteController@load_data')->name('loadmore.l
 Auth::routes();
 //Auth::routes(['verify' => true]);
 
-Route::get('/admin', 'HomeController@index')->name('admin')->middleware(['verified','is_admin']);
+Route::get('/admin', 'HomeController@index')->name('admin')->middleware(['verified', 'is_admin']);
 
-Route::get('/user', 'HomeController@user')->name('user')->middleware(['verified','is_banned']);
+Route::get('/user', 'HomeController@user')->name('user')->middleware(['verified', 'is_banned']);
 
 //Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
 Route::prefix('user')->middleware('is_banned')->name('user.')->group(function () {
@@ -44,7 +44,7 @@ Route::prefix('user')->middleware('is_banned')->name('user.')->group(function ()
 
     Route::patch('publish/{id}', 'ProfileController@publish')->name('profilepublish');
     Route::patch('unpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
-    
+
     Route::post('/changeserviceprice', 'ProfileController@changeServicePrice')->name('service.pricechange');
     Route::post('/deleteimagesattach', 'ProfileController@deleteimagesattach')->name('images.deleteimageattach');
 });
@@ -70,9 +70,7 @@ Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function (
     Route::patch('userbanon/{id}', 'ProfileController@userbanon')->name('userbanon');
 });
 
-
 Route::post('/user/profiles/upload', 'ProfileController@fileUpload');
 Route::post('/user/profiles/delete', 'ProfileController@removeUpload');
 
 Route::post('user/salons/uploadsalonimage', 'SalonController@fileUpload');
-Route::post('user/salons/uploadsalonslider', 'SalonController@fileUploadSlider');

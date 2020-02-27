@@ -18,6 +18,7 @@ class CreateImagesTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('profile_id');
             $table->text('name');
+            $table->boolean('verification_img')->default(false);
         });
     }
 
