@@ -20,7 +20,7 @@
     <div class="col-md-12">
 
         <h2>Редактирование салона</h2>
-
+        {{-- TODO Разобраться с кнопками управления --}}
         @if(count($errors))
         <div class="alert alert-danger">
             <ul>

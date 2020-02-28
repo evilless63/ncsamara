@@ -6,8 +6,8 @@ return [
   *  Constants
   */
 
-  'nav-active-tickets'               => 'Открытые Обращения',
-  'nav-completed-tickets'            => 'Завершенные Обращения',
+  'nav-active-tickets'               => 'Открытые Сообщения',
+  'nav-completed-tickets'            => 'Завершенные Сообщения',
 
   // Tables
   'table-id'                         => '#',
@@ -58,7 +58,7 @@ return [
   'no-replies'                       => 'Нет откликов.',
   'owner'                            => 'Владелец',
   'priority'                         => 'Приоритет',
-  'reopen-ticket'                    => 'Открыть Обращение повторно',
+  'reopen-ticket'                    => 'Открыть Сообщение повторно',
   'reply'                            => 'Ответить',
   'responsible'                      => 'Ответственный',
   'status'                           => 'Статус',
@@ -72,22 +72,22 @@ return [
   'index-title'                      => 'Главная страница Helpdesk',
 
 // tickets/____
-  'index-my-tickets'                 => 'Мои обращения',
-  'btn-create-new-ticket'            => 'Создать обращение',
-  'index-complete-none'              => 'Завершенные обращения отсутствуют',
-  'index-active-check'               => 'Если не получается найти нужное обращение здесь - проверьте список активных.',
-  'index-active-none'                => 'Открытые обращения отсутствуют,',
-  'index-create-new-ticket'          => 'создать новое обращение',
-  'index-complete-check'             => 'Если не получается найти нужное обращение здесь - проверьте список завершенных.',
+  'index-my-tickets'                 => 'Мои Сообщения',
+  'btn-create-new-ticket'            => 'Создать Сообщение',
+  'index-complete-none'              => 'Завершенные Сообщения отсутствуют',
+  'index-active-check'               => 'Если не получается найти нужное Сообщение здесь - проверьте список активных.',
+  'index-active-none'                => 'Открытые Сообщения отсутствуют,',
+  'index-create-new-ticket'          => 'создать новое Сообщение',
+  'index-complete-check'             => 'Если не получается найти нужное Сообщение здесь - проверьте список завершенных.',
 
-  'create-ticket-title'              => 'Создание Обращения',
-  'create-new-ticket'                => 'Создание Обращения',
+  'create-ticket-title'              => 'Создание Сообщения',
+  'create-new-ticket'                => 'Создание Сообщения',
   'create-ticket-brief-issue'        => 'Краткое описание',
   'create-ticket-describe-issue'     => 'Описание',
 
-  'show-ticket-title'                => 'Обращение',
+  'show-ticket-title'                => 'Сообщение',
   'show-ticket-js-delete'            => 'Подтвердите удаление: ',
-  'show-ticket-modal-delete-title'   => 'Удалить Обращение',
+  'show-ticket-modal-delete-title'   => 'Удалить Сообщение',
   'show-ticket-modal-delete-message' => 'Подтвердите удаление: :subject',
 
  /*
@@ -110,13 +110,13 @@ return [
   'priority-name-has-been-created'   => 'Приоритет :name создан!',
   'priority-name-has-been-modified'  => 'Приоритет :name обновлен!',
   'priority-name-has-been-deleted'   => 'Приоритет :name удален!',
-  'priority-all-tickets-here'        => 'Показаны все обращения выбранного приоритета',
+  'priority-all-tickets-here'        => 'Показаны все Сообщения выбранного приоритета',
 
 // StatusesController
   'status-name-has-been-created'   => 'Статус :name создан!',
   'status-name-has-been-modified'  => 'Статус :name обновлен!',
   'status-name-has-been-deleted'   => 'Статус :name удален!',
-  'status-all-tickets-here'        => 'Показаны все обращения в выбранном статусе',
+  'status-all-tickets-here'        => 'Показаны все Сообщения в выбранном статусе',
 
 // CommentsController
   'comment-has-been-added-ok'        => 'Комментарий успешно добавлен',
@@ -128,15 +128,15 @@ return [
   'notify-status-to'                 => ' статус на ',
   'notify-transferred'               => ' переназначен ',
   'notify-to-you'                    => ' вам',
-  'notify-created-ticket'            => ' обращение создано ',
+  'notify-created-ticket'            => ' Сообщение создано ',
   'notify-updated'                   => ' обновлено ',
 
  // TicketsController
-  'the-ticket-has-been-created'      => 'Обращение создано!',
-  'the-ticket-has-been-modified'     => 'Обращение обновлено!',
-  'the-ticket-has-been-deleted'      => 'Обращение :name удалено!',
-  'the-ticket-has-been-completed'    => 'Обращение :name выполнено!',
-  'the-ticket-has-been-reopened'     => 'Обращение :name повторно открыто!',
+  'the-ticket-has-been-created'      => 'Сообщение создано!',
+  'the-ticket-has-been-modified'     => 'Сообщение обновлено!',
+  'the-ticket-has-been-deleted'      => 'Сообщение :name удалено!',
+  'the-ticket-has-been-completed'    => 'Сообщение :name выполнено!',
+  'the-ticket-has-been-reopened'     => 'Сообщение :name повторно открыто!',
   'you-are-not-permitted-to-do-this' => 'Нет доступа к этому действию!',
 
  /*

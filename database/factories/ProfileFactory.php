@@ -33,7 +33,7 @@ $factory->define(Profile::class, function (Faker $faker) {
         'all_night' => random_int(12000, 40000),
 
         'is_published' => random_int(0,1),
-        'verified' => random_int(0,1)
+        'verified' => random_int(0,1),
         'allowed' => random_int(0,1)
     ];
 });

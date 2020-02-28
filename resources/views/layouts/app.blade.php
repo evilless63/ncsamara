@@ -276,7 +276,7 @@
 
               <input type="hidden" name="LMI_PAYMENT_DESC" value="платеж по счету">
               <input type="hidden" name="LMI_PAYMENT_NO" value="1234">
-              <input type="hidden" name="LMI_PAYEE_PURSE" value="P128701736265">
+              <input type="hidden" name="LMI_PAYEE_PURSE" value="R905479213120">
               <input type="hidden" name="LMI_SIM_MODE" value="0">
               <input type="hidden" name="user" value="{{Auth::user()->id}}">
 

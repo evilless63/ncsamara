@@ -63,55 +63,55 @@
             <div class="row">
                 <div class="col-md-7">
 
-                    <h3 class="align-self-center">Заполните все пункты анкеты</h3>
+                    <h4 class="align-self-center mt-4 mb-4">Заполните все пункты анкеты</h4>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileName">Имя:</label>
                         <input name="name" type="text" id="profileName"
-                            class="form-control @error('name') is-invalid @enderror" placeholder="Укажите имя в анкете"
+                            class="form-control col-8 @error('name') is-invalid @enderror" placeholder="Укажите имя в анкете"
                             value="{{ old('name') }}">
                     </div>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileAge">Возраст:</label>
                         <input name="age" type="number" id="profileAge"
-                            class="form-control @error('age') is-invalid @enderror" placeholder=""
+                            class="form-control col-8 @error('age') is-invalid @enderror" placeholder=""
                             value="{{ old('age') }}" placeholder="Лет (18-75)">
                     </div>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileHeight">Рост:</label>
                         <input name="height" type="number" id="profileHeight"
-                            class="form-control @error('height') is-invalid @enderror" placeholder=""
+                            class="form-control col-8 @error('height') is-invalid @enderror" placeholder=""
                             value="{{ old('height') }}" placeholder="см. (130 -210)">
                     </div>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileWeight">Вес:</label>
                         <input name="weight" type="number" id="profileWeight"
-                            class="form-control @error('weight') is-invalid @enderror" placeholder=""
+                            class="form-control col-8 @error('weight') is-invalid @enderror" placeholder=""
                             value="{{ old('weight') }}" placeholder="кг. (40-200)">
                     </div>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileBoobs">Размер груди:</label>
                         <input name="boobs" type="number" id="profileBoobs"
-                            class="form-control @error('boobs') is-invalid @enderror" placeholder=""
+                            class="form-control col-8 @error('boobs') is-invalid @enderror" placeholder=""
                             value="{{ old('boobs') }}" placeholder="(1-7)">
                     </div>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileAppearance">Цвет волос</label>
-                        <select class="form-control" name="hair" id="profileHair">
+                        <select class="form-control col-8" name="hair" id="profileHair">
                             @foreach($hairs as $hair)
                             <option value="{{$hair->id}}">{{ $hair->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileAppearance">Внешность</label>
-                        <select class="form-control" name="appearance" id="profileAppearance">
+                        <select class="form-control col-8" name="appearance" id="profileAppearance">
                             @foreach($appearances as $appearance)
                             <option value="{{$appearance->id}}">{{ $appearance->name }}</option>
                             @endforeach
@@ -120,17 +120,17 @@
 
                     {{-- TODO - национальность (или внешность) уточнить, что и как должно быть --}}
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profilePhone">Телефон:</label>
                         <input name="phone" type="text" id="profilePhone"
-                            class="form-control @error('phone') is-invalid @enderror" placeholder="c 8, 11 цифр номера"
+                            class="form-control col-8 @error('phone') is-invalid @enderror" placeholder="c 8, 11 цифр номера"
                             value="{{ old('phone') }}">
                         {{-- TODO - макет для телефона js --}}
                     </div>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileDistrict">Район города:</label>
-                        <select class="form-control" name="district" id="profileDistrict">
+                        <select class="form-control col-8" name="district" id="profileDistrict">
                             @foreach($districts as $district)
                             <option value="{{$district->id}}">{{ $district->name }}</option>
                             @endforeach
@@ -200,9 +200,9 @@
                         </div>
                     </div>
 
-                    <div class="form-group form-inline d-flex justify-content-between">
+                    <div class="form-group d-flex justify-content-between">
                         <label for="profileOneHour">О себе:</label>
-                        <textarea name="about" class="form-control @error('about') is-invalid @enderror"
+                        <textarea name="about" class="form-control col-9 @error('about') is-invalid @enderror"
                             id="profileAbout" placeholder="О себе" rows="3">{!! old('about') !!}</textarea>
                     </div>
 
@@ -238,7 +238,7 @@
 
                     <hr>
 
-                    <h3 class="align-self-center">Добавление / редактирование фотографий</h3>
+                    <h4 class="align-self-center mt-4 mb-4">Добавление / редактирование фотографий</h4>
 
                     <div class="form-group">
 
@@ -252,7 +252,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8">
-                                <h4>Загрузка фото (для главной страницы сайта)</h4>
+                                <h5>Загрузка фото (для главной страницы сайта)</h5>
                                 - минимальное разрешение 400 px <br>
                                 - Допускаются к размещению только фотографии хорошего качества <br>
                                 - На фотографиях не должны быть водяные знаки, логотипы других сайтов <br>
@@ -294,7 +294,7 @@
 
                     <hr>
 
-                    <h3>Загрузка фото (для страницы анкеты, минимум - 3 , максимум - 10)</h3>
+                    <h4 class="mt-4 mb-4">Загрузка фото (для страницы анкеты, минимум - 3 , максимум - 10)</h4>
 
                     <div class="form-group">
                         <input type="hidden" autocomplete="OFF" name="item_images" id="item_images" placeholder=""
@@ -307,7 +307,7 @@
 
                     <hr>
 
-                    <h3>Загрузка проверочных фото</h3>
+                    <h4 class="mt-4 mb-4">Загрузка проверочных фото</h4>
 
                     <p>
                         - Для проверки фотографии и получения отметки "Проверено" загрузите проверочное

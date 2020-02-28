@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\User;
+use App\Profile;
+use App\Salon;
 
 class HomeController extends Controller
 {
@@ -28,6 +30,12 @@ class HomeController extends Controller
 
     public function user()
     {
-        return view('user.user');
+        return view('user.user',
+            [
+                'users' => User::all(),
+                'profiles' => Profile::all(),
+                'salons' => Salon::all(),
+            ]
+        );
     }
 }

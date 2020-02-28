@@ -54,7 +54,9 @@ class ProfileController extends Controller
     {
         return view('user.profiles.index', [
             'profiles' => Auth::user()->profiles,
+            'salons' => Auth::user()->salons,
             'bonuses' => $this->bonuses,
+            'rates' => $this->rates,
         ]);
     }
 
@@ -63,6 +65,9 @@ class ProfileController extends Controller
         return view('admin.profiles.index', [
             'users' => User::all(),
             'bonuses' => $this->bonuses,
+            'rates' => $this->rates,
+            'profiles' => Profile::all(),
+            'salons' => Salon::all(),
         ]);
     }
 
@@ -118,7 +123,7 @@ class ProfileController extends Controller
                 ->withInput();
         }
 
-        $profileArr = request()->all()->toArray();
+        $profileArr = request()->toArray();
 
         if (Auth::user()->is_admin) {
             $profileArr = Arr::add($profileArr, 'allowed', 1);
@@ -248,7 +253,7 @@ class ProfileController extends Controller
                 ->withInput();
         }
 
-        $profileArr = request()->all()->toArray();
+        $profileArr = request()->toArray();
 
         if (Auth::user()->is_admin == false) {
             $profileArr['user_id'] = Auth::user()->id;
@@ -462,6 +467,7 @@ class ProfileController extends Controller
         $rate = $profile->rates->first();
         $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
 
+        // TODO округление дроби в нашу пользу
         if ($is_cron) {
             $cost = $rate->cost;
         } else {
@@ -487,35 +493,6 @@ class ProfileController extends Controller
         $profile->update();
 
     }
-
-    // public function activatesalon(Request $request, $id)
-    // {
-
-    //     $salon = Salon::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
-    //     $user = $salon->user;
-    //     $rate = $salon->rates->first();
-
-    //     if (($user->user_balance - $rate->cost) < 0) {
-    //         $salon['is_approved'] = false;
-    //         $salon->update();
-    //         return back()->withFail('Не достаточно денег на балансе');
-    //     }
-
-    //     $user['user_balance'] = $user->user_balance - $rate->cost;
-    //     $user->update();
-
-    //     $statistic = new Statistic();
-    //     $statistic['user_id'] = Auth::user()->id;
-    //     $statistic['payment'] = -$rate->cost;
-    //     $statistic['where_was'] = Carbon::now();
-    //     $statistic->save();
-
-    //     $salon['is_approved'] = true;
-    //     $salon->update();
-
-    //     return back()->withSuccess('Успешно оплачена');
-
-    // }
 
     /**
      * Remove the specified resource from storage.

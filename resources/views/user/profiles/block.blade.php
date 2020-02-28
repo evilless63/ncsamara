@@ -1,3 +1,5 @@
+@extends('layouts.app')
+
 @section('profile-block-info')
 <div class="row">
     <div class="col-md-4">

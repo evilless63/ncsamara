@@ -32,7 +32,7 @@ class SalonController extends Controller
      */
     public function index()
     {
-        return view('user.salon.index', ['salons' => Auth::user()->salons(), 'rates' => $this->rates, 'bonuses' => $this->bonuses])
+        return view('user.salons.index', ['salons' => Auth::user()->salons(), 'rates' => $this->rates, 'bonuses' => $this->bonuses]);
     }
 
     /**
@@ -113,15 +113,9 @@ class SalonController extends Controller
         }
 
         if(Auth::user()->is_admin == false
-            && ( 
-                ($request->has('image') && $salon->image <> $request->image) ||
-                ($request->has('name') && $salon->name <> $request->name) || 
-                
-            )
-        ) {
+            && ( ($request->has('image') && $salon->image <> $request->image) ||
+                ($request->has('name') && $salon->name <> $request->name) )) {
 
-
-            // $salon_data = Arr::add($salon_data, 'on_moderate', 1);
             $salon_data = Arr::add($salon_data, 'allowed', 0);
 
                 if($salon->is_published) {

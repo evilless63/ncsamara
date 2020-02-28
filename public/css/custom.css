@@ -585,6 +585,6 @@ h4 span {
     opacity: 1;
 }
 
-.swiper-button-next:after, .swiper-container-rtl .swiper-button-prev:after {
+.swiper-button-next:after, .swiper-button-prev:after {
     font-size: 18px !important;
 }

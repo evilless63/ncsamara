@@ -50,7 +50,7 @@
                 <input class="form-check-input" type="checkbox" id="profileWork24Hours" name="for_salons" value="1"
                     {{$rate->for_salons ? 'checked' : ''}}>
                 <label class="form-check-label" for="profileWork24Hours">
-                    Использовать для салона
+                    Использовать для баннера
                 </label>
             </div>
 
@@ -59,7 +59,7 @@
                 <input class="form-check-input" type="checkbox" id="profileWork24Hours" name="salons_main" value="1"
                     {{$rate->for_salons ? 'checked' : ''}}>
                 <label class="form-check-label" for="profileWork24Hours">
-                    Для главной страницы (салон)
+                    Использовать для размещения баннера на главной странице сайта
                 </label>
             </div>
 
