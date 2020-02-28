@@ -39,17 +39,16 @@ Route::prefix('user')->middleware('is_banned')->name('user.')->group(function ()
     Route::post('plusbonusinfo', 'ProfileController@plusbonusinfo')->name('plusbonusinfo');
     Route::post('promotionalpayment', 'ProfileController@promotionalpayment')->name('promotionalpayment');
 
-    Route::post('activateprofile/{id}', 'ProfileController@activate')->name('activateprofile');
-    Route::post('activatesalon/{id}', 'ProfileController@activatesalon')->name('activatesalon');
+    Route::patch('profilepublish/{id}', 'ProfileController@publish')->name('profilepublish');
+    Route::patch('profileunpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
 
-    Route::patch('publish/{id}', 'ProfileController@publish')->name('profilepublish');
-    Route::patch('unpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
+    Route::patch('salonpublish/{id}', 'SalonController@publish')->name('salonpublish');
+    Route::patch('salonunpublish/{id}', 'SalonController@unpublish')->name('salonunpublish');
 
     Route::post('/changeserviceprice', 'ProfileController@changeServicePrice')->name('service.pricechange');
     Route::post('/deleteimagesattach', 'ProfileController@deleteimagesattach')->name('images.deleteimageattach');
 });
 
-//Route::prefix('admin')->middleware(['verified','is_admin'])->name('admin.')->group(function () {
 Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function () {
     Route::get('profiles', 'ProfileController@adminindex')->name('adminprofiles');
     Route::resource('services', 'ServiceController');
@@ -60,8 +59,8 @@ Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function (
     Route::patch('verify/{id}', 'ProfileController@verify')->name('profileverify');
     Route::patch('unverify/{id}', 'ProfileController@unverify')->name('profileunverify');
 
-    Route::patch('moderateallow/{id}', 'ProfileController@moderateallow')->name('moderateallow');
-    Route::patch('moderatedisallow/{id}', 'ProfileController@moderatedisallow')->name('moderatedisallow');
+    Route::patch('moderateallow/{id}', 'ProfileController@moderateallow')->name('profilemoderateallow');
+    Route::patch('moderatedisallow/{id}', 'ProfileController@moderatedisallow')->name('profilemoderatedisallow');
 
     Route::patch('salonmoderateallow/{id}', 'SalonController@moderateallow')->name('salonmoderateallow');
     Route::patch('salonmoderatedisallow/{id}', 'SalonController@moderatedisallow')->name('salonmoderatedisallow');

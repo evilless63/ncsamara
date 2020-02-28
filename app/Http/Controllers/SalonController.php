@@ -123,6 +123,11 @@ class SalonController extends Controller
 
             // $salon_data = Arr::add($salon_data, 'on_moderate', 1);
             $salon_data = Arr::add($salon_data, 'allowed', 0);
+
+                if($salon->is_published) {
+                    $salon->was_published = true;
+                    $this->unpublish($salon->id);
+                }
         }
 
         $salon->update($salon_data);
@@ -184,13 +189,126 @@ class SalonController extends Controller
         $salon = Salon::where('id', $id)->firstOrFail();
         $salon['allowed'] = 0;
         $salon->update();
+
+        if($salon->was_published) {
+            $salon->was_published = false;
+            $this->publish($request, $id);
+        }
+
         return back()->withSuccess('Успешно разрешен к публикации');
     }
 
     public function moderatedisallow(Request $request, $id) {
         $salon = Salon::where('id', $id)->firstOrFail();
         $salon['allowed'] = 0;
+
+        if($salon->is_published) {
+            $salon->was_published = true;
+            $this->unpublish($salon->id);
+        }
+
         $salon->update();
-        return back()->withSuccess('Успешно запрещена к публикации');
+        return back()->withSuccess('Успешно запрещен к публикации');
+    }
+
+    public function publish(Request $request, $id)
+    {
+
+        if (auth()->user()->is_admin) {
+            $salon = Salon::where('id', $id)->firstOrFail();
+
+            $salon['is_published'] = 1;
+            $salon->update();
+
+            return back()->withSuccess('Успешно опубликован');
+
+        } else {
+            $salon = Salon::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+            $this->activate($request, $id);
+
+            if ($salon->is_published) {
+                return back()->withSuccess('Успешно оплачен и опубликован');
+            } else {
+                return back()->withSuccess('Недостаточно средств на балансе !');
+            }
+        }
+
+    }
+
+    public function unpublish($id, $is_cron = false)
+    {
+
+        $salon = Salon::where('id', $id)->firstOrFail();
+        if (auth()->user()->is_admin) {
+
+            $salon['is_published'] = false;
+
+        } else {
+
+                if (!$is_cron) {
+                    $user = $salon->user;
+                    $rate = $salon->rates->first();
+                    $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
+                    $cost = ($rate->cost / 24 * (24 - $hour));
+                    $user['user_balance'] = $user->user_balance + $cost;
+                    $user->update();
+                }
+
+                $salon['is_published'] = false;
+                
+        }
+
+        $salon->update();
+        return back()->withSuccess('Успешно снят с публикации');
+
+    }
+
+    //Для крона
+    public function activateCron()
+    {
+        $salons = Salon::where('is_published', '1')->where('allowed', '1')->get();
+
+        foreach ($salons as $salon) {
+            $this->activate($salon->id, true);
+        }
+    }
+
+    public function activate(Request $request = null, $id, $is_cron = false)
+    {
+
+        $salon = Salon::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $user = $salon->user;
+
+        if ($user->is_admin) {
+            return;
+        }
+
+        $rate = $salon->rates->first();
+        $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
+
+        if ($is_cron) {
+            $cost = $rate->cost;
+        } else {
+            $cost = ($rate->cost / 24 * (24 - $hour));
+        }
+
+        if (($user->user_balance - $cost) < 0) {
+            $this->unpublish($id, $is_cron);
+            return;
+        }
+
+        $user['user_balance'] = $user->user_balance - $cost;
+        $user->update();
+
+        $statistic = new Statistic();
+        $statistic['user_id'] = Auth::user()->id;
+        $statistic['payment'] = $cost;
+        $statistic['where_was'] = Carbon::now();
+        $statistic->save();
+
+        $salon['is_published'] = true;
+
+        $salon->update();
+
     }
 }

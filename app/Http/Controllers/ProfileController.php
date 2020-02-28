@@ -413,6 +413,12 @@ class ProfileController extends Controller
     {
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['allowed'] = 0;
+
+        if($profile->is_published) {
+            $profile->was_published = true;
+            $this->unpublish($profile->id);
+        }
+
         $profile->update();
         return back()->withSuccess('Успешно запрещена к публикации');
     }
@@ -482,34 +488,34 @@ class ProfileController extends Controller
 
     }
 
-    public function activatesalon(Request $request, $id)
-    {
+    // public function activatesalon(Request $request, $id)
+    // {
 
-        $salon = Salon::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
-        $user = $salon->user;
-        $rate = $salon->rates->first();
+    //     $salon = Salon::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+    //     $user = $salon->user;
+    //     $rate = $salon->rates->first();
 
-        if (($user->user_balance - $rate->cost) < 0) {
-            $salon['is_approved'] = false;
-            $salon->update();
-            return back()->withFail('Не достаточно денег на балансе');
-        }
+    //     if (($user->user_balance - $rate->cost) < 0) {
+    //         $salon['is_approved'] = false;
+    //         $salon->update();
+    //         return back()->withFail('Не достаточно денег на балансе');
+    //     }
 
-        $user['user_balance'] = $user->user_balance - $rate->cost;
-        $user->update();
+    //     $user['user_balance'] = $user->user_balance - $rate->cost;
+    //     $user->update();
 
-        $statistic = new Statistic();
-        $statistic['user_id'] = Auth::user()->id;
-        $statistic['payment'] = -$rate->cost;
-        $statistic['where_was'] = Carbon::now();
-        $statistic->save();
+    //     $statistic = new Statistic();
+    //     $statistic['user_id'] = Auth::user()->id;
+    //     $statistic['payment'] = -$rate->cost;
+    //     $statistic['where_was'] = Carbon::now();
+    //     $statistic->save();
 
-        $salon['is_approved'] = true;
-        $salon->update();
+    //     $salon['is_approved'] = true;
+    //     $salon->update();
 
-        return back()->withSuccess('Успешно оплачена');
+    //     return back()->withSuccess('Успешно оплачена');
 
-    }
+    // }
 
     /**
      * Remove the specified resource from storage.
