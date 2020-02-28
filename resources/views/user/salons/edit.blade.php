@@ -19,7 +19,7 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
 
-        <h2>Редактирование салона</h2>
+        <h2>Редактирование баннера</h2>
         {{-- TODO Разобраться с кнопками управления --}}
         @if(count($errors))
         <div class="alert alert-danger">
@@ -162,6 +162,12 @@
                             @endif
                             @endforeach
                         </select>
+
+                        <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
+                            попытки
+                            оплаты салона<br>Переключение тарифного плана произойдет только в случае достаточного количества
+                            Пойнтов
+                            на балансе профиля пользователя</p>
                     </div>
                 </div>
             </div>
@@ -169,32 +175,12 @@
         </form>
 
         <label for="">Управление оплатой салона: </span></label>
-        @if($salon->rates->count())
-
-        @if(!$salon->is_approved)
-
-        <form action="{{ route('user.activatesalon', ['id' => $salon->id]) }}" method="post">
-            @csrf
-            <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Оплатить (спишется сумма согласно
-                вашему тарифному плану)</button>
-        </form>
-        @else
-        Оплачен (оплата будет повторно списана в 12 ночи по московскому времени, при наличии средств на балансе)
-        @endif
-        <p>Внимание !!! Переключение тарифного плана произойдет не сразу, а при следующей
-            попытки
-            оплаты салона<br>Переключение тарифного плана произойдет только в случае достаточного количества
-            Пойнтов
-            на балансе профиля пользователя</p>
 
         <form action="{{ route('user.salons.destroy', $salon->id) }}" method="POST">
             @csrf
             @method('delete')
             <button type="submit" class="btn btn-danger">Удалить салон</button>
         </form>
-        @else
-        <p>Сначала необходимо выбрать тариф и сохранить изменения !!!</p>
-        @endif
 
     </div>
 </div>

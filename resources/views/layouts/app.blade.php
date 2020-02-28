@@ -132,34 +132,12 @@
             @if(Auth::user() !== null)
 
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-              @if(Auth::user()->is_admin)
 
-              <li class="nav-item {{ Request::path() === 'admin/profiles' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.adminprofiles') }}">
-                  <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Пользователи"> Пользователи
-                  </p>
+              <li class="nav-item {{ Request::path() === 'user' ? 'admin-li-active' : ''}}">
+                <a class="nav-link" href="{{ route('user') }}">
+                  <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Мои анкеты"> Главная</p>
                 </a>
               </li>
-
-              <li class="nav-item {{ Request::path() === 'admin/rates' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.rates.index') }}">
-                  <p><img src="{{asset('/admin/icons/rates.png') }}" alt="Тарифы"> Тарифы</p>
-                </a>
-              </li>
-
-              <li class="nav-item {{ Request::path() === 'admin/promotionals' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.promotionals.index') }}">
-                  <p><img src="{{asset('/admin/icons/promocodes.png') }}" alt="Промокоды"> Промокоды</p>
-                </a>
-              </li>
-
-              <li class="nav-item {{ Request::path() === 'admin/bonuses' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.bonuses.index') }}">
-                  <p><img src="{{asset('/admin/icons/bonuses.png') }}" alt="Бонусы"> Бонусы</p>
-                </a>
-              </li>
-              <hr>
-              @endif
 
               <li class="nav-item {{ Request::path() === 'user/profiles' ? 'admin-li-active' : ''}}">
                 <a class="nav-link" href="{{ route('user.profiles.index') }}">
@@ -198,6 +176,35 @@
                     поддержка</p>
                 </a>
               </li>
+
+              @if(Auth::user()->is_admin)
+              <hr>
+              <li class="nav-item {{ Request::path() === 'admin/profiles' ? 'admin-li-active' : ''}}">
+                <a class="nav-link" href="{{ route('admin.adminprofiles') }}">
+                  <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Пользователи"> Пользователи
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item {{ Request::path() === 'admin/rates' ? 'admin-li-active' : ''}}">
+                <a class="nav-link" href="{{ route('admin.rates.index') }}">
+                  <p><img src="{{asset('/admin/icons/rates.png') }}" alt="Тарифы"> Тарифы</p>
+                </a>
+              </li>
+
+              <li class="nav-item {{ Request::path() === 'admin/promotionals' ? 'admin-li-active' : ''}}">
+                <a class="nav-link" href="{{ route('admin.promotionals.index') }}">
+                  <p><img src="{{asset('/admin/icons/promocodes.png') }}" alt="Промокоды"> Промокоды</p>
+                </a>
+              </li>
+
+              <li class="nav-item {{ Request::path() === 'admin/bonuses' ? 'admin-li-active' : ''}}">
+                <a class="nav-link" href="{{ route('admin.bonuses.index') }}">
+                  <p><img src="{{asset('/admin/icons/bonuses.png') }}" alt="Бонусы"> Бонусы</p>
+                </a>
+              </li>
+              
+              @endif
 
               @if(Auth::user()->profiles()->count())
               <hr>
@@ -420,8 +427,8 @@
 
         if (cropper) {
           canvas = cropper.getCroppedCanvas({
-            width: 1024,
-            height: 1024,
+            width: 400,
+            height: 400,
           });
           initialAvatarURL = avatar.src;
           avatar.src = canvas.toDataURL();

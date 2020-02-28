@@ -119,13 +119,13 @@
                     <td><img src="{{asset('/admin/icons/profileicon.png')}}"> {{ $salon->name }}</td>
                     <td><img src="{{asset('/admin/icons/phoneicon.png')}}"> {{ $salon->phone }}</td>
                     <td><img src="{{asset('/admin/icons/profilerate.png')}}">
-                        {{ $salon->rates->first()->name }}</td>
+                        {{ $salon->rates->first() ? $salon->rates->first()->name : 'Не назначен'}}</td>
                     <td><a class="btn btn-ncherry" href="{{route('user.profiles.edit', $salon->id)}}"><img
                                 src="{{asset('/admin/icons/profileedit.png')}}"> редактировать баннер</a>
                     </td>
                     </td>
                     <td>
-                        @if($salon->is_published == 0)
+                        @if($salon->is_published == 1)
                         Опубликован
                         @else
                         Неопубликован
@@ -140,7 +140,7 @@
                                 публикацию</button>
                         </form>
                         @else
-                        <form action="{{ route('admin.profilemoderatedisallow', $salon->id) }}" method="POST">
+                        <form action="{{ route('admin.salonmoderatedisallow', $salon->id) }}" method="POST">
                             @csrf
                             @method('patch')
                             <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Запретить

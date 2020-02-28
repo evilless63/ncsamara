@@ -28,31 +28,35 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td><img src="{{asset('/admin/icons/profileicon.png')}}"> {{ $salon->name }}</td>
                     <td><img src="{{asset('/admin/icons/phoneicon.png')}}"> {{ $salon->phone }}</td>
-                    <td><img src="{{asset('/admin/icons/profilerate.png')}}"> {{ $salon->rates->first()->name }}</td>
+                    <td><img src="{{asset('/admin/icons/profilerate.png')}}"> {{ $salon->rates->first() ? $salon->rates->first()->name : 'Не назначен'}}</td>
                     <td><a class="btn btn-ncherry" href="{{route('user.salons.edit', $salon->id)}}"><img
                                 src="{{asset('/admin/icons/profileedit.png')}}"> редактировать баннер</a></td>
                     <td>
-                        @if($salon->is_published == 0)
-                        <form action="{{ route('user.salonpublish', $salon->id) }}" method="POST">
-                            @csrf
-                            @method('patch')
-                            <button class="btn btn-success" style="padding: 0px 7.5px;"
-                                type="submit">Опубликовать</button>
-                        </form>
+                        @if($salon->allowed == 0)  
+                            Будет доступно после модерации
                         @else
-                        <form action="{{ route('user.salonunpublish', $salon->id) }}" method="POST">
-                            @csrf
-                            @method('patch')
-                            <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с
-                                публикации</button>
-                        </form>
+                            @if($salon->is_published == 0)
+                            <form action="{{ route('user.salonpublish', $salon->id) }}" method="POST">
+                                @csrf
+                                @method('patch')
+                                <button class="btn btn-success" style="padding: 0px 7.5px;"
+                                    type="submit">Опубликовать</button>
+                            </form>
+                            @else
+                            <form action="{{ route('user.salonunpublish', $salon->id) }}" method="POST">
+                                @csrf
+                                @method('patch')
+                                <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с
+                                    публикации</button>
+                            </form>
+                            @endif
                         @endif
                     </td>
                     <td>
                         @if($salon->allowed)
                         Да
                         @else
-                        Нет
+                        Нет (на модерации)
                         @endif
                     </td>
                 </tr>

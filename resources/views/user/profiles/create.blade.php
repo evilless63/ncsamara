@@ -299,7 +299,7 @@
                     <div class="form-group">
                         <input type="hidden" autocomplete="OFF" name="item_images" id="item_images" placeholder=""
                             class="form-control input-sm" required />
-                        <div class="dropzone">
+                        <div class="dropzone" id="dropzone">
                             <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или
                                     нажмите сюда и выберите их)</span></div>
                         </div>
@@ -316,14 +316,12 @@
                         - По проверочное фото должно быть хорошего качества, с читаемой датой на листе бумаги, должно
                         быть понятно, что на фотографиях
                         анкеты вы, добавляете несколько фотографий с лицом и фигурой.
-
-                        {{-- TODO аналогично доп. фотографиям, размещаем проверочные. Создать новую модель для проверочных изображений. --}}
                     </p>
 
                     <div class="form-group">
                         <input type="hidden" autocomplete="OFF" name="item_images_verification" id="item_images_verification" placeholder=""
-                            class="form-control input-sm" required />
-                        <div class="dropzone-ver">
+                            class="form-control input-sm" />
+                        <div class="dropzone" id="dropzone-ver">
                             <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или
                                     нажмите сюда и выберите их)</span></div>
                         </div>
@@ -358,7 +356,7 @@ var fileListVer = new Array;
 var i = 0;
 var iver = 0;
 $(function(){
-    uploader = new Dropzone(".dropzone",{
+    uploader = new Dropzone("#dropzone",{
         url: "{{url('user/profiles/upload')}}",
         paramName : "file",
         uploadMultiple :false,
@@ -410,8 +408,10 @@ $(function(){
     });
 });
 
+
+// TODO Разобраться с фотками на проверку !
 $(function(){
-    uploaderVer = new Dropzone(".dropzone-ver",{
+    uploaderVer = new Dropzone("#dropzone-ver",{
         url: "{{url('user/profiles/upload')}}",
         paramName : "file",
         uploadMultiple :false,
@@ -433,7 +433,7 @@ $(function(){
         };
 
         iver += 1;
-        $('#item_images').val(imageDataArrayVer);
+        $('#item_images_verification').val(imageDataArrayVer);
     });
     uploaderVer.on("removedfile", function(file) {
         var rmvFile = "";
@@ -441,7 +441,7 @@ $(function(){
             if (fileListVer[f].fileName == file.name) {
                 // remove file from original array by database image name
                 imageDataArrayVer.splice(imageDataArrayVer.indexOf(fileListVer[f].serverFileName), 1);
-                $('#item_images').val(imageDataArrayVer);
+                $('#item_images_verification').val(imageDataArrayVer);
                 // get removed database file name
                 rmvFile = fileListVer[f].serverFileName;
                 // get request to remove the uploaded file from server

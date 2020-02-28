@@ -24,11 +24,8 @@ class CreateSalonsTable extends Migration
             $table->integer('min_price')->nullable();
             $table->string('phone')->nullable();
 
-            // $table->boolean("is_approved")->default(false);
-
             $table->boolean("is_published")->default(false);
             $table->boolean("was_published")->default(false);
-            // $table->boolean('on_moderate')->default(false);
             $table->boolean("allowed")->default(false);
         });
     }

@@ -7,13 +7,13 @@
         <div id="nc-carouselSalons" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
             <div class="carousel-inner">
                 @foreach($rates->where('for_salons', 1) as $rate)
-                @foreach($rate->salons->where('is_published', 1)->where('is_approved', 1) as $salon)
-                @if($salon->image)
-                <div class="carousel-item @if($loop->first) active @endif">
-                    <img src="{{ asset('/images/salons/created/' . $salon->image) }}" class="d-block w-100">
-                </div>
-                @endif
-                @endforeach
+                    @foreach($rate->salons->where('is_published', 1) as $salon)
+                        @if($salon->image)
+                        <div class="carousel-item @if($loop->first) active @endif">
+                            <img src="{{ asset('/images/salons/created/' . $salon->image) }}" class="d-block w-100">
+                        </div>
+                        @endif
+                    @endforeach
                 @endforeach
             </div>
             <a class="carousel-control-prev" href="#nc-carouselSalons" role="button" data-slide="prev">

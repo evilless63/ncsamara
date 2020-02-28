@@ -15,8 +15,8 @@ use App\Service;
 use App\Statistic;
 use App\User;
 use Auth;
-use Config;
 use File;
+use Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -178,6 +178,7 @@ class ProfileController extends Controller
 
         if (request()->has('main_image')) {
             $profile['main_image'] = str_replace('"', '', request()->main_image);
+            $profile->update();
         }
 
         $profile->rates()->attach(Rate::first());
@@ -266,7 +267,7 @@ class ProfileController extends Controller
                 // $profileArr = Arr::add($profileArr, 'on_moderate', 1);
                 $profileArr = Arr::add($profileArr, 'allowed', 0);
 
-                if($profile->is_published) {
+                if ($profile->is_published) {
                     $profile->was_published = true;
                     $this->unpublish($profile->id);
                 }
@@ -332,11 +333,12 @@ class ProfileController extends Controller
 
     }
 
-    public function publish(Request $request, $id)
+    public function publish(Request $request, $id, $moderation = false)
     {
 
-        if (auth()->user()->is_admin) {
-            $profile = Profile::where('id', $id)->firstOrFail();
+        $profile = Profile::where('id', $id)->firstOrFail();
+        if (auth()->user()->is_admin
+            && (auth()->user()->profiles()->where('id', $profile->id)->count() > 0)) {
 
             $profile['is_published'] = 1;
             $profile->update();
@@ -344,19 +346,28 @@ class ProfileController extends Controller
             return back()->withSuccess('Успешно опубликована');
 
         } else {
-            $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
-            $this->activate($request, $id);
 
-            if ($profile->is_published) {
-                return back()->withSuccess('Успешно оплачена и опубликована');
+            if ($profile->rates->count() > 0) {
+                $this->activate($request, $id);
             } else {
-                return back()->withSuccess('Недостаточно средств на балансе !');
+                return back()->withSuccess('Сначала выберите тариф !');
+            }
+            $profile = Profile::where('id', $id)->firstOrFail();
+
+            if ($moderation) {
+
+            } else {
+                if ($profile->is_published) {
+                    return back()->withSuccess('Успешно оплачена и опубликована');
+                } else {
+                    return back()->withSuccess('Недостаточно средств на балансе !');
+                }
             }
         }
 
     }
 
-    public function unpublish($id, $is_cron = false)
+    public function unpublish($id, $is_cron = false, $moderation = false)
     {
 
         $profile = Profile::where('id', $id)->firstOrFail();
@@ -366,22 +377,25 @@ class ProfileController extends Controller
 
         } else {
 
-                if (!$is_cron) {
-                    $user = $profile->user;
-                    $rate = $profile->rates->first();
-                    $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
-                    $cost = ($rate->cost / 24 * (24 - $hour));
-                    $user['user_balance'] = $user->user_balance + $cost;
-                    $user->update();
-                }
+            if (!$is_cron) {
+                $user = $profile->user;
+                $rate = $profile->rates->first();
+                $hour = Carbon::now()->timezone(config('app.timezone'))->format('H');
+                $cost = ($rate->cost / 24 * (24 - $hour));
+                $user['user_balance'] = $user->user_balance + $cost;
+                $user->update();
+            }
 
-                $profile['is_published'] = false;
-                
+            $profile['is_published'] = false;
+
         }
 
         $profile->update();
-        return back()->withSuccess('Успешно снята с публикации');
+        if ($moderation) {
 
+        } else {
+            return back()->withSuccess('Успешно снята с публикации');
+        }
     }
 
     public function verify(Request $request, $id)
@@ -406,9 +420,10 @@ class ProfileController extends Controller
         $profile['allowed'] = 1;
         $profile->update();
 
-        if($profile->was_published) {
+        if ($profile->was_published) {
             $profile->was_published = false;
-            $this->publish($request, $id);
+            $profile->update();
+            $this->publish($request, $id, true);
         }
 
         return back()->withSuccess('Успешно разрешена к публикации');
@@ -419,9 +434,10 @@ class ProfileController extends Controller
         $profile = Profile::where('id', $id)->firstOrFail();
         $profile['allowed'] = 0;
 
-        if($profile->is_published) {
+        if ($profile->is_published) {
             $profile->was_published = true;
-            $this->unpublish($profile->id);
+            $profile->update();
+            $this->unpublish($profile->id, false, true);
         }
 
         $profile->update();
@@ -457,7 +473,7 @@ class ProfileController extends Controller
     public function activate(Request $request = null, $id, $is_cron = false)
     {
 
-        $profile = Profile::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $profile = Profile::where('id', $id)->firstOrFail();
         $user = $profile->user;
 
         if ($user->is_admin) {
@@ -465,7 +481,7 @@ class ProfileController extends Controller
         }
 
         $rate = $profile->rates->first();
-        $hour = Carbon::now()->timezone(Config::get('app.timezone'))->format('H');
+        $hour = Carbon::now()->timezone(config('app.timezone'))->format('H');
 
         // TODO округление дроби в нашу пользу
         if ($is_cron) {

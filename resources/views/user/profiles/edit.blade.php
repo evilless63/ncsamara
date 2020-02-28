@@ -470,8 +470,6 @@
                                 - По проверочное фото должно быть хорошего качества, с читаемой датой на листе бумаги,
                                 должно быть понятно, что на фотографиях
                                 анкеты вы, добавляете несколько фотографий с лицом и фигурой.
-
-                                {{-- TODO аналогично доп. фотографиям, размещаем проверочные. Создать новую модель для проверочных изображений. --}}
                             </p>
 
                             <div class="row align-items-center">
@@ -606,7 +604,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" class="dropzone" method="post" enctype="multipart/form-data">
+                <form action="" class="dropzone" id="dropzone" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
                     <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или нажмите сюда
                             и выберите их)</span>
@@ -634,7 +632,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" class="dropzone-ver" method="post" enctype="multipart/form-data">
+                <form action="" class="dropzone" id="dropzone-ver" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
                     <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или нажмите сюда
                             и выберите их)</span>
@@ -671,7 +669,7 @@
     var fileListVer = new Array;
     var i = 0;
     $(function() {
-        uploader = new Dropzone(".dropzone", {
+        uploader = new Dropzone("#dropzone", {
             url: "{{url('user/profiles/upload')}}",
             paramName: "file",
             uploadMultiple: false,
@@ -708,7 +706,7 @@
     });
 
     $(function() {
-        uploaderVer = new Dropzone(".dropzone-ver", {
+        uploaderVer = new Dropzone("#dropzone-ver", {
             url: "{{url('user/profiles/upload')}}",
             paramName: "file",
             uploadMultiple: false,
