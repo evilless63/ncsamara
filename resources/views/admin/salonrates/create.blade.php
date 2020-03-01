@@ -21,7 +21,7 @@
         </div>
         @endif
 
-        <form action="{{ route('admin.rates.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.salonrates.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="salonName">Наименование:</label>
@@ -41,6 +41,14 @@
                     id="profileDescription" rows="3">{!! old('description') !!}
                                 </textarea>
             </div>
+
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="premium"
+                        name="premium" value="1">
+                    <label class="form-check-label" for="premium">
+                        Размещать на главной страницы сайта салоны с таким тарифом
+                    </label>
+                </div>
 
             <button type="submit" class="btn btn-primary">Создать тариф</button>
         </form>

@@ -43,6 +43,7 @@ class ProfileController extends Controller
         $this->bonuses = Bonus::all();
         $this->districts = District::all();
         $this->salons = Salon::where('user_id', Auth::user())->get();
+
     }
 
     /**
@@ -99,7 +100,7 @@ class ProfileController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
+            'phone' => 'required|unique:App\Profile,phone',
             'about' => 'required',
             'district' => 'required',
             'boobs' => 'required|integer|between:1,10',
@@ -208,6 +209,12 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
+        if(!Auth::user()->is_admin) {
+            if($profile->user_id != Auth::user()->id) {
+                return back()->withSuccess('Нельзя редактировать чужие анкеты !');
+            }
+        }
+
         return view('user.profiles.edit', [
             'profile' => $profile,
             'services' => $this->services,
@@ -231,7 +238,7 @@ class ProfileController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
+            'phone' => 'required',
             'about' => 'required',
             'district' => 'required',
             'boobs' => 'required|integer|between:1,10',
@@ -529,7 +536,7 @@ class ProfileController extends Controller
         if ($isNew) {
             return $this->validate(request(), [
                 'name' => 'required',
-                'phone' => 'required|unique:App\Profile,phone|regex:/^((8)+([0-9]){10})$/i',
+                'phone' => 'required|unique:App\Profile,phone',
                 'about' => 'required',
                 'district' => 'required',
                 'boobs' => 'required|integer|between:1,10',
@@ -543,7 +550,7 @@ class ProfileController extends Controller
         } else {
             return $this->validate(request(), [
                 'name' => 'required',
-                'phone' => 'required|regex:/^((8)+([0-9]){10})$/i',
+                'phone' => 'required',
                 'about' => 'required',
                 'district' => 'required',
                 'boobs' => 'required|integer|between:1,10',
@@ -709,7 +716,7 @@ class ProfileController extends Controller
     {
 
         $profile = Profile::find(request()->profile_id);
-        $service = Profile::find(request()->service_id);
+        $service = Service::find(request()->service_id);
 
         if ($profile->user_id == Auth::user()->id) {
 
@@ -721,10 +728,28 @@ class ProfileController extends Controller
         }
     }
 
+    public function changephone()
+    {
+        $profile = Profile::find(request()->profile_id);
+        $profile->phone = request()->phone;
+        $profile->update();
+    }
+
+    public function changerate()
+    {
+        $profile = Profile::find(request()->profile_id);
+
+        $profile->rates()->detach();
+        $profile->rates()->attach(Rate::findOrFail(request()->rate_id));
+        $profile->update();
+    }
+
+    
+
     public function detachService()
     {
         $profile = Profile::find(request()->profile_id);
-        $service = Profile::find(request()->service_id);
+        $service = Service::find(request()->service_id);
 
         if ($profile->user_id == Auth::user()->id) {
 
@@ -736,7 +761,7 @@ class ProfileController extends Controller
     public function attachService()
     {
         $profile = Profile::find(request()->profile_id);
-        $service = Profile::find(request()->service_id);
+        $service = Service::find(request()->service_id);
 
         if ($profile->user_id == Auth::user()->id) {
 

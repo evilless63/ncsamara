@@ -41,19 +41,20 @@
         <form action="{{ route('user.salons.update', $salon->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('patch')
+            <h5>Поля, отмеченные "*" обязательны к заполнению</h5>
             <div class="form-group">
-                <label for="salonName">Наименование:</label>
+                <label for="salonName">Наименование *:</label>
                 <input name="name" type="text" id="salonName" class="form-control @error('name') is-invalid @enderror"
                     placeholder="Укажите название" value="{{ $salon->name }}">
             </div>
             <div class="form-group">
-                <label for="salonPhone">Телефон (Только ЦИФРЫ - 11 цифр номера телефона) :</label>
-                <input name="phone" type="text" id="salonPhone"
-                    class="form-control @error('phone') is-invalid @enderror" placeholder="Укажите телефон"
+                <label for="salonPhone">Телефон (Только ЦИФРЫ - 11 цифр номера телефона) *:</label>
+                <input name="phone" type="text" id="profilePhone"
+                    class="profilePhone form-control @error('phone') is-invalid @enderror" placeholder="Укажите телефон"
                     value="{{ $salon->phone }}">
             </div>
             <div class="form-group">
-                <label for="salonMinPrice">Минимальная стоимость услуг:</label>
+                <label for="salonMinPrice">Минимальная стоимость услуг *:</label>
                 <input name="min_price" type="number" id="salonMinPrice"
                     class="form-control @error('min_price') is-invalid @enderror" placeholder=""
                     value="{{ $salon->min_price }}">
@@ -143,7 +144,7 @@
             <div class="row mt-5">
                 <div class="col-md-12">
                     <div class="form-group form-inline">
-                        <label for="">Тарифный план: </span></label>
+                        <label for="">Тарифный план *: </span></label>
                         <input type="hidden" name="salonrate" value="
                                                     @if($salon->salonrates->count() > 0)
                                                         {{$salon->salonrates->first()}}

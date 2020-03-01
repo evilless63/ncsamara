@@ -61,9 +61,9 @@
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="form-control col-5" value="{{$profile->phone}}"
-                                    id="profilePhone{{$loop->iteration}}">
-                                <div class="btn btn-success col-4" style="padding: 0px 7.5px;">
+                                <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
+                                id="profilePhone{{$loop->iteration}}" profile-id="{{$profile->id}}">
+                                <div onclick="changePhoneNumber(event)" class="changePhoneNumber btn btn-success col-4" style="padding: 0px 7.5px; cursor:pointer">
                                     (изменить)
                                 </div>
                             </div>
@@ -170,9 +170,9 @@
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="form-control col-5" value="{{$profile->phone}}"
-                                    id="profilePhone{{$loop->iteration}}">
-                                <div class="btn btn-success col-4" style="padding: 0px 7.5px;">
+                                <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
+                                id="profilePhone{{$loop->iteration}}" profile-id="{{$profile->id}}">
+                                <div onclick="changePhoneNumber(event)" class="changePhoneNumber btn btn-success col-4" style="padding: 0px 7.5px; cursor:pointer">
                                     (изменить)
                                 </div>
                             </div>
@@ -279,9 +279,9 @@
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="form-control col-5" value="{{$profile->phone}}"
-                                    id="profilePhone{{$loop->iteration}}">
-                                <div class="btn btn-success col-4" style="padding: 0px 7.5px;">
+                                <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
+                                id="profilePhone{{$loop->iteration}}" profile-id="{{$profile->id}}">
+                                <div onclick="changePhoneNumber(event)" class="changePhoneNumber btn btn-success col-4" style="padding: 0px 7.5px; cursor:pointer">
                                     (изменить)
                                 </div>
                             </div>
@@ -340,4 +340,56 @@
 
 </div>
 
+@endsection
+
+@section('script')
+<script>
+function changePhoneNumber(event) {
+      event.preventDefault();
+      var number = $(event.target).parent().find('.profilePhone').val()
+      var profile = $(event.target).parent().find('.profilePhone').attr('profile-id')
+      $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "{{route('user.profilechangephone')}}",
+        type: "post",
+        data: {
+            phone: number,
+            profile_id: profile;
+        },
+        success: function(response) {
+          $(event.target).text('Телефон обновлен')
+
+          setTimeout(function(){
+              $(event.target).text('(изменить)');
+          }, 3000);
+        }
+      });
+    }
+
+function changeRateProfile(event) {
+      event.preventDefault();
+      var number = $(event.target).parent().find('.profilePhone').val()
+      var profile = $(event.target).parent().find('.profilePhone').attr('profile-id')
+      $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "{{route('user.profilechangerate')}}",
+        type: "post",
+        data: {
+            rate_id: number,
+            profile_id: profile;
+        },
+        success: function(response) {
+          $(event.target).text('Телефон обновлен')
+
+          setTimeout(function(){
+              $(event.target).text('(изменить)');
+          }, 3000);
+        }
+      });
+    }
+</script>
 @endsection

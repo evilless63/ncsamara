@@ -76,18 +76,18 @@
             @endif</h2>
         <div class="col-md-4 d-flex justify-content-between mt-3 mb-3">
             @if($profile->allowed)
-            @if($profile->is_published == 0)
-            <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
-                @csrf
-                @method('patch')
-                <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
-            </form>
-            @else
-            <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
-                @csrf
-                @method('patch')
-                <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
-            </form>
+                @if($profile->is_published == 0)
+                <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
+                    @csrf
+                    @method('patch')
+                    <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
+                </form>
+                @else
+                <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
+                    @csrf
+                    @method('patch')
+                    <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
+                </form>
 
             @if(Auth::user()->is_admin)
             <form action="{{ route('admin.profilemoderatedisallow', $profile->id) }}" method="POST">
@@ -97,16 +97,16 @@
             </form>
             @endif
             @endif
-            @else
-            @if(Auth::user()->is_admin)
-            <form action="{{ route('admin.profilemoderateallow', $profile->id) }}" method="POST">
-                @csrf
-                @method('patch')
-                <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Разрешить публикацию</button>
-            </form>
-            @else
-            Анкета на модерации администрации сайта
-            @endif
+                @else
+                @if(Auth::user()->is_admin)
+                <form action="{{ route('admin.profilemoderateallow', $profile->id) }}" method="POST">
+                    @csrf
+                    @method('patch')
+                    <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Разрешить публикацию</button>
+                </form>
+                @else
+                Анкета на модерации администрации сайта
+                @endif
             @endif
 
             @if(Auth::user()->is_admin)
@@ -160,44 +160,44 @@
                         <div class="col-md-7">
 
                             <h4 class="align-self-center mt-4 mb-4">Заполните все пункты анкеты</h4>
-
+                            <h5>Поля, отмеченные "*" обязательны к заполнению</h5>
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileName">Имя:</label>
+                                <label for="profileName">Имя *:</label>
                                 <input name="name" type="text" id="profileName"
                                     class="form-control col-8  @error('name') is-invalid @enderror"
                                     placeholder="Укажите имя в анкете" value="{{ $profile->name }}">
                             </div>
 
                             <div class="form-group  d-flex justify-content-between">
-                                <label for="profileAge">Возраст:</label>
+                                <label for="profileAge">Возраст *:</label>
                                 <input name="age" type="number" id="profileAge"
                                     class="form-control col-8 @error('age') is-invalid @enderror" placeholder=""
                                     value="{{ $profile->age }}" placeholder="Лет (18-75)">
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileHeight">Рост:</label>
+                                <label for="profileHeight">Рост *:</label>
                                 <input name="height" type="number" id="profileHeight"
                                     class="form-control col-8 @error('height') is-invalid @enderror" placeholder=""
                                     value="{{ $profile->height }}" placeholder="см. (130 -210)">
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileWeight">Вес:</label>
+                                <label for="profileWeight">Вес *:</label>
                                 <input name="weight" type="number" id="profileWeight"
                                     class="form-control col-8 @error('weight') is-invalid @enderror" placeholder=""
                                     value="{{ $profile->weight }}" placeholder="кг. (40-200)">
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileBoobs">Размер груди:</label>
+                                <label for="profileBoobs">Размер груди *:</label>
                                 <input name="boobs" type="number" id="profileBoobs"
                                     class="form-control col-8 @error('boobs') is-invalid @enderror" placeholder=""
                                     value="{{ $profile->boobs }}" placeholder="(1-7)">
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileAppearance">Цвет волос</label>
+                                <label for="profileAppearance">Цвет волос *</label>
                                 <select class="form-control col-8" name="hair" id="profileHair">
                                     @foreach($hairs as $hair)
                                     <option {{$profile->hairs->first()->id == $hair->id ? 'selected' : ''}}
@@ -208,7 +208,7 @@
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileAppearance">Внешность</label>
+                                <label for="profileAppearance">Внешность *</label>
                                 <select class="form-control col-8" name="appearance" id="profileAppearance">
                                     @foreach($appearances as $appearance)
                                     <option {{$profile->appearances->first()->id == $appearance->id ? 'selected' : ''}}
@@ -221,15 +221,15 @@
                             {{-- TODO - национальность (или внешность) уточнить, что и как должно быть --}}
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profilePhone">Телефон:</label>
+                                <label for="profilePhone">Телефон *:</label>
                                 <input name="phone" type="text" id="profilePhone"
-                                    class="form-control col-8 @error('phone') is-invalid @enderror"
+                                    class="profilePhone form-control col-8 @error('phone') is-invalid @enderror"
                                     placeholder="c 8, 11 цифр номера" value="{{ $profile->phone }}">
                                 {{-- TODO - макет для телефона js --}}
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileDistrict">Район города:</label>
+                                <label for="profileDistrict">Район города *:</label>
                                 <select class="form-control col-8" name="district" id="profileDistrict">
                                     @foreach($districts as $district)
 
@@ -241,14 +241,14 @@
                             </div>
 
                             <div class="form-group form-inline d-flex justify-content-between">
-                                <label for="profileWorkingHoursFrom">Время работы c: </label>
+                                <label for="profileWorkingHoursFrom">Время работы c *: </label>
 
                                 <input name="working_hours_from" type="number" min="0" max="24"
                                     id="profileWorkingHoursFrom"
                                     class="form-control @error('working_hours_from') is-invalid @enderror"
                                     value="{{ $profile->working_hours_from }}">
 
-                                <label for="profileWorkingHoursTo">до: </label>
+                                <label for="profileWorkingHoursTo">до *: </label>
 
                                 <input name="working_hours_to" type="number" min="0" max="24" id="profileWorkingHoursTo"
                                     class="form-control @error('working_hours_to') is-invalid @enderror"
@@ -256,11 +256,11 @@
 
                                 <div class="form-check">
                                     <input type="hidden" name="working_24_hours" value="0">
-                                    <input class="form-check-input" type="checkbox" id="profileWork24Hours"
+                                    <input class="form-check-input" onclick="initializeFromToWorkingHours(event)" type="checkbox" id="profileWork24Hours"
                                         name="working_24_hours" value="1"
                                         {{$profile->profileWork24Hours ? 'checked' : ''}}>
                                     <label class="form-check-label" for="profileWork24Hours">
-                                        Работаю всегда (без перерыва и выходных)
+                                        Работаю всегда (без перерыва и выходных) *
                                     </label>
                                 </div>
 
@@ -280,7 +280,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-inline d-flex justify-content-between">
-                                        <label for="profileOneHour">За час:</label>
+                                        <label for="profileOneHour">За час *:</label>
                                         <input name="one_hour" type="number" id="profileOneHour"
                                             class="form-control @error('one_hour') is-invalid @enderror" placeholder=""
                                             value="{{ $profile->one_hour }}">
@@ -290,7 +290,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-4">
                                     <div class="form-group form-inline d-flex justify-content-between">
-                                        <label for="profileTwoHour">За два:</label>
+                                        <label for="profileTwoHour">За два *:</label>
                                         <input name="two_hour" type="number" id="profileTwoHour"
                                             class="form-control @error('two_hour') is-invalid @enderror" placeholder=""
                                             value="{{ $profile->two_hour }}">
@@ -298,7 +298,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group form-inline d-flex justify-content-between">
-                                        <label for="profileAllNight">За ночь:</label>
+                                        <label for="profileAllNight">За ночь *:</label>
                                         <input name="all_night" type="number" id="profileAllNight"
                                             class="form-control @error('all_night') is-invalid @enderror" placeholder=""
                                             value="{{ $profile->all_night }}">
@@ -307,7 +307,7 @@
                             </div>
 
                             <div class="form-group mt-5 d-flex justify-content-between">
-                                <label for="profileOneHour">О себе:</label>
+                                <label for="profileOneHour">О себе *:</label>
                                 <textarea name="about" class="form-control col-10 @error('about') is-invalid @enderror"
                                     id="profileAbout" placeholder="О себе" rows="3">{!! $profile->about !!}</textarea>
                             </div>
@@ -511,7 +511,7 @@
                                 </div>
                             </div>
 
-                            <h4 class="mt-4 mb-4">Тарифный план</h4>
+                            <h4 class="mt-4 mb-4">Тарифный план *</h4>
 
                             <input type="hidden" name="rate" value="
                                                 @if($profile->rates->count() > 0)
@@ -785,6 +785,18 @@
         markersArray.forEach(function callback(marker, index, array) {
             marker.setMap(null)
         });
+    }
+
+    function initializeFromToWorkingHours(event) {
+        if($(event.target).prop("checked")){
+            $('#profileWorkingHoursFrom').val("")
+            $('#profileWorkingHoursFrom').attr("disabled", true)
+            $('#profileWorkingHoursTo').val("")
+            $('#profileWorkingHoursTo').attr("disabled", true)
+        } else {
+            $('#profileWorkingHoursFrom').attr("disabled", false)
+            $('#profileWorkingHoursTo').attr("disabled", false)
+        }
     }
 
     function initializePriseField(event) {

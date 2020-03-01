@@ -28,7 +28,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $rate->name }}</td>
                     <td>{{ $rate->cost }}</td>
-                    <td><a href="{{ route('admin.rates.edit', $rate->id) }}">Редактировать</a></td>
+                    <td><a href="{{ route('admin.salonrates.edit', $rate->id) }}">Редактировать</a></td>
                 </tr>
             </tbody>
             @empty

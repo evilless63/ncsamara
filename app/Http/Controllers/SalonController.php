@@ -95,6 +95,12 @@ class SalonController extends Controller
      */
     public function edit(Salon $salon)
     {
+        if(!Auth::user()->is_admin) {
+            if($salon->user_id != Auth::user()->id) {
+                return back()->withSuccess('Нельзя редактировать чужие анкеты !');
+            }
+        }
+
         return view('user.salons.edit', [
             'salon' => $salon,
             'salonrates' => $this->salonrates,
@@ -166,13 +172,13 @@ class SalonController extends Controller
             return request()->validate([
                 'name' => 'required',
                 'image' => 'required',
-                'phone' => 'required|unique:App\Salon,phone|regex:/^((\d)+([0-9]){10})$/i',
+                'phone' => 'required|unique:App\Salon,phone',
             ]);
         } else {
             return request()->validate([
                 'name' => 'required',
                 'image' => 'required',
-                'phone' => 'required|unique:App\Salon,phone|regex:/^((\d)+([0-9]){10})$/i',
+                'phone' => 'required',
             ]);
         }
 

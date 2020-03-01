@@ -7,7 +7,7 @@ use Transliterate;
 use Illuminate\Http\Request;
 use App\Bonus;
 
-class RateController extends Controller
+class SalonrateController extends Controller
 {
 
     public $bonuses;
@@ -24,7 +24,7 @@ class RateController extends Controller
     public function index()
     {
         return view('admin.salonrates.index', [
-            'rates' => Salonrate::all(),
+            'salonrates' => Salonrate::all(),
             'bonuses' => $this->bonuses
             ]);
     }
@@ -59,7 +59,7 @@ class RateController extends Controller
      * @param  \App\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function show(Rate $rate)
+    public function show(Salonrate $salonrate)
     {
         //
     }
@@ -70,10 +70,10 @@ class RateController extends Controller
      * @param  \App\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rate $rate)
+    public function edit(Salonrate $salonrate)
     {
         return view('admin.salonrates.edit', [
-            'rate' => $rate,
+            'salonrate' => $salonrate,
             'bonuses' => $this->bonuses
             ]);
     }
@@ -85,11 +85,11 @@ class RateController extends Controller
      * @param  \App\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rate $rate)
+    public function update(Request $request, Salonrate $salonrate)
     {
         $this->validateRate();
         $rate_data = request()->all();
-        $rate->update($rate_data);
+        $salonrate->update($rate_data);
 
         return redirect(route('admin.salonrates.index'))->withSuccess('Успешно обновлено');;
     }
@@ -100,7 +100,7 @@ class RateController extends Controller
      * @param  \App\Rate  $rate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rate $rate)
+    public function destroy(Salonrate $salonrate)
     {
         //
     }

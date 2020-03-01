@@ -14,6 +14,7 @@ use App\Appearance;
 use App\Hair;
 use App\Image;
 use App\Salon;
+use App\Salonrate;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -26,6 +27,7 @@ class SiteController extends Controller
     public $appearances;
     public $profiles;
     public $rates;
+    public $salonrates;
 
     public function __construct()
     {
@@ -34,6 +36,7 @@ class SiteController extends Controller
         $this->appearances = Appearance::all();
         $this->profiles = Profile::all();
         $this->rates = Rate::all();
+        $this->salonrates = Salonrate::all();
 
     }
 
@@ -84,7 +87,7 @@ class SiteController extends Controller
             'appearances' => $appearances,
             'districts' => $districts,
             'rates' => $this->rates,
-
+            'salonrates' => $this->salonrates,
             'filtersDefaultCollection' => $filtersDefaultCollection,
 
         ]);
@@ -271,7 +274,7 @@ class SiteController extends Controller
                     };
 
                     if(!$request->has('archived')) {
-                        $phone = '<span><a href="tel:' . $this->formatPhone($row->phone)  . '" style="color:#fff">'. $this->formatPhone($row->phone) . '</a></span>';
+                        $phone = '<span><a href="tel:'. $row->phone .'" style="color:#fff">'. $row->phone . '</a></span>';
                     } else {
                         $phone = '';
                     }
@@ -406,7 +409,7 @@ class SiteController extends Controller
 
     public function profile($id) {
 
-        $profile = Profile::where('id', $id)->where('allowed', '1')->where('is_published', '1')->first();
+        $profile = Profile::where('id', $id)->where('allowed', '1')->where('is_published', '1')->firstOrFail();
         $similarProfiles = Profile::where('is_published', '1')->where('allowed', '1')->take(18)->get();
 
         $parentServicesNeeds = $profile->services->pluck('parent_id');

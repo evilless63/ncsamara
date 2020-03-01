@@ -36,7 +36,14 @@
           @if(Auth::user()->is_admin)
           <div class="nav-item">
             <a class="nav-link" style="padding-left:0px !important" href="{{ route('admin.rates.create') }}">
-              <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Пользователи"> Создать тариф</p>
+              <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Пользователи"> Создать тариф для
+                анкеты</p>
+            </a>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" style="padding-left:0px !important" href="{{ route('admin.salonrates.create') }}">
+              <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Создать тариф для салона">
+                Создать тариф для салона</p>
             </a>
           </div>
           <div class="nav-item">
@@ -60,8 +67,9 @@
           <div class="nav-item">
             <p class="nav-link">
               <img src="{{asset('/admin/icons/ticketmessage.png')}}">
-              Сообщения: {!!Auth::user()->tickets->where('completed_at', '=', null )->count() 
-              ? '<a href="'.route('tickets.index').'">есть новые сообщения ('.Auth::user()->tickets->where('completed_at', '=', null )->count() .'шт), посмотрите !</a>'
+              Сообщения: {!!Auth::user()->tickets->where('completed_at', '=', null )->count()
+              ? '<a href="'.route('tickets.index').'">есть новые сообщения
+                ('.Auth::user()->tickets->where('completed_at', '=', null )->count() .'шт), посмотрите !</a>'
               : 'нет новых'!!}
             </p>
           </div>
@@ -191,7 +199,13 @@
 
               <li class="nav-item {{ Request::path() === 'admin/rates' ? 'admin-li-active' : ''}}">
                 <a class="nav-link" href="{{ route('admin.rates.index') }}">
-                  <p><img src="{{asset('/admin/icons/rates.png') }}" alt="Тарифы"> Тарифы</p>
+                  <p><img src="{{asset('/admin/icons/rates.png') }}" alt="Тарифы"> Тарифы для анкет</p>
+                </a>
+              </li>
+
+              <li class="nav-item {{ Request::path() === 'admin/salonrates' ? 'admin-li-active' : ''}}">
+                <a class="nav-link" href="{{ route('admin.salonrates.index') }}">
+                  <p><img src="{{asset('/admin/icons/rates.png') }}" alt="Тарифы"> Тарифы для салонов</p>
                 </a>
               </li>
 
@@ -206,7 +220,7 @@
                   <p><img src="{{asset('/admin/icons/bonuses.png') }}" alt="Бонусы"> Бонусы</p>
                 </a>
               </li>
-              
+
               @endif
 
               @if(Auth::user()->profiles()->count())
@@ -350,6 +364,7 @@
   </script>
 
   <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://unpkg.com/imask"></script>
 
   @yield('assetcarousel')
 
@@ -372,6 +387,16 @@
             }
         });
     })
+
+    $('.profilePhone').each(function(){
+      var phoneMask = IMask(
+          $(this)[0], {
+          mask: '+{7}(000)000-00-00'
+        });
+    });
+
+    
+        
 
 
     //главное изображение анкеты

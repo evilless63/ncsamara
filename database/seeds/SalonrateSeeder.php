@@ -14,14 +14,12 @@ class SalonrateSeeder extends Seeder
         DB::table('salonrates')->insert([
             'name' => 'Стандарт',
             'description' => 'Стандарт',
-            'image' => '',
             'cost' => '100',
         ]);
 
         DB::table('salonrates')->insert([
             'name' => 'Премиум',
             'description' => 'Премиум',
-            'image' => '',
             'cost' => '200',
         ]);
 

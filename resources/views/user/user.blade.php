@@ -20,6 +20,7 @@
             data-target="#collapseUserProfiles">
             Анкеты пользователей на модерацию
         </button>
+        <div class="collapse" id="collapseUserProfiles">
         <table class="table table-sm">
             <thead>
                 <tr>
@@ -92,14 +93,14 @@
             <p>Нет созданных анкет</p>
             @endforelse
         </table>
-
+        </div>
 
 
         <button class="btn btn-primary btn-block mt-2 admin-profile-choose" type="button" data-toggle="collapse"
             data-target="#collapseUserSalons">
             Баннеры пользователей на модерацию
         </button>
-
+        <div class="collapse" id="collapseUserSalons">
         <table class="table table-sm">
             <thead>
                 <tr>
@@ -154,6 +155,7 @@
             <p>Нет созданных баннеров</p>
             @endforelse
         </table>
+        </div>
     </div>
 
     @endif

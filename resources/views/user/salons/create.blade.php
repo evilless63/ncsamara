@@ -38,19 +38,21 @@
 
         <form action="{{ route('user.salons.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+
+            <h5>Поля, отмеченные "*" обязательны к заполнению</h5>
             <div class="form-group">
-                <label for="salonName">Наименование:</label>
+                <label for="salonName">Наименование *:</label>
                 <input name="name" type="text" id="salonName" class="form-control @error('name') is-invalid @enderror"
                     placeholder="Укажите название" value="{{ old('name') }}">
             </div>
             <div class="form-group">
-                <label for="salonPhone">Телефон (Только ЦИФРЫ - 11 цифр номера телефона):</label>
-                <input name="phone" type="text" id="salonPhone"
-                    class="form-control @error('phone') is-invalid @enderror" placeholder="Укажите телефон"
+                <label for="salonPhone">Телефон (Только ЦИФРЫ - 11 цифр номера телефона) *:</label>
+                <input name="phone" type="text" id="profilePhone"
+                    class="profilePhone form-control @error('phone') is-invalid @enderror" placeholder="Укажите телефон"
                     value="{{ old('phone') }}">
             </div>
             <div class="form-group">
-                <label for="salonMinPrice">Минимальная стоимость услуг:</label>
+                <label for="salonMinPrice">Минимальная стоимость услуг *:</label>
                 <input name="min_price" type="number" id="salonMinPrice"
                     class="form-control @error('min_price') is-invalid @enderror" placeholder=""
                     value="{{ old('min_price') }}">
@@ -58,7 +60,7 @@
 
             <div class="form-group">
                 <p>Изображение баннера<br>
-                    Необходимо использовать изображение размером 1140 на 300 пикселей или кратный указанному размер.</p>
+                    Необходимо использовать изображение размером 1140 на 300 пикселей или кратный указанному размер. *</p>
                 <label class="label" data-toggle="tooltip" title=""
                     data-original-title="Кликните для загрузки изображения баннера">
                     <img class="rounded" id="avatar_main" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">

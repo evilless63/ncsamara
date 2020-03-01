@@ -106,7 +106,7 @@
                             </td>
                             </td>
                             <td>
-                                @if($profile->is_published == 0)
+                                @if($profile->is_published == 1)
                                 Опубликована
                                 @else
                                 Неопубликована
