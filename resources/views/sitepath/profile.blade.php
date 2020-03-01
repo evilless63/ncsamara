@@ -68,7 +68,7 @@ class="profileBody"
         </div>
     </div>
     <!-- Swiper -->
-    
+
     <div class="row swiper-container">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -78,8 +78,8 @@ class="profileBody"
                         style="height: 372px;
                         background-size: cover;
                         background-position: center;
-                        background-image: url('{{asset('/images/profiles/images/created/' . $profile->main_image)}}');"
-                    ></div>
+                        background-image: url('{{asset('/images/profiles/images/created/' . $profile->main_image)}}');">
+                    </div>
                 </a>
             </div>
 
@@ -90,13 +90,11 @@ class="profileBody"
             <div class="swiper-slide">
                 <a data-index="{{$loop->index + 1}}" data-fancybox="gallery"
                     href="{{asset('/images/profiles/images/created/'. $image->name )}}" style="display:block">
-                    <div
-                        style="height: 372px;
+                    <div style="height: 372px;
                         background-size: cover;
                         background-position: center;
-                        background-image: url('{{asset('/images/profiles/images/created/'. $image->name )}}');"
-                    ></div>
-                    
+                        background-image: url('{{asset('/images/profiles/images/created/'. $image->name )}}');"></div>
+
                 </a>
             </div>
             @endforeach
@@ -116,7 +114,7 @@ class="profileBody"
 
     <div class="row mt-4">
         <div class="col-md-12 col-sm-12">
-            <h5 class="font-italic">О себе</h5>
+            <h4 class="font-italic">О себе</h4>
             <p class="font-italic priceFont">
                 {{ $profile->about }}
             </p>
@@ -125,7 +123,7 @@ class="profileBody"
 
     <div class="row mt-4">
         <div class="col-md-4 col-sm-12">
-            <h5 class="font-italic">Стоимость</h5>
+            <h4 class="font-italic">Стоимость</h4>
             <div class="d-flex justify-content-between">
                 @if($profile->euro_hour)
                 <div class="d-flex flex-column">
@@ -148,7 +146,7 @@ class="profileBody"
             </div>
         </div>
         <div class="col-md-4 col-sm-12 ml-5">
-            <h5 class="font-italic">Описание</h5>
+            <h4 class="font-italic">Описание</h4>
             <div class="d-flex flex-column">
                 <div class="row  d-flex justify-content-between align-items-end">
                     <div class="col-md-5 font-italic">Город</div>
@@ -206,14 +204,14 @@ class="profileBody"
     padding: 60px 60px 60px 30px !important;">
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <h5 class="font-italic">Услуги</h5>
+            <h4 class="font-italic">Услуги</h4>
             <div class="row ">
                 <div class="col">
                     @foreach($services as $service)
                     <div class="col d-flex">
                         <div class="row flex-column">
                             <div class="col mt-3">
-                                <h5 class="font-italic mb-2"><u>{{ $service->name }}:</u></h5>
+                                <h5 class="font-italic mb-2" style="font-weight: 900; font-size: 1.3em"><u>{{ $service->name }}:</u></h5>
 
                                 <div class="d-flex flex-column">
                                     @foreach($service->childrenRecursive as $serviceChild)
@@ -222,7 +220,7 @@ class="profileBody"
                                         class="font-italic">{{ $profile->services->where('id', $serviceChild->id)->first()->name }}
                                         @if($profile->services->where('id', $serviceChild->id)->first()->pivot->price <>
                                             null)
-                                            {{ ' + ' . $profile->services->where('id', $serviceChild->id)->first()->pivot->price . 'руб.'}}
+                                            {!! '<span class="service-price"> + ' . $profile->services->where('id', $serviceChild->id)->first()->pivot->price . 'руб. </span>'!!}
                                             @endif</span>
                                     @endif
                                     @endforeach
@@ -245,7 +243,7 @@ class="profileBody"
             <div id="nc-carouselSimilars" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
 
                 <div class="d-flex justify-content-between">
-                    <h5 class="font-italic">Похожие анкеты</h5>
+                    <h4 class="font-italic">Похожие анкеты</h4>
 
                     <div class="div d-flex justify-content-between">
                         <a class="mr-2" href="#nc-carouselSimilars" role="button" data-slide="prev">
@@ -263,8 +261,10 @@ class="profileBody"
                 <div class="carousel-inner">
                     @foreach($similarProfiles as $similar)
                     <div class="carousel-item @if($loop->iteration == 1) active @endif">
-                        <img src="{{asset('/images/profiles/images/created/' . $similar->main_image)}}"
-                            class="img-fluid mt-3" title="{{$similar->name}}">
+                        <a href="{{route("getprofile", $similar->id)}}">
+                            <img src="{{asset('/images/profiles/images/created/' . $similar->main_image)}}"
+                                class="img-fluid mt-3" title="{{$similar->name}}">
+                        </a>
                     </div>
                     @endforeach
                 </div>

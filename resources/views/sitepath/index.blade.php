@@ -127,8 +127,7 @@
                     </div>
 
                     <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за 1 час (от {{$filtersDefaultCollection['one_hour_min'] }} до
-                            {{$filtersDefaultCollection['one_hour_max']}})</h6>
+                        <h6 class="h6 mb-2">Цена за 1 час</h6>
                         <div class="form-row">
                             <div class="col">
                                 <input type="text" class="form-control" placeholder="от" name="one_hour_min"
@@ -140,37 +139,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за 2 часа (от {{$filtersDefaultCollection['two_hour_min']}} до
-                            {{$filtersDefaultCollection['two_hour_max']}})</h6>
-                        <div class="form-row">
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="от" name="two_hour_min"
-                                    {{ app('request')->has('two_hour_min') == true ? app('request')->two_hour_min : $filtersDefaultCollection['two_hour_min']  }}>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="до" name="two_hour_max"
-                                    {{ app('request')->has('two_hour_max') == true ? app('request')->two_hour_max : $filtersDefaultCollection['two_hour_max']  }}>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="nc-prices mb-4">
-                        <h6 class="h6 mb-2">Цена за ночь (от {{$filtersDefaultCollection['all_night_min']}} до
-                            {{$filtersDefaultCollection['all_night_max']}})</h6>
-                        <div class="form-row">
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="от" name="all_night_min"
-                                    {{ app('request')->has('all_night_min') == true ? app('request')->all_night_min : $filtersDefaultCollection['all_night_min']  }}>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="до" name="all_night_max"
-                                    {{ app('request')->has('all_night_max') == true ? app('request')->all_night_max : $filtersDefaultCollection['all_night_max']  }}>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="panel-group nc-collapse" id="accordion" role="tablist" aria-multiselectable="true">
                         <div class="panel panel-default">
@@ -568,10 +536,6 @@
 
                 obj.one_hour_min = $( "input[name=one_hour_min]" ).val();
                 obj.one_hour_max = $( "input[name=one_hour_max]" ).val();
-                obj.two_hour_min = $( "input[name=two_hour_min]" ).val();
-                obj.two_hour_max = $( "input[name=two_hour_max]" ).val();
-                obj.all_night_min = $( "input[name=all_night_min]" ).val();
-                obj.all_night_max = $( "input[name=all_night_max]" ).val();
                 obj.age_min = $('input[id=nc-age]').val().split(',')[0];
                 obj.age_max = $('input[id=nc-age]').val().split(',')[1];
                 obj.height_min = $('input[id=nc-height]').val().split(',')[0];

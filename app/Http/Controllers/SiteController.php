@@ -297,7 +297,7 @@ class SiteController extends Controller
                         background-size: cover;
                         "
                         >
-                            <div class="nc-card-top">
+                            <div class="nc-card-top flex-grow-1" style="cursor:pointer" onclick="location.href=\''. route("getprofile", $row->id) . '\'">
                                 <div class="d-flex flex-column justify-content-between align-items-end">
                                     '. $verified . $apartments . $check_out .'
                                 </div>
@@ -332,7 +332,7 @@ class SiteController extends Controller
                                     background-size: cover;
                                     "
                                     >
-                                        <div class="nc-card-top">
+                                        <div class="nc-card-top flex-grow-1" style="cursor:pointer" onclick="location.href=\''. route("getprofile", $row->id) . '\'">
                                             <div class="d-flex flex-column justify-content-between align-items-end">
                                                 '. $verified . $apartments . $check_out .'
                                             </div>
