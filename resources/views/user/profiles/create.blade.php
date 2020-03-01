@@ -11,26 +11,55 @@
 <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2zWS_b-EUkyWjg4cqA_TN-l-lch8-LXo&libraries=places"></script>
 
-
 <script>
-    // Initialize and add the map
-    //function initMap() {
-        // The location of Uluru
-        var first = {lat: 53.224834, lng: 50.190315};
-        var second = {lat: 53.225946, lng: 50.201663};
-        var third = {lat: 53.222105, lng: 50.201953};
-        // The map, centered at Uluru
-        var map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 15, center: first});
-        // The marker, positioned at Uluru
-        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-
-        google.maps.event.addListener(marker, 'click', function() {
-            window.location.href = this.url;
-        });
-    //}
+    let map;
+            let markerUse;
+            let markersArray = [];
+        
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {
+                        lat: 53.224834,
+                        lng: 50.190315
+                    },
+                    zoom: 15
+                });
+        
+                let latLng = new google.maps.LatLng('1', '1');
+                addMarker(latLng);
+                
+        
+                map.addListener('click', function(e) {
+                    console.log(e);
+                    addMarker(e.latLng);
+                });
+            }
+        
+            // define function to add marker at given lat & lng
+            function addMarker(latLng) {
+        
+                for (var i = 0; i < markersArray.length; i++) {
+                    markersArray[i].setMap(null);
+                }
+                markersArray.length = 0;
+        
+                let marker = new google.maps.Marker({
+                    map: map,
+                    position: latLng,
+                    draggable: true,
+                    title: 'Я здесь !'
+                });
+        
+                document.getElementById("address_x").value = latLng.lat();
+                document.getElementById("address_y").value = latLng.lng();
+        
+                markersArray.push(marker);
+            }
 </script>
 
+<script async defer type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2zWS_b-EUkyWjg4cqA_TN-l-lch8-LXo&libraries=places&callback=initMap">
+</script>
 
 @endsection
 
@@ -68,8 +97,8 @@
                     <div class="form-group d-flex justify-content-between">
                         <label for="profileName">Имя:</label>
                         <input name="name" type="text" id="profileName"
-                            class="form-control col-8 @error('name') is-invalid @enderror" placeholder="Укажите имя в анкете"
-                            value="{{ old('name') }}">
+                            class="form-control col-8 @error('name') is-invalid @enderror"
+                            placeholder="Укажите имя в анкете" value="{{ old('name') }}">
                     </div>
 
                     <div class="form-group d-flex justify-content-between">
@@ -123,8 +152,8 @@
                     <div class="form-group d-flex justify-content-between">
                         <label for="profilePhone">Телефон:</label>
                         <input name="phone" type="text" id="profilePhone"
-                            class="form-control col-8 @error('phone') is-invalid @enderror" placeholder="c 8, 11 цифр номера"
-                            value="{{ old('phone') }}">
+                            class="form-control col-8 @error('phone') is-invalid @enderror"
+                            placeholder="c 8, 11 цифр номера" value="{{ old('phone') }}">
                         {{-- TODO - макет для телефона js --}}
                     </div>
 
@@ -236,6 +265,31 @@
                         </div>
                     </div>
 
+                    <div class="row mt-5">
+                        <div class="col-md-8">
+                            <p>Вы можете отметить ваше местоположение на карте. В таком случае, всем
+                                пользователям
+                                сайта будет доступна эта информация</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="deleteImage btn btn-danger" onclick="removeMarker(event)">Удалить с
+                                карты
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+
+
+
+                            <div id="map" style="width: 100%;
+                                    height: 450px;
+                                    background-color: grey;"></div>
+
+
+                            <input type="hidden" name="address_x" id="address_x" value="{{ old('address_x') }}">
+                            <input type="hidden" name="address_y" id="address_y" value="{{ old('address_y') }}">
+                        </div>
+                    </div>
+
                     <hr>
 
                     <h4 class="align-self-center mt-4 mb-4">Добавление / редактирование фотографий</h4>
@@ -319,8 +373,8 @@
                     </p>
 
                     <div class="form-group">
-                        <input type="hidden" autocomplete="OFF" name="item_images_verification" id="item_images_verification" placeholder=""
-                            class="form-control input-sm" />
+                        <input type="hidden" autocomplete="OFF" name="item_images_verification"
+                            id="item_images_verification" placeholder="" class="form-control input-sm" />
                         <div class="dropzone" id="dropzone-ver">
                             <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или
                                     нажмите сюда и выберите их)</span></div>
@@ -344,8 +398,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
 
 
+
 <script>
-Dropzone.autoDiscover = false;
+
+function removeMarker(event) {
+        document.getElementById("address_x").value = '1';
+        document.getElementById("address_y").value = '1';  
+
+        markersArray.forEach(function callback(marker, index, array) {
+            marker.setMap(null)
+        });
+    }
+    
+    Dropzone.autoDiscover = false;
 var acceptedFileTypes = "image/*"; //dropzone requires this param be a comma separated list
 // imageDataArray variable to set value in crud form
 var imageDataArray = new Array;

@@ -28,9 +28,20 @@ Route::get('/admin', 'HomeController@index')->name('admin')->middleware(['verifi
 Route::get('/user', 'HomeController@user')->name('user')->middleware(['verified', 'is_banned']);
 
 //Route::prefix('user')->name('user.')->middleware('verified')->group(function () {
-Route::prefix('user')->middleware('is_banned')->name('user.')->group(function () {
+Route::prefix('user')->middleware(['is_banned'])->name('user.')->group(function () {
+
+
     Route::resource('profiles', 'ProfileController');
     Route::resource('salons', 'SalonController');
+
+    Route::patch('profilepublish/{id}', 'ProfileController@publish')->name('profilepublish');
+    Route::patch('profileunpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
+    Route::patch('salonpublish/{id}', 'SalonController@publish')->name('salonpublish');
+    Route::patch('salonunpublish/{id}', 'SalonController@unpublish')->name('salonunpublish');
+    Route::post('/changeserviceprice', 'ProfileController@changeServicePrice')->name('service.pricechange');
+
+    Route::post('/detachservice', 'ProfileController@detachService')->name('service.detach');
+    Route::post('/attachservice', 'ProfileController@attachService')->name('service.attach');
 
     Route::get('payments', 'ProfileController@payments')->name('payments');
     Route::post('makepayment', 'ProfileController@makepayment')->name('makepayment');
@@ -38,14 +49,6 @@ Route::prefix('user')->middleware('is_banned')->name('user.')->group(function ()
     Route::get('errorpayment', 'ProfileController@errorpayment')->name('errorpayment');
     Route::post('plusbonusinfo', 'ProfileController@plusbonusinfo')->name('plusbonusinfo');
     Route::post('promotionalpayment', 'ProfileController@promotionalpayment')->name('promotionalpayment');
-
-    Route::patch('profilepublish/{id}', 'ProfileController@publish')->name('profilepublish');
-    Route::patch('profileunpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
-
-    Route::patch('salonpublish/{id}', 'SalonController@publish')->name('salonpublish');
-    Route::patch('salonunpublish/{id}', 'SalonController@unpublish')->name('salonunpublish');
-
-    Route::post('/changeserviceprice', 'ProfileController@changeServicePrice')->name('service.pricechange');
     Route::post('/deleteimagesattach', 'ProfileController@deleteimagesattach')->name('images.deleteimageattach');
 });
 
@@ -53,6 +56,7 @@ Route::prefix('admin')->middleware('is_admin')->name('admin.')->group(function (
     Route::get('profiles', 'ProfileController@adminindex')->name('adminprofiles');
     Route::resource('services', 'ServiceController');
     Route::resource('rates', 'RateController');
+    Route::resource('salonrates', 'SalonrateController');
     Route::resource('promotionals', 'PromotionalController');
     Route::resource('bonuses', 'BonusController');
 

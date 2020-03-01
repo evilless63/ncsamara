@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bonus;
-use App\Rate;
+use App\Salonrate;
 use App\Salon;
 use App\Statistic;
 use App\User;
@@ -17,13 +17,13 @@ use Transliterate;
 class SalonController extends Controller
 {
 
-    public $rates;
+    public $salonrates;
     public $bonuses;
 
     public function __construct()
     {
         $this->middleware('auth');
-        $this->rates = Rate::where('for_salons', 1)->get();
+        $this->salonrates = Salonrate::all();
         $this->bonuses = Bonus::all();
     }
     /**
@@ -36,7 +36,7 @@ class SalonController extends Controller
         return view('user.salons.index',
             [
                 'salons' => Auth::user()->salons()->get(),
-                'rates' => $this->rates,
+                'salonrates' => $this->salonrates,
                 'bonuses' => $this->bonuses]
         );
     }
@@ -70,7 +70,9 @@ class SalonController extends Controller
             $salon_data = Arr::add($salon_data, 'allowed', 1);
         }
 
-        Salon::create($salon_data);
+        $salon = Salon::create($salon_data);
+
+        $salon->salonrates()->attach(Salonrate::first());
         return redirect(route('user.salons.index'))->withSuccess('Успешно создано');
     }
 
@@ -95,7 +97,7 @@ class SalonController extends Controller
     {
         return view('user.salons.edit', [
             'salon' => $salon,
-            'rates' => $this->rates,
+            'salonrates' => $this->salonrates,
             'bonuses' => $this->bonuses,
         ]);
     }
@@ -133,8 +135,8 @@ class SalonController extends Controller
         $salon->update($salon_data);
 
         if (request()->filled('rate')) {
-            $salon->rates()->detach();
-            $salon->rates()->attach(Rate::findOrFail(request()->rate));
+            $salon->salonrates()->detach();
+            $salon->salonrates()->attach(Salonrate::findOrFail(request()->salonrate));
         }
 
         return back()->withSuccess('Успешно обновлено');
@@ -152,7 +154,7 @@ class SalonController extends Controller
         return view('user.salons.index',
             [
                 'salons' => Auth::user()->salons()->get(),
-                'rates' => $this->rates,
+                'salonrates' => $this->salonrates,
                 'bonuses' => $this->bonuses]
         )->withSuccess('Успешно удалено');
     }
@@ -163,16 +165,14 @@ class SalonController extends Controller
         if ($isNew) {
             return request()->validate([
                 'name' => 'required',
-                // 'address' => 'required',
                 'image' => 'required',
                 'phone' => 'required|unique:App\Salon,phone|regex:/^((\d)+([0-9]){10})$/i',
             ]);
         } else {
             return request()->validate([
                 'name' => 'required',
-                // 'address' => 'required',
                 'image' => 'required',
-                'phone' => 'required|regex:/^((\d)+([0-9]){10})$/i',
+                'phone' => 'required|unique:App\Salon,phone|regex:/^((\d)+([0-9]){10})$/i',
             ]);
         }
 
@@ -237,7 +237,7 @@ class SalonController extends Controller
 
         } else {
 
-            if ($salon->rates->count() > 0) {
+            if ($salon->salonrates->count() > 0) {
                 $this->activate($request, $id);
             } else {
                 return back()->withSuccess('Сначала выберите тариф !');
@@ -271,7 +271,7 @@ class SalonController extends Controller
 
             if (!$is_cron) {
                 $user = $salon->user;
-                $rate = $salon->rates->first();
+                $rate = $salon->salonrates->first();
                 $hour = Carbon::now()->timezone(config('app.timezone'))->format('H');
                 $cost = ($rate->cost / 24 * (24 - $hour));
                 $user['user_balance'] = $user->user_balance + $cost;
@@ -313,7 +313,7 @@ class SalonController extends Controller
             return;
         }
 
-        $rate = $salon->rates->first();
+        $rate = $salon->salonrates->first();
         $hour = Carbon::now()->timezone(config('app.timezone'))->format('H');
 
         if ($is_cron) {

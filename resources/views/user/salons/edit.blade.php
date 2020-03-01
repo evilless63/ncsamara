@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('google_api_autocomplete')
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2zWS_b-EUkyWjg4cqA_TN-l-lch8-LXo&libraries=places"></script>
 
@@ -19,7 +20,7 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
 
-        <h2>Редактирование баннера</h2>
+        <h2>Редактирование баннера {{$salon->name}}</h2>
         {{-- TODO Разобраться с кнопками управления --}}
         @if(count($errors))
         <div class="alert alert-danger">
@@ -57,16 +58,6 @@
                     class="form-control @error('min_price') is-invalid @enderror" placeholder=""
                     value="{{ $salon->min_price }}">
             </div>
-            <!-- <div class="form-group">
-                                <label for="salonAddress">Адрес:</label>
-                                <input name="address" type="text" id="salonAddress" class="form-control @error('address') is-invalid @enderror"
-                                       placeholder="Укажите адрес салона" value="{{ $salon->address }}">
-                                {{--                                <input type="hidden" name="address_x" value="{{ old('address_x') }} ">--}}
-                                {{--                                <input type="hidden" name="address_y" value="{{ old('address_y') }}">--}}
-                                <input type="hidden" name="address_x" value="1">
-                                <input type="hidden" name="address_y" value="1">
-                                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                            </div> -->
 
             @if(Auth::user()->is_admin)
             <div class="form-check">
@@ -88,58 +79,64 @@
             <h5 class="font-weight-light text-center text-lg-left mt-4 mb-0">Текущее изображение / назначить новое</h5>
 
             <hr class="mt-2 mb-5">
-            <h5>Изображение баннера</h5>
-            <div class="col-lg-3 col-md-4 col-6">
-                <a href="#" class="d-block mb-4 h-100">
-                    <img class="img-fluid img-thumbnail delpath"
-                        delpath="{{asset('/images/salons/created/' . $salon->image) }}"
-                        src="{{ asset('/images/salons/created/' . $salon->image) }}" alt="">
-                </a>
-            </div>
 
-            <div class="form-group">
-                <p>Новое изображение<br>
-                    Необходимо использовать изображение размером 1140 на 300 пикселей или кратный указанному размер.</p>
-                <label class="label" data-toggle="tooltip" title=""
-                    data-original-title="Кликните для загрузки основного изображения баннера">
-                    <img class="rounded" id="avatar_main" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
-                    <input type="file" class="sr-only" id="input_main" name="image" accept="image/*">
-                </label>
-                {{-- <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-                                </div>
-                                <div class="alert" role="alert"></div> --}}
-                <div class="modal fade" id="modal_main" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLabel_main">Выберите учаток изображения для загрузки
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого изображения,
-                                    перетаскивайте активную зону</p>
-                                <div class="img-container">
-                                    <img id="image" src="">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                                <button type="button" class="btn btn-primary" id="crop_main">Загрузить</button>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Текущее изображение баннера</h5>
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <a data-index="0" data-fancybox="gallery1"
+                        href="{{ asset('/images/salons/created/' . $salon->image) }}" style="display:block" class="d-block mb-4 h-100">
+                            <img class="img-fluid img-thumbnail delpath"
+                                delpath="{{asset('/images/salons/created/' . $salon->image) }}"
+                                src="{{ asset('/images/salons/created/' . $salon->image) }}" alt="">
+                        </a>
                     </div>
                 </div>
-                <br>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <p>Новое изображение<br>
+                            Необходимо использовать изображение размером 1140 на 300 пикселей или кратный указанному размер.</p>
+                        <label class="label" data-toggle="tooltip" title=""
+                            data-original-title="Кликните для загрузки основного изображения баннера">
+                            <img class="rounded" id="avatar_main" src="{{asset('/admin/icons/add_img.png')}}" alt="avatar">
+                            <input type="file" class="sr-only" id="input_main" name="image" accept="image/*">
+                        </label>
 
-                {{-- <input type="hidden" name="image" value="{{ $salon->image }}"> --}}
-                <input type="hidden" autocomplete="OFF" name="image" id="main_salon_image" placeholder=""
-                    class="form-control input-sm" value="{{ $salon->image }}" />
+                        <div class="modal fade" id="modal_main" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel_main">Выберите учаток изображения для загрузки
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого изображения,
+                                            перетаскивайте активную зону</p>
+                                        <div class="img-container">
+                                            <img id="image" src="">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                        <button type="button" class="btn btn-primary" id="crop_main">Загрузить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+        
+                        <input type="hidden" autocomplete="OFF" name="image" id="main_salon_image" placeholder=""
+                            class="form-control input-sm" value="{{ $salon->image }}" />
+                    </div>
+                </div>
             </div>
+            
+
+            
 
             <hr class="mt-2 mb-5">
 
@@ -147,17 +144,17 @@
                 <div class="col-md-12">
                     <div class="form-group form-inline">
                         <label for="">Тарифный план: </span></label>
-                        <input type="hidden" name="rate" value="
-                                                    @if($salon->rates->count() > 0)
-                                                        {{$salon->rates->first()}}
+                        <input type="hidden" name="salonrate" value="
+                                                    @if($salon->salonrates->count() > 0)
+                                                        {{$salon->salonrates->first()}}
                                                     @endif">
-                        <select class="form-control" style="width:100%" name="rate" id="profileRate">
+                        <select class="form-control" style="width:100%" name="salonrate" id="profileRate">
                             <option></option>
 
-                            @foreach($rates as $rate)
+                            @foreach($salonrates as $rate)
                             @if($rate->id)
                             <option value="{{$rate->id}}"
-                                {{$salon->rates->count() > 0 && $salon->rates->first()->id  == $rate->id ? 'selected' : ''}}>
+                                {{$salon->salonrates->count() > 0 && $salon->salonrates->first()->id  == $rate->id ? 'selected' : ''}}>
                                 {{ $rate->name }} {{$rate->cost}} руб. / сутки</option>
                             @endif
                             @endforeach

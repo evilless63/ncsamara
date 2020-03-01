@@ -4,7 +4,7 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-12">
-        <h2>Создание тарифа</h2>
+        <h2>Создание тарифа для анкет</h2>
         @if(count($errors))
         <div class="alert alert-danger">
             <ul>
@@ -40,27 +40,6 @@
                 <textarea name="description" class="form-control @error('description') is-invalid @enderror"
                     id="profileDescription" rows="3">{!! old('description') !!}
                                 </textarea>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="profileWork24Hours" name="for_salons" value="1">
-                <label class="form-check-label" for="profileWork24Hours">
-                    Использовать для баннера
-                </label>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="profileWork24Hours" name="salons_main" value="1">
-                <label class="form-check-label" for="profileWork24Hours">
-                    Использовать для размещения баннера на главной странице сайта
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="image">Изображение</label>
-                <br>
-                <input type="file" autocomplete="OFF" name="image" id="image" placeholder=""
-                    class="form-control input-sm" />
             </div>
 
             <button type="submit" class="btn btn-primary">Создать тариф</button>

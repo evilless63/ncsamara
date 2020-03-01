@@ -17,8 +17,8 @@
         <div class="collapse" id="is_published">
             @foreach($profiles->where('allowed', '1')->where('is_published', '1') as $profile)
             <div class="row">
-                <div class="col-md-3">
-                    <img src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
+                <div class="col-md-2">
+                    <img class="img-fluid" style="max-width:52%" src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
                         alt="{{$profile->name}}">
                 </div>
                 <div class="col-md-6">
@@ -57,21 +57,21 @@
 
                     <div class="row mt-5">
                         <div class="col-md-12">
-                            <div class="row form-group d-flex justify-content-start align-items-center">
+                            <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="form-control col-6" value="{{$profile->phone}}"
+                                <input type="text" class="form-control col-5" value="{{$profile->phone}}"
                                     id="profilePhone{{$loop->iteration}}">
                                 <div class="btn btn-success col-4" style="padding: 0px 7.5px;">
                                     (изменить)
                                 </div>
                             </div>
 
-                            <div class="row form-group d-flex justify-content-start align-items-center">
+                            <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div for="profileName" class="col-2">Тариф:</div>
 
-                                <select class="form-control form-inline col-6" name="rate"
+                                <select class="form-control form-inline col-5" name="rate"
                                     id="profileRate{{$loop->iteration}}">
                                     {{-- TODO роут для смены тарифа динамически --}}
                                     <option></option>
@@ -126,8 +126,8 @@
         <div class="collapse" id="not_published">
             @foreach($profiles->where('allowed', '1')->where('is_published', '0') as $profile)
             <div class="row">
-                <div class="col-md-3">
-                    <img src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
+                <div class="col-md-2">
+                    <img class="img-fluid" style="max-width:52%" src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
                         alt="{{$profile->name}}">
                 </div>
                 <div class="col-md-6">
@@ -166,21 +166,21 @@
 
                     <div class="row mt-5">
                         <div class="col-md-12">
-                            <div class="row form-group d-flex justify-content-start align-items-center">
+                            <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="form-control col-6" value="{{$profile->phone}}"
+                                <input type="text" class="form-control col-5" value="{{$profile->phone}}"
                                     id="profilePhone{{$loop->iteration}}">
                                 <div class="btn btn-success col-4" style="padding: 0px 7.5px;">
                                     (изменить)
                                 </div>
                             </div>
 
-                            <div class="row form-group d-flex justify-content-start align-items-center">
+                            <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div for="profileName" class="col-2">Тариф:</div>
 
-                                <select class="form-control form-inline col-6" name="rate"
+                                <select class="form-control form-inline col-5" name="rate"
                                     id="profileRate{{$loop->iteration}}">
                                     {{-- TODO роут для смены тарифа динамически --}}
                                     <option></option>
@@ -235,8 +235,8 @@
         <div class="collapse" id="on_moderate">
             @foreach($profiles->where('allowed', '0') as $profile)
             <div class="row">
-                <div class="col-md-3">
-                    <img src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
+                <div class="col-md-2">
+                    <img class="img-fluid" style="max-width:52%" src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
                         alt="{{$profile->name}}">
                 </div>
                 <div class="col-md-6">
@@ -275,21 +275,21 @@
 
                     <div class="row mt-5">
                         <div class="col-md-12">
-                            <div class="row form-group d-flex justify-content-start align-items-center">
+                            <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="form-control col-6" value="{{$profile->phone}}"
+                                <input type="text" class="form-control col-5" value="{{$profile->phone}}"
                                     id="profilePhone{{$loop->iteration}}">
                                 <div class="btn btn-success col-4" style="padding: 0px 7.5px;">
                                     (изменить)
                                 </div>
                             </div>
 
-                            <div class="row form-group d-flex justify-content-start align-items-center">
+                            <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div for="profileName" class="col-2">Тариф:</div>
 
-                                <select class="form-control form-inline col-6" name="rate"
+                                <select class="form-control form-inline col-5" name="rate"
                                     id="profileRate{{$loop->iteration}}">
                                     {{-- TODO роут для смены тарифа динамически --}}
                                     <option></option>

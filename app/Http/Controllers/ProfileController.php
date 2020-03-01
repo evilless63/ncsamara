@@ -185,6 +185,7 @@ class ProfileController extends Controller
 
         // return redirect(route('user.profiles.index'))->withSuccess('Успешно создано');
         return redirect(route('user.profiles.edit', $profile->id))->withSuccess('Успешно создано. Нажмите "Услуги" чтобы перейти к выбору услуг');
+        // TODO: При созданиии, автоматически переключаться на услуги
 
     }
 
@@ -274,12 +275,12 @@ class ProfileController extends Controller
             }
         }
 
-        if (request()->filled('services')) {
-            $profile->services()->detach();
-            foreach (request('services') as $service) {
-                $profile->services()->attach(Service::findOrFail($service));
-            }
-        }
+        // if (request()->filled('services')) {
+        //     $profile->services()->detach();
+        //     foreach (request('services') as $service) {
+        //         $profile->services()->attach(Service::findOrFail($service));
+        //     }
+        // }
         $profile->update($profileArr);
 
         if (request()->filled('appearance')) {
@@ -718,6 +719,32 @@ class ProfileController extends Controller
             );
 
         }
+    }
+
+    public function detachService()
+    {
+        $profile = Profile::find(request()->profile_id);
+        $service = Profile::find(request()->service_id);
+
+        if ($profile->user_id == Auth::user()->id) {
+
+            $profile->services()->detach($service);
+
+        }
+    }
+
+    public function attachService()
+    {
+        $profile = Profile::find(request()->profile_id);
+        $service = Profile::find(request()->service_id);
+
+        if ($profile->user_id == Auth::user()->id) {
+
+            $profile->services()->attach(
+                $service, ['price' => request()->price]
+            );
+
+        }  
     }
 
     public function deleteimagesattach()

@@ -13,16 +13,16 @@ class CreateRateSalonTable extends Migration
      */
     public function up()
     {
-        Schema::create('rate_salon', function (Blueprint $table) {
+        Schema::create('salonrate_salon', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
 
-            $table->unsignedBigInteger('rate_id');
+            $table->unsignedBigInteger('salonrate_id');
             $table->unsignedBigInteger('salon_id');
 
-            $table->unique(['rate_id','salon_id']);
+            $table->unique(['salonrate_id','salon_id']);
 
-            $table->foreign('rate_id')->references('id')->on('rates')->onDelete('cascade');
+            $table->foreign('salonrate_id')->references('id')->on('salonrates')->onDelete('cascade');
             $table->foreign('salon_id')->references('id')->on('salons')->onDelete('cascade');
         });
     }
@@ -34,6 +34,6 @@ class CreateRateSalonTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rate_salon');
+        Schema::dropIfExists('salonrate_salon');
     }
 }

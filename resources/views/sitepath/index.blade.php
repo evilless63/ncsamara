@@ -6,11 +6,17 @@
     <div class="row">
         <div id="nc-carouselSalons" class="carousel slide carousel-fade nc-carousel mt-3" data-ride="carousel">
             <div class="carousel-inner">
-                @foreach($rates->where('for_salons', 1) as $rate)
-                    @foreach($rate->salons->where('is_published', 1) as $salon)
+                @foreach($salonrates->where('premium', 1) as $rate)
+                    @foreach($rate->salons->where('is_published', 1)->shuffle()->all() as $salon)
                         @if($salon->image)
                         <div class="carousel-item @if($loop->first) active @endif">
-                            <img src="{{ asset('/images/salons/created/' . $salon->image) }}" class="d-block w-100">
+
+                            <div class="salonWrapper">
+                                <p class="salonName">{{ $salon->name }} @if($salon->min_price <> null) | от {{$salon->min_price}} руб @endif</p>
+                                <img src="{{ asset('/images/salons/created/' . $salon->image) }}" class="d-block w-100">
+                                <p class="salonPhone"><a href="tel:{{ $salon->phone }}" style="color: #fff">{{ $salon->phone }}</a></p>
+                            </div>
+                            
                         </div>
                         @endif
                     @endforeach

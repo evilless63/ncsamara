@@ -8,6 +8,7 @@
 @endsection
 
 @section('google_api_autocomplete')
+
 <script>
     let map;
     let markerUse;
@@ -67,13 +68,13 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         {{-- TODO Разобраться с кнопками управления --}}
-        <h2>Редактирование анкеты
+        <h2>Редактирование анкеты {{$profile->name}}
             @if($profile->verified)
             (Подтверждена)
             @else
             (Не подтверждена)
             @endif</h2>
-        <div class="col-md-3 d-flex justify-content-between mt-3 mb-3">
+        <div class="col-md-4 d-flex justify-content-between mt-3 mb-3">
             @if($profile->allowed)
             @if($profile->is_published == 0)
             <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
@@ -423,7 +424,7 @@
                                 </div>
                                 <br>
                                 <input type="hidden" autocomplete="OFF" name="main_image" id="main_image" placeholder=""
-                                    class="form-control input-sm" />
+                                    class="form-control input-sm" value="{{$profile->main_image}}" />
                             </div>
 
                             <hr>
@@ -433,19 +434,28 @@
                             <div class="row align-items-center">
                                 <div class="col-md-10 owl-carousel owl-theme">
                                     <div class="col-md-12 imageContainer">
-                                        <img class="img-fluid delpath"
-                                            delpath="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
-                                            src="{{ asset('/images/profiles/images/created/' . $profile->main_image) }}"
-                                            alt="">
-                                        <div class="deleteImage btn btn-danger">Главное фото</div>
+                                        <a data-index="0" data-fancybox="gallery1"
+                                            href="{{asset('/images/profiles/images/created/' . $profile->main_image)}}"
+                                            style="display:block">
+                                            <img class="img-fluid delpath"
+                                                delpath="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
+                                                src="{{ asset('/images/profiles/images/created/' . $profile->main_image) }}"
+                                                alt="">
+                                            <div class="deleteImage btn btn-danger">Главное фото</div>
+                                        </a>
                                     </div>
                                     @foreach($profile->images->where('verification_img', '0')->all() as $image)
                                     <div class="col-md-12 imageContainer item">
-                                        <img class="img-fluid delpath"
-                                            delpath="{{'/images/profiles/images/created/' . $image->name }}"
-                                            src="{{ '/images/profiles/images/created/' . $image->name }}" alt="">
-                                        <div class="deleteImage btn btn-danger" onclick="deleteImagesAttached(event)"
-                                            imageId="{{$image->id}}">Удалить</div>
+                                        <a data-index="0" data-fancybox="gallery1"
+                                            href="{{asset('/images/profiles/images/created/' . $image->name)}}"
+                                            style="display:block">
+                                            <img class="img-fluid delpath"
+                                                delpath="{{'/images/profiles/images/created/' . $image->name }}"
+                                                src="{{ '/images/profiles/images/created/' . $image->name }}" alt="">
+                                            <div class="deleteImage btn btn-danger"
+                                                onclick="deleteImagesAttached(event)" imageId="{{$image->id}}">Удалить
+                                            </div>
+                                        </a>
                                     </div>
                                     @endforeach
                                 </div>
@@ -476,19 +486,24 @@
                                 <div class="col-md-10 owl-carousel owl-theme">
                                     @foreach($profile->images->where('verification_img', '1')->all() as $image)
                                     <div class="col-md-12 imageContainer item">
-                                        <img class="img-fluid delpath"
-                                            delpath="{{'/images/profiles/images/created/' . $image->name }}"
-                                            src="{{ '/images/profiles/images/created/' . $image->name }}" alt="">
-                                        <div class="deleteImage btn btn-danger" onclick="deleteImagesAttached(event)"
-                                            imageId="{{$image->id}}">Удалить</div>
+                                        <a data-index="0" data-fancybox="gallery2"
+                                            href="{{asset('/images/profiles/images/created/' . $image->name)}}"
+                                            style="display:block">
+                                            <img class="img-fluid delpath"
+                                                delpath="{{'/images/profiles/images/created/' . $image->name }}"
+                                                src="{{ '/images/profiles/images/created/' . $image->name }}" alt="">
+                                            <div class="deleteImage btn btn-danger"
+                                                onclick="deleteImagesAttached(event)" imageId="{{$image->id}}">Удалить
+                                            </div>
+                                        </a>
                                     </div>
                                     @endforeach
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="hidden" autocomplete="OFF" name="item_images_verification"
-                                            id="item_images_verification" placeholder="" class="form-control input-sm"
-                                            required />
+                                            id="item_images_verification" placeholder=""
+                                            class="form-control input-sm" />
                                         <button type="button" class="btn btn-lg add-image-button" data-toggle="modal"
                                             data-target="#myModalItem_images_verification"><i
                                                 class="fas fa-plus"></i></button>
@@ -527,7 +542,7 @@
 
                     @foreach($service->childrenRecursive as $service)
                     <div class="form-check ml-2">
-                        <div class="row profileServiceBlock" profile-id="{{$profile->id}}"
+                        <div class="row profileServiceBlock mt-1" profile-id="{{$profile->id}}"
                             service-id="{{$service->id}}">
                             <div class="col-md-4">
                                 <input class="form-check-input profileServiceCheckbox"
@@ -542,33 +557,39 @@
                                 @if(Auth::user()->id === $profile->user_id && $profile->services->find($service->id) <>
                                     null)
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <span>доп. цена:
-                                                {{ $service->pivot <> null ? $service->pivot->price : 'не указана' }}</span>
+                                    <div class="row profileServicePriceRow">
+                                        <div class="col-md-4 servicePriceUpdateInfo">
+                                            <span>Доплата за услугу:</span>
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-between servicePriceUpdate">
                                             <input style="    width: 65%;" class="form-control"
                                                 data-price="{{ $service->pivot <> null ? $service->pivot->price : '' }}"
                                                 data-service-id="{{$service->id}}" data-profile-id="{{$profile->id}}"
                                                 name="priceupdate" type="text"
-                                                value="@if($profile->services->where('id', $service->id)->first()->pivot <> null) {{$profile->services->where('id', $service->id)->first()->pivot->price}}@endif">
+                                                value="@if($profile->services->where('id', $service->id)->first()->pivot->price) {{$profile->services->where('id', $service->id)->first()->pivot->price}}@endif">
 
-                                            <div class="btn btn-success btn-fab btn-fab-mini btn-round"
+                                            <div class="btn btn-success btn-fab btn-fab-mini btn-round price_update_info"
                                                 style="padding:0rem .75rem" data-toggle="tooltip" data-placement="top"
                                                 title="Обновить цену услуги" onclick="updateServicePrice(event)">
-                                                Обновить цену
-                                                <span class="price_update_info"></span>
+
+                                                @if($profile->services->where('id', $service->id)->first()->pivot->price)
+
+                                                    Изменить/Удалить доплату
+                                                    @else
+                                                    Добавить доплату
+                                                    @endif
+
                                             </div>
                                         </div>
                                     </div>
 
                                     @else
                                     <div class="row profileServicePriceRow">
-                                        <div class="col-md-4">
-                                            <span>{{ $service->pivot<> null ? $service->pivot->price . 'р.' : ''}}
-                                            </span>
-                                        </div>
+
+                                        {!! $service->pivot<> null ? '<div class="col-md-4"><span>Доплата за услугу:' .
+                                                    $service->pivot->price . 'р.</span></div>' : ''!!}
+
+
 
                                     </div>
 
@@ -772,17 +793,54 @@
 
         if($(event.target).prop("checked")) {
             $(event.target).parent().parent().find('.profileServicePriceRow').append(
+            '<div class="col-md-4 servicePriceUpdateInfo">'+
+                '<span>Доплата за услугу:</span></div>' +                           
             '<div class="col-md-8 d-flex justify-content-between servicePriceUpdate">' +
                 '<input style="    width: 65%;" class="form-control" data-service-id="' + service_id + '" data-profile-id="' + profile_id + '" name="priceupdate" type="text" value="">' +
 
-                '<div class="btn btn-success btn-fab btn-fab-mini btn-round" style="padding:0rem .75rem" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги" onclick="updateServicePrice(event)">' +
-                    'Обновить цену' +
-                    '<span class="price_update_info"></span>' +
+                '<div class="btn btn-success btn-fab btn-fab-mini btn-round price_update_info" style="padding:0rem .75rem" data-toggle="tooltip" data-placement="top" title="Обновить цену услуги" onclick="updateServicePrice(event)">' +
+                    'Добавить доплату' +
                 '</div>' +
             '</div>'
             ) 
+
+            var price = $(event.target).parent('.servicePriceUpdate').find('input[name=priceupdate]').val()
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{route('user.service.attach')}}",
+                type: "post",
+                data: {
+                    profile_id: profile_id,
+                    service_id: service_id,
+                    price: price
+                },
+                success: function(response) {
+
+                }
+            });
+
         } else {
             $(event.target).parent().parent().find('.servicePriceUpdate').remove()
+            $(event.target).parent().parent().find('.servicePriceUpdateInfo').remove()
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{route('user.service.detach')}}",
+                type: "post",
+                data: {
+                    profile_id: profile_id,
+                    service_id: service_id,
+                    price: price
+                },
+                success: function(response) {
+
+                }
+            });
         }
        
     }
@@ -809,9 +867,7 @@
                 $(event.target).parent('.servicePriceUpdate').find('.price_update_info').text('Цена успешно обновлена')
 
                 setTimeout(function(){
-09
-                    $(event.target).parent('.servicePriceUpdate').find('.price_update_info').text('');
-10
+                    $(event.target).parent('.servicePriceUpdate').find('.price_update_info').text(!price ? 'Добавить доплату' : 'Изменить/Удалить доплату');
                 }, 3000);
             }
         });

@@ -28,7 +28,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td><img src="{{asset('/admin/icons/profileicon.png')}}"> {{ $salon->name }}</td>
                     <td><img src="{{asset('/admin/icons/phoneicon.png')}}"> {{ $salon->phone }}</td>
-                    <td><img src="{{asset('/admin/icons/profilerate.png')}}"> {{ $salon->rates->first() ? $salon->rates->first()->name : 'Не назначен'}}</td>
+                    <td><img src="{{asset('/admin/icons/profilerate.png')}}"> {{ $salon->salonrates->first() ? $salon->salonrates->first()->name : 'Не назначен'}}</td>
                     <td><a class="btn btn-ncherry" href="{{route('user.salons.edit', $salon->id)}}"><img
                                 src="{{asset('/admin/icons/profileedit.png')}}"> редактировать баннер</a></td>
                     <td>

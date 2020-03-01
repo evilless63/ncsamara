@@ -12,7 +12,7 @@ class Salon extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function rates() {
-        return $this->belongsToMany('App\Rate');
+    public function salonrates() {
+        return $this->belongsToMany('App\Salonrate');
     }
 }

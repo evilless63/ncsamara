@@ -17,6 +17,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('/admin/dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/admin/dist/css/cropper.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -59,7 +60,9 @@
           <div class="nav-item">
             <p class="nav-link">
               <img src="{{asset('/admin/icons/ticketmessage.png')}}">
-              Сообщения: {{Auth::user()->tickets->where('completed_at', '=', null )->count()}}
+              Сообщения: {!!Auth::user()->tickets->where('completed_at', '=', null )->count() 
+              ? '<a href="'.route('tickets.index').'">есть новые сообщения ('.Auth::user()->tickets->where('completed_at', '=', null )->count() .'шт), посмотрите !</a>'
+              : 'нет новых'!!}
             </p>
           </div>
           <div class="nav-item">
@@ -345,6 +348,8 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
   </script>
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
   @yield('assetcarousel')
 
