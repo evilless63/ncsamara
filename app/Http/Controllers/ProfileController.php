@@ -607,12 +607,39 @@ class ProfileController extends Controller
 
     public function payments()
     {
+
+        $salon_summ = 0;
+        if(Auth::user()->is_admin) {
+            $salons = Salon::where('is_published', '1')->get();
+        } else {
+            $salons = Salon::where('is_published', '1')->where('user_id', Auth::user()->id)->get();
+        }
+        
+        foreach($salons as $salon) {
+           $salon_summ = $salon_summ  +  $salon->salonrates()->first()->cost;
+        }
+
+        $profile_summ = 0;
+        if(Auth::user()->is_admin) {
+            $profiles = Profile::where('is_published', '1')->get();
+        } else {
+            $profiles = Profile::where('is_published', '1')->where('user_id', Auth::user()->id)->get();
+        }
+        
+        foreach($profiles as $profile) {
+           $profile_summ = $profile_summ  +  $profile->rates()->first()->cost;
+        }
+
         $salon = Auth::user()->salons();
         return view('user.payments.index', [
             'profiles' => Auth::user()->profiles,
             'hairs' => $this->hairs,
             'rates' => $this->rates,
+            'rates' => $this->rates,
             'bonuses' => $this->bonuses,
+            'salon_summ' => $salon_summ,
+            'profile_summ' => $profile_summ,
+            'statistics' => Statistic::where('user_id', Auth::user()->id)->get(),
             'salon' => $salon,
         ]);
     }

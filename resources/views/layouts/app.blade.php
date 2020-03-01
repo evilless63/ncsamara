@@ -177,7 +177,7 @@
 
               <li class="nav-item {{ Request::path() === 'user/payments' ? 'admin-li-active' : ''}}">
                 <a class="nav-link" href="{{ route('user.payments') }}">
-                  <p><img src="{{asset('/admin/icons/salon.png') }}" alt="Мой салон"> Финансы</p>
+                  <p><img src="{{asset('/admin/icons/salon.png') }}" alt="Мой салон"> Финансовая информация</p>
                 </a>
               </li>
 
@@ -223,16 +223,7 @@
 
               @endif
 
-              @if(Auth::user()->profiles()->count())
-              <hr>
-              <li class="nav-header">Информация о моих анкетах</li>
-              <li class="nav-item"><i class="nav-icon far fa-circle text-yellow"></i> <span style="color: #fff">Всего:
-                  {{ Auth::user()->profiles()->count()}}</span></li>
-              <li class="nav-item"><i class="nav-icon far fa-circle text-green"></i> <span style="color: #fff">Активно:
-                  {{ Auth::user()->profiles()->where('is_published', 1)->count()}}</span></li>
-              <li class="nav-item"><i class="nav-icon far fa-circle text-red"></i> <span style="color: #fff">Не
-                  оплаченных: {{ Auth::user()->profiles()->where('is_published', 0)->count()}}</span></li>
-              @endif
+             
             </ul>
             @endif
 

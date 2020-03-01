@@ -2,12 +2,17 @@
 
 @section('content')
 
-<div class="row justify-content-center">
-    <h2>Мой баланс и оплата</h2>
 
-    <div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Финансовая информация</h2>
         <h6>Баланс на аккаунте: {{ Auth::user()->user_balance }} пойнтов</h6>
-        <hr>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
         <form method="POST" action="https://merchant.webmoney.ru/lmi/payment_utf.asp" accept-charset="utf-8">
             <div class="form-group">
                 <label for="userPayment">Пополнить на сумму:</label>
@@ -42,84 +47,91 @@
 
             </div>
         </form>
-
-        <div class="d-flex">
-            <div class="col-3">
-                <div class="page-account__sidebar-item sidebar-titled">
-                    <div class="sidebar-titled__title">
-                        <div class="text">Анкеты</div>
-                    </div>
-                    <div class="sidebar-titled__body">
-                        <ul class="sidebar-titled__list">
-                            <li>
-                                <div class="name">Всего:</div>
-                                <div class="value">1 шт.</div>
-                            </li>
-                            <li>
-                                <div class="name">Активные:</div>
-                                <div class="value">0 шт.</div>
-                            </li>
-                            <li>
-                                <div class="name">Отключенные:</div>
-                                <div class="value">1 шт.</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="page-account__sidebar-item sidebar-titled">
-                    <div class="sidebar-titled__title">
-                        <div class="icon">
-                            <img src="/templates/Default/img/icon-sidebar-3.svg" alt="">
-                        </div>
-                        <div class="text">Просмотры</div>
-                    </div>
-                    <div class="sidebar-titled__body">
-                        <ul class="sidebar-titled__list">
-                            <li>
-                                <div class="name">Сегодня:</div>
-                                <div class="value">0</div>
-                            </li>
-                            <li>
-                                <div class="name">Вчера:</div>
-                                <div class="value">0</div>
-                            </li>
-                            <li>
-                                <div class="name">За все время:</div>
-                                <div class="value">0</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="page-account__sidebar-item sidebar-titled">
-                    <div class="sidebar-titled__title">
-                        <div class="icon">
-                            <img src="/templates/Default/img/icon-sidebar-4.svg" alt="">
-                        </div>
-                        <div class="text">Расход</div>
-                    </div>
-                    <div class="sidebar-titled__body">
-                        <ul class="sidebar-titled__list">
-                            <li>
-                                <div class="value">0 р./день</div>
-                            </li>
-                            <li>
-                                <div class="value">0 р./неделя</div>
-                            </li>
-                            <li>
-                                <div class="value">0 р./мес</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
+<div class="row mt-5">
+    <div class="col-md-4">
+        <h4 class="text">Анкеты</h4>
+        @if(Auth::user() !== null)
+
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+            @if(Auth::user()->profiles()->count())
+            <li class="nav-item"><i class="nav-icon far fa-circle text-yellow"></i> <span>На модерации:
+                    {{ Auth::user()->profiles()->where('allowed', 0)->count()}}</span></li>
+            <li class="nav-item"><i class="nav-icon far fa-circle text-green"></i> <span>Активно:
+                    {{ Auth::user()->profiles()->where('is_published', 1)->count()}}</span></li>
+            <li class="nav-item"><i class="nav-icon far fa-circle text-red"></i> <span>Не
+                    оплаченных: {{ Auth::user()->profiles()->where('is_published', 0)->count()}}</span></li>
+            @else
+            <p>Нет созданных анкет.</p>
+            @endif
+        </ul>
+        @endif
+    </div>
+    <div class="col-md-4">
+        <h4 class="text">Баннеры</h4>
+        @if(Auth::user() !== null)
+
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+            @if(Auth::user()->salons()->count())
+            <li class="nav-item"><i class="nav-icon far fa-circle text-yellow"></i> <span>На модерации:
+                    {{ Auth::user()->salons()->where('allowed', 0)->count()}}</span></li>
+            <li class="nav-item"><i class="nav-icon far fa-circle text-green"></i> <span>Активно:
+                    {{ Auth::user()->salons()->where('is_published', 1)->count()}}</span></li>
+            <li class="nav-item"><i class="nav-icon far fa-circle text-red"></i> <span>Не активно:
+                    {{ Auth::user()->salons()->where('is_published', 0)->count()}}</span></li>
+            @else
+            <p>Нет созданных баннеров.</p>
+            @endif
+        </ul>
+        @endif
+    </div>
+    <div class="col-md-4">
+        <h4>Сумма списания @if(Auth::user()->is_admin) (все пользователи) @endif</h4>
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+            <li class="nav-item"><i class="nav-icon far fa-circle text-yellow"></i> <span>По баннерам:
+                    {{$salon_summ}} руб./сутки</span></li>
+            <li class="nav-item"><i class="nav-icon far fa-circle text-green"></i> <span>По анкетам:
+                    {{$profile_summ}} руб./сутки</span></li>
+
+        </ul>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h4 class="text">История платежей</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Сумма оплаты</th>
+                    <th scope="col">Дата платежа</th>
+                </tr>
+            </thead>
+            @forelse ($statistics as $statistic)
+            <tbody>
+                <tr>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{$statistic->payment}} руб.</td>
+                    <td>{{$statistic->where_was}}</td>
+                </tr>
+            </tbody>
+            @empty
+            <p>Нет поступивших оплат</p>
+            @endforelse
+        </table>
+    </div>
+</div>
+
+
 
 @endsection
 
