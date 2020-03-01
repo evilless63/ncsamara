@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salon extends Model
 {
-    protected $guarded = ['rate'];
+    protected $guarded = ['rate', 'salonrate'];
 
     public function user() {
         return $this->belongsTo('App\User');

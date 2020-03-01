@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSalonrateSalonTable extends Migration
+class CreateSalonSalonrateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateSalonrateSalonTable extends Migration
      */
     public function up()
     {
-        Schema::create('salonrate_salon', function (Blueprint $table) {
+        Schema::create('salon_salonrate', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
 
-            $table->unsignedBigInteger('salonrate_id');
             $table->unsignedBigInteger('salon_id');
+            $table->unsignedBigInteger('salonrate_id'); 
 
-            $table->unique(['salonrate_id','salon_id']);
+            $table->unique(['salon_id','salonrate_id']);
 
-            $table->foreign('salonrate_id')->references('id')->on('salonrates')->onDelete('cascade');
             $table->foreign('salon_id')->references('id')->on('salons')->onDelete('cascade');
+            $table->foreign('salonrate_id')->references('id')->on('salonrates')->onDelete('cascade');         
         });
     }
 

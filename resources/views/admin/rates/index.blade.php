@@ -16,7 +16,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Наименование</th>
-                    <th scope="col">Сумма к списанию</th>
+                    <th scope="col">Сумма к списанию</th> 
                     <th scope="col">Редактировать</th>
                 </tr>
             </thead>

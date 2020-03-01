@@ -12,9 +12,9 @@
                         <div class="carousel-item @if($loop->first) active @endif">
 
                             <div class="salonWrapper">
-                                <p class="salonName">{{ $salon->name }} @if($salon->min_price <> null) | от {{$salon->min_price}} руб @endif</p>
+                                <p class="salonName" style="font-size: 2em">{{ $salon->name }} @if($salon->min_price <> null) | от {{$salon->min_price}} руб @endif</p>
                                 <img src="{{ asset('/images/salons/created/' . $salon->image) }}" class="d-block w-100">
-                                <p class="salonPhone"><a href="tel:{{ $salon->phone }}" style="color: #fff">{{ $salon->phone }}</a></p>
+                                <p class="salonPhone" style="font-size: 2em"><a href="tel:{{ $salon->phone }}" style="color: #fff">{{ $salon->phone }}</a></p>
                             </div>
                             
                         </div>

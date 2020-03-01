@@ -17,6 +17,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Наименование</th>
                     <th scope="col">Сумма к списанию</th>
+                    <th scope="col">Публиковать на главной</th>
                     <th scope="col">Редактировать</th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $rate->name }}</td>
                     <td>{{ $rate->cost }}</td>
+                    <td>{{ $rate->premium }}</td>
                     <td><a href="{{ route('admin.salonrates.edit', $rate->id) }}">Редактировать</a></td>
                 </tr>
             </tbody>

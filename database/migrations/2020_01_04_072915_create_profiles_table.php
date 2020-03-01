@@ -41,10 +41,10 @@ class CreateProfilesTable extends Migration
 
             $table->boolean('apartments')->default(false);
             $table->boolean('check_out')->default(false);
-            $table->boolean('check_out_rooms')->default(false);
-            $table->boolean('check_out_hotels')->default(false);
-            $table->boolean('check_out_saunas')->default(false);
-            $table->boolean('check_out_offices')->default(false);
+            $table->boolean('check_out_rooms')->nullable()->default(false);
+            $table->boolean('check_out_hotels')->nullable()->default(false);
+            $table->boolean('check_out_saunas')->nullable()->default(false);
+            $table->boolean('check_out_offices')->nullable()->default(false);
             $table->boolean('verified')->default(false);
 
             $table->boolean('is_published')->default(false);

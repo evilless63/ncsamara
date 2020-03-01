@@ -62,7 +62,20 @@ class="profileBody"
                 @endif
 
                 @if($profile->check_out)
-                <li class="tagsInfo font-italic">Выезд</li>
+                <li class="tagsInfo font-italic">Выезд 
+                    @if($profile->check_out_rooms)
+                    Квартиры
+                    @endif
+                    @if($profile->check_out_hotels)
+                    Гостиницы
+                    @endif
+                    @if($profile->check_out_saunas)
+                    Сауны
+                    @endif
+                    @if($profile->check_out_offices)
+                    Офисы
+                    @endif
+                </li>
                 @endif
             </ul>
         </div>

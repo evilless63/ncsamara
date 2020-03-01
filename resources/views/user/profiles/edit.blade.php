@@ -169,28 +169,28 @@
                             </div>
 
                             <div class="form-group  d-flex justify-content-between">
-                                <label for="profileAge">Возраст *:</label>
+                                <label for="profileAge">Возраст (лет,18-75)*:</label>
                                 <input name="age" type="number" id="profileAge"
                                     class="form-control col-8 @error('age') is-invalid @enderror" placeholder=""
                                     value="{{ $profile->age }}" placeholder="Лет (18-75)">
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileHeight">Рост *:</label>
+                                <label for="profileHeight">Рост (см,130-210)*:</label>
                                 <input name="height" type="number" id="profileHeight"
                                     class="form-control col-8 @error('height') is-invalid @enderror" placeholder=""
                                     value="{{ $profile->height }}" placeholder="см. (130 -210)">
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileWeight">Вес *:</label>
+                                <label for="profileWeight">Вес (кг,40-200)*:</label>
                                 <input name="weight" type="number" id="profileWeight"
                                     class="form-control col-8 @error('weight') is-invalid @enderror" placeholder=""
                                     value="{{ $profile->weight }}" placeholder="кг. (40-200)">
                             </div>
 
                             <div class="form-group d-flex justify-content-between">
-                                <label for="profileBoobs">Размер груди *:</label>
+                                <label for="profileBoobs">Размер груди (1-7)*:</label>
                                 <input name="boobs" type="number" id="profileBoobs"
                                     class="form-control col-8 @error('boobs') is-invalid @enderror" placeholder=""
                                     value="{{ $profile->boobs }}" placeholder="(1-7)">
@@ -278,11 +278,11 @@
                                             value="{{ $profile->euro_hour }}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group form-inline d-flex justify-content-between">
-                                        <label for="profileOneHour">За час *:</label>
+                                        <label for="profileOneHour">За час (руб, от 1000 до 50000)*:</label>
                                         <input name="one_hour" type="number" id="profileOneHour"
-                                            class="form-control @error('one_hour') is-invalid @enderror" placeholder=""
+                                            class="form-control @error('one_hour') is-invalid @enderror" placeholder="от 1000 до 50000"
                                             value="{{ $profile->one_hour }}">
                                     </div>
                                 </div>
@@ -290,17 +290,17 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-4">
                                     <div class="form-group form-inline d-flex justify-content-between">
-                                        <label for="profileTwoHour">За два *:</label>
+                                        <label for="profileTwoHour">За два (руб, от 1000 до 100000)*:</label>
                                         <input name="two_hour" type="number" id="profileTwoHour"
-                                            class="form-control @error('two_hour') is-invalid @enderror" placeholder=""
+                                            class="form-control @error('two_hour') is-invalid @enderror" placeholder="от 1000 до 100000"
                                             value="{{ $profile->two_hour }}">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="form-group form-inline d-flex justify-content-between">
-                                        <label for="profileAllNight">За ночь *:</label>
+                                        <label for="profileAllNight">За ночь (руб, от 1000 до 1000000)*:</label>
                                         <input name="all_night" type="number" id="profileAllNight"
-                                            class="form-control @error('all_night') is-invalid @enderror" placeholder=""
+                                            class="form-control @error('all_night') is-invalid @enderror" placeholder="от 1000 до 1000000"
                                             value="{{ $profile->all_night }}">
                                     </div>
                                 </div>
@@ -328,7 +328,7 @@
                                     <div class="form-check align-self-center">
 
                                         <input type="hidden" name="check_out" value="0">
-                                        <input class="form-check-input mt-3" type="checkbox" id="profileCheckOut"
+                                        <input onclick="showHideEtc(event)" class="form-check-input mt-3" type="checkbox" id="profileCheckOut"
                                             name="check_out" value="1" {{$profile->check_out ? 'checked' : ''}}>
                                         <label class="form-check-label  mt-2" for="profileCheckOut">
                                             Выезжаю
@@ -340,6 +340,35 @@
                                                     - Офисы 
                                                     
                                                     Необязательный реквизит--}}
+
+                                        <div class="form-check align-self-center ml-3" id="check_out_rooms">
+                                            <input type="hidden" name="check_out_rooms" value="0">
+                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_rooms" value="1" {{$profile->check_out_rooms ? 'checked' : ''}}>
+                                            <label class="form-check-label  mt-2" for="check_out_rooms">
+                                                Квартиры
+                                            </label>
+                                        </div>
+                                        <div class="form-check align-self-center ml-3" id="check_out_hotels">
+                                            <input type="hidden" name="check_out_hotels" value="0">
+                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_hotels" value="1" {{$profile->check_out_hotels ? 'checked' : ''}}>
+                                            <label class="form-check-label  mt-2" for="check_out_hotels">
+                                                Гостиницы
+                                            </label>
+                                        </div>
+                                        <div class="form-check align-self-center ml-3" id="check_out_saunas">
+                                            <input type="hidden" name="check_out_saunas" value="0">
+                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_saunas" value="1" {{$profile->check_out_saunas ? 'checked' : ''}}>
+                                            <label class="form-check-label  mt-2" for="check_out_saunas">
+                                                Сауны
+                                            </label>
+                                        </div>
+                                        <div class="form-check align-self-center ml-3" id="check_out_offices">
+                                            <input type="hidden" name="check_out_offices" value="0">
+                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_offices" value="1" {{$profile->check_out_offices ? 'checked' : ''}}>
+                                            <label class="form-check-label  mt-2" for="check_out_offices">
+                                                Офисы
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -462,7 +491,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="hidden" autocomplete="OFF" name="item_images" id="item_images"
-                                            placeholder="" class="form-control input-sm" required />
+                                            placeholder="" class="form-control input-sm" />
                                         <button type="button" class="btn btn-lg add-image-button" data-toggle="modal"
                                             data-target="#myModal"><i class="fas fa-plus"></i></button>
                                     </div>
@@ -505,7 +534,7 @@
                                             id="item_images_verification" placeholder=""
                                             class="form-control input-sm" />
                                         <button type="button" class="btn btn-lg add-image-button" data-toggle="modal"
-                                            data-target="#myModalItem_images_verification"><i
+                                            data-target="#ModalItemVer"><i
                                                 class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
@@ -619,7 +648,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Загрузка новых изображений</h5>
+                <h5 class="modal-title">Загрузка новых изображений</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -641,13 +670,13 @@
 <!-- MODAL END -->
 
 <!-- MODAL VERIFICATION START -->
-<div class="modal fade" id="myModalItem_images_verification" role="dialog">
+<div class="modal fade" id="ModalItemVer" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Загрузка новых изображений</h5>
+                <h5 class="modal-title">Загрузка новых изображений</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -786,6 +815,43 @@
             marker.setMap(null)
         });
     }
+
+    function showHideEtc(event){
+        if($(event.target).prop("checked")){
+            $('#check_out_rooms').show();
+            $('#check_out_hotels').show();
+            $('#check_out_saunas').show();
+            $('#check_out_offices').show();
+        } else {
+            $('#check_out_rooms').find('input').prop('checked', false);
+            $('#check_out_hotels').find('input').prop('checked', false);
+            $('#check_out_offices').find('input').prop('checked', false);
+            $('#check_out_saunas').find('input').prop('checked', false);
+            $('#check_out_rooms').hide();
+            $('#check_out_hotels').hide();
+            $('#check_out_saunas').hide();
+            $('#check_out_offices').hide();
+        }
+    }
+
+    $(document).ready(function(){
+        if($('#profileCheckOut').prop("checked")){
+            $('#check_out_rooms').show();
+            $('#check_out_hotels').show();
+            $('#check_out_saunas').show();
+            $('#check_out_offices').show();
+        } else {
+            $('#check_out_rooms').find('input').prop('checked', false);
+            $('#check_out_hotels').find('input').prop('checked', false);
+            $('#check_out_offices').find('input').prop('checked', false);
+            $('#check_out_saunas').find('input').prop('checked', false);
+            $('#check_out_rooms').hide();
+            $('#check_out_hotels').hide();
+            $('#check_out_saunas').hide();
+            $('#check_out_offices').hide();
+        }
+    });
+        
 
     function initializeFromToWorkingHours(event) {
         if($(event.target).prop("checked")){

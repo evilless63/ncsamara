@@ -140,7 +140,7 @@ class SalonController extends Controller
 
         $salon->update($salon_data);
 
-        if (request()->filled('rate')) {
+        if (request()->filled('salonrate')) {
             $salon->salonrates()->detach();
             $salon->salonrates()->attach(Salonrate::findOrFail(request()->salonrate));
         }

@@ -102,28 +102,28 @@
                     </div>
 
                     <div class="form-group d-flex justify-content-between">
-                        <label for="profileAge">Возраст *:</label>
+                        <label for="profileAge">Возраст (лет,18-75)*:</label>
                         <input name="age" type="number" id="profileAge"
                             class="form-control col-8 @error('age') is-invalid @enderror" placeholder=""
                             value="{{ old('age') }}" placeholder="Лет (18-75)">
                     </div>
 
                     <div class="form-group d-flex justify-content-between">
-                        <label for="profileHeight">Рост *:</label>
+                        <label for="profileHeight">Рост (см,130-210)*:</label>
                         <input name="height" type="number" id="profileHeight"
                             class="form-control col-8 @error('height') is-invalid @enderror" placeholder=""
                             value="{{ old('height') }}" placeholder="см. (130 -210)">
                     </div>
 
                     <div class="form-group d-flex justify-content-between">
-                        <label for="profileWeight">Вес *:</label>
+                        <label for="profileWeight">Вес (кг,40-200)*:</label>
                         <input name="weight" type="number" id="profileWeight"
                             class="form-control col-8 @error('weight') is-invalid @enderror" placeholder=""
                             value="{{ old('weight') }}" placeholder="кг. (40-200)">
                     </div>
 
                     <div class="form-group d-flex justify-content-between">
-                        <label for="profileBoobs">Размер груди *:</label>
+                        <label for="profileBoobs">Размер груди (1-7)*:</label>
                         <input name="boobs" type="number" id="profileBoobs"
                             class="form-control col-8 @error('boobs') is-invalid @enderror" placeholder=""
                             value="{{ old('boobs') }}" placeholder="(1-7)">
@@ -201,30 +201,30 @@
                                     value="{{ old('euro_hour') }}">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="form-group form-inline d-flex justify-content-between">
-                                <label for="profileOneHour">За час *:</label>
+                                <label for="profileOneHour">За час (руб, от 1000 до 50000)*:</label>
                                 <input name="one_hour" type="number" id="profileOneHour"
-                                    class="form-control @error('one_hour') is-invalid @enderror" placeholder=""
-                                    value="{{ old('one_hour') }}">
+                                    class="form-control @error('one_hour') is-invalid @enderror"
+                                    placeholder="от 1000 до 50000" value="{{ old('one_hour') }}">
                             </div>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-4">
                             <div class="form-group form-inline d-flex justify-content-between">
-                                <label for="profileTwoHour">За два *:</label>
+                                <label for="profileTwoHour">За два (руб, от 1000 до 100000)*:</label>
                                 <input name="two_hour" type="number" id="profileTwoHour"
-                                    class="form-control @error('two_hour') is-invalid @enderror" placeholder=""
-                                    value="{{ old('two_hour') }}">
+                                    class="form-control @error('two_hour') is-invalid @enderror"
+                                    placeholder="от 1000 до 100000" value="{{ old('two_hour') }}">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="form-group form-inline d-flex justify-content-between">
-                                <label for="profileAllNight">За ночь *:</label>
+                                <label for="profileAllNight">За ночь (руб, от 1000 до 1000000)*:</label>
                                 <input name="all_night" type="number" id="profileAllNight"
-                                    class="form-control @error('all_night') is-invalid @enderror" placeholder=""
-                                    value="{{ old('all_night') }}">
+                                    class="form-control @error('all_night') is-invalid @enderror"
+                                    placeholder="от 1000 до 1000000" value="{{ old('all_night') }}">
                             </div>
                         </div>
                     </div>
@@ -249,8 +249,8 @@
                             </div>
                             <div class="form-check align-self-center">
 
-                                <input class="form-check-input mt-3" type="checkbox" id="profileCheckOut"
-                                    name="check_out" value="1">
+                                <input onclick="showHideEtc(event)" class="form-check-input mt-3" type="checkbox"
+                                    id="profileCheckOut" name="check_out" value="1">
                                 <label class="form-check-label  mt-2" for="profileCheckOut">
                                     Выезжаю
                                 </label>
@@ -261,6 +261,31 @@
                                         - Офисы 
                                         
                                         Необязательный реквизит--}}
+                            </div>
+
+                            <div class="form-check align-self-center ml-3" id="check_out_rooms">
+                                <input class="form-check-input mt-3" type="checkbox" name="check_out_rooms" value="1">
+                                <label class="form-check-label  mt-2" for="check_out_rooms">
+                                    Квартиры
+                                </label>
+                            </div>
+                            <div class="form-check align-self-center ml-3" id="check_out_hotels">
+                                <input class="form-check-input mt-3" type="checkbox" name="check_out_hotels" value="1">
+                                <label class="form-check-label  mt-2" for="check_out_hotels">
+                                    Гостиницы
+                                </label>
+                            </div>
+                            <div class="form-check align-self-center ml-3" id="check_out_saunas">
+                                <input class="form-check-input mt-3" type="checkbox" name="check_out_saunas" value="1">
+                                <label class="form-check-label  mt-2" for="check_out_saunas">
+                                    Сауны
+                                </label>
+                            </div>
+                            <div class="form-check align-self-center ml-3" id="check_out_offices">
+                                <input class="form-check-input mt-3" type="checkbox" name="check_out_offices" value="1">
+                                <label class="form-check-label  mt-2" for="check_out_offices">
+                                    Офисы
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -400,8 +425,7 @@
 
 
 <script>
-
-function removeMarker(event) {
+    function removeMarker(event) {
         document.getElementById("address_x").value = '1';
         document.getElementById("address_y").value = '1';  
 
@@ -409,6 +433,42 @@ function removeMarker(event) {
             marker.setMap(null)
         });
     }
+
+function showHideEtc(event){
+    if($(event.target).prop("checked")){
+        $('#check_out_rooms').show();
+        $('#check_out_hotels').show();
+        $('#check_out_saunas').show();
+        $('#check_out_offices').show();
+    } else {
+        $('#check_out_rooms').find('input').val("")
+        $('#check_out_hotels').find('input').val("")
+        $('#check_out_offices').find('input').val("")
+        $('#check_out_saunas').find('input').val("")
+        $('#check_out_rooms').hide();
+        $('#check_out_hotels').hide();
+        $('#check_out_saunas').hide();
+        $('#check_out_offices').hide();
+    }
+}
+
+$(document).ready(function(){
+    if($('#profileCheckOut').prop("checked")){
+        $('#check_out_rooms').show();
+        $('#check_out_hotels').show();
+        $('#check_out_saunas').show();
+        $('#check_out_offices').show();
+    } else {
+        $('#check_out_rooms').find('input').val("")
+        $('#check_out_hotels').find('input').val("")
+        $('#check_out_offices').find('input').val("")
+        $('#check_out_saunas').find('input').val("")
+        $('#check_out_rooms').hide();
+        $('#check_out_hotels').hide();
+        $('#check_out_saunas').hide();
+        $('#check_out_offices').hide();
+    }
+});
     
     Dropzone.autoDiscover = false;
 var acceptedFileTypes = "image/*"; //dropzone requires this param be a comma separated list
