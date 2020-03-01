@@ -398,7 +398,7 @@ class SiteController extends Controller
 
     public function map() {
 
-        $profiles = Profile::where('address_x', '<>', '1')->where('address_y', '<>', '1')->where('allowed', '1')->where('is_published', '1')->where('archived', '0')->get();
+        $profiles = Profile::where('address_x', '<>', '1')->where('address_y', '<>', '1')->where('allowed', '1')->where('is_published', '1')->get();
         return view('sitepath.map')->with(['profiles' => $profiles]);
     }
 
