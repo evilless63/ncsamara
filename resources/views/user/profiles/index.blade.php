@@ -63,7 +63,7 @@
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
+                                <input type="text" class="profilePhone form-control col-5" profile-id="{{$profile->id}}" value="{{$profile->phone}}"
                                     id="profilePhone{{$loop->iteration}}" >
                                 <div class="changePhoneNumber btn btn-success col-4"
                                     style="padding: 0px 7.5px; cursor:pointer">
@@ -175,7 +175,7 @@
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
+                                <input type="text" class="profilePhone form-control col-5" profile-id="{{$profile->id}}" value="{{$profile->phone}}"
                                     id="profilePhone{{$loop->iteration}}" >
                                 <div class="changePhoneNumber btn btn-success col-4"
                                     style="padding: 0px 7.5px; cursor:pointer">
@@ -287,7 +287,7 @@
                                 <div class="col-2" for="profileName">Телефон:</div>
                                 {{-- TODO роут для динамической смены телефона --}}
 
-                                <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
+                                <input type="text" class="profilePhone form-control col-5" profile-id="{{$profile->id}}" value="{{$profile->phone}}"
                                     id="profilePhone{{$loop->iteration}}" >
                                 <div class="changePhoneNumber btn btn-success col-4"
                                     style="padding: 0px 7.5px; cursor:pointer">
