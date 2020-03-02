@@ -272,7 +272,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-4">
                                     <div class="form-group form-inline d-flex justify-content-between">
-                                        <label for="profileEuroHour">Еврочас:</label>
+                                        <label for="profileEuroHour">Еврочас (руб, от 1000 до 50000):</label>
                                         <input name="euro_hour" type="number" id="profileEuroHour"
                                             class="form-control @error('euro_hour') is-invalid @enderror" placeholder=""
                                             value="{{ $profile->euro_hour }}">

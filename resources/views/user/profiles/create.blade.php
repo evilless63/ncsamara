@@ -180,7 +180,7 @@
                             value="{{ old('working_hours_to') }}">
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="profileWork24Hours"
+                            <input class="form-check-input" onclick="initializeFromToWorkingHours(event)" type="checkbox" id="profileWork24Hours"
                                 name="working_24_hours" value="1">
                             <label class="form-check-label" for="profileWork24Hours">
                                 Работаю всегда (без перерыва и выходных) *
@@ -195,7 +195,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-4">
                             <div class="form-group form-inline d-flex justify-content-between">
-                                <label for="profileEuroHour">Еврочас:</label>
+                                <label for="profileEuroHour">Еврочас (руб, от 1000 до 50000):</label>
                                 <input name="euro_hour" type="number" id="profileEuroHour"
                                     class="form-control @error('euro_hour') is-invalid @enderror" placeholder=""
                                     value="{{ old('euro_hour') }}">
@@ -432,6 +432,18 @@
         markersArray.forEach(function callback(marker, index, array) {
             marker.setMap(null)
         });
+    }
+
+    function initializeFromToWorkingHours(event) {
+        if($(event.target).prop("checked")){
+            $('#profileWorkingHoursFrom').val("")
+            $('#profileWorkingHoursFrom').attr("disabled", true)
+            $('#profileWorkingHoursTo').val("")
+            $('#profileWorkingHoursTo').attr("disabled", true)
+        } else {
+            $('#profileWorkingHoursFrom').attr("disabled", false)
+            $('#profileWorkingHoursTo').attr("disabled", false)
+        }
     }
 
 function showHideEtc(event){
