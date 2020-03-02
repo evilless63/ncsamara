@@ -76,18 +76,18 @@
             @endif</h2>
         <div class="col-md-4 d-flex justify-content-between mt-3 mb-3">
             @if($profile->allowed)
-                @if($profile->is_published == 0)
-                <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
-                    @csrf
-                    @method('patch')
-                    <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
-                </form>
-                @else
-                <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
-                    @csrf
-                    @method('patch')
-                    <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
-                </form>
+            @if($profile->is_published == 0)
+            <form action="{{ route('user.profilepublish', $profile->id) }}" method="POST">
+                @csrf
+                @method('patch')
+                <button class="btn btn-success" style="padding: 0px 7.5px;" type="submit">Опубликовать</button>
+            </form>
+            @else
+            <form action="{{ route('user.profileunpublish', $profile->id) }}" method="POST">
+                @csrf
+                @method('patch')
+                <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Снять с публикации</button>
+            </form>
 
             @if(Auth::user()->is_admin)
             <form action="{{ route('admin.profilemoderatedisallow', $profile->id) }}" method="POST">
@@ -97,16 +97,16 @@
             </form>
             @endif
             @endif
-                @else
-                @if(Auth::user()->is_admin)
-                <form action="{{ route('admin.profilemoderateallow', $profile->id) }}" method="POST">
-                    @csrf
-                    @method('patch')
-                    <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Разрешить публикацию</button>
-                </form>
-                @else
-                Анкета на модерации администрации сайта
-                @endif
+            @else
+            @if(Auth::user()->is_admin)
+            <form action="{{ route('admin.profilemoderateallow', $profile->id) }}" method="POST">
+                @csrf
+                @method('patch')
+                <button class="btn btn-danger" style="padding: 0px 7.5px;" type="submit">Разрешить публикацию</button>
+            </form>
+            @else
+            Анкета на модерации администрации сайта
+            @endif
             @endif
 
             @if(Auth::user()->is_admin)
@@ -256,8 +256,8 @@
 
                                 <div class="form-check">
                                     <input type="hidden" name="working_24_hours" value="0">
-                                    <input class="form-check-input" onclick="initializeFromToWorkingHours(event)" type="checkbox" id="profileWork24Hours"
-                                        name="working_24_hours" value="1"
+                                    <input class="form-check-input" onclick="initializeFromToWorkingHours(event)"
+                                        type="checkbox" id="profileWork24Hours" name="working_24_hours" value="1"
                                         {{$profile->profileWork24Hours ? 'checked' : ''}}>
                                     <label class="form-check-label" for="profileWork24Hours">
                                         Работаю всегда (без перерыва и выходных) *
@@ -282,8 +282,8 @@
                                     <div class="form-group form-inline d-flex justify-content-between">
                                         <label for="profileOneHour">За час (руб, от 1000 до 50000)*:</label>
                                         <input name="one_hour" type="number" id="profileOneHour"
-                                            class="form-control @error('one_hour') is-invalid @enderror" placeholder="от 1000 до 50000"
-                                            value="{{ $profile->one_hour }}">
+                                            class="form-control @error('one_hour') is-invalid @enderror"
+                                            placeholder="от 1000 до 50000" value="{{ $profile->one_hour }}">
                                     </div>
                                 </div>
                             </div>
@@ -292,16 +292,16 @@
                                     <div class="form-group form-inline d-flex justify-content-between">
                                         <label for="profileTwoHour">За два (руб, от 1000 до 100000)*:</label>
                                         <input name="two_hour" type="number" id="profileTwoHour"
-                                            class="form-control @error('two_hour') is-invalid @enderror" placeholder="от 1000 до 100000"
-                                            value="{{ $profile->two_hour }}">
+                                            class="form-control @error('two_hour') is-invalid @enderror"
+                                            placeholder="от 1000 до 100000" value="{{ $profile->two_hour }}">
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group form-inline d-flex justify-content-between">
                                         <label for="profileAllNight">За ночь (руб, от 1000 до 1000000)*:</label>
                                         <input name="all_night" type="number" id="profileAllNight"
-                                            class="form-control @error('all_night') is-invalid @enderror" placeholder="от 1000 до 1000000"
-                                            value="{{ $profile->all_night }}">
+                                            class="form-control @error('all_night') is-invalid @enderror"
+                                            placeholder="от 1000 до 1000000" value="{{ $profile->all_night }}">
                                     </div>
                                 </div>
                             </div>
@@ -328,8 +328,9 @@
                                     <div class="form-check align-self-center">
 
                                         <input type="hidden" name="check_out" value="0">
-                                        <input onclick="showHideEtc(event)" class="form-check-input mt-3" type="checkbox" id="profileCheckOut"
-                                            name="check_out" value="1" {{$profile->check_out ? 'checked' : ''}}>
+                                        <input onclick="showHideEtc(event)" class="form-check-input mt-3"
+                                            type="checkbox" id="profileCheckOut" name="check_out" value="1"
+                                            {{$profile->check_out ? 'checked' : ''}}>
                                         <label class="form-check-label  mt-2" for="profileCheckOut">
                                             Выезжаю
                                         </label>
@@ -343,28 +344,33 @@
 
                                         <div class="form-check align-self-center ml-3" id="check_out_rooms">
                                             <input type="hidden" name="check_out_rooms" value="0">
-                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_rooms" value="1" {{$profile->check_out_rooms ? 'checked' : ''}}>
+                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_rooms"
+                                                value="1" {{$profile->check_out_rooms ? 'checked' : ''}}>
                                             <label class="form-check-label  mt-2" for="check_out_rooms">
                                                 Квартиры
                                             </label>
                                         </div>
                                         <div class="form-check align-self-center ml-3" id="check_out_hotels">
                                             <input type="hidden" name="check_out_hotels" value="0">
-                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_hotels" value="1" {{$profile->check_out_hotels ? 'checked' : ''}}>
+                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_hotels"
+                                                value="1" {{$profile->check_out_hotels ? 'checked' : ''}}>
                                             <label class="form-check-label  mt-2" for="check_out_hotels">
                                                 Гостиницы
                                             </label>
                                         </div>
                                         <div class="form-check align-self-center ml-3" id="check_out_saunas">
                                             <input type="hidden" name="check_out_saunas" value="0">
-                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_saunas" value="1" {{$profile->check_out_saunas ? 'checked' : ''}}>
+                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_saunas"
+                                                value="1" {{$profile->check_out_saunas ? 'checked' : ''}}>
                                             <label class="form-check-label  mt-2" for="check_out_saunas">
                                                 Сауны
                                             </label>
                                         </div>
                                         <div class="form-check align-self-center ml-3" id="check_out_offices">
                                             <input type="hidden" name="check_out_offices" value="0">
-                                            <input class="form-check-input mt-3" type="checkbox" name="check_out_offices" value="1" {{$profile->check_out_offices ? 'checked' : ''}}>
+                                            <input class="form-check-input mt-3" type="checkbox"
+                                                name="check_out_offices" value="1"
+                                                {{$profile->check_out_offices ? 'checked' : ''}}>
                                             <label class="form-check-label  mt-2" for="check_out_offices">
                                                 Офисы
                                             </label>
@@ -534,8 +540,7 @@
                                             id="item_images_verification" placeholder=""
                                             class="form-control input-sm" />
                                         <button type="button" class="btn btn-lg add-image-button" data-toggle="modal"
-                                            data-target="#ModalItemVer"><i
-                                                class="fas fa-plus"></i></button>
+                                            data-target="#ModalItemVer"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -601,12 +606,13 @@
                                                 style="padding:0rem .75rem" data-toggle="tooltip" data-placement="top"
                                                 title="Обновить цену услуги" onclick="updateServicePrice(event)">
 
-                                                @if($profile->services->where('id', $service->id)->first()->pivot->price)
+                                                @if($profile->services->where('id',
+                                                $service->id)->first()->pivot->price)
 
-                                                    Изменить/Удалить доплату
-                                                    @else
-                                                    Добавить доплату
-                                                    @endif
+                                                Изменить/Удалить доплату
+                                                @else
+                                                Добавить доплату
+                                                @endif
 
                                             </div>
                                         </div>
@@ -641,34 +647,6 @@
     </div>
 </div>
 
-<!-- MODAL START -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Загрузка новых изображений</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" class="dropzone" id="dropzone" method="post" enctype="multipart/form-data">
-                    {!! csrf_field() !!}
-                    <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или нажмите сюда
-                            и выберите их)</span>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-<!-- MODAL END -->
-
 <!-- MODAL VERIFICATION START -->
 <div class="modal fade" id="ModalItemVer" role="dialog">
     <div class="modal-dialog">
@@ -696,6 +674,36 @@
     </div>
 </div>
 <!-- MODAL END -->
+<!-- MODAL START -->
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Загрузка новых изображений</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" class="dropzone" id="dropzone" method="post" enctype="multipart/form-data">
+                    {!! csrf_field() !!}
+                    <div class="dz-message" data-dz-message><span>Переместите сюда файлы для загрузки (или нажмите сюда
+                            и выберите их)</span>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- MODAL END -->
+
+
 @endsection
 
 @section('script')
