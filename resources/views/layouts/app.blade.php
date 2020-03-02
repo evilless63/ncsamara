@@ -646,7 +646,7 @@
               $(event.target).text('Телефон обновлен')
     
               setTimeout(function(){
-                  $(event.target).text('(изменить)');
+                  $(event.target).text('Изменить телефон');
               }, 3000);
             }
           });
@@ -671,7 +671,7 @@
               $(event.target).text('Тариф обновлен')
     
               setTimeout(function(){
-                  $(event.target).text('(изменить)');
+                  $(event.target).text('Изменить тариф');
               }, 3000);
             }
           });

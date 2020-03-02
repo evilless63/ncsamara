@@ -67,7 +67,7 @@
                                     id="profilePhone{{$loop->iteration}}" >
                                 <div class="changePhoneNumber btn btn-success col-4"
                                     style="padding: 0px 7.5px; cursor:pointer">
-                                    (изменить)
+                                    Изменить телефон
                                 </div>
                             </div>
 
@@ -179,7 +179,7 @@
                                     id="profilePhone{{$loop->iteration}}" >
                                 <div class="changePhoneNumber btn btn-success col-4"
                                     style="padding: 0px 7.5px; cursor:pointer">
-                                    (изменить)
+                                    Изменить телефон
                                 </div>
                             </div>
 
@@ -291,7 +291,7 @@
                                     id="profilePhone{{$loop->iteration}}" >
                                 <div class="changePhoneNumber btn btn-success col-4"
                                     style="padding: 0px 7.5px; cursor:pointer">
-                                    (изменить)
+                                    Изменить телефон
                                 </div>
                             </div>
 
