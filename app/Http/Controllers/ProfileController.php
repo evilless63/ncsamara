@@ -766,7 +766,10 @@ class ProfileController extends Controller
     {
         $profile = Profile::find(request()->profile_id);
 
-        $profile->rates()->detach();
+        if($profile->rates()->count() > 0){
+            $profile->rates()->detach();
+        }
+        
         $profile->rates()->attach(Rate::findOrFail(request()->rate_id));
         $profile->update();
     }

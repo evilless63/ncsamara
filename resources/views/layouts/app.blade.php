@@ -403,6 +403,9 @@
 
       $('[data-toggle="tooltip"]').tooltip();
 
+      if(input == null)
+        return
+
       input.addEventListener('change', function (e) {
         var files = e.target.files;
         var done = function (url) {
@@ -519,6 +522,9 @@
 
       $('[data-toggle="tooltip"]').tooltip();
 
+      if(input == null)
+        return
+
       input.addEventListener('change', function (e) {
         var files = e.target.files;
         var done = function (url) {
@@ -620,6 +626,56 @@
         }
       });
     });
+
+    $( ".changePhoneNumber" ).click( function(event){
+          event.preventDefault();
+          var number = $(event.target).parent().find('.profilePhone').val()
+          var profile = $(event.target).parent().find('.profilePhone').attr('profile-id')
+          $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: "{{route('user.profilechangephone')}}",
+            type: "post",
+            data: {
+                phone: number,
+                profile_id: profile,
+            },
+            success: function(response) {
+              $(event.target).text('Телефон обновлен')
+    
+              setTimeout(function(){
+                  $(event.target).text('(изменить)');
+              }, 3000);
+            }
+          });
+        });
+    
+        $( ".ProfileRateButton" ).click(function(event) {
+          event.preventDefault();
+          var number = $(event.target).parent().find('.profileRate').val()
+          var profile = $(event.target).parent().find('.profileRate').attr('profile-id')
+          $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method: 'POST',
+            url: "{{route('user.profilechangerate')}}",
+            type: "post",
+            data: {
+                rate_id: number,
+                profile_id: profile,
+            },
+            success: function(response) {
+              $(event.target).text('Тариф обновлен')
+    
+              setTimeout(function(){
+                  $(event.target).text('(изменить)');
+              }, 3000);
+            }
+          });
+        });
   </script>
 
   @yield('google_api_autocomplete')

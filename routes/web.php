@@ -36,8 +36,8 @@ Route::prefix('user')->middleware(['is_banned'])->name('user.')->group(function 
 
     Route::patch('profilepublish/{id}', 'ProfileController@publish')->name('profilepublish');
     Route::patch('profileunpublish/{id}', 'ProfileController@unpublish')->name('profileunpublish');
-    Route::patch('/profilechangephone', 'ProfileController@changephone')->name('profilechangephone');
-    Route::patch('/profilechangerate', 'ProfileController@changerate')->name('profilechangerate');
+    Route::post('profilechangephone', 'ProfileController@changephone')->name('profilechangephone');
+    Route::post('profilechangerate', 'ProfileController@changerate')->name('profilechangerate');
     Route::patch('salonpublish/{id}', 'SalonController@publish')->name('salonpublish');
     Route::patch('salonunpublish/{id}', 'SalonController@unpublish')->name('salonunpublish');
     Route::post('/changeserviceprice', 'ProfileController@changeServicePrice')->name('service.pricechange');

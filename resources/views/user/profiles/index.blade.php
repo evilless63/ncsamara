@@ -18,7 +18,8 @@
             @foreach($profiles->where('allowed', '1')->where('is_published', '1') as $profile)
             <div class="row">
                 <div class="col-md-2">
-                    <img class="img-fluid" style="max-width:52%" src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
+                    <img class="img-fluid" style="max-width:52%"
+                        src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
                         alt="{{$profile->name}}">
                 </div>
                 <div class="col-md-6">
@@ -33,15 +34,16 @@
 
                         <div class="col d-flex justify-content-end align-items-baseline">
                             @if($profile->verified)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src=" {{asset('images/approved.png')}}"
-                                    alt="Подтверждена"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;"
+                                    src=" {{asset('images/approved.png')}}" alt="Подтверждена"></a>
                             @endif
                             @if($profile->apartments)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/apartments.png')}}"
-                                    alt="Апартаменты"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;"
+                                    src="{{asset('images/apartments.png')}}" alt="Апартаменты"></a>
                             @endif
                             @if($profile->check_out)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/car.png')}}" alt="Выезд"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/car.png')}}"
+                                    alt="Выезд"></a>
                             @endif
                         </div>
                         <div class="col">
@@ -62,8 +64,9 @@
                                 {{-- TODO роут для динамической смены телефона --}}
 
                                 <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
-                                id="profilePhone{{$loop->iteration}}" profile-id="{{$profile->id}}">
-                                <div onclick="changePhoneNumber(event)" class="changePhoneNumber btn btn-success col-4" style="padding: 0px 7.5px; cursor:pointer">
+                                    id="profilePhone{{$loop->iteration}}" >
+                                <div class="changePhoneNumber btn btn-success col-4"
+                                    style="padding: 0px 7.5px; cursor:pointer">
                                     (изменить)
                                 </div>
                             </div>
@@ -71,7 +74,7 @@
                             <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div for="profileName" class="col-2">Тариф:</div>
 
-                                <select class="form-control form-inline col-5" name="rate"
+                                <select class="profileRate form-control form-inline col-5" profile-id="{{$profile->id}}" name="rate"
                                     id="profileRate{{$loop->iteration}}">
                                     {{-- TODO роут для смены тарифа динамически --}}
                                     <option></option>
@@ -82,7 +85,7 @@
                                     </option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-success col-4" style="padding: 0px 7.5px;" type="submit"
+                                <button class="ProfileRateButton btn btn-success col-4" style="padding: 0px 7.5px;" type="submit"
                                     style="padding: 0px 7.5px;" id="ProfileRateButton{{$loop->iteration}}">Изменить
                                     тариф</button>
 
@@ -127,7 +130,8 @@
             @foreach($profiles->where('allowed', '1')->where('is_published', '0') as $profile)
             <div class="row">
                 <div class="col-md-2">
-                    <img class="img-fluid" style="max-width:52%" src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
+                    <img class="img-fluid" style="max-width:52%"
+                        src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
                         alt="{{$profile->name}}">
                 </div>
                 <div class="col-md-6">
@@ -142,15 +146,16 @@
 
                         <div class="col d-flex justify-content-end align-items-baseline">
                             @if($profile->verified)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src=" {{asset('images/approved.png')}}"
-                                    alt="Подтверждена"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;"
+                                    src=" {{asset('images/approved.png')}}" alt="Подтверждена"></a>
                             @endif
                             @if($profile->apartments)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/apartments.png')}}"
-                                    alt="Апартаменты"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;"
+                                    src="{{asset('images/apartments.png')}}" alt="Апартаменты"></a>
                             @endif
                             @if($profile->check_out)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/car.png')}}" alt="Выезд"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/car.png')}}"
+                                    alt="Выезд"></a>
                             @endif
                         </div>
                         <div class="col">
@@ -171,8 +176,9 @@
                                 {{-- TODO роут для динамической смены телефона --}}
 
                                 <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
-                                id="profilePhone{{$loop->iteration}}" profile-id="{{$profile->id}}">
-                                <div onclick="changePhoneNumber(event)" class="changePhoneNumber btn btn-success col-4" style="padding: 0px 7.5px; cursor:pointer">
+                                    id="profilePhone{{$loop->iteration}}" >
+                                <div class="changePhoneNumber btn btn-success col-4"
+                                    style="padding: 0px 7.5px; cursor:pointer">
                                     (изменить)
                                 </div>
                             </div>
@@ -180,7 +186,7 @@
                             <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div for="profileName" class="col-2">Тариф:</div>
 
-                                <select class="form-control form-inline col-5" name="rate"
+                                <select profile-id="{{$profile->id}}" class="profileRate form-control form-inline col-5" name="rate"
                                     id="profileRate{{$loop->iteration}}">
                                     {{-- TODO роут для смены тарифа динамически --}}
                                     <option></option>
@@ -191,7 +197,7 @@
                                     </option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-success col-4" style="padding: 0px 7.5px;" type="submit"
+                                <button class="ProfileRateButton btn btn-success col-4" style="padding: 0px 7.5px;" type="submit"
                                     style="padding: 0px 7.5px;" id="ProfileRateButton{{$loop->iteration}}">Изменить
                                     тариф</button>
 
@@ -236,7 +242,8 @@
             @foreach($profiles->where('allowed', '0') as $profile)
             <div class="row">
                 <div class="col-md-2">
-                    <img class="img-fluid" style="max-width:52%" src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
+                    <img class="img-fluid" style="max-width:52%"
+                        src="{{ asset('/images/profiles/images/created/' . $profile->main_image )}}"
                         alt="{{$profile->name}}">
                 </div>
                 <div class="col-md-6">
@@ -251,15 +258,16 @@
 
                         <div class="col d-flex justify-content-end align-items-baseline">
                             @if($profile->verified)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src=" {{asset('images/approved.png')}}"
-                                    alt="Подтверждена"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;"
+                                    src=" {{asset('images/approved.png')}}" alt="Подтверждена"></a>
                             @endif
                             @if($profile->apartments)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/apartments.png')}}"
-                                    alt="Апартаменты"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;"
+                                    src="{{asset('images/apartments.png')}}" alt="Апартаменты"></a>
                             @endif
                             @if($profile->check_out)
-                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/car.png')}}" alt="Выезд"></a>
+                            <a class="nc-point" href="#"><img style="width: 65%;" src="{{asset('images/car.png')}}"
+                                    alt="Выезд"></a>
                             @endif
                         </div>
                         <div class="col">
@@ -280,8 +288,9 @@
                                 {{-- TODO роут для динамической смены телефона --}}
 
                                 <input type="text" class="profilePhone form-control col-5" value="{{$profile->phone}}"
-                                id="profilePhone{{$loop->iteration}}" profile-id="{{$profile->id}}">
-                                <div onclick="changePhoneNumber(event)" class="changePhoneNumber btn btn-success col-4" style="padding: 0px 7.5px; cursor:pointer">
+                                    id="profilePhone{{$loop->iteration}}" >
+                                <div class="changePhoneNumber btn btn-success col-4"
+                                    style="padding: 0px 7.5px; cursor:pointer">
                                     (изменить)
                                 </div>
                             </div>
@@ -289,7 +298,7 @@
                             <div class="row form-group d-flex justify-content-between align-items-center">
                                 <div for="profileName" class="col-2">Тариф:</div>
 
-                                <select class="form-control form-inline col-5" name="rate"
+                                <select profile-id="{{$profile->id}}" class="profileRate form-control form-inline col-5" name="rate"
                                     id="profileRate{{$loop->iteration}}">
                                     {{-- TODO роут для смены тарифа динамически --}}
                                     <option></option>
@@ -300,7 +309,7 @@
                                     </option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-success col-4" style="padding: 0px 7.5px;" type="submit"
+                                <button class="ProfileRateButton btn btn-success col-4" style="padding: 0px 7.5px;" type="submit"
                                     style="padding: 0px 7.5px;" id="ProfileRateButton{{$loop->iteration}}">Изменить
                                     тариф</button>
 
@@ -343,53 +352,5 @@
 @endsection
 
 @section('script')
-<script>
-function changePhoneNumber(event) {
-      event.preventDefault();
-      var number = $(event.target).parent().find('.profilePhone').val()
-      var profile = $(event.target).parent().find('.profilePhone').attr('profile-id')
-      $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: "{{route('user.profilechangephone')}}",
-        type: "post",
-        data: {
-            phone: number,
-            profile_id: profile;
-        },
-        success: function(response) {
-          $(event.target).text('Телефон обновлен')
 
-          setTimeout(function(){
-              $(event.target).text('(изменить)');
-          }, 3000);
-        }
-      });
-    }
-
-function changeRateProfile(event) {
-      event.preventDefault();
-      var number = $(event.target).parent().find('.profilePhone').val()
-      var profile = $(event.target).parent().find('.profilePhone').attr('profile-id')
-      $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: "{{route('user.profilechangerate')}}",
-        type: "post",
-        data: {
-            rate_id: number,
-            profile_id: profile;
-        },
-        success: function(response) {
-          $(event.target).text('Телефон обновлен')
-
-          setTimeout(function(){
-              $(event.target).text('(изменить)');
-          }, 3000);
-        }
-      });
-    }
-</script>
 @endsection
