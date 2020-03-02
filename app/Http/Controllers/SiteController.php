@@ -300,13 +300,13 @@ class SiteController extends Controller
                         background-size: cover;
                         "
                         >
-                            <div class="nc-card-top flex-grow-1" style="cursor:pointer" onclick="location.href=\''. route("getprofile", $row->id) . '\'">
+                            <div class="nc-card-top flex-grow-1">
                                 <div class="d-flex flex-column justify-content-between align-items-end">
                                     '. $verified . $apartments . $check_out .'
                                 </div>
                             </div>
                                         <div class="nc-card-bottom">
-                                            <h4 class="h4" style="    font-size: 1.1rem;"><a href="' . route("getprofile", $row->id) . '">'.$row->name. '<span>| '.$row->age.' года</span></a> </h4>
+                                            <h4 class="h4" style="    font-size: 1.1rem;">'.$row->name. '<span>| '.$row->age.' года</span> </h4>
                                             <div class="d-flex justify-content-around">
                                                 <p class="nc-price"><span>за час</span><br> ' . $row->one_hour .'</p>
                                                 <p class="nc-price"><span>за 2 часа</span><br> '.$row->two_hour. '</p>
