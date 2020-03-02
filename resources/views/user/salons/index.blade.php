@@ -10,7 +10,7 @@
         </div>
         @endif
 
-        <table class="table table-sm">
+        <table class="table table-sm ">
             <thead>
                 <tr>
                     <th scope="col">#</th>

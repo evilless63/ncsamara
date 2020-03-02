@@ -23,237 +23,283 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-  <div id="app">
-    <div class="wrapper">
-      <!-- Navbar -->
-      <nav
-        class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-around align-items-center">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav nav-pills nav-sidebar d-flex justify-content-start align-items-center">
+  <div id="app" class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
 
-          @if(Auth::user() != null)
-
-          @if(Auth::user()->is_admin)
-          <div class="nav-item">
-            <a class="nav-link" style="padding-left:0px !important" href="{{ route('admin.rates.create') }}">
-              <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Пользователи"> Создать тариф для
-                анкеты</p>
-            </a>
-          </div>
-          <div class="nav-item">
-            <a class="nav-link" style="padding-left:0px !important" href="{{ route('admin.salonrates.create') }}">
-              <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Создать тариф для салона">
-                Создать тариф для салона</p>
-            </a>
-          </div>
-          <div class="nav-item">
-            <a class="nav-link" style="padding-left:0px !important" href="{{ route('admin.promotionals.create') }}">
-              <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Пользователи"> Создать промокод
-              </p>
-            </a>
-          </div>
-          <div class="nav-item">
-            <a class="nav-link" style="padding-left:0px !important" href="{{ route('admin.bonuses.create')  }}"
-              type="button" class="btn btn-primary">Создать бонус</a>
-          </div>
-          @endif
-
-          <div class="nav-item">
-            <p class="nav-link">
-              <img src="{{asset('/admin/icons/userbalance.png')}}">
-              Общий баланс: {{Auth::user()->user_balance}}
-            </p>
-          </div>
-          <div class="nav-item">
-            <p class="nav-link">
-              <img src="{{asset('/admin/icons/ticketmessage.png')}}">
-              Сообщения: {!!Auth::user()->tickets->where('completed_at', '=', null )->count()
-              ? '<a href="'.route('tickets.index').'">есть новые сообщения
-                ('.Auth::user()->tickets->where('completed_at', '=', null )->count() .'шт), посмотрите !</a>'
-              : 'нет новых'!!}
-            </p>
-          </div>
-          <div class="nav-item">
-            <p class="nav-link">
-              <button data-toggle="modal" data-target="#payment" class="btn btn-success"
-                style="padding: 0px 7.5px;"><img src="{{asset('/admin/icons/balanceup.png')}}"> Пополнить
-                баланс</button>
-            </p>
-          </div>
-
-          @endif
-        </ul>
+        @if(Auth::user() != null)
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
 
 
+        <li class="d-none d-md-block d-lg-block nav-item">
+          <p class="nav-link">
+            <i class="fas fa-dollar-sign"></i>
+            <span class="d-none d-md-inline">баланс: </span> {{Auth::user()->user_balance}} <span class="d-none d-md-inline">пойнтов</span>
+          </p>
+        </li>
+        
+        <li class="nav-item d-none d-md-block d-lg-block nav-item">
+          <p class="nav-link">
+            <button data-toggle="modal" data-target="#payment" class="btn btn-success" style="padding: 0px 7.5px;">Пополнить баланс</button>
+          </p>
+        </li>
 
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-          <!-- Messages Dropdown Menu -->
-          <!-- Authentication Links -->
-          @guest
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">Войти</a>
-          </li>
-          @if (Route::has('register'))
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
-          </li>
-          @endif
-          @else
-          <li class="nav-item dropdown" style="color:#6c030e !important;font-size: 1.2em;line-height: 1.2em;">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" v-pre>
-              {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
+        <li class="d-block d-sm-none nav-item">
+          <p class="nav-link">
+            <i class="fas fa-dollar-sign"></i>
+            <span data-toggle="modal" data-target="#payment">{{Auth::user()->user_balance}}, пополнить</span>
+          </p>
+        </li>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+        <li class="nav-item">
+          <p class="nav-link">
+            <i class="far fa-comments"></i>
+            <span class="d-none d-md-inline">Сообщения: </span>{!!Auth::user()->tickets->where('completed_at', '=', null )->count()
+            ? '<a href="'.route('tickets.index').'">'.Auth::user()->tickets->where('completed_at', '=', null )->count() .'</a>'
+            : '0'!!}
+          </p>
+        </li>
+        
+
+        @endif
+
+        @guest
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('login') }}">Войти</a>
+        </li>
+        @if (Route::has('register'))
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
+        </li>
+        @endif
+        @else
+        <li class="nav-item dropdown d-none d-md-block d-lg-block" style="color:#6c030e !important;font-size: 1.2em;line-height: 1.2em;">
+          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" v-pre>
+            {{ Auth::user()->name }} <span class="caret"></span>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                Выйти
-              </a>
+              Выйти
+            </a>
 
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
-            </div>
-          </li>
-          @endguest
-        </ul>
-      </nav>
-      <!-- /.navbar -->
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
+          </div>
+        </li>
+        @endguest
+      </ul>
+    </nav>
+    <!-- /.navbar -->
 
-      <!-- Main Sidebar Container -->
-      <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="{{ url('/') }}" class="brand-link">
-          <img src="{{ asset('/admin/dist/img/logo.png') }}" alt="NC-Samara" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
-          <span class="brand-text font-weight-light">NC-Samara</span>
-        </a>
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="{{ url('/') }}" class="brand-link">
+        <img src="{{ asset('/admin/dist/img/logo.png') }}" alt="NC-Samara" class="brand-image img-circle elevation-3"
+          style="opacity: .8">
+        <span class="brand-text font-weight-light">NC-Samara</span>
+      </a>
 
-        <!-- Sidebar -->
-        <div class="sidebar">
+      <!-- Sidebar -->
+      <div class="sidebar">
 
-          <!-- Sidebar Menu -->
-          <nav class="mt-2">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
 
-            <!-- Add icons to the links using the .nav-icon class
+          <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
 
-            @if(Auth::user() !== null)
+          @if(Auth::user() !== null)
 
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-              <li class="nav-item {{ Request::path() === 'user' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('user') }}">
-                  <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Мои анкеты"> Главная</p>
-                </a>
-              </li>
+            @guest
 
-              <li class="nav-item {{ Request::path() === 'user/profiles' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('user.profiles.index') }}">
-                  <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Мои анкеты"> Мои анкеты</p>
-                </a>
-              </li>
+            @else
+            <li class="nav-item has-treeview d-block d-sm-none">
+              <a href="#" class="nav-link">
+                <i class="far fa-user"></i>
+                <p>
+                  {{ Auth::user()->name }}
+                  
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <p>Выйти</p>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                    </form>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            @endguest
 
-              <li class="nav-item {{ Request::path() === 'user/profile/create' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('user.profiles.create') }}">
-                  <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Добавить анкету"> Добавить
-                    анкету</p>
-                </a>
-              </li>
+            <li class="nav-item {{ Request::path() === 'user' ? 'admin-li-active' : ''}}">
 
-              <li class="nav-item {{ Request::path() === 'user/salons' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('user.salons.index') }}">
-                  <p><img src="{{asset('/admin/icons/salon.png') }}" alt="Мой салон"> Мои баннеры</p>
-                </a>
-              </li>
+              <a class="nav-link" href="{{ route('user') }}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Главная</p>
+              </a>
+            </li>
 
-              <li class="nav-item {{ Request::path() === 'user/salons/create' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('user.salons.create') }}">
-                  <p><img src="{{asset('/admin/icons/salon.png') }}" alt="Мой салон"> Добавить баннер</p>
-                </a>
-              </li>
+            <li class="nav-item {{ Request::path() === 'user/profiles' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('user.profiles.index') }}">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>Мои анкеты</p>
+              </a>
+            </li>
 
-              <li class="nav-item {{ Request::path() === 'user/payments' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('user.payments') }}">
-                  <p><img src="{{asset('/admin/icons/salon.png') }}" alt="Мой салон"> Финансовая информация</p>
-                </a>
-              </li>
+            <li class="nav-item {{ Request::path() === 'user/profile/create' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('user.profiles.create') }}">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>Добавить
+                  анкету</p>
+              </a>
+            </li>
 
-              <li class="nav-item {{ Request::path() === 'user/tickets' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('tickets.index') }}">
-                  <p><img src="{{asset('/admin/icons/tickets.png') }}" alt="Техническая поддержка"> Техническая
-                    поддержка</p>
-                </a>
-              </li>
+            <li class="nav-item {{ Request::path() === 'user/salons' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('user.salons.index') }}">
+                <i class="nav-icon far fa-image"></i>
+                <p>Мои баннеры</p>
+              </a>
+            </li>
 
-              @if(Auth::user()->is_admin)
-              <hr>
-              <li class="nav-item {{ Request::path() === 'admin/profiles' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.adminprofiles') }}">
-                  <p><img class="nav-icon" src="{{asset('/admin/icons/users.png') }}" alt="Пользователи"> Пользователи
-                  </p>
-                </a>
-              </li>
+            <li class="nav-item {{ Request::path() === 'user/salons/create' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('user.salons.create') }}">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>Добавить баннер</p>
+              </a>
+            </li>
 
-              <li class="nav-item {{ Request::path() === 'admin/rates' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.rates.index') }}">
-                  <p><img src="{{asset('/admin/icons/rates.png') }}" alt="Тарифы"> Тарифы для анкет</p>
-                </a>
-              </li>
+            <li class="nav-item {{ Request::path() === 'user/payments' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('user.payments') }}">
+                <i class="fas fa-comments-dollar"></i>
+                <p>Фин. информация</p>
+              </a>
+            </li>
 
-              <li class="nav-item {{ Request::path() === 'admin/salonrates' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.salonrates.index') }}">
-                  <p><img src="{{asset('/admin/icons/rates.png') }}" alt="Тарифы"> Тарифы для салонов</p>
-                </a>
-              </li>
+            <li class="nav-item {{ Request::path() === 'user/tickets' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('tickets.index') }}">
+                <i class="fas fa-info-circle"></i>
+                <p>Техническая
+                  поддержка</p>
+              </a>
+            </li>
 
-              <li class="nav-item {{ Request::path() === 'admin/promotionals' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.promotionals.index') }}">
-                  <p><img src="{{asset('/admin/icons/promocodes.png') }}" alt="Промокоды"> Промокоды</p>
-                </a>
-              </li>
+            @if(Auth::user()->is_admin)
+            <hr>
+            <li class="nav-item {{ Request::path() === 'admin/profiles' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('admin.adminprofiles') }}">
+                <i class="fas fa-users"></i>
+                <p>Пользователи
+                </p>
+              </a>
+            </li>
 
-              <li class="nav-item {{ Request::path() === 'admin/bonuses' ? 'admin-li-active' : ''}}">
-                <a class="nav-link" href="{{ route('admin.bonuses.index') }}">
-                  <p><img src="{{asset('/admin/icons/bonuses.png') }}" alt="Бонусы"> Бонусы</p>
-                </a>
-              </li>
+            <li class="nav-item {{ Request::path() === 'admin/rates' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('admin.rates.index') }}">
+                <i class="far fa-file-alt"></i>
+                <p>Тарифы для анкет</p>
+              </a>
+            </li>
 
-              @endif
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.rates.create') }}">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>Создать тариф
+                  для
+                  анкеты</p>
+              </a>
+            </li>
 
-             
-            </ul>
+            <li class="nav-item {{ Request::path() === 'admin/salonrates' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('admin.salonrates.index') }}">
+                <i class="far fa-file-alt"></i>
+                <p>Тарифы для салонов</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.salonrates.create') }}">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>
+                  Создать тариф для салона</p>
+              </a>
+            </li>
+
+            <li class="nav-item {{ Request::path() === 'admin/promotionals' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('admin.promotionals.index') }}">
+                <i class="far fa-file-alt"></i>
+                <p>Промокоды</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.promotionals.create') }}">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>Создать промокод
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item {{ Request::path() === 'admin/bonuses' ? 'admin-li-active' : ''}}">
+              <a class="nav-link" href="{{ route('admin.bonuses.index') }}">
+                <i class="far fa-file-alt"></i>
+                <p>Бонусы</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.bonuses.create')  }}" type="button" class="btn btn-primary">
+                <i class="nav-icon far fa-plus-square"></i>Создать бонус</a>
+            </li>
+
             @endif
 
-          </nav>
-          <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-      </aside>
 
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
+          </ul>
+          @endif
 
-        <!-- Main content -->
-        <section class="content">
-          <div class="container-fluid">
-            @yield('content')
-          </div>
-          <!--/. container-fluid -->
-        </section>
-        <!-- /.content -->
+        </nav>
+        <!-- /.sidebar-menu -->
       </div>
-      <!-- /.content-wrapper -->
+      <!-- /.sidebar -->
+    </aside>
 
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-      </aside>
-      <!-- /.control-sidebar -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="margin-top: 4.5rem !important;">
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          @yield('content')
+        </div>
+        <!--/. container-fluid -->
+      </section>
+      <!-- /.content -->
     </div>
-    <!-- ./wrapper -->
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
 
 
   </div>
