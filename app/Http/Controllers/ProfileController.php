@@ -185,7 +185,7 @@ class ProfileController extends Controller
         $profile->rates()->attach(Rate::first());
 
         // return redirect(route('user.profiles.index'))->withSuccess('Успешно создано');
-        return redirect(route('user.profiles.edit', $profile->id))->withSuccess('Успешно создано. Нажмите "Услуги" чтобы перейти к выбору услуг');
+        return redirect(route('user.profiles.edit', $profile->id))->with('just_created', true)->withSuccess('Успешно создано. Теперь вы можете дополнительно указать услуги');
         // TODO: При созданиии, автоматически переключаться на услуги
 
     }

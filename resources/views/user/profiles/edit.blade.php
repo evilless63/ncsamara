@@ -148,14 +148,14 @@
             @endif
 
             <ul class="nav nav-pils nav-pills-userpanel">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#panel1">Основные
+                <li class="nav-item"><a class="nav-link @if(!session('just_created')) active @endif" data-toggle="tab" href="#panel1">Основные
                         данные</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#panel2">Услуги</a></li>
+                <li class="nav-item"><a class="nav-link @if(session('just_created')) active @endif" data-toggle="tab" href="#panel2">Услуги</a></li>
 
             </ul>
 
             <div class="tab-content">
-                <div id="panel1" class="tab-pane fadein active">
+                <div id="panel1" class="tab-pane  @if(!session('just_created')) fadein active @else fade @endif">
                     <div class="row">
                         <div class="col-md-7">
 
@@ -569,7 +569,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="panel2" class="tab-pane fade">
+                <div id="panel2" class="tab-pane  @if(session('just_created')) fadein active @else fade @endif">
                     @foreach($services as $service)
 
                     <h6>{{$service->name}}</h6>
