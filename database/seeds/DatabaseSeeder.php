@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SalonrateSeeder::class);
         $this->call(BonusSeeder::class);
         $this->call(DistrictSeeder::class);
-        $this->call(ProfileSeeder::class);
+        // $this->call(ProfileSeeder::class);
     }
 }

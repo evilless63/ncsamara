@@ -125,7 +125,7 @@ class ServiceSeeder extends Seeder
                 'parent_id' => 2
             ]);
             DB::table('services')->insert([
-                'name' => 'Без преерватива',
+                'name' => 'Без презерватива',
                 'is_category' => false,
                 'parent_id' => 2
             ]);
