@@ -296,7 +296,7 @@ class SiteController extends Controller
                         <div class="nc-card d-flex flex-column justify-content-between"
                         style = "
                         
-                        background: linear-gradient(360deg, rgba(2, 0, 0, 0.4) 0%, rgba(59, 18, 24, 0.1) 18%, rgba(72, 26, 35, 0.1) 33%, rgba(61, 41, 50, 0.1) 54%, rgba(58, 45, 55, 0.1) 100%), url(/images/profiles/images/created/'. $row->main_image .') no-repeat;
+                        background: linear-gradient(360deg, rgba(2, 0, 0, 0.6) 0%, rgba(59, 18, 24, 0.5) 18%, rgba(72, 26, 35, 0.2) 33%, rgba(61, 41, 50, 0.1) 54%, rgba(58, 45, 55, 0.1) 100%), url(/images/profiles/images/created/'. $row->main_image .') no-repeat;
                         background-size: cover;
                         "
                         >
@@ -331,7 +331,7 @@ class SiteController extends Controller
                                     <div class="nc-card d-flex flex-column justify-content-between"
                                     style = "
                                     
-                                    background: linear-gradient(360deg, rgba(2, 0, 0, 0.4) 0%, rgba(59, 18, 24, 0.1) 18%, rgba(72, 26, 35, 0.1) 33%, rgba(61, 41, 50, 0.1) 54%, rgba(58, 45, 55, 0.1) 100%), url(/images/profiles/images/created/'. $row->main_image .') no-repeat;
+                                    background: linear-gradient(360deg, rgba(2, 0, 0, 0.6) 0%, rgba(59, 18, 24, 0.5) 18%, rgba(72, 26, 35, 0.2) 33%, rgba(61, 41, 50, 0.1) 54%, rgba(58, 45, 55, 0.1) 100%), url(/images/profiles/images/created/'. $row->main_image .') no-repeat;
                                     background-size: cover;
                                     "
                                     >
