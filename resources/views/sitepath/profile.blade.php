@@ -162,49 +162,49 @@ class="profileBody"
             <h4 class="font-italic">Описание</h4>
             <div class="d-flex flex-column">
                 <div class="row  d-flex justify-content-between align-items-end">
-                    <div class="col-md-5 font-italic">Город</div>
+                    <div class="col-md-4 font-italic">Город</div>
                     <div class="col-md-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-md-5 ml-2 font-italic">Самара</div>
                 </div>
                 <div class="row  d-flex justify-content-between align-items-end">
-                    <div class="col-md-5 font-italic">Район</div>
+                    <div class="col-md-4 font-italic">Район</div>
                     <div class="col-md-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-md-5 ml-2 font-italic">{{ $profile->districts->first()->name }}</div>
                 </div>
                 <div class="row d-flex justify-content-between align-items-end">
-                    <div class="col-md-5 font-italic">Возраст</div>
+                    <div class="col-md-4 font-italic">Возраст</div>
                     <div class="col-md-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-md-5 ml-2 font-italic">{{ $profile->age }}</div>
                 </div>
                 <div class="row d-flex justify-content-between align-items-end">
-                    <div class="col-md-5 font-italic">Рост</div>
+                    <div class="col-md-4 font-italic">Рост</div>
                     <div class="col-md-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-md-5 ml-2 font-italic">{{ $profile->height }}</div>
                 </div>
                 <div class="row d-flex justify-content-between align-items-end">
-                    <div class="col-md-5 font-italic">Вес</div>
+                    <div class="col-md-4 font-italic">Вес</div>
                     <div class="col-md-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-md-5 ml-2 font-italic">{{ $profile->weight }}</div>
                 </div>
                 <div class="row d-flex justify-content-between align-items-end">
-                    <div class="col-md-5 font-italic">Грудь</div>
+                    <div class="col-md-4 font-italic">Грудь</div>
                     <div class="col-md-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-md-5 ml-2 font-italic">{{ $profile->boobs }}</div>
                 </div>
                 <div class="row d-flex justify-content-between align-items-end">
-                    <div class="col-md-5 font-italic">Цвет волос</div>
+                    <div class="col-md-4 font-italic">Цвет волос</div>
                     <div class="col-md-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-md-5 ml-2 font-italic">{{ $profile->hairs->first()->name }}</div>
                 </div>
                 <div class="row d-flex justify-content-between align-items-end">
-                    <div class="col-md-5 font-italic">Внешность</div>
+                    <div class="col-md-4 font-italic">Внешность</div>
                     <div class="col-md-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-md-5 ml-2 font-italic">{{ $profile->appearances->first()->name }}</div>
