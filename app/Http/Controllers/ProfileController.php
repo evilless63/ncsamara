@@ -474,7 +474,7 @@ class ProfileController extends Controller
         $profiles = Profile::where('is_published', '1')->where('allowed', '1')->get();
 
         foreach ($profiles as $profile) {
-            $this->activate($profile->id, true);
+            $this->activate(null, $profile->id, true);
         }
     }
 
