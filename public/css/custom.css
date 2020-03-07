@@ -363,6 +363,12 @@ h4 span {
     background: linear-gradient(360deg, rgba(2, 0, 0, 1) 0%, rgba(59, 18, 24, 1) 18%, rgba(72, 26, 35, 1) 33%, rgba(61, 41, 50, 1) 54%, rgba(58, 45, 55, 1) 100%);
 }
 
+@media (min-width: 321px) and (max-width: 620px) {
+    .nc-card {
+        height: 490px;
+    }
+}
+
 .nc-card .nc-point {
     padding: 0.2rem 0.4rem;
 }
@@ -537,6 +543,7 @@ h4 span {
     border-radius: 10px;
     padding: 0px;
 }
+
 .customMarker:after {
     content: "";
     position: absolute;
@@ -548,6 +555,7 @@ h4 span {
     display: block;
     width: 0;
 }
+
 .customMarker img {
     width: 50px;
     height: 75px;
@@ -559,7 +567,8 @@ h4 span {
     width: 100%;
 }
 
-.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
     right: 10px;
     background-color: #272727;
     opacity: .6;
@@ -567,7 +576,8 @@ h4 span {
     transition: 300ms;
 }
 
-.swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
     right: 10px;
     background-color: #272727;
     opacity: .6;
@@ -577,15 +587,18 @@ h4 span {
 
 
 
-.swiper-button-next:hover, .swiper-container-rtl .swiper-button-prev:hover {
+.swiper-button-next:hover,
+.swiper-container-rtl .swiper-button-prev:hover {
     opacity: 1;
 }
 
-.swiper-button-prev:hover, .swiper-container-rtl .swiper-button-next:hover {
+.swiper-button-prev:hover,
+.swiper-container-rtl .swiper-button-next:hover {
     opacity: 1;
 }
 
-.swiper-button-next:after, .swiper-button-prev:after {
+.swiper-button-next:after,
+.swiper-button-prev:after {
     font-size: 18px !important;
 }
 
