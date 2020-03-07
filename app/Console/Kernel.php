@@ -26,8 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->call('App\Http\Controllers\ProfileController@activateCron')->daily();
-        $schedule->call('App\Http\Controllers\SalonController@activateCron')->daily();
+        $schedule->call('App\Http\Controllers\ProfileController@activateCron')->everyMinute();
+        $schedule->call('App\Http\Controllers\SalonController@activateCron')->everyMinute();
     }
 
     /**
