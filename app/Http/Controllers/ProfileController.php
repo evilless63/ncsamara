@@ -507,7 +507,7 @@ class ProfileController extends Controller
         $user->update();
 
         $statistic = new Statistic();
-        $statistic['user_id'] = Auth::user()->id;
+        $statistic['user_id'] = $user->id;
         $statistic['payment'] = $cost;
         $statistic['where_was'] = Carbon::now();
         $statistic->save();
