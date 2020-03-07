@@ -353,6 +353,24 @@ h4 span {
 
 /* ФИЛЬТР END */
 
+.salonName {
+    font-size: 2em;
+}
+
+.salonPhone {
+    font-size: 2em;
+}
+
+@media (max-width: 600px) { 
+    .salonName {
+        font-size: 1em;
+    }
+    
+    .salonPhone {
+        font-size: 1em;
+    }
+}
+
 /* КАРТОЧКА BEGIN */
 
 .nc-card {
