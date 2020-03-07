@@ -102,11 +102,25 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="{{ url('/') }}" class="brand-link">
-        <img src="{{ asset('/admin/dist/img/logo.png') }}" alt="NC-Samara" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
-        <span class="brand-text font-weight-light">NC-Samara</span>
-      </a>
+      <div class="d-flex">
+        <a href="{{ url('/') }}" class="brand-link" style="position:relative">
+          <img src="{{ asset('/admin/dist/img/logo.png') }}" alt="NC-Samara" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
+          <span class="brand-text font-weight-light">NC-Samara</span>
+        </a>
+        <div class="d-block d-sm-none" data-widget="pushmenu" style="width: 90px;
+        background: #6c030e;
+        position: relative;">
+          <i class="fa fa-times" aria-hidden="true" style=" color: rgb(255, 120, 120);
+          padding: 10px 13px;
+          border: 1px solid;
+          top: 9px;
+          left: 19px;
+          position: absolute;
+          border-radius: 78px;"></i>
+        </div>
+      </div>
+      
 
       <!-- Sidebar -->
       <div class="sidebar">
@@ -151,7 +165,7 @@
 
               <a class="nav-link" href="{{ route('user') }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>Главная</p>
+                <p>Личный кабинет</p>
               </a>
             </li>
 
@@ -187,7 +201,7 @@
             <li class="nav-item {{ Request::path() === 'user/payments' ? 'admin-li-active' : ''}}">
               <a class="nav-link" href="{{ route('user.payments') }}">
                 <i class="fas fa-comments-dollar"></i>
-                <p>Фин. информация</p>
+                <p>Мой баланс</p>
               </a>
             </li>
 

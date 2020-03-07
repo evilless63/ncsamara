@@ -95,7 +95,7 @@ class SalonController extends Controller
      */
     public function edit(Salon $salon)
     {
-        if(!Auth::user()->is_admin) {
+        if(Auth::user()->is_admin == 0) {
             if($salon->user_id != Auth::user()->id) {
                 return back()->withSuccess('Нельзя редактировать чужие анкеты !');
             }
@@ -121,7 +121,7 @@ class SalonController extends Controller
         $this->validateSalon(false);
         $salon_data = request()->all();
 
-        $salon_data['user_id'] = Auth::user()->id;
+        
         if ($request->has('image')) {
             $salon_data['image'] = str_replace('"', '', request()->image);
         }
@@ -130,6 +130,7 @@ class SalonController extends Controller
             && (($request->has('image') && $salon->image != $request->image) ||
                 ($request->has('name') && $salon->name != $request->name))) {
 
+            $salon_data['user_id'] = Auth::user()->id;        
             $salon_data = Arr::add($salon_data, 'allowed', 0);
 
             if ($salon->is_published) {
