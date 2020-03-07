@@ -245,7 +245,7 @@ class SalonController extends Controller
         } else {
 
             if ($salon->salonrates->count() > 0) {
-                $this->activate($request, $id);
+                $this->activate($id);
             } else {
                 return back()->withSuccess('Сначала выберите тариф !');
             }
@@ -310,7 +310,7 @@ class SalonController extends Controller
         }
     }
 
-    public function activate(Request $request = null, $id, $is_cron = false)
+    public function activate($id, $is_cron = false)
     {
 
         $salon = Salon::where('id', $id)->firstOrFail();
