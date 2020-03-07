@@ -356,7 +356,7 @@ class ProfileController extends Controller
         } else {
 
             if ($profile->rates->count() > 0) {
-                $this->activate($request, $id);
+                $this->activate($id);
             } else {
                 return back()->withSuccess('Сначала выберите тариф !');
             }
@@ -474,11 +474,11 @@ class ProfileController extends Controller
         $profiles = Profile::where('is_published', '1')->where('allowed', '1')->get();
 
         foreach ($profiles as $profile) {
-            $this->activate(null, $profile->id, true);
+            $this->activate($profile->id, true);
         }
     }
 
-    public function activate(Request $request = null, $id, $is_cron = false)
+    public function activate($id, $is_cron = false)
     {
 
         $profile = Profile::where('id', $id)->firstOrFail();
