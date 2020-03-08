@@ -123,6 +123,11 @@ h4 span {
     margin-top: -1.5em;
 }
 
+.dropdown-nc-samara:hover {
+    background-color: #550911;
+}
+
+
 .nc-filter {
     color: #ffffff;
     padding: 10px;
