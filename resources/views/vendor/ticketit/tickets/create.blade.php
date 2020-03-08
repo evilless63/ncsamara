@@ -22,8 +22,8 @@
             </div>
         </div>
         <div class="form-group row">
-            {!! CollectiveForm::label('category', trans('ticketit::lang.category') . trans('ticketit::lang.colon'), ['class' => 'col-lg-3 col-form-label']) !!}
-                <div class="col-lg-8 align-self-center">
+            {!! CollectiveForm::label('category', trans('ticketit::lang.category') . trans('ticketit::lang.colon'), ['class' => 'col-lg-2 col-form-label']) !!}
+                <div class="col-lg-10 align-self-center">
                     {!! CollectiveForm::select('category_id', $categories, null, ['class' => 'form-control', 'required' => 'required']) !!}
                 </div>
         </div>
@@ -38,9 +38,9 @@
         </div>
         <br>
         <div class="form-group row">
-            <div class="col-lg-10 offset-lg-2">
-                {!! link_to_route($setting->grab('main_route').'.index', trans('ticketit::lang.btn-back'), null, ['class' => 'btn btn-link']) !!}
-                {!! CollectiveForm::submit(trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
+            <div class="col-lg-10">
+                {!! link_to_route($setting->grab('main_route').'.index', trans('ticketit::lang.btn-back'), null, ['class' => 'btn btn-primary']) !!}
+                {!! CollectiveForm::submit(trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-success']) !!}
             </div>
         </div>
     {!! CollectiveForm::close() !!}
