@@ -118,6 +118,11 @@ h4 span {
     }
 }
 
+.dropdown-nc-samara {
+    background: black;
+    margin-top: -1.5em;
+}
+
 .nc-filter {
     color: #ffffff;
     padding: 10px;
