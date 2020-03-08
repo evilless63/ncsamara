@@ -1,4 +1,4 @@
-<nav class="mt-4">
+<nav class="mb-4">
     <ul class="nav nav-pills">
         <li role="presentation" class="nav-item">
             <a class="nav-link {!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@index')) ? "active" : "" !!}"
