@@ -79,15 +79,31 @@
                             @if (Route::has('login'))
                             <div class="top-right links d-flex">
                                 @auth
-                                @if(Auth::user()->is_admin)
-                                <a class="btn mr-sm-3" href="{{ route('user') }}">
+                                
+                                
+                                
+                                    <a id="navbarDropdown" class="btn mr-sm-3" href="#" role="button" data-toggle="dropdown">
                                     <img src="{{asset('images/user.png')}}" class="mr-2" alt="">
                                     {{Auth::user()->name}}</a>
-                                @else
-                                <a class="btn mr-sm-3" href="{{ route('user') }}">
-                                    <img src="{{asset('images/user.png')}}" class="mr-2" alt="">
-                                    {{Auth::user()->name}}</a>
-                                @endif
+
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('user') }}">
+                                            Личный кабинет</a>
+                                            
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();">
+                                        Выйти
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                        </form>
+
+                                       
+                                    </div>
+
+                                    
+                                
 
                                 @else
                                 <a class="btn mr-sm-3" href="{{ route('login') }}">
