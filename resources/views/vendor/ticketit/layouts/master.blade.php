@@ -13,7 +13,7 @@
             <div class="">
                 <h5 class=" d-flex justify-content-between align-items-baseline flex-wrap">
                     @if(View::hasSection('page_title'))
-                        <span>Тема сообщения: @yield('page_title')</span>
+                        <span>@yield('page_title')</span>
                     @else
                         <span>@yield('page')</span>
                     @endif
