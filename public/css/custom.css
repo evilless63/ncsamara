@@ -123,7 +123,7 @@ h4 span {
     margin-top: -1.5em;
 }
 
-.dropdown-nc-samara:hover {
+.dropdown-nc-samara .dropdown-item:hover {
     background-color: #550911;
 }
 
