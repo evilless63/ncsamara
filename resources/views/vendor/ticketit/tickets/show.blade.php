@@ -3,7 +3,7 @@
 @section('page_title', $ticket->subject)
 
 @section('ticketit_header')
-<div>
+<div class="ticket-it-nc-samara">
     @if(! $ticket->completed_at && $close_perm == 'yes')
             {!! link_to_route($setting->grab('main_route').'.complete', trans('ticketit::lang.btn-mark-complete'), $ticket->id,
                                 ['class' => 'btn btn-success']) !!}
