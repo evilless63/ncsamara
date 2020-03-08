@@ -11,12 +11,12 @@
                 @endif
 
             </p>
-            <p>
+            <!-- <p>
                 <strong>{{ trans('ticketit::lang.priority') }}</strong>{{ trans('ticketit::lang.colon') }}
                 <span style="color: {{ $ticket->priority->color }}">
                     {{ $ticket->priority->name }}
                 </span>
-            </p>
+            </p> -->
         </div>
         <div class="col-md-6">
             <p> <strong>{{ trans('ticketit::lang.responsible') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->agent_id == $u->id ? $u->name : $ticket->agent->name }}</p>

@@ -18,10 +18,10 @@
                     <textarea class="form-control summernote-editor" rows="5" required name="content" cols="50">{!! htmlspecialchars($ticket->html) !!}</textarea>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     {!! CollectiveForm::label('priority_id', trans('ticketit::lang.priority') . trans('ticketit::lang.colon'), ['class' => '']) !!}
                     {!! CollectiveForm::select('priority_id', $priority_lists, $ticket->priority_id, ['class' => 'form-control']) !!}
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     {!! CollectiveForm::label('agent_id', trans('ticketit::lang.agent') . trans('ticketit::lang.colon'), [

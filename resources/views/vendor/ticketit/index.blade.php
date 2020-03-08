@@ -56,7 +56,7 @@
 	            { data: 'updated_at', name: 'ticketit.updated_at' },
             	{ data: 'agent', name: 'users.name' },
 	            @if( $u->isAgent() || $u->isAdmin() )
-		            { data: 'priority', name: 'ticketit_priorities.name' },
+		            // { data: 'priority', name: 'ticketit_priorities.name' },
 	            	{ data: 'owner', name: 'users.name' },
 		            { data: 'category', name: 'ticketit_categories.name' }
 	            @endif
