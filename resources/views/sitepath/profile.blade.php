@@ -19,7 +19,7 @@ class="profileBody"
         padding: 60px 60px 60px 30px !important;">
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <div class="d-flex align-self-center justify-content-between">
+            <div class="d-flex align-self-center justify-content-between profile-info-top">
                 <span class="name">
                     {{ $profile->name }} <span class="age">| {{ $profile->age }} лет</span>
                 </span>
@@ -55,7 +55,7 @@ class="profileBody"
                 </div>
             </div>
         </div>
-        <div class="col-md-5 col-sm-12 d-flex justify-content-end">
+        <div class="col-md-5 col-sm-12 d-flex justify-content-end sub-info">
             <ul class="align-self-center ml-2 d-flex flex-column">
                 @if($profile->apartments)
                 <li class="tagsInfo font-italic">С апартаментами</li>
@@ -159,51 +159,51 @@ class="profileBody"
             </div>
         </div>
         <div class="col-md-4 col-sm-12">
-            <h4 class="font-italic">Описание</h4>
+            <h4 class="font-italic h4-about">Описание</h4>
             <div class="d-flex flex-column">
-                <div class="row  d-flex justify-content-between align-items-end">
+                <div class="row  d-flex justify-content-between align-items-end font09">
                     <div class="col-4 font-italic">Город</div>
                     <div class="col-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-5 ml-2 font-italic">Самара</div>
                 </div>
-                <div class="row  d-flex justify-content-between align-items-end">
+                <div class="row  d-flex justify-content-between align-items-end font09">
                     <div class="col-4 font-italic">Район</div>
                     <div class="col-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-5 ml-2 font-italic">{{ $profile->districts->first()->name }}</div>
                 </div>
-                <div class="row d-flex justify-content-between align-items-end">
+                <div class="row d-flex justify-content-between align-items-end font09">
                     <div class="col-4 font-italic">Возраст</div>
                     <div class="col-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-5 ml-2 font-italic">{{ $profile->age }}</div>
                 </div>
-                <div class="row d-flex justify-content-between align-items-end">
+                <div class="row d-flex justify-content-between align-items-end font09">
                     <div class="col-4 font-italic">Рост</div>
                     <div class="col-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-5 ml-2 font-italic">{{ $profile->height }}</div>
                 </div>
-                <div class="row d-flex justify-content-between align-items-end">
+                <div class="row d-flex justify-content-between align-items-end font09">
                     <div class="col-4 font-italic">Вес</div>
                     <div class="col-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-5 ml-2 font-italic">{{ $profile->weight }}</div>
                 </div>
-                <div class="row d-flex justify-content-between align-items-end">
+                <div class="row d-flex justify-content-between align-items-end font09">
                     <div class="col-4 font-italic">Грудь</div>
                     <div class="col-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-5 ml-2 font-italic">{{ $profile->boobs }}</div>
                 </div>
-                <div class="row d-flex justify-content-between align-items-end">
+                <div class="row d-flex justify-content-between align-items-end font09">
                     <div class="col-4 font-italic">Цвет волос</div>
                     <div class="col-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
                     <div class="col-5 ml-2 font-italic">{{ $profile->hairs->first()->name }}</div>
                 </div>
-                <div class="row d-flex justify-content-between align-items-end">
+                <div class="row d-flex justify-content-between align-items-end font09">
                     <div class="col-4 font-italic">Внешность</div>
                     <div class="col-2 font-italic"><img class="img-fluid align-self-bottom"
                             src="{{asset('/images/line.png')}}"></div>
