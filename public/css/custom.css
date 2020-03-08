@@ -118,10 +118,6 @@ h4 span {
     }
 }
 
-.main-sidebar, .main-sidebar::before {
-    width: 300px !important;
-}
-
 .nc-filter {
     color: #ffffff;
     padding: 10px;
