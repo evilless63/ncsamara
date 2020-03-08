@@ -32,7 +32,7 @@
     </div>
 </div>
 
-{!! $ticket->html !!}
+<span>Текст сообщения: {!! $ticket->html !!}</span>
 
 {!! CollectiveForm::open([
                 'method' => 'DELETE',
