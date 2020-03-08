@@ -21,17 +21,17 @@
                 <small class="form-text text-muted">{!! trans('ticketit::lang.create-ticket-describe-issue') !!}</small>
             </div>
         </div>
-        <div class="form-row mt-5">
+        <div class="form-group row">
+            {!! CollectiveForm::label('category', trans('ticketit::lang.category') . trans('ticketit::lang.colon'), ['class' => 'col-lg-3 col-form-label']) !!}
+                <div class="col-lg-8 align-self-center">
+                    {!! CollectiveForm::select('category_id', $categories, null, ['class' => 'form-control', 'required' => 'required']) !!}
+                </div>
+        </div>
+        <div class="form-row">
             <div class="form-group col-lg-4 row" style="display:none;">
                 {!! CollectiveForm::label('priority', trans('ticketit::lang.priority') . trans('ticketit::lang.colon'), ['class' => 'col-lg-6 col-form-label']) !!}
                 <div class="col-lg-6 align-self-center">
                     {!! CollectiveForm::select('priority_id', $priorities, null, ['class' => 'form-control', 'required' => 'required']) !!}
-                </div>
-            </div>
-            <div class="form-group offset-lg-1 col-lg-4 row">
-                {!! CollectiveForm::label('category', trans('ticketit::lang.category') . trans('ticketit::lang.colon'), ['class' => 'col-lg-6 col-form-label']) !!}
-                <div class="col-lg-6 align-self-center">
-                    {!! CollectiveForm::select('category_id', $categories, null, ['class' => 'form-control', 'required' => 'required']) !!}
                 </div>
             </div>
             {!! CollectiveForm::hidden('agent_id', 'auto') !!}
