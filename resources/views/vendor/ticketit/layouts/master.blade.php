@@ -11,7 +11,7 @@
         </div>
         @if(View::hasSection('ticketit_content'))
             <div class="">
-                <h5 class=" d-flex justify-content-between align-items-baseline flex-wrap">
+                <h5 class=" d-flex justify-content-between align-items-baseline flex-wrap h5-ticketit-nc-samara">
                     @if(View::hasSection('page_title'))
                         <span>@yield('page_title')</span>
                     @else
